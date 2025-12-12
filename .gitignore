@@ -1,4 +1,9 @@
+text
 .venv/
 __pycache__/
 *.pyc
 .env
+input_akka_codes/*.txt
+benchmark/*.rebec
+validation_output/*.txt
+*.jar

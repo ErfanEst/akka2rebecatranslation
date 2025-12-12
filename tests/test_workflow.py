@@ -2,7 +2,6 @@
 """
 Unit tests for workflow components.
 """
-import pytest
 from src.state.workflow_state import WorkflowState
 from src.agents.base_agent import input_processor
 

@@ -1,0 +1,45 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage {\n    println(\"Pong stopped\");\n    selfdestruct();\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage {\n    println(\"Pong stopped\");\n    selfdestruct();\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "mismatched input '{' expecting '(', 5, 22\nmismatched input '{' expecting '(', 31, 21\nmismatched input ';' expecting ':', 38, 13\nmismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}, 39, 17\nmismatched input '{' expecting '(', 10, 21\nmismatched input '{' expecting '(', 26, 21\nmismatched input ';' expecting ':', 40, 21\nextraneous input '.' expecting IDENTIFIER, 40, 6",
+      "timestamp": "2025-12-12T10:16:40.352411"
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct;\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage {\n    println(\"Pong stopped\");\n    selfdestruct;\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "mismatched input '{' expecting '(', 5, 22\nmismatched input '{' expecting '(', 31, 21\nmismatched input ';' expecting ':', 38, 13\nmismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}, 39, 17\nmismatched input '{' expecting '(', 10, 21\nmismatched input '{' expecting '(', 26, 21\nmismatched input ';' expecting ':', 40, 21\nextraneous input '.' expecting IDENTIFIER, 40, 6",
+      "timestamp": "2025-12-12T10:16:47.409294"
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage() {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage() {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct;\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage() {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage() {\n    println(\"Pong stopped\");\n    selfdestruct;\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "mismatched input ';' expecting ':', 38, 13\nmismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}, 39, 17\nmismatched input ';' expecting ':', 40, 21\nextraneous input '.' expecting IDENTIFIER, 40, 6",
+      "timestamp": "2025-12-12T10:16:54.021013"
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage() {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage() {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage() {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage() {\n    println(\"Pong stopped\");\n    selfdestruct();\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "mismatched input ';' expecting ':', 38, 13\nmismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}, 39, 17\nmismatched input ';' expecting ':', 40, 21\nextraneous input '.' expecting IDENTIFIER, 40, 6",
+      "timestamp": "2025-12-12T10:17:00.040724"
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Ping(1) {\n  knownrebecs { Pong pong; }\n  statevars { int count = 0; }\n\n  msgsrv StartMessage {\n    println(\"Ping started the game!\");\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage {\n    count = count + 1;\n    println(\"Ping received pong #\" + count);\n    if (count >= 10) {\n      pong.StopMessage();\n      println(\"Ping stopped\");\n      selfdestruct();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(1) {\n  knownrebecs { Ping ping; }\n\n  msgsrv PingMessage {\n    println(\"Pong received ping\");\n    ping.PongMessage();\n  }\n\n  msgsrv StopMessage {\n    println(\"Pong stopped\");\n    selfdestruct();\n  }\n}\n\nmain {\n  Pong pong();\n  Ping ping(pong);\n  ping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "mismatched input '{' expecting '(', 5, 22\nmismatched input '{' expecting '(', 31, 21\nmismatched input ';' expecting ':', 38, 13\nmismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}, 39, 17\nmismatched input '{' expecting '(', 10, 21\nmismatched input '{' expecting '(', 26, 21\nmismatched input ';' expecting ':', 40, 21\nextraneous input '.' expecting IDENTIFIER, 40, 6",
+      "timestamp": "2025-12-12T10:17:07.013217"
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "elapsed_time": 35.474207162857056,
+  "timestamp": "2025-12-12T10:17:07.013306"
+}
