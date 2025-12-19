@@ -1,0 +1,24 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:24, mismatched input '{' expecting '('
+line:11, column:8, The method println(String) is undefined
+line:12, column:13, The method PingMessage() is undefined for the type Pong
+line:15, column:23, mismatched input '{' expecting '('
+line:17, column:8, The method println(String) is undefined
+line:17, column:51, Unknown type count
+line:20, column:12, The method println(String) is undefined
+line:21, column:12, The method selfdestruct() is undefined
+line:23, column:17, The method PingMessage() is undefined for the type Pong
+line:30, column:8, The method println(String) is undefined
+line:34, column:23, mismatched input '{' expecting '('
+line:35, column:8, The method println(String) is undefined
+line:36, column:8, The method selfdestruct() is undefined
+line:41, column:9, The Pong knownrebecs type binding of () is not applicable for the arguments (String)
+line:41, column:21, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:42, column:9, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments (String, Pong)
+line:42, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:43, column:8, extraneous input '.' expecting IDENTIFIER
+line:43, column:9, Unknown type ping
+line:43, column:23, mismatched input ';' expecting ':'
+

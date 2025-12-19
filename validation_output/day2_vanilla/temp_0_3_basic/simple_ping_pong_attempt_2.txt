@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:31, column:4, The method destroy() is undefined
+line:36, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
+line:36, column:7, The method Ping(unknown) is undefined for the type Ping
+line:36, column:16, "StartMessage" undeclared
+

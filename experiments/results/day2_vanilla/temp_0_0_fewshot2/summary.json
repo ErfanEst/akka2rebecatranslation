@@ -1,0 +1,18 @@
+{
+  "experiment_name": "day2_vanilla/temp_0_0_fewshot2",
+  "description": "Vanilla: temp=0.0, prompt=fewshot2",
+  "config": {
+    "model": "gpt-4",
+    "temperature": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 1,
+    "successful": 1,
+    "failed": 0,
+    "success_rate": 100.0,
+    "avg_attempts": 3.0,
+    "avg_time": 21.329973459243774
+  },
+  "timestamp": "2025-12-18T23:12:43.172399"
+}

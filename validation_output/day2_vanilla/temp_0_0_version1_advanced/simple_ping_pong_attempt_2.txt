@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:2, mismatched input 'this' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:34, column:2, mismatched input 'this' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:47, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:47, column:6, The method Pong() is undefined for the type Pong
+line:48, column:6, The method Ping() is undefined for the type Ping
+line:49, column:5, extraneous input '.' expecting IDENTIFIER
+line:49, column:6, Unknown type ping
+line:49, column:15, mismatched input ';' expecting ':'
+

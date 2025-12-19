@@ -1,0 +1,25 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:22, mismatched input '{' expecting '('
+line:9, column:4, The method println(String) is undefined
+line:12, column:21, mismatched input '{' expecting '('
+line:14, column:4, The method println(String) is undefined
+line:17, column:6, The method println(String) is undefined
+line:18, column:6, The method selfdestruct() is undefined
+line:29, column:21, mismatched input '{' expecting '('
+line:30, column:4, The method println(String) is undefined
+line:33, column:21, mismatched input '{' expecting '('
+line:34, column:4, The method println(String) is undefined
+line:35, column:4, The method selfdestruct() is undefined
+line:40, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments (unknown)
+line:40, column:12, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:40, column:13, "initial" undeclared
+line:40, column:21, mismatched input 'known' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:40, column:27, Unknown type known
+line:40, column:33, mismatched input '>' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:41, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:42, column:6, extraneous input '.' expecting IDENTIFIER
+line:42, column:7, Unknown type ping
+line:42, column:21, mismatched input ';' expecting ':'
+

@@ -1,0 +1,161 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: day2_vanilla/temp_0_7_version2_advanced
+File: simple_ping_pong
+Timestamp: 2025-12-18T23:33:52.204951
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+I will give you an Akka program written in Scala. Your task is to translate it into equivalent Rebeca code that preserves the actor structure, message flow, and concurrency semantics as closely as possible.
+
+Follow these strict rules when generating the Rebeca model:
+
+1. Actors → Reactive Classes
+Each class extends Actor becomes a Rebeca reactiveclass.
+Constructor parameters become knownrebecs or state variables, depending on usage.
+
+2. Message Handlers → Message Servers
+Each receive case pattern becomes a separate msgsrv.
+Replace message sends (actorRef ! msg) with Rebeca-style target.msgName(params);.
+
+3. System Initialization
+ActorSystem and Props become the main block in Rebeca, where reactive classes are instantiated and linked.
+
+4. State and Variables
+Member variables inside Akka actors become state variables in the reactive class.
+Immutable vals used across messages can be environment constants.
+
+5. Sender References
+When Akka uses sender() ! msg, replace it with a knownrebec for the sender, or model it using message parameters if dynamic.
+
+6. Behavior Changes (context.become)
+Use boolean flags or state variables to represent behavior modes, or Rebeca's conditional message handling if applicable.
+
+7. Timing (if applicable)
+If the Akka code uses context.system.scheduler.scheduleOnce(...) or delays, translate to Timed Rebeca using after(timeUnit) or delay syntax.
+
+8. Randomness / Nondeterminism
+Replace random choices with nondeterministic expressions: ?(value1, value2, ..., valuen).
+
+9. Communication
+Only asynchronous message passing should be modeled (no direct method calls).
+
+10. Output Format
+Provide the complete Rebeca model with:
+- All reactiveclass definitions
+- A main block with rebec instances and bindings
+- Proper indentation and comments explaining translation choices.
+
+11. For Timed Rebeca
+Also include timing behavior in the model using Timed Rebeca constructs. Any Akka delays, schedules, or sleeps must be modeled using after() or delay.
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN.
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Translate the following Akka code into Rebeca code.
+
+Input Akka code:
+package SimpleExample
+
+import akka.actor._
+
+case object PingMessage
+case object PongMessage
+case object StartMessage
+case object StopMessage
+
+class Ping(pong: ActorRef) extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case StartMessage =>
+      println("Ping started the game!")
+      pong ! PingMessage
+
+    case PongMessage =>
+      count += 1
+      println(s"Ping received pong #$count from ${sender().path.name}")
+      if (count >= 10) {
+        sender() ! StopMessage
+        println("Ping stopped")
+        context.stop(self)
+      } else {
+        sender() ! PingMessage
+      }
+  }
+}
+
+class Pong extends Actor {
+  def receive: Receive = {
+    case PingMessage =>
+      println(s"Pong received ping from ${sender().path.name}")
+      sender() ! PongMessage
+    case StopMessage =>
+      println("Pong stopped")
+      context.stop(self)
+  }
+}
+
+object PingPong extends App {
+  private val system = ActorSystem("PingPongSystem")
+  private val pong = system.actorOf(Props[Pong], name = "pong")
+  private val ping = system.actorOf(Props(new Ping(pong)), name = "ping")
+
+  // ✅ Start the exchange from inside an actor (ping)
+  ping ! StartMessage
+}
+
+
+Output only valid Rebeca code with no explanations or markdown formatting.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Ping(2) {
+    knownrebecs {
+        Pong pong;
+    }
+    
+    statevars {
+        int count;
+    }
+
+    msgsrv StartMessage {
+        println("Ping started the game!");
+        pong.PingMessage();
+    }
+    
+    msgsrv PongMessage {
+        count = count + 1;
+        println("Ping received pong #" + (count) + " from pong");
+        if (count >= 10) {
+            pong.StopMessage();
+            println("Ping stopped");
+            selfdestruct();
+        } else {
+            pong.PingMessage();
+        }
+    }
+}
+
+reactiveclass Pong(1) {
+    msgsrv PingMessage(Ping ping) {
+        println("Pong received ping from ping");
+        ping.PongMessage();
+    }
+    
+    msgsrv StopMessage {
+        println("Pong stopped");
+        selfdestruct();
+    }
+}
+
+main {
+    Pong pong("pong");
+    Ping ping("ping", pong);
+    ping.StartMessage();
+}
+
+================================================================================

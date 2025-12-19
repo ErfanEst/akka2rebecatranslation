@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:17, column:6, The method selfdestruct() is undefined
+line:32, column:4, The method selfdestruct() is undefined
+line:37, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
+line:37, column:7, The method Ping(unknown) is undefined for the type Ping
+line:37, column:16, "StartMessage" undeclared
+

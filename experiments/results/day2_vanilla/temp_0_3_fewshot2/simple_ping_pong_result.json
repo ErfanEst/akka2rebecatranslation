@@ -1,0 +1,57 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  msgsrv initial() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Ping ping():();\n  Pong pong(ping):();\n  ping.initial();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  Ping() {\n    count = 0;\n  }\n  msgsrv start() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Pong pong():();\n  Ping ping(pong):();\n  ping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:31, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()\nline:33, column:6, extraneous input '.' expecting IDENTIFIER\nline:33, column:7, Unknown type ping\nline:33, column:14, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-18T23:23:27.813571",
+      "code_length": 474
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  Ping(Pong myPong) {\n    pong = myPong;\n    count = 0;\n  }\n  msgsrv start() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  Pong(Ping myPing) {\n    ping = myPing;\n  }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Pong pong(ping):();\n  Ping ping(pong):();\n  ping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:5, column:4, A constant variable cannot be in the left-hand side of an assignment\nline:25, column:4, A constant variable cannot be in the left-hand side of an assignment\nline:35, column:7, The method Pong() is undefined for the type Pong\nline:36, column:7, The method Ping() is undefined for the type Ping\nline:37, column:6, extraneous input '.' expecting IDENTIFIER\nline:37, column:7, Unknown type ping\nline:37, column:14, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-18T23:23:35.032333",
+      "code_length": 553
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  msgsrv initial() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Pong pong():();\n  Ping ping(pong):();\n  ping.initial();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()\nline:30, column:6, extraneous input '.' expecting IDENTIFIER\nline:30, column:7, Unknown type ping\nline:30, column:16, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-18T23:23:45.512584",
+      "code_length": 448
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  msgsrv initial() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Pong pong(Ping ping):();\n  Ping ping(pong):();\n  ping.initial();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments (unknown)\nline:28, column:12, \"Ping\" undeclared\nline:28, column:17, extraneous input 'ping' expecting ')'\nline:30, column:6, extraneous input '.' expecting IDENTIFIER\nline:30, column:7, Unknown type ping\nline:30, column:16, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-18T23:23:51.617692",
+      "code_length": 457
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Ping(3) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n  msgsrv initial() {\n    count = 0;\n    pong.ping();\n  }\n  msgsrv pong() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.stop();\n    } else {\n      pong.ping();\n    }\n  }\n}\n\nreactiveclass Pong(3) {\n  knownrebecs { Ping ping; }\n  msgsrv ping() {\n    ping.pong();\n  }\n  msgsrv stop() {\n  }\n}\n\nmain {\n  Ping ping():();\n  Pong pong(ping):();\n  ping.initial();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()\nline:30, column:6, extraneous input '.' expecting IDENTIFIER\nline:30, column:7, Unknown type ping\nline:30, column:16, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-18T23:23:57.051013",
+      "code_length": 448
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 45.507590770721436,
+  "config": {
+    "experiment_name": "day2_vanilla/temp_0_3_fewshot2",
+    "model": "gpt-4",
+    "temperature": 0.3,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-18T23:23:57.051077"
+}

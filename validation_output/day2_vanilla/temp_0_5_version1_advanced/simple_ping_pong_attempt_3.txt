@@ -1,0 +1,21 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:14, column:16, mismatched input '{' expecting '('
+line:18, column:16, mismatched input '{' expecting '('
+line:37, column:16, mismatched input '{' expecting '('
+line:41, column:16, mismatched input '{' expecting '('
+line:47, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments (unknown)
+line:47, column:18, extraneous input ':' expecting '('
+line:47, column:20, "Ping" undeclared
+line:47, column:25, extraneous input 'pingInstance' expecting ')'
+line:47, column:38, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:48, column:6, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments (unknown)
+line:48, column:18, extraneous input ':' expecting '('
+line:48, column:20, "Pong" undeclared
+line:48, column:25, extraneous input 'pongInstance' expecting ')'
+line:48, column:38, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:50, column:13, extraneous input '.' expecting IDENTIFIER
+line:50, column:14, Unknown type pingInstance
+line:50, column:23, mismatched input ';' expecting ':'
+

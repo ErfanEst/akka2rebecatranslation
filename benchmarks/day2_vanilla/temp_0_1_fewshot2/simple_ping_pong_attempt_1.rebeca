@@ -1,0 +1,35 @@
+reactiveclass Ping(3) {
+  knownrebecs { Pong pong; }
+  statevars { int count; }
+  Ping() { count = 0; }
+  msgsrv start() {
+    self.ping();
+  }
+  msgsrv pong() {
+    count = count + 1;
+    if (count >= 10) {
+      pong.stop();
+    } else {
+      self.ping();
+    }
+  }
+  msgsrv ping() {
+    pong.ping();
+  }
+}
+
+reactiveclass Pong(2) {
+  knownrebecs { Ping ping; }
+  msgsrv ping() {
+    ping.pong();
+  }
+  msgsrv stop() {
+    // No equivalent for context.stop(self) in Rebeca
+  }
+}
+
+main {
+  Pong pong():();
+  Ping ping(pong):();
+  ping.start();
+}

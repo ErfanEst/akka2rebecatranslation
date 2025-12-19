@@ -1,0 +1,22 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:3, column:18, State variables are allowed to be initialized in constructors
+line:5, column:22, mismatched input '{' expecting '('
+line:6, column:4, The method println(String) is undefined
+line:10, column:21, mismatched input '{' expecting '('
+line:12, column:4, The method println(String) is undefined
+line:15, column:6, The method println(String) is undefined
+line:16, column:6, The method selfdestruct() is undefined
+line:26, column:21, mismatched input '{' expecting '('
+line:27, column:4, The method println(String) is undefined
+line:31, column:21, mismatched input '{' expecting '('
+line:32, column:4, The method println(String) is undefined
+line:33, column:4, The method selfdestruct() is undefined
+line:38, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:38, column:14, mismatched input ';' expecting ':'
+line:39, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:40, column:6, extraneous input '.' expecting IDENTIFIER
+line:40, column:7, Unknown type ping
+line:40, column:21, mismatched input ';' expecting ':'
+

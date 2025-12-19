@@ -1,0 +1,6 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:34, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:34, column:12, mismatched input '{' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+

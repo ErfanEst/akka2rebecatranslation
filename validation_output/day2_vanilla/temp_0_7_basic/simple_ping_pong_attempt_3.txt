@@ -1,0 +1,21 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:11, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:14, column:21, mismatched input '{' expecting '('
+line:15, column:2, The method println(String) is undefined
+line:19, column:20, mismatched input '{' expecting '('
+line:21, column:2, The method println(String) is undefined
+line:24, column:3, The method println(String) is undefined
+line:25, column:3, The method terminate() is undefined
+line:38, column:20, mismatched input '{' expecting '('
+line:39, column:2, The method println(String) is undefined
+line:43, column:20, mismatched input '{' expecting '('
+line:44, column:2, The method println(String) is undefined
+line:45, column:2, The method terminate() is undefined
+line:50, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:51, column:6, The method Ping() is undefined for the type Ping
+line:53, column:13, extraneous input '.' expecting IDENTIFIER
+line:53, column:14, Unknown type pingInstance
+line:53, column:28, mismatched input ';' expecting ':'
+

@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:35, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
+line:35, column:7, The method Ping(unknown) is undefined for the type Ping
+line:35, column:16, "Pong" undeclared
+line:37, column:6, extraneous input '.' expecting IDENTIFIER
+line:37, column:7, Unknown type ping
+line:37, column:21, mismatched input ';' expecting ':'
+

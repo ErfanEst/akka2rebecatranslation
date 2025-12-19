@@ -1,0 +1,15 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:6, column:4, The method println(String) is undefined
+line:11, column:4, The method println(String) is undefined
+line:14, column:6, The method println(String) is undefined
+line:15, column:11, The method terminate() is undefined for the type Ping
+line:25, column:4, The method println(String) is undefined
+line:29, column:4, The method println(String) is undefined
+line:30, column:9, The method terminate() is undefined for the type Pong
+line:35, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:37, column:6, extraneous input '.' expecting IDENTIFIER
+line:37, column:7, Unknown type ping
+line:37, column:21, mismatched input ';' expecting ':'
+

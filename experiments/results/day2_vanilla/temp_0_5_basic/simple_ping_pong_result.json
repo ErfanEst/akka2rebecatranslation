@@ -1,0 +1,57 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing() {\n\t\tcount = 0;\n\t}\n\tmsgsrv start(Pong myPong) {\n\t\tpong = myPong;\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t} else {\n\t\t\tdelay(1);\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tPong() {\n\t}\n\tmsgsrv ping() {\n\t\tdelay(1);\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t}\n}\n\nmain {\n\tPing ping();\n\tPong pong(ping);\n\tping.start(pong);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing(Pong pong) {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tprintln(\"Ping started the game!\");\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tprintln(\"Ping received pong #\" + count);\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t\tprintln(\"Ping stopped\");\n\t\t\tself.terminate();\n\t\t} else {\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tmsgsrv ping() {\n\t\tprintln(\"Pong received ping\");\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t\tprintln(\"Pong stopped\");\n\t\tself.terminate();\n\t}\n}\n\nmain {\n\tPong pong({ });\n\tPing ping({pong});\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:12, column:2, The method println(String) is undefined\nline:17, column:2, The method println(String) is undefined\nline:20, column:3, The method println(String) is undefined\nline:21, column:8, The method terminate() is undefined for the type Ping\nline:33, column:2, The method println(String) is undefined\nline:37, column:2, The method println(String) is undefined\nline:38, column:7, The method terminate() is undefined for the type Pong\nline:43, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()\nline:43, column:11, mismatched input '{' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}",
+      "timestamp": "2025-12-18T23:25:36.531045",
+      "code_length": 637
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing(Pong myPong) {\n\t\tpong = myPong;\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t\tself = null;\n\t\t} else {\n\t\t\tdelay(1);\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tPong() {}\n\tmsgsrv ping() {\n\t\tdelay(1);\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t\tself = null;\n\t}\n}\n\nmain {\n\tPong pong({});\n\tPing ping({pong});\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:9, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:42, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()\nline:42, column:11, mismatched input '{' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}",
+      "timestamp": "2025-12-18T23:25:44.336828",
+      "code_length": 513
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing(Pong myPong) {\n\t\tpong = myPong;\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t} else {\n\t\t\tdelay(1);\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tPong(Ping myPing) {\n\t\tping = myPing;\n\t}\n\tmsgsrv ping() {\n\t\tdelay(1);\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t}\n}\n\nmain {\n\tPing ping({});\n\tPong pong({ping});\n\tping.pong = pong;\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:9, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:31, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:42, column:6, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()\nline:42, column:6, The method Ping() is undefined for the type Ping\nline:42, column:11, mismatched input '{' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}",
+      "timestamp": "2025-12-18T23:25:58.096939",
+      "code_length": 531
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing() {\n\t}\n\tmsgsrv start(Pong myPong) {\n\t\tpong = myPong;\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t} else {\n\t\t\tdelay(1);\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tPong() {\n\t}\n\tmsgsrv ping() {\n\t\tdelay(1);\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t}\n}\n\nmain {\n\tPing ping({});\n\tPong pong({ping});\n\tping.start(pong);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:11, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:40, column:6, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()\nline:40, column:11, mismatched input '{' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}",
+      "timestamp": "2025-12-18T23:26:09.746039",
+      "code_length": 487
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Ping(3) {\n\tstatevars {\n\t\tint count;\n\t}\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tPing() {\n\t\tcount = 0;\n\t}\n\tmsgsrv start(Pong myPong) {\n\t\tpong = myPong;\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stop();\n\t\t} else {\n\t\t\tdelay(1);\n\t\t\tpong.ping();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(3) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\tPong() {\n\t}\n\tmsgsrv ping() {\n\t\tdelay(1);\n\t\tping.pong();\n\t}\n\tmsgsrv stop() {\n\t}\n}\n\nmain {\n\tPing ping();\n\tPong pong(ping);\n\tping.start(pong);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:12, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:41, column:6, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()\nline:41, column:12, mismatched input ';' expecting ':'\nline:42, column:16, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:43, column:5, extraneous input '.' expecting IDENTIFIER\nline:43, column:6, Unknown type ping\nline:43, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-18T23:26:19.772223",
+      "code_length": 496
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 50.57908344268799,
+  "config": {
+    "experiment_name": "day2_vanilla/temp_0_5_basic",
+    "model": "gpt-4",
+    "temperature": 0.5,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-18T23:26:19.772277"
+}

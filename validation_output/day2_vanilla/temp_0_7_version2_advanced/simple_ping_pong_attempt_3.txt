@@ -1,0 +1,16 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:24, mismatched input '{' expecting '('
+line:14, column:23, mismatched input '{' expecting '('
+line:29, column:23, mismatched input '{' expecting '('
+line:33, column:23, mismatched input '{' expecting '('
+line:39, column:9, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:39, column:14, extraneous input ':' expecting '('
+line:39, column:19, mismatched input ';' expecting ':'
+line:40, column:14, extraneous input ':' expecting '('
+line:40, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:41, column:8, extraneous input '.' expecting IDENTIFIER
+line:41, column:9, Unknown type ping
+line:41, column:23, mismatched input ';' expecting ':'
+

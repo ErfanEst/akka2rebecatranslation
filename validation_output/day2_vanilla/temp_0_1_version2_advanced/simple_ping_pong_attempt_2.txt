@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:6, column:8, State variables are allowed to be initialized in constructors
+line:9, column:22, mismatched input '{' expecting '('
+line:13, column:21, mismatched input '{' expecting '('
+line:17, column:6, The method selfDestruct() is undefined
+line:29, column:21, mismatched input '{' expecting '('
+line:33, column:21, mismatched input '{' expecting '('
+line:34, column:4, The method selfDestruct() is undefined
+line:39, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments (String)
+line:40, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments (String)
+line:40, column:7, The method Ping(Pong) is undefined for the type Ping
+line:41, column:6, extraneous input '.' expecting IDENTIFIER
+line:41, column:7, Unknown type ping
+line:41, column:21, mismatched input ';' expecting ':'
+

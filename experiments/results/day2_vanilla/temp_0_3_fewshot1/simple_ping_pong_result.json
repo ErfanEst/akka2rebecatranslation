@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Ping(5) {\n  knownrebecs {\n    Pong pong;\n  }\n  statevars {\n    int count;\n  }\n  msgsrv initial() {\n    count = 0;\n    pong.PingMessage();\n  }\n  msgsrv PongMessage() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.StopMessage();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(5) {\n  knownrebecs {\n    Ping ping;\n  }\n  msgsrv PingMessage() {\n    ping.PongMessage();\n  }\n  msgsrv StopMessage() {\n  }\n}\n\nmain {\n  Ping ping(pong):();\n  Pong pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(5) {\n  knownrebecs {\n    Pong pong;\n  }\n  statevars {\n    int count;\n  }\n  msgsrv initial() {\n    count = 0;\n    pong.PingMessage();\n  }\n  msgsrv PongMessage() {\n    count = count + 1;\n    if (count >= 10) {\n      pong.StopMessage();\n    } else {\n      pong.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(5) {\n  knownrebecs {\n    Ping ping;\n  }\n  msgsrv PingMessage() {\n    ping.PongMessage();\n  }\n  msgsrv StopMessage() {\n  }\n}\n\nmain {\n  Ping ping(pong):();\n  Pong pong(ping):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-18T23:23:11.541839",
+      "code_length": 501
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 18.80137538909912,
+  "config": {
+    "experiment_name": "day2_vanilla/temp_0_3_fewshot1",
+    "model": "gpt-4",
+    "temperature": 0.3,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-18T23:23:11.541893"
+}

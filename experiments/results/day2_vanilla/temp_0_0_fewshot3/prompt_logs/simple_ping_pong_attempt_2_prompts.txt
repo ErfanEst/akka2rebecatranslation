@@ -1,0 +1,186 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: day2_vanilla/temp_0_0_fewshot3
+File: simple_ping_pong
+Timestamp: 2025-12-18T23:12:56.802210
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+EXAMPLE 1: Sender-Receiver-Medium (Nondeterministic message loss)
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage == true) { receiver.receiveMsg(msgBit); } 
+  } 
+}
+
+EXAMPLE 2: Timed Traffic Light (Cyclic delayed behavior)
+reactiveclass TrafficLight(3){
+  statevars { int color; }
+  TrafficLight() { color = 0; self.change(); }
+  msgsrv change() {
+    if (color == 0) { color = 1; self.change() after(3); }
+    else if (color == 1) { color = 2; self.change() after(5); }
+    else { color = 0; self.change() after(2); }
+  }
+}
+
+EXAMPLE 3: Master-Worker (Delayed task distribution)
+reactiveclass Master(10) {
+    knownrebecs { Worker w1; Worker w2; }
+    statevars { int[3] tasks; int idx, total, completed; int state; }
+    Master() {
+        tasks[0] = 1; tasks[1] = 2; tasks[2] = 3;
+        total = 3; idx = 0; completed = 0; state = 0;
+    }
+    msgsrv Ready(int id) {
+        if (idx < total) {
+            if (id == 1) { w1.Task(tasks[idx]) after(1); }
+            else { w2.Task(tasks[idx]) after(1); }
+            idx = idx + 1;
+            state = 1;
+        }
+    }
+    msgsrv Result(int data) {
+        completed = completed + 1;
+        if (completed == total) {
+            w1.Shutdown();
+            w2.Shutdown();
+            state = 2;
+        }
+    }
+    msgsrv Shutdown() { state = 2; }
+}
+
+reactiveclass Worker(10) {
+    knownrebecs { Master m; }
+    statevars { int id; }
+    Worker(int myId) { id = myId; self.sendReady(); }
+    msgsrv sendReady() { m.Ready(id); }
+    msgsrv Task(int data) {
+        delay(5);
+        m.Result(data);
+        self.sendReady();
+    }
+    msgsrv Shutdown() { }
+}
+
+main {
+    Master m(w1, w2):();
+    Worker w1(m):(1);
+    Worker w2(m):(2);
+}
+
+Translate the following Akka code to Rebeca following these patterns.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+The following Rebeca code has compilation errors:
+
+Code:
+env {
+    msg StartMessage;
+    msg PingMessage;
+    msg PongMessage;
+    msg StopMessage;
+}
+
+reactiveclass Ping(2) {
+    knownrebecs { Pong pong; }
+    statevars { int count; }
+    Ping() { count = 0; }
+    msgsrv StartMessage() {
+        println("Ping started the game!");
+        pong.PingMessage();
+    }
+    msgsrv PongMessage() {
+        count = count + 1;
+        println("Ping received pong #" + count);
+        if (count >= 10) {
+            pong.StopMessage();
+            println("Ping stopped");
+            self = null;
+        } else {
+            pong.PingMessage();
+        }
+    }
+}
+
+reactiveclass Pong(2) {
+    knownrebecs { Ping ping; }
+    msgsrv PingMessage() {
+        println("Pong received ping");
+        ping.PongMessage();
+    }
+    msgsrv StopMessage() {
+        println("Pong stopped");
+        self = null;
+    }
+}
+
+main {
+    Pong pong():();
+    Ping ping(pong):();
+    ping.StartMessage();
+}
+
+Errors:
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:4, extraneous input '{' expecting {'@', IDENTIFIER}
+line:2, column:4, Unknown type msg
+line:2, column:8, Environment variable StartMessage has to be initialized
+line:3, column:4, extraneous input 'msg' expecting {'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:13, column:8, The method println(String) is undefined
+line:18, column:8, The method println(String) is undefined
+line:21, column:12, The method println(String) is undefined
+line:32, column:8, The method println(String) is undefined
+line:36, column:8, The method println(String) is undefined
+line:42, column:9, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
+line:44, column:8, extraneous input '.' expecting IDENTIFIER
+line:44, column:9, Multiple definition for the actor StartMessage
+line:44, column:23, mismatched input ';' expecting ':'
+
+Provide corrected Rebeca code. Output only the code with no explanations.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Ping(2) {
+    knownrebecs { Pong pong; }
+    statevars { int count; }
+    Ping() { count = 0; }
+    msgsrv start() {
+        pong.ping();
+    }
+    msgsrv pong() {
+        count = count + 1;
+        if (count >= 10) {
+            pong.stop();
+        } else {
+            pong.ping();
+        }
+    }
+}
+
+reactiveclass Pong(2) {
+    knownrebecs { Ping ping; }
+    msgsrv ping() {
+        ping.pong();
+    }
+    msgsrv stop() { }
+}
+
+main {
+    Pong pong():();
+    Ping ping(pong):();
+    ping.start();
+}
+
+================================================================================

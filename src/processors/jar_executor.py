@@ -8,7 +8,7 @@ from config.settings import settings
 
 
 def execute_validator_jar(
-    jar_path: str = None, benchmark_dir: str = "benchmark"
+    jar_path: str = None, benchmark_dir: str = "benchmarks"
 ) -> tuple:
     """
     Execute the Rebeca validator JAR file.

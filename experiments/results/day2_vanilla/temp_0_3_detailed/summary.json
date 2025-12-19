@@ -1,0 +1,18 @@
+{
+  "experiment_name": "day2_vanilla/temp_0_3_detailed",
+  "description": "Vanilla: temp=0.3, prompt=detailed",
+  "config": {
+    "model": "gpt-4",
+    "temperature": 0.3,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 1,
+    "successful": 0,
+    "failed": 1,
+    "success_rate": 0.0,
+    "avg_attempts": 5.0,
+    "avg_time": 40.94007587432861
+  },
+  "timestamp": "2025-12-18T23:21:24.784850"
+}

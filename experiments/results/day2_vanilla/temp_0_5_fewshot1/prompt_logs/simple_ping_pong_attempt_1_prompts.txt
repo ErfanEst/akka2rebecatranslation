@@ -1,0 +1,190 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: day2_vanilla/temp_0_5_fewshot1
+File: simple_ping_pong
+Timestamp: 2025-12-18T23:28:26.733348
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+EXAMPLE TRANSLATION:
+
+Akka concept: Sender-Receiver with Medium (Probabilistic message loss)
+
+Rebeca equivalent:
+reactiveclass Sender(5) { 
+  knownrebecs { 
+    Medium medium; 
+    Receiver rec;     
+  } 
+  statevars { 
+    boolean receivedBit; 
+    boolean sendBit; 
+    boolean hasSucceeded; 
+  } 
+  msgsrv initial() { 
+    sendBit = false; 
+    medium.pass(sendBit); 
+    self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if (hasSucceeded == true) { 
+      if (sendBit == true) { 
+        sendBit = false; 
+      } else { 
+        sendBit = true; 
+      } 
+    } 
+    medium.pass(sendBit); 
+    self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { 
+    Medium medium; 
+    Sender sender;    
+  } 
+  statevars { 
+    boolean messageBit; 
+  } 
+  msgsrv initial() { 
+  } 
+  msgsrv receiveMsg(boolean msgBit) { 
+    messageBit = msgBit; 
+  } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { 
+    Receiver receiver; 
+    Sender sender;    
+  } 
+  statevars { 
+    boolean passMessage; 
+  } 
+  msgsrv initial() { 
+    passMessage = true; 
+  } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage == true) { 
+      receiver.receiveMsg(msgBit); 
+    } else { 
+    } 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Translate the following Akka code into Rebeca code.
+
+Input Akka code:
+package SimpleExample
+
+import akka.actor._
+
+case object PingMessage
+case object PongMessage
+case object StartMessage
+case object StopMessage
+
+class Ping(pong: ActorRef) extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case StartMessage =>
+      println("Ping started the game!")
+      pong ! PingMessage
+
+    case PongMessage =>
+      count += 1
+      println(s"Ping received pong #$count from ${sender().path.name}")
+      if (count >= 10) {
+        sender() ! StopMessage
+        println("Ping stopped")
+        context.stop(self)
+      } else {
+        sender() ! PingMessage
+      }
+  }
+}
+
+class Pong extends Actor {
+  def receive: Receive = {
+    case PingMessage =>
+      println(s"Pong received ping from ${sender().path.name}")
+      sender() ! PongMessage
+    case StopMessage =>
+      println("Pong stopped")
+      context.stop(self)
+  }
+}
+
+object PingPong extends App {
+  private val system = ActorSystem("PingPongSystem")
+  private val pong = system.actorOf(Props[Pong], name = "pong")
+  private val ping = system.actorOf(Props(new Ping(pong)), name = "ping")
+
+  // ✅ Start the exchange from inside an actor (ping)
+  ping ! StartMessage
+}
+
+
+Output only valid Rebeca code with no explanations or markdown formatting.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Ping(5) { 
+  knownrebecs { 
+    Pong pong; 
+  } 
+  statevars { 
+    int count; 
+  } 
+  msgsrv initial() { 
+    count = 0; 
+    pong.pongMsg(); 
+  } 
+  msgsrv pongMsg() { 
+    count = count + 1; 
+    if(count >= 10) { 
+      pong.stopMsg(); 
+    } else { 
+      pong.pongMsg(); 
+    } 
+  } 
+  msgsrv stopMsg() { 
+  } 
+} 
+
+reactiveclass Pong(5) { 
+  knownrebecs { 
+    Ping ping; 
+  } 
+  msgsrv initial() { 
+  } 
+  msgsrv pongMsg() { 
+    ping.pongMsg(); 
+  } 
+  msgsrv stopMsg() { 
+  } 
+} 
+
+main { 
+  Ping ping(pong):(); 
+  Pong pong(ping):(); 
+}
+
+================================================================================
