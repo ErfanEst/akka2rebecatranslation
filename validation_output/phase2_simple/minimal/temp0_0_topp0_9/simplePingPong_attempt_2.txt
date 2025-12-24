@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input 'pong' expecting INTLITERAL
+line:30, column:19, missing INTLITERAL at ')'
+line:40, column:8, The method println(String) is undefined
+line:41, column:15, There is no meta data for type ReactiveClass
+line:45, column:8, The method println(String) is undefined
+line:51, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:51, column:9, The method Ping(unknown) is undefined for the type Ping
+line:51, column:21, "StartMessage" undeclared
+

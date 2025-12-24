@@ -1,0 +1,5 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:0, mismatched input '$timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+

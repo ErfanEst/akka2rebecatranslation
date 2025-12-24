@@ -1,0 +1,53 @@
+timedreactiveclass Producer {
+	knownrebec Consumer consumer;
+
+	Producer(Consumer consumer) {
+		self.start();
+	}
+
+	msgsrv start() {
+		// Corresponds to initial sends in main (could also be in main)
+		self.Produce("item1");
+		self.Produce("item2");
+	}
+
+	msgsrv Produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.Item(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	statevars {
+		int bufferSize;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+		self.start();
+	}
+
+	msgsrv start() {
+		// Corresponds to: consumer ! Consume()
+		self.Consume();
+	}
+
+	msgsrv Item(string data) {
+		bufferSize = bufferSize + 1;
+		// println("Consumer: received " + data + ", buffer size: " + bufferSize);
+	}
+
+	msgsrv Consume() {
+		if (bufferSize > 0) {
+			bufferSize = bufferSize - 1;
+			// println("Consumer: consumed item");
+		} else {
+			// println("Consumer: buffer empty");
+		}
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+}

@@ -1,0 +1,39 @@
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars { 
+		string item;
+	}
+
+	msgsrv initial() {
+		item = "item1";
+		self.produce();
+		item = "item2";
+		self.produce();
+	}
+
+	msgsrv produce() {
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs { 
+	}
+	statevars { 
+		string item;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv consume(string it) {
+		item = it;
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+}

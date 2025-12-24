@@ -1,0 +1,59 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+		Client clientRef;
+	}
+
+	knownrebecs {
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client senderRef) {
+		count = count + 1;
+		clientRef = senderRef;
+		clientRef.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client senderRef) {
+		count = count - 1;
+		clientRef = senderRef;
+		clientRef.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client senderRef) {
+		clientRef = senderRef;
+		clientRef.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+		Counter counter;
+	}
+
+	knownrebecs {
+		Counter counter;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// print: "Client " + clientId + " received value: " + value;
+	}
+}
+
+main {
+	Counter counter():();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}

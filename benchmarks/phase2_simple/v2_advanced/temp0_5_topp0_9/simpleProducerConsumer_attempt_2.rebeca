@@ -1,0 +1,37 @@
+reactiveclass ProducerConsumerSystem(0) {
+}
+
+reactiveclass Producer(1) {
+	statevars {
+		int consumer;
+	}
+
+	Producer(int consumerId) {
+		consumer = consumerId;
+		self.produce_item1();
+		self.produce_item2();
+	}
+
+	msghandler Produce(string item) {
+		Consume(item) to consumer;
+	}
+
+	msghandler produce_item1() {
+		Produce("item1");
+	}
+
+	msghandler produce_item2() {
+		Produce("item2");
+	}
+}
+
+reactiveclass Consumer(0) {
+	msghandler Consume(string item) {
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+	ProducerConsumerSystem pcs();
+}

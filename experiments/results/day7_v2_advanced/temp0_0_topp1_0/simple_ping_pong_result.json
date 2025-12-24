@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Ping(pong): {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.startGame();\n\t}\n\n\tmsgsrv startGame() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Not used in this model; defined for completeness if needed.\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stopMessage();\n\t\t} else {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Not expected to be called on Ping in this example.\n\t}\n}\n\nreactiveclass Pong(ping): {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv initial() {\n\t\t// nothing\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tping.pongMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\t// Not used directly on Pong; defined for completeness.\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stops responding\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "timedreactiveclass Ping {\n    knownrebecs {\n        Pong pong;\n    }\n\n    statevars {\n        int count;\n    }\n\n    Ping() {\n        count = 0;\n    }\n\n    msgsrv initial() {\n        // In Akka, StartMessage is sent from main to ping.\n        // Here we start automatically by calling startGame.\n        self.startGame();\n    }\n\n    msgsrv startGame() {\n        // println(\"Ping started the game!\")\n        pong.pingMessage();\n    }\n\n    msgsrv pingMessage() {\n        // Not used in this model; defined for completeness if needed.\n    }\n\n    msgsrv pongMessage() {\n        count = count + 1;\n        // println(\"Ping received pong #\" + count)\n        if (count >= 10) {\n            pong.stopMessage();\n            // println(\"Ping stopped\")\n            // context.stop(self) -> no direct equivalent; just stop sending\n        } else {\n            pong.pingMessage();\n        }\n    }\n\n    msgsrv stopMessage() {\n        // Not expected to be called on Ping in this example.\n    }\n}\n\ntimedreactiveclass Pong {\n    knownrebecs {\n        Ping ping;\n    }\n\n    statevars {\n    }\n\n    Pong() {\n    }\n\n    msgsrv initial() {\n        // nothing\n    }\n\n    msgsrv pingMessage() {\n        // println(\"Pong received ping\")\n        ping.pongMessage();\n    }\n\n    msgsrv pongMessage() {\n        // Not used directly on Pong; defined for completeness.\n    }\n\n    msgsrv stopMessage() {\n        // println(\"Pong stopped\")\n        // context.stop(self) -> no direct equivalent; just stop responding\n    }\n}\n\nmain {\n    Ping ping(pong):();\n    Pong pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T12:33:54.428164",
+      "code_length": 1548
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Ping {\n    knownrebecs {\n        Pong pong;\n    }\n\n    statevars {\n        int count;\n    }\n\n    Ping() {\n        count = 0;\n    }\n\n    msgsrv initial() {\n        // In Akka, StartMessage is sent from main to ping.\n        // Here we start automatically by calling startGame.\n        self.startGame();\n    }\n\n    msgsrv startGame() {\n        // println(\"Ping started the game!\")\n        pong.pingMessage();\n    }\n\n    msgsrv pingMessage() {\n        // Not used in this model; defined for completeness if needed.\n    }\n\n    msgsrv pongMessage() {\n        count = count + 1;\n        // println(\"Ping received pong #\" + count)\n        if (count >= 10) {\n            pong.stopMessage();\n            // println(\"Ping stopped\")\n            // context.stop(self) -> no direct equivalent; just stop sending\n        } else {\n            pong.pingMessage();\n        }\n    }\n\n    msgsrv stopMessage() {\n        // Not expected to be called on Ping in this example.\n    }\n}\n\nreactiveclass Pong {\n    knownrebecs {\n        Ping ping;\n    }\n\n    statevars {\n    }\n\n    Pong() {\n    }\n\n    msgsrv initial() {\n        // nothing\n    }\n\n    msgsrv pingMessage() {\n        // println(\"Pong received ping\")\n        ping.pongMessage();\n    }\n\n    msgsrv pongMessage() {\n        // Not used directly on Pong; defined for completeness.\n    }\n\n    msgsrv stopMessage() {\n        // println(\"Pong stopped\")\n        // context.stop(self) -> no direct equivalent; just stop responding\n    }\n}\n\nmain {\n    Ping ping(pong):();\n    Pong pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:46, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:77, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:78, column:9, The Pong knownrebecs type binding of () is not applicable for the arguments (Ping)",
+      "timestamp": "2025-12-24T12:33:59.791982",
+      "code_length": 1538
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Ping(pong): {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.startGame();\n\t}\n\n\tmsgsrv startGame() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Not used in this model; defined for completeness if needed.\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stopMessage();\n\t\t} else {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Not expected to be called on Ping in this example.\n\t}\n}\n\nreactiveclass Pong(ping): {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv initial() {\n\t\t// nothing\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tping.pongMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\t// Not used directly on Pong; defined for completeness.\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stops responding\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input 'pong' expecting INTLITERAL\nline:40, column:19, mismatched input 'ping' expecting INTLITERAL\nline:69, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:70, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (Ping)",
+      "timestamp": "2025-12-24T12:34:05.047355",
+      "code_length": 890
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.startGame();\n\t}\n\n\tmsgsrv startGame() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Not used in this model; defined for completeness if needed.\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stopMessage();\n\t\t} else {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Not expected to be called on Ping in this example.\n\t}\n}\n\nreactiveclass Pong {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv initial() {\n\t\t// nothing\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tping.pongMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\t// Not used directly on Pong; defined for completeness.\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stops responding\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:40, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:69, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:70, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (Ping)",
+      "timestamp": "2025-12-24T12:34:26.773932",
+      "code_length": 876
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Ping(pong): {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.startGame();\n\t}\n\n\tmsgsrv startGame() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Not used in this model; defined for completeness if needed.\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tpong.stopMessage();\n\t\t} else {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Not expected to be called on Ping in this example.\n\t}\n}\n\nreactiveclass Pong(ping): {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv initial() {\n\t\t// nothing\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tping.pongMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\t// Not used directly on Pong; defined for completeness.\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stops responding\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input 'pong' expecting INTLITERAL\nline:40, column:19, mismatched input 'ping' expecting INTLITERAL\nline:69, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:70, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (Ping)",
+      "timestamp": "2025-12-24T12:34:30.761042",
+      "code_length": 890
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 45.071996212005615,
+  "config": {
+    "experiment_name": "day7_v2_advanced/temp0_0_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:34:30.761100"
+}

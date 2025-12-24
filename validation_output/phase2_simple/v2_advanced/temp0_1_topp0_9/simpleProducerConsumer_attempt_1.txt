@@ -1,0 +1,26 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:7, extraneous input 'Environment' expecting {'import', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:6, column:3, Unknown type Environment
+line:6, column:15, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:16, column:24, Unknown type string
+line:17, column:3, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:17, column:7, Duplicate method print() in reactive class Producer
+line:17, column:7, Return type for the method is missing
+line:17, column:13, mismatched input '"Producer: sending "' expecting {')', IDENTIFIER}
+line:24, column:3, Unknown type Environment
+line:24, column:15, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:34, column:24, Unknown type string
+line:35, column:3, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:35, column:7, Duplicate method print() in reactive class Consumer
+line:35, column:7, Return type for the method is missing
+line:35, column:13, mismatched input '"Consumer: received "' expecting {')', IDENTIFIER}
+line:40, column:14, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:41, column:20, extraneous input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:42, column:30, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:44, column:10, extraneous input '.' expecting IDENTIFIER
+line:44, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:45, column:10, extraneous input '.' expecting IDENTIFIER
+line:45, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

@@ -1,0 +1,63 @@
+reactiveclass Counter {
+    knownrebecs { Client client1; Client client2; }
+
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv Increment() {
+        count = count + 1;
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+
+    msgsrv Decrement() {
+        count = count - 1;
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+
+    msgsrv GetValue() {
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+}
+
+reactiveclass Client {
+    knownrebecs { Counter counter; }
+    statevars {
+        int clientId;
+    }
+
+    Client(int id) {
+        clientId = id;
+    }
+
+    msgsrv ValueResponse(int value) {
+        // In Rebeca, printing is usually done via environment or println in some tools
+        // println("Client " + clientId + " received value: " + value);
+    }
+}
+
+main {
+    Counter counter(counterClient1, counterClient2);
+    Client counterClient1(counter);
+    Client counterClient2(counter);
+
+    counter.Increment() sender counterClient1;
+    counter.Increment() sender counterClient2;
+    counter.GetValue() sender counterClient1;
+}

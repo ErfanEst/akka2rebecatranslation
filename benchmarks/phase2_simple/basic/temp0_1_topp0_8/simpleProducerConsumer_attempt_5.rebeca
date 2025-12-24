@@ -1,0 +1,35 @@
+reactiveclass ProducerConsumerSystem {
+	knownrebecs {
+		Producer producer;
+		Consumer consumer;
+	}
+	msgsrv initial() {
+		producer.Produce("item1");
+		producer.Produce("item2");
+	}
+}
+
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgsrv Produce(char item[]) {
+		print("Producer: sending ");
+		println(item);
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	msgsrv Consume(char item[]) {
+		print("Consumer: received ");
+		println(item);
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	ProducerConsumerSystem system(producer, consumer):();
+}

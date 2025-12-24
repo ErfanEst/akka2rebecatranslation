@@ -1,0 +1,52 @@
+reactiveclass Ping : TimedRebeca {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	Ping() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		pingStart();
+	}
+
+	msgsrv pingStart() {
+		pong.pingMessage();
+	}
+
+	msgsrv pongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.stopMessage();
+		} else {
+			pong.pingMessage();
+		}
+	}
+}
+
+reactiveclass Pong : TimedRebeca {
+	knownrebecs {
+		Ping ping;
+	}
+	statevars {
+	}
+
+	Pong() {
+	}
+
+	msgsrv pingMessage() {
+		ping.pongMessage();
+	}
+
+	msgsrv stopMessage() {
+	}
+}
+
+main {
+	Ping ping(pong):();
+	Pong pong(ping):();
+}

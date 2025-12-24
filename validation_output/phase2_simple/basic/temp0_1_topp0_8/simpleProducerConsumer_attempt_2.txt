@@ -1,0 +1,11 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:37, mismatched input '{' expecting {'extends', 'implements', '('}
+line:7, column:10, extraneous input '.' expecting IDENTIFIER
+line:7, column:11, Unknown type producer
+line:7, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:8, column:10, extraneous input '.' expecting IDENTIFIER
+line:8, column:11, Unknown type producer
+line:8, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

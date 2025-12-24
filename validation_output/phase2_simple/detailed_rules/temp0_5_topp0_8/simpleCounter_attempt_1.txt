@@ -1,0 +1,20 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:27, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:48, column:18, mismatched input ';' expecting ':'
+line:49, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:49, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:50, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:50, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:52, column:8, extraneous input '.' expecting IDENTIFIER
+line:52, column:9, Unknown type counter
+line:52, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:53, column:8, extraneous input '.' expecting IDENTIFIER
+line:53, column:9, Unknown type counter
+line:53, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:54, column:8, extraneous input '.' expecting IDENTIFIER
+line:54, column:9, Unknown type counter
+line:54, column:26, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

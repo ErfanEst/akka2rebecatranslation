@@ -1,0 +1,52 @@
+reactiveclass Ping {
+	statevars {
+		int count;
+		Pong pong;
+	}
+
+	Ping(Pong pongRef) {
+		count = 0;
+		pong = pongRef;
+	}
+
+	msgsrv initial() {
+		// corresponds to StartMessage
+		pingStarted();
+	}
+
+	msgsrv pingStarted() {
+		// println("Ping started the game!")
+		pong.pingMessage();
+	}
+
+	msgsrv pongMessage() {
+		count = count + 1;
+		// println("Ping received pong #" + count + " from pong")
+		if (count >= 10) {
+			pong.stopMessage();
+			// println("Ping stopped")
+		} else {
+			pong.pingMessage();
+		}
+	}
+}
+
+reactiveclass Pong {
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv pingMessage() {
+		// println("Pong received ping from ping")
+		sender.pongMessage();
+	}
+
+	msgsrv stopMessage() {
+		// println("Pong stopped")
+	}
+}
+
+main {
+	Pong pong();
+	Ping ping(pong):();
+}

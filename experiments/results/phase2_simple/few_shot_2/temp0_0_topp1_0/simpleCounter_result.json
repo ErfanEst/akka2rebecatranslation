@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Counter(10) {\n  knownrebecs { Client client1; Client client2; }\n  statevars { int count; }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    client1.requestIncrement();\n    client2.requestIncrement();\n    client1.requestGetValue();\n  }\n\n  msgsrv increment(Client senderRef) {\n    count = count + 1;\n    senderRef.valueResponse(count);\n  }\n\n  msgsrv decrement(Client senderRef) {\n    count = count - 1;\n    senderRef.valueResponse(count);\n  }\n\n  msgsrv getValue(Client senderRef) {\n    senderRef.valueResponse(count);\n  }\n}\n\nreactiveclass Client(10) {\n  knownrebecs { Counter counter; }\n  statevars { int clientId; }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv initial() {\n  }\n\n  msgsrv requestIncrement() {\n    counter.increment(self);\n  }\n\n  msgsrv requestGetValue() {\n    counter.getValue(self);\n  }\n\n  msgsrv valueResponse(int value) {\n  }\n}\n\nmain {\n  Counter counter(client1, client2):();\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(10) {\n  knownrebecs { Client client1; Client client2; }\n  statevars { int count; }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    client1.requestIncrement();\n    client2.requestIncrement();\n    client1.requestGetValue();\n  }\n\n  msgsrv increment(Client senderRef) {\n    count = count + 1;\n    senderRef.valueResponse(count);\n  }\n\n  msgsrv decrement(Client senderRef) {\n    count = count - 1;\n    senderRef.valueResponse(count);\n  }\n\n  msgsrv getValue(Client senderRef) {\n    senderRef.valueResponse(count);\n  }\n}\n\nreactiveclass Client(10) {\n  knownrebecs { Counter counter; }\n  statevars { int clientId; }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv initial() {\n  }\n\n  msgsrv requestIncrement() {\n    counter.increment(self);\n  }\n\n  msgsrv requestGetValue() {\n    counter.getValue(self);\n  }\n\n  msgsrv valueResponse(int value) {\n  }\n}\n\nmain {\n  Counter counter(client1, client2):();\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:10:19.247480",
+      "code_length": 989
+    }
+  ],
+  "file_name": "simpleCounter.txt",
+  "file_id": "simpleCounter",
+  "elapsed_time": 4.6870057582855225,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_0_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:10:19.247511"
+}

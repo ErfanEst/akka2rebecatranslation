@@ -1,0 +1,65 @@
+reactiveclass Counter(msgsrv ValueResponse);
+
+statevars {
+    int count;
+}
+
+knownrebecs {
+}
+
+msgschedulers {
+}
+
+reactiveclass Counter {
+    statevars {
+        int count;
+    }
+
+    msgsrv initial() {
+        count = 0;
+    }
+
+    msgsrv Increment(reactiveclass Client sender) {
+        count = count + 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv Decrement(reactiveclass Client sender) {
+        count = count - 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv GetValue(reactiveclass Client sender) {
+        sender.ValueResponse(count);
+    }
+}
+
+reactiveclass Client {
+    knownrebecs {
+        Counter counter;
+        int clientId;
+    }
+
+    statevars {
+    }
+
+    msgsrv initial() {
+        // Initial behavior can be added here if needed
+    }
+
+    msgsrv ValueResponse(int value) {
+        // In Rebeca, direct printing is usually done via environment or abstract statement
+        // This is a placeholder for print behavior
+        // println("Client " + clientId + " received value: " + value);
+    }
+}
+
+main {
+    Counter counter();
+    Client client1(counter, 1);
+    Client client2(counter, 2);
+
+    counter.Increment(client1);
+    counter.Increment(client2);
+    counter.GetValue(client1);
+}

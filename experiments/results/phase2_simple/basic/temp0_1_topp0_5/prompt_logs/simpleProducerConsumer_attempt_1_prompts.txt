@@ -1,0 +1,81 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/basic/temp0_1_topp0_5
+File: simpleProducerConsumer
+Timestamp: 2025-12-24T18:10:14.329817
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package ProducerConsumerSimple
+
+import akka.actor._
+
+case class Produce(item: String)
+case class Consume(item: String)
+
+class Producer(consumer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Produce(item) =>
+      println(s"Producer: sending $item")
+      consumer ! Consume(item)
+  }
+}
+
+class Consumer extends Actor {
+  def receive: Receive = {
+    case Consume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object ProducerConsumerSystem extends App {
+  val system = ActorSystem("ProducerConsumerSystem")
+  val consumer = system.actorOf(Props[Consumer], "consumer")
+  val producer = system.actorOf(Props(new Producer(consumer)), "producer")
+
+  producer ! Produce("item1")
+  producer ! Produce("item2")
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Producer(knownrebecs {Consumer consumer}) {
+    msgsrv Produce(string item) {
+        // Producer: sending item
+        consumer.Consume(item);
+    }
+
+    msgsrv initial() {
+        // no initialization
+    }
+}
+
+reactiveclass Consumer {
+    msgsrv Consume(string item) {
+        // Consumer: received item
+    }
+
+    msgsrv initial() {
+        // no initialization
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer);
+
+    producer.Produce("item1");
+    producer.Produce("item2");
+}
+
+================================================================================

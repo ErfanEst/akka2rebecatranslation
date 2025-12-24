@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs { \n\t\tConsumer consumer; \n\t} \n\tstatevars { \n\t\tint state; \n\t} \n\n\tProducer() { \n\t\tstate = 0; \n\t\tself.sendInitialMessages(); \n\t} \n\n\tmsgsrv sendInitialMessages() {\n\t\tconsumer.Consume(1);\n\t\tconsumer.Consume(2);\n\t}\n\n\tmsgsrv Produce(int item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tstatevars { \n\t\tint state; \n\t} \n\n\tConsumer() { \n\t\tstate = 0; \n\t} \n\n\tmsgsrv Consume(int item) { \n\t\tstate = state + 1; \n\t}\n}\n\nmain {\n\tConsumer c():();\n\tProducer p(c):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs { \n\t\tConsumer consumer; \n\t} \n\tstatevars { \n\t\tint state; \n\t} \n\n\tProducer() { \n\t\tstate = 0; \n\t\tself.sendInitialMessages(); \n\t} \n\n\tmsgsrv sendInitialMessages() {\n\t\tconsumer.Consume(1);\n\t\tconsumer.Consume(2);\n\t}\n\n\tmsgsrv Produce(int item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tstatevars { \n\t\tint state; \n\t} \n\n\tConsumer() { \n\t\tstate = 0; \n\t} \n\n\tmsgsrv Consume(int item) { \n\t\tstate = state + 1; \n\t}\n}\n\nmain {\n\tConsumer c():();\n\tProducer p(c):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:27:11.363859",
+      "code_length": 507
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 3.840766191482544,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_3/temp0_1_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:27:11.363894"
+}

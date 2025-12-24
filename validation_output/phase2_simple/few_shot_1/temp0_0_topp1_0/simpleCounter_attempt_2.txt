@@ -1,0 +1,16 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:43, column:2, The method print(String) is undefined
+line:44, column:2, The method print(int) is undefined
+line:45, column:2, The method print(String) is undefined
+line:46, column:2, The method println(int) is undefined
+line:58, column:8, The method Client(byte) is undefined for the type Client
+line:59, column:8, The method Client(byte) is undefined for the type Client
+line:61, column:8, extraneous input '.' expecting IDENTIFIER
+line:61, column:9, Unknown type client1
+line:61, column:16, mismatched input ';' expecting ':'
+line:62, column:8, extraneous input '.' expecting IDENTIFIER
+line:62, column:9, Unknown type client2
+line:62, column:16, mismatched input ';' expecting ':'
+

@@ -1,0 +1,55 @@
+reactiveclass Actor1(msgsrv start) {
+    knownrebecs {
+        Actor2 a2;
+    }
+    statevars {
+        int state;
+        int lastSender; // symbolic sender reference
+    }
+
+    msgsrv start() {
+        state = 0;
+        a2.process(1) after(1);  // timing example
+    }
+
+    msgsrv fromActor2(int value, int senderId) {
+        lastSender = senderId;
+        state = state + value;
+    }
+
+    msgsrv becomeLike(int mode) {
+        if (mode == 0) {
+            state = 0;
+        } else {
+            state = 1;
+        }
+    }
+}
+
+reactiveclass Actor2(msgsrv start) {
+    knownrebecs {
+        Actor1 a1;
+    }
+    statevars {
+        int state;
+        int lastSender;
+    }
+
+    msgsrv start() {
+        state = 10;
+        a1.fromActor2(state, 2);
+    }
+
+    msgsrv process(int x) {
+        state = state + x;
+        a1.fromActor2(state, 2) after(2);
+    }
+}
+
+main {
+    Actor1 a1(a2):();
+    Actor2 a2(a1):();
+
+    a1.start();
+    a2.start();
+}

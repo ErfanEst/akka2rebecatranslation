@@ -1,0 +1,50 @@
+reactiveclass Counter {
+	knownrebecs { }
+
+	statevars {
+		int count;
+	}
+
+	ctor() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+	}
+
+	msgsrv GetValue() {
+		// In Rebeca core, we cannot send back to sender directly.
+	}
+}
+
+reactiveclass Client {
+	knownrebecs { Counter counter; }
+
+	statevars {
+		int clientId;
+	}
+
+	ctor(int id, Counter c) {
+		clientId = id;
+		counter = c;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println: "Client " + clientId + " received value: " + value
+	}
+}
+
+main {
+	Counter counter() : ();
+	Client client1(counter) : (1, counter);
+	Client client2(counter) : (2, counter);
+
+	counter.Increment();
+	counter.Increment();
+	counter.GetValue();
+}

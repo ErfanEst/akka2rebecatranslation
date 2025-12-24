@@ -1,0 +1,56 @@
+reactiveclass Ping {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	Ping() {
+		count = 0;
+	}
+
+	msgsrv startMessage() {
+		pong.pingMessage();
+	}
+
+	msgsrv pongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.stopMessage();
+			self.stop();
+		} else {
+			pong.pingMessage();
+		}
+	}
+
+	msgsrv stop() {
+		// dummy to allow self.stop() modeling if needed
+	}
+}
+
+reactiveclass Pong {
+	statevars {
+	}
+
+	Pong() {
+	}
+
+	msgsrv pingMessage() {
+		sender.pongMessage();
+	}
+
+	msgsrv stopMessage() {
+		self.stop();
+	}
+
+	msgsrv stop() {
+		// dummy to allow self.stop() modeling if needed
+	}
+}
+
+main {
+	Pong pong();
+	Ping ping(pong);
+	ping.startMessage();
+}

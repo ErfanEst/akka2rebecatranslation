@@ -1,0 +1,55 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+		Client senderRef;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client s) {
+		senderRef = s;
+		count = count + 1;
+		ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client s) {
+		senderRef = s;
+		count = count - 1;
+		ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client s) {
+		senderRef = s;
+		ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int v) {
+		senderRef.receiveValue(v);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv receiveValue(int value) {
+		// println is not available in Rebeca; this models the reception of the value.
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(1);
+	Client client2(2);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}

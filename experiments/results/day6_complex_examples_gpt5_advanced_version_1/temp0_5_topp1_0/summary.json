@@ -1,0 +1,21 @@
+{
+  "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_5_topp1_0",
+  "description": "Day6: Complex Examples V1 Adv - temp0_5_topp1_0",
+  "config": {
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 3,
+    "successful": 2,
+    "failed": 1,
+    "success_rate": 66.66666666666666,
+    "avg_attempts": 4.333333333333333,
+    "avg_time": 33.46661734580994
+  },
+  "timestamp": "2025-12-24T12:19:37.161484"
+}

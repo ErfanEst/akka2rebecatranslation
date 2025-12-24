@@ -1,0 +1,6 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:65, column:15, The method CounterClient(byte) is undefined for the type CounterClient
+line:66, column:15, The method CounterClient(byte) is undefined for the type CounterClient
+

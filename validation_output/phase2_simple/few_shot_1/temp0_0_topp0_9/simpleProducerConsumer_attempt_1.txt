@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:7, The method produce(String) is undefined for the type Producer
+line:9, column:7, The method produce(String) is undefined for the type Producer
+line:11, column:23, Unknown type string
+line:23, column:23, Unknown type string
+

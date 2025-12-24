@@ -1,0 +1,26 @@
+reactiveclass Producer(Consumer consumer) {
+	statevars {
+	}
+	msgsrv initial() {
+		self.produce("item1");
+		self.produce("item2");
+	}
+	msgsrv produce(char item[10]) {
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer() {
+	statevars {
+	}
+	msgsrv initial() {
+	}
+	msgsrv consume(char item[10]) {
+		// Consumer: received item
+	}
+}
+
+main {
+	Consumer consumer() : ();
+	Producer producer(consumer) : ();
+}

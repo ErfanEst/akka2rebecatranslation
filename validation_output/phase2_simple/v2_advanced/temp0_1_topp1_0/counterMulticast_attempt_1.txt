@@ -1,0 +1,18 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:0, extraneous input 'timed' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:33, column:0, extraneous input 'timed' expecting {'reactiveclass', 'interface', 'abstract', 'main', '@'}
+line:55, column:18, mismatched input ';' expecting ':'
+line:56, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:57, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:59, column:8, extraneous input '.' expecting IDENTIFIER
+line:59, column:9, Unknown type counter
+line:59, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:60, column:8, extraneous input '.' expecting IDENTIFIER
+line:60, column:9, Unknown type counter
+line:60, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:61, column:8, extraneous input '.' expecting IDENTIFIER
+line:61, column:9, Unknown type counter
+line:61, column:26, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

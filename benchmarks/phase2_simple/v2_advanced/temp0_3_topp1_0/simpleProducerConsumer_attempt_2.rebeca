@@ -1,0 +1,45 @@
+reactiveclass Producer(1) {
+	statevars {
+		int id;
+	}
+
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgsrv initial(int myId) {
+		id = myId;
+	}
+
+	msgsrv Produce(int item) {
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer(1) {
+	statevars {
+		int id;
+	}
+
+	knownrebecs {
+	}
+
+	msgsrv initial(int myId) {
+		id = myId;
+	}
+
+	msgsrv Consume(int item) {
+		// message received
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	consumer.initial(1);
+	producer.initial(1);
+
+	producer.Produce(1);
+	producer.Produce(2);
+}

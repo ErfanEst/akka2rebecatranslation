@@ -1,0 +1,73 @@
+reactiveclass ProducerConsumerSystem(1) {
+	knownrebecs {
+		Producer producer;
+		Consumer consumer;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		// Start the scenario
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+		consumer.ConsumeMsg();
+	}
+}
+
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+	}
+	
+	msgsrv initial() {
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs {
+	}
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	msgsrv initial() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			buffer[tail] = dataId;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		}
+	}
+
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// item consumed, represented by local variable 'item'
+		} else {
+			// buffer empty, no action
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	ProducerConsumerSystem systemInstance(producer, consumer):();
+}

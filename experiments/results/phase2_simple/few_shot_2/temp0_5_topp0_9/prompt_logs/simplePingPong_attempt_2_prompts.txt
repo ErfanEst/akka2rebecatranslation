@@ -1,0 +1,157 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase2_simple/few_shot_2/temp0_5_topp0_9
+File: simplePingPong
+Timestamp: 2025-12-24T20:18:29.403549
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Ping(10) {
+	knownrebecs { Pong pong; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.StopMessage();
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong(10) {
+	knownrebecs { Ping ping; }
+	statevars { }
+
+	msgsrv initial() {
+	}
+
+	msgsrv PingMessage() {
+		ping.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+	}
+}
+
+main {
+	Ping ping(pong):();
+	Pong pong(ping):();
+	ping.StartMessage();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:41, column:5, extraneous input '.' expecting IDENTIFIER
+line:41, column:6, Unknown type ping
+line:41, column:20, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Ping(10) {
+	knownrebecs { Pong pong; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.StopMessage();
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong(10) {
+	knownrebecs { Ping ping; }
+	statevars { }
+
+	msgsrv initial() {
+	}
+
+	msgsrv PingMessage() {
+		ping.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+	}
+}
+
+main {
+	Ping ping(pong):();
+	Pong pong(ping):();
+	ping.StartMessage();
+}
+
+================================================================================

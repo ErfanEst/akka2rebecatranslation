@@ -1,0 +1,93 @@
+reactiveclass Ping {
+		knownrebecs { Pong pong; }
+		statevars {
+			int count;
+		}
+
+		Ping() {
+			count = 0;
+		}
+
+		msgsrv initial() {
+			// StartMessage equivalent: Ping started the game
+			pong.PingMessage();
+		}
+
+		msgsrv PongMessage() {
+			count = count + 1;
+			if (count >= 10) {
+				// Stop the game
+				pong.StopMessage();
+				// In Akka: context.stop(self)
+				// In Rebeca we just stop sending messages
+			} else {
+				pong.PingMessage();
+			}
+		}
+	}
+
+	reactiveclass Pong {
+		knownrebecs { }
+
+		Pong() {
+		}
+
+		msgsrv PingMessage() {
+			// Reply with PongMessage
+			sender.PongMessage(); // 'sender' is not directly supported in Rebeca
+			// We need an explicit knownrebec instead, so this line is only illustrative.
+		}
+
+		msgsrv StopMessage() {
+			// In Akka: context.stop(self)
+			// In Rebeca we just stop sending messages
+		}
+	}
+
+	// Since Rebeca does not support implicit sender like Akka,
+	// we refactor to explicitly pass the counterpart as a known rebec.
+
+	reactiveclass PingRefined {
+		knownrebecs { PongRefined pong; }
+		statevars {
+			int count;
+		}
+
+		PingRefined() {
+			count = 0;
+		}
+
+		msgsrv initial() {
+			pong.PingMessage(this);
+		}
+
+		msgsrv PongMessage(PingRefined pingRef) {
+			count = count + 1;
+			if (count >= 10) {
+				pong.StopMessage(pingRef);
+			} else {
+				pong.PingMessage(pingRef);
+			}
+		}
+	}
+
+	reactiveclass PongRefined {
+		knownrebecs { }
+
+		PongRefined() {
+		}
+
+		msgsrv PingMessage(PingRefined pingRef) {
+			pingRef.PongMessage(pingRef);
+		}
+
+		msgsrv StopMessage(PingRefined pingRef) {
+			// No further action; model stops exchanging messages
+		}
+	}
+
+	main {
+		PongRefined pongRefined();
+		PingRefined pingRefined(pongRefined):();
+	}
+}

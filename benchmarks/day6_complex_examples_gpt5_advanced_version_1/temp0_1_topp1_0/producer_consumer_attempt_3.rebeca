@@ -1,0 +1,132 @@
+reactiveclass ProducerConsumerSystem(1) {
+	knownrebecs {
+		Producer producer;
+		Consumer consumer;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+		consumer.ConsumeMsg();
+	}
+}
+
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+	}
+	
+	msgsrv initial() {
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs {
+	}
+	statevars {
+		int head;
+		int tail;
+		int size;
+		int buffer0;
+		int buffer1;
+		int buffer2;
+		int buffer3;
+		int buffer4;
+		int buffer5;
+		int buffer6;
+		int buffer7;
+		int buffer8;
+		int buffer9;
+	}
+
+	msgsrv initial() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			if (tail == 0) { buffer0 = dataId; }
+			else {
+				if (tail == 1) { buffer1 = dataId; }
+				else {
+					if (tail == 2) { buffer2 = dataId; }
+					else {
+						if (tail == 3) { buffer3 = dataId; }
+						else {
+							if (tail == 4) { buffer4 = dataId; }
+							else {
+								if (tail == 5) { buffer5 = dataId; }
+								else {
+									if (tail == 6) { buffer6 = dataId; }
+									else {
+										if (tail == 7) { buffer7 = dataId; }
+										else {
+											if (tail == 8) { buffer8 = dataId; }
+											else {
+												if (tail == 9) { buffer9 = dataId; }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		}
+	}
+
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int item;
+			if (head == 0) { item = buffer0; }
+			else {
+				if (head == 1) { item = buffer1; }
+				else {
+					if (head == 2) { item = buffer2; }
+					else {
+						if (head == 3) { item = buffer3; }
+						else {
+							if (head == 4) { item = buffer4; }
+							else {
+								if (head == 5) { item = buffer5; }
+								else {
+									if (head == 6) { item = buffer6; }
+									else {
+										if (head == 7) { item = buffer7; }
+										else {
+											if (head == 8) { item = buffer8; }
+											else {
+												if (head == 9) { item = buffer9; }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			head = (head + 1) % 10;
+			size = size - 1;
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	ProducerConsumerSystem systemInstance(producer, consumer):();
+}

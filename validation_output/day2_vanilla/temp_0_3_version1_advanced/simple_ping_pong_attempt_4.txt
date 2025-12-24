@@ -1,8 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:10, column:14, mismatched input '{' expecting '('
-line:14, column:13, mismatched input '{' expecting '('
-line:28, column:13, mismatched input '{' expecting '('
-line:32, column:13, mismatched input '{' expecting '('
-

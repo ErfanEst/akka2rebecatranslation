@@ -1,0 +1,56 @@
+timedreactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// println: Counter incremented to count
+		ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// println: Counter decremented to count
+		ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int v) {
+		// no-op, used only for sender semantics
+	}
+}
+
+timedreactiveclass Client {
+	statevars {
+		Counter counter;
+		int clientId;
+	}
+
+	msgsrv initial(Counter c, int id) {
+		counter = c;
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println: Client clientId received value: value
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter, 1);
+	Client client2(counter, 2);
+
+	// Simulate tells with explicit sender semantics
+	counter.Increment() after(1); // from client1
+	counter.Increment() after(2); // from client2
+	counter.GetValue() after(3);  // from client1
+}

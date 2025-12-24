@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Counter(10) {\n  knownrebecs {\n    Client client1;\n    Client client2;\n  }\n  statevars {\n    int count;\n  }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    self.Increment(client1);\n    self.Increment(client2);\n    self.GetValue(client1);\n  }\n\n  msgsrv Increment(Client sender) {\n    count = count + 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv Decrement(Client sender) {\n    count = count - 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv GetValue(Client sender) {\n    sender.ValueResponse(count);\n  }\n}\n\nreactiveclass Client(5) {\n  knownrebecs {\n    Counter counter;\n  }\n  statevars {\n    int clientId;\n  }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv initial() {\n  }\n\n  msgsrv ValueResponse(int value) {\n  }\n}\n\nmain {\n  Counter counter(client1, client2):();\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(10) {\n  knownrebecs {\n    Client client1;\n    Client client2;\n  }\n  statevars {\n    int count;\n  }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    self.Increment(client1);\n    self.Increment(client2);\n    self.GetValue(client1);\n  }\n\n  msgsrv Increment(Client sender) {\n    count = count + 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv Decrement(Client sender) {\n    count = count - 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv GetValue(Client sender) {\n    sender.ValueResponse(count);\n  }\n}\n\nreactiveclass Client(5) {\n  knownrebecs {\n    Counter counter;\n  }\n  statevars {\n    int clientId;\n  }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv initial() {\n  }\n\n  msgsrv ValueResponse(int value) {\n  }\n}\n\nmain {\n  Counter counter(client1, client2):();\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:13:38.117236",
+      "code_length": 863
+    }
+  ],
+  "file_name": "counterMulticast.txt",
+  "file_id": "counterMulticast",
+  "elapsed_time": 3.487746000289917,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_1_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:13:38.117268"
+}

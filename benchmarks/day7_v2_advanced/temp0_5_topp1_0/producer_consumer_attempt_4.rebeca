@@ -1,0 +1,54 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgrpc initial() {
+		// no initialization needed
+	}
+
+	msgrpc Produce(int item) {
+		consumer.Item(item);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+		int head;
+		int tail;
+		int count;
+		int buffer[10];
+	}
+
+	msgrpc initial() {
+		head = 0;
+		tail = 0;
+		count = 0;
+	}
+
+	msgrpc Item(int data) {
+		if (count < 10) {
+			buffer[tail] = data;
+			tail = (tail + 1) % 10;
+			count = count + 1;
+		}
+	}
+
+	msgrpc Consume() {
+		if (count > 0) {
+			int item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			count = count - 1;
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):(consumer);
+
+	producer.Produce(1);
+	producer.Produce(2);
+	consumer.Consume();
+}

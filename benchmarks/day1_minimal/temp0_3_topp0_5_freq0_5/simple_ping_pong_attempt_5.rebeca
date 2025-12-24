@@ -1,0 +1,45 @@
+reactiveclass Ping(1) {
+    knownrebecs { Pong pong; }
+    statevars { int count; }
+
+    Ping(Pong myPong) {
+        pong = myPong;
+        count = 0;
+    }
+
+    msgsrv StartMessage {
+        pong.PingMessage();
+    }
+
+    msgsrv PongMessage {
+        count = count + 1;
+        if (count >= 10) {
+            // self.terminate(); // There is no terminate method in Rebeca
+            pong.StopMessage();
+        } else {
+            pong.PingMessage();
+        }
+    }
+}
+
+reactiveclass Pong(1) {
+    knownrebecs { Ping ping; }
+
+    Pong(Ping myPing) {
+        ping = myPing;
+    }
+
+    msgsrv PingMessage {
+        ping.PongMessage();
+    }
+
+    msgsrv StopMessage {
+       // self.terminate(); // There is no terminate method in Rebeca
+    }
+}
+
+main {
+	Ping ping(pong): ();
+	Pong pong(ping): ();
+	ping.StartMessage();
+}

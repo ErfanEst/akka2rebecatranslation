@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:14, Rebeca core prior to 2.3 dose not support inheritance
+line:1, column:27, Unknown type TimedRebeca
+line:1, column:39, mismatched input '{' expecting {'implements', '('}
+line:31, column:14, Rebeca core prior to 2.3 dose not support inheritance
+line:31, column:27, Unknown type TimedRebeca
+line:31, column:39, mismatched input '{' expecting {'implements', '('}
+

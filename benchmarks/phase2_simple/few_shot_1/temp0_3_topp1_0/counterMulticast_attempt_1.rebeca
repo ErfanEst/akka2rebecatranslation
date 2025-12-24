@@ -1,0 +1,59 @@
+reactiveclass Counter() {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+		// Simulate CounterSystem initialization:
+		// client1 and client2 will be initialized by their own initial() msgsrv.
+		// Send messages as in main:
+		self.Increment(client1);
+		self.Increment(client2);
+		self.GetValue(client1);
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		// println("Counter incremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		// println("Counter decremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client(Counter counter, int clientId) {
+	knownrebecs {
+		Counter counterRef;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial() {
+		id = clientId;
+		// No initial messages sent by clients in original code
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + id + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter():();
+	Client client1(counter, 1):(counter);
+	Client client2(counter, 2):(counter);
+}

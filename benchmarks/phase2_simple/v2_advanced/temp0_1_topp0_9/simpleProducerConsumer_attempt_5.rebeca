@@ -1,0 +1,66 @@
+reactiveclass Environment {
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial(int d) {
+		dummy = d;
+	}
+
+	msgsrv print(int d) {
+		// dummy print to satisfy RMC; no real output
+		dummy = d;
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+		Environment env;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial(Environment e, int d) {
+		env = e;
+		dummy = d;
+	}
+
+	msgsrv Consume(int item) {
+		env.print(0);
+	}
+}
+
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+		Environment env;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial(Consumer c, Environment e, int d) {
+		consumer = c;
+		env = e;
+		dummy = d;
+	}
+
+	msgsrv Produce(int item) {
+		env.print(0);
+		consumer.Consume(item);
+	}
+}
+
+main {
+	Environment env(env): (0);
+	Consumer consumer(consumer): (env, 0);
+	Producer producer(producer): (consumer, env, 0);
+
+	env.initial(0);
+	consumer.initial(env, 0);
+	producer.initial(consumer, env, 0);
+
+	producer.Produce(1);
+	producer.Produce(2);
+}

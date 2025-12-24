@@ -1,0 +1,36 @@
+reactiveclass Producer(1) {
+    knownrebecs {
+        Consumer consumer;
+    }
+
+    msgsrv initial() {
+        // initialization if needed
+    }
+
+    msgsrv Produce(string item) {
+        // Producer: sending item
+        consumer.Consume(item);
+    }
+}
+
+reactiveclass Consumer(1) {
+    knownrebecs {
+        // no known rebecs
+    }
+
+    msgsrv initial() {
+        // initialization if needed
+    }
+
+    msgsrv Consume(string item) {
+        // Consumer: received item
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer);
+
+    producer.Produce("item1");
+    producer.Produce("item2");
+}

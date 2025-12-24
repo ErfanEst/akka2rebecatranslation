@@ -1,0 +1,46 @@
+reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			// no state variables needed
+		}
+
+		msgsrv initial() {
+			// no initialization behavior
+		}
+
+		msgsrv ProduceMsg(int itemId) {
+			// Producer sends a consume message to consumer
+			consumer.ConsumeMsg(itemId);
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+			// no known rebecs
+		}
+		statevars {
+			// no state variables needed
+		}
+
+		msgsrv initial() {
+			// no initialization behavior
+		}
+
+		msgsrv ConsumeMsg(int itemId) {
+			// Consumer receives the item
+			// original println removed
+		}
+	}
+
+	// Main block
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+
+		// simulate producer sending two items
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+	}
+}

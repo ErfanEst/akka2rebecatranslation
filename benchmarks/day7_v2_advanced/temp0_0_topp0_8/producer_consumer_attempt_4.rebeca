@@ -1,0 +1,53 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	Producer() {
+		self.start();
+	}
+
+	msgsrv start() {
+		self.Produce(1);
+		self.Produce(2);
+	}
+
+	msgsrv Produce(int item) {
+		consumer.Item(item);
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+	}
+
+	statevars {
+		int bufferSize;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+		self.start();
+	}
+
+	msgsrv start() {
+		self.Consume();
+	}
+
+	msgsrv Item(int data) {
+		bufferSize = bufferSize + 1;
+	}
+
+	msgsrv Consume() {
+		if (bufferSize > 0) {
+			bufferSize = bufferSize - 1;
+		} else {
+			skip;
+		}
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer):();
+}

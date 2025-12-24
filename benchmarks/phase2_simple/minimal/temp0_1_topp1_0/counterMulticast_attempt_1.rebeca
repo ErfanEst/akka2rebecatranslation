@@ -1,0 +1,61 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	knownrebecs { }
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+		Counter counter;
+	}
+
+	knownrebecs {
+		Counter counterRef;
+	}
+
+	Client(int id) {
+		clientId = id;
+		counter = counterRef;
+	}
+
+	msgsrv initial() {
+		// No initial behavior
+	}
+
+	msgsrv ValueResponse(int value) {
+		// In Rebeca we usually do not print; this represents:
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter): (1);
+	Client client2(counter): (2);
+
+	// Simulating the tell calls with explicit sender rebec
+	client1.Increment(counter);
+	client2.Increment(counter);
+	client1.GetValue(counter);
+}

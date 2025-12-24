@@ -1,0 +1,34 @@
+reactiveclass Producer(Consumer consumer) {
+	statevars {
+		int item;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Produce(int it) {
+		item = it;
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer() {
+	statevars {
+		int item;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Consume(int it) {
+		item = it;
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.Produce(1);
+	producer.Produce(2);
+}

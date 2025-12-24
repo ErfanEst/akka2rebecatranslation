@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\n\tclient1.startAsClient1();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// println is not available; this is a placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\n\tclient1.startAsClient1();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:58, column:8, The method Client(byte) is undefined for the type Client\nline:59, column:8, The method Client(byte) is undefined for the type Client\nline:61, column:8, extraneous input '.' expecting IDENTIFIER\nline:61, column:9, Unknown type client1\nline:61, column:25, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:58:12.477497",
+      "code_length": 997
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounter counter(client1, client2):();\n\n\tclient1.startAsClient1();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:57, column:8, The method Client(byte) is undefined for the type Client\nline:58, column:8, The method Client(byte) is undefined for the type Client\nline:61, column:8, extraneous input '.' expecting IDENTIFIER\nline:61, column:9, Unknown type client1\nline:61, column:25, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:58:16.405528",
+      "code_length": 961
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\n\tclient1.startAsClient1();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:58, column:8, The method Client(byte) is undefined for the type Client\nline:59, column:8, The method Client(byte) is undefined for the type Client\nline:61, column:8, extraneous input '.' expecting IDENTIFIER\nline:61, column:9, Unknown type client1\nline:61, column:25, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:58:19.473606",
+      "code_length": 961
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounter counter(client1, client2):();\n\n\tclient1.startAsClient1();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:57, column:8, The method Client(byte) is undefined for the type Client\nline:58, column:8, The method Client(byte) is undefined for the type Client\nline:61, column:8, extraneous input '.' expecting IDENTIFIER\nline:61, column:9, Unknown type client1\nline:61, column:25, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:58:23.773545",
+      "code_length": 961
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv IncrementFromClient1() {\n\t\tcount = count + 1;\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv IncrementFromClient2() {\n\t\tcount = count + 1;\n\t\tclient2.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient1() {\n\t\tclient1.ValueResponseMsg(count);\n\t}\n\n\tmsgsrv GetValueFromClient2() {\n\t\tclient2.ValueResponseMsg(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv ValueResponseMsg(int value) {\n\t\t// placeholder for logging\n\t}\n\n\tmsgsrv startAsClient1() {\n\t\tcounter.IncrementFromClient1();\n\t\tcounter.IncrementFromClient2();\n\t\tcounter.GetValueFromClient1();\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\n\tclient1.startAsClient1();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:58, column:8, The method Client(byte) is undefined for the type Client\nline:59, column:8, The method Client(byte) is undefined for the type Client\nline:61, column:8, extraneous input '.' expecting IDENTIFIER\nline:61, column:9, Unknown type client1\nline:61, column:25, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:58:27.195859",
+      "code_length": 961
+    }
+  ],
+  "file_name": "counterMulticast.txt",
+  "file_id": "counterMulticast",
+  "elapsed_time": 18.695087909698486,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_1/temp0_3_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:58:27.195907"
+}

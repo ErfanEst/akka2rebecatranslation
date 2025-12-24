@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:27, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:53, column:18, mismatched input ';' expecting ':'
+line:54, column:8, The method Client(byte, Counter) is undefined for the type Client
+line:55, column:8, The method Client(byte, Counter) is undefined for the type Client
+

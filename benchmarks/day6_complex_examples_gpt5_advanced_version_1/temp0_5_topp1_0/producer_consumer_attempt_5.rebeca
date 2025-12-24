@@ -1,0 +1,85 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no data state variables
+	}
+
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		byte s1_0; byte s1_1; byte s1_2; byte s1_3; byte s1_4; byte s1_5;
+		byte s2_0; byte s2_1; byte s2_2; byte s2_3; byte s2_4; byte s2_5;
+
+		s1_0 = 'i'; s1_1 = 't'; s1_2 = 'e'; s1_3 = 'm'; s1_4 = '1'; s1_5 = '\0';
+		s2_0 = 'i'; s2_1 = 't'; s2_2 = 'e'; s2_3 = 'm'; s2_4 = '2'; s2_5 = '\0';
+
+		consumer.item(s1_0, s1_1, s1_2, s1_3, s1_4, s1_5);
+		consumer.item(s2_0, s2_1, s2_2, s2_3, s2_4, s2_5);
+		consumer.consume();
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		int bufferSize;
+		byte buffer0[10];
+		byte buffer1[10];
+		byte buffer2[10];
+		byte buffer3[10];
+		byte buffer4[10];
+		byte buffer5[10];
+		int head;
+		int tail;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+		head = 0;
+		tail = 0;
+	}
+
+	msgsrv item(byte d0, byte d1, byte d2, byte d3, byte d4, byte d5) {
+		if (bufferSize < 10) {
+			buffer0[tail] = d0;
+			buffer1[tail] = d1;
+			buffer2[tail] = d2;
+			buffer3[tail] = d3;
+			buffer4[tail] = d4;
+			buffer5[tail] = d5;
+			tail = (tail + 1) % 10;
+			bufferSize = bufferSize + 1;
+		} else {
+			skip;
+		}
+	}
+
+	msgsrv consume() {
+		if (bufferSize > 0) {
+			byte i0; byte i1; byte i2; byte i3; byte i4; byte i5;
+			i0 = buffer0[head];
+			i1 = buffer1[head];
+			i2 = buffer2[head];
+			i3 = buffer3[head];
+			i4 = buffer4[head];
+			i5 = buffer5[head];
+			head = (head + 1) % 10;
+			bufferSize = bufferSize - 1;
+		} else {
+			skip;
+		}
+	}
+}
+
+main {
+	Consumer consumer() :();
+	Producer producer(consumer) :();
+}

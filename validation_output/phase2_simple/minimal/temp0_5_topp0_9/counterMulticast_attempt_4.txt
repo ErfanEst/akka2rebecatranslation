@@ -1,0 +1,18 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:25, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:45, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:46, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:48, column:1, extraneous input 'knownrebecs' expecting {'}', '@', IDENTIFIER}
+line:49, column:10, The type Counter is not registered in the symbol table
+line:49, column:10, Multiple definition for the actor counter
+line:49, column:17, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:50, column:9, The type Client is not registered in the symbol table
+line:50, column:9, Multiple definition for the actor client1
+line:50, column:16, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:51, column:9, The type Client is not registered in the symbol table
+line:51, column:9, Multiple definition for the actor client2
+line:51, column:16, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

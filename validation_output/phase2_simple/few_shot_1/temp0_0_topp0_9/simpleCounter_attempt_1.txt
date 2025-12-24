@@ -1,0 +1,23 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, missing INTLITERAL at ')'
+line:16, column:12, The method ValueResponseMsg(int) is undefined for the type Client
+line:21, column:12, The method ValueResponseMsg(int) is undefined for the type Client
+line:25, column:12, The method ValueResponseMsg(int) is undefined for the type Client
+line:29, column:12, The method ValueResponseMsg(int) is undefined for the type Client
+line:33, column:21, mismatched input 'int' expecting INTLITERAL
+line:53, column:9, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:53, column:9, The method Client(byte) is undefined for the type Client
+line:54, column:9, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:54, column:9, The method Client(byte) is undefined for the type Client
+line:61, column:9, extraneous input '.' expecting IDENTIFIER
+line:61, column:10, Unknown type counter
+line:61, column:32, mismatched input ';' expecting ':'
+line:62, column:9, extraneous input '.' expecting IDENTIFIER
+line:62, column:10, Unknown type counter
+line:62, column:32, mismatched input ';' expecting ':'
+line:63, column:9, extraneous input '.' expecting IDENTIFIER
+line:63, column:10, Unknown type counter
+line:63, column:31, mismatched input ';' expecting ':'
+

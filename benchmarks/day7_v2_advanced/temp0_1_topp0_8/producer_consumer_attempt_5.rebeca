@@ -1,0 +1,82 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		// no internal state
+	}
+
+	Producer() {
+		// constructor
+	}
+
+	msgsrv initial() {
+		// no automatic behavior on start
+	}
+
+	// corresponds to case Produce(item)
+	msgsrv ProduceMsg(char item[]) {
+		consumer.ItemMsg(item);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+		char buffer[10][20]; // simple bounded buffer: up to 10 items, each up to length 20
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior on start
+	}
+
+	// corresponds to case Item(data)
+	msgsrv ItemMsg(char data[]) {
+		if (size < 10) {
+			int i;
+			i = 0;
+			while (i < 20) {
+				buffer[tail][i] = data[i];
+				i = i + 1;
+			}
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer overflow not present in original; ignore extra items
+		}
+	}
+
+	// corresponds to case Consume()
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			char item[20];
+			int i;
+			i = 0;
+			while (i < 20) {
+				item[i] = buffer[head][i];
+				i = i + 1;
+			}
+			head = (head + 1) % 10;
+			size = size - 1;
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer1();
+	Producer producer1(consumer1):();
+
+	producer1.ProduceMsg("item1");
+	producer1.ProduceMsg("item2");
+	consumer1.ConsumeMsg();
+}

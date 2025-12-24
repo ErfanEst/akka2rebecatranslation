@@ -1,0 +1,27 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:49, column:8, The method Client(byte) is undefined for the type Client
+line:50, column:8, The method Client(byte) is undefined for the type Client
+line:53, column:8, extraneous input '.' expecting IDENTIFIER
+line:53, column:9, Multiple definition for the actor counter
+line:53, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:53, column:26, extraneous input '(' expecting IDENTIFIER
+line:53, column:27, Multiple definition for the actor client1
+line:53, column:34, missing '(' at ')'
+line:53, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:54, column:8, extraneous input '.' expecting IDENTIFIER
+line:54, column:9, Multiple definition for the actor counter
+line:54, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:54, column:26, extraneous input '(' expecting IDENTIFIER
+line:54, column:27, Multiple definition for the actor client2
+line:54, column:34, missing '(' at ')'
+line:54, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:55, column:8, extraneous input '.' expecting IDENTIFIER
+line:55, column:9, Multiple definition for the actor counter
+line:55, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:55, column:25, extraneous input '(' expecting IDENTIFIER
+line:55, column:26, Multiple definition for the actor client1
+line:55, column:33, missing '(' at ')'
+line:55, column:34, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

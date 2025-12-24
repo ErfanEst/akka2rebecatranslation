@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Counter(5) {\n  knownrebecs { Client client1; Client client2; }\n  statevars { int count; }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    self.Increment(client1);\n    self.Increment(client2);\n    self.GetValue(client1);\n  }\n\n  msgsrv Increment(Client sender) {\n    count = count + 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv Decrement(Client sender) {\n    count = count - 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv GetValue(Client sender) {\n    sender.ValueResponse(count);\n  }\n}\n\nreactiveclass Client(5) {\n  knownrebecs { Counter counter; }\n  statevars { int clientId; }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv ValueResponse(int value) {\n    // no I/O in Rebeca model\n  }\n}\n\nmain {\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n  Counter counter(client1, client2):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(5) {\n  knownrebecs { Client client1; Client client2; }\n  statevars { int count; }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv Increment(Client sender) {\n    count = count + 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv Decrement(Client sender) {\n    count = count - 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv GetValue(Client sender) {\n    sender.ValueResponse(count);\n  }\n}\n\nreactiveclass Client(5) {\n  knownrebecs { Counter counter; }\n  statevars { int clientId; }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv ValueResponse(int value) {\n    // no I/O in Rebeca model\n  }\n}\n\nmain {\n  Counter counter(client1, client2):();\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n\n  counter.Increment(client1);\n  counter.Increment(client2);\n  counter.GetValue(client1);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:42, column:9, extraneous input '.' expecting IDENTIFIER\nline:42, column:10, Unknown type counter\nline:42, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:43, column:9, extraneous input '.' expecting IDENTIFIER\nline:43, column:10, Unknown type counter\nline:43, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:44, column:9, extraneous input '.' expecting IDENTIFIER\nline:44, column:10, Unknown type counter\nline:44, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T20:24:21.611375",
+      "code_length": 816
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Counter(5) {\n  knownrebecs { Client client1; Client client2; }\n  statevars { int count; }\n\n  Counter() {\n    count = 0;\n  }\n\n  msgsrv initial() {\n    self.Increment(client1);\n    self.Increment(client2);\n    self.GetValue(client1);\n  }\n\n  msgsrv Increment(Client sender) {\n    count = count + 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv Decrement(Client sender) {\n    count = count - 1;\n    sender.ValueResponse(count);\n  }\n\n  msgsrv GetValue(Client sender) {\n    sender.ValueResponse(count);\n  }\n}\n\nreactiveclass Client(5) {\n  knownrebecs { Counter counter; }\n  statevars { int clientId; }\n\n  Client(int id) {\n    clientId = id;\n  }\n\n  msgsrv ValueResponse(int value) {\n    // no I/O in Rebeca model\n  }\n}\n\nmain {\n  Client client1(counter):(1);\n  Client client2(counter):(2);\n  Counter counter(client1, client2):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:24:24.998906",
+      "code_length": 838
+    }
+  ],
+  "file_name": "simpleCounter.txt",
+  "file_id": "simpleCounter",
+  "elapsed_time": 6.9854841232299805,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_3/temp0_0_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:24:24.998933"
+}

@@ -1,0 +1,63 @@
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	Counter(Client c1, Client c2) {
+		client1 = c1;
+		client2 = c2;
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		client1.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	Client(Counter c) {
+		counter = c;
+		clientId = 0;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// no I/O in Rebeca model
+	}
+
+	msgsrv Init(int id) {
+		clientId = id;
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):();
+	Client client2(counter):();
+
+	counter.Increment():();
+	counter.Increment():();
+	counter.GetValue():();
+}

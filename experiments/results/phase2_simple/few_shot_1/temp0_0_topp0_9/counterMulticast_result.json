@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass CounterClient(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial() {\n\t\t// default initialization\n\t}\n\n\tmsgsrv setId(int initId) {\n\t\tclientId = initId;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t\tCounterClient client1;\n\t\tCounterClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tclient1.setId(1);\n\t\tclient2.setId(2);\n\t\t// Simulate the sequence of messages in CounterSystem main\n\t\tself.increment(1);   // from client1\n\t\tself.increment(2);   // from client2\n\t\tself.getValue(1);    // from client1\n\t}\n\n\tmsgsrv increment(int senderId) {\n\t\tcount = count + 1;\n\t\t// println(\"Counter incremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv decrement(int senderId) {\n\t\tcount = count - 1;\n\t\t// println(\"Counter decremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv getValue(int senderId) {\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tCounterClient client1(counter):();\n\tCounterClient client2(counter):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass CounterClient(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial(int initId) {\n\t\tclientId = initId;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t\tCounterClient client1;\n\t\tCounterClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\t// Simulate the sequence of messages in CounterSystem main\n\t\tself.increment(1);   // from client1\n\t\tself.increment(2);   // from client2\n\t\tself.getValue(1);    // from client1\n\t}\n\n\tmsgsrv increment(int senderId) {\n\t\tcount = count + 1;\n\t\t// println(\"Counter incremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv decrement(int senderId) {\n\t\tcount = count - 1;\n\t\t// println(\"Counter decremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv getValue(int senderId) {\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n}\n\nmain {\n\tCounterClient client1(counter):(1);\n\tCounterClient client2(counter):(2);\n\tCounter counter(client1, client2):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:65, column:15, The method CounterClient(byte) is undefined for the type CounterClient\nline:66, column:15, The method CounterClient(byte) is undefined for the type CounterClient",
+      "timestamp": "2025-12-24T19:51:56.872951",
+      "code_length": 1293
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass CounterClient(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial() {\n\t\t// default initialization\n\t}\n\n\tmsgsrv setId(int initId) {\n\t\tclientId = initId;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t\tCounterClient client1;\n\t\tCounterClient client2;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tclient1.setId(1);\n\t\tclient2.setId(2);\n\t\t// Simulate the sequence of messages in CounterSystem main\n\t\tself.increment(1);   // from client1\n\t\tself.increment(2);   // from client2\n\t\tself.getValue(1);    // from client1\n\t}\n\n\tmsgsrv increment(int senderId) {\n\t\tcount = count + 1;\n\t\t// println(\"Counter incremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv decrement(int senderId) {\n\t\tcount = count - 1;\n\t\t// println(\"Counter decremented to \" + count);\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n\n\tmsgsrv getValue(int senderId) {\n\t\tif (senderId == 1) {\n\t\t\tclient1.valueResponse(count);\n\t\t} else {\n\t\t\tclient2.valueResponse(count);\n\t\t}\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tCounterClient client1(counter):();\n\tCounterClient client2(counter):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T19:52:03.349901",
+      "code_length": 1381
+    }
+  ],
+  "file_name": "counterMulticast.txt",
+  "file_id": "counterMulticast",
+  "elapsed_time": 11.234869241714478,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_1/temp0_0_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:52:03.349985"
+}

@@ -1,0 +1,23 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:32, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:50, column:11, The ClientRef knownrebecs type binding of () is not applicable for the arguments (byte)
+line:51, column:11, The ClientRef knownrebecs type binding of () is not applicable for the arguments (byte)
+line:52, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (ClientRef, ClientRef)
+line:52, column:9, The method Counter(ClientRef, ClientRef) is undefined for the type Counter
+line:54, column:9, extraneous input '{' expecting IDENTIFIER
+line:55, column:2, Multiple definition for the actor counter
+line:55, column:9, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:55, column:19, extraneous input '(' expecting IDENTIFIER
+line:55, column:20, Multiple definition for the actor client1
+line:55, column:27, missing '(' at ')'
+line:55, column:28, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:56, column:9, extraneous input '.' expecting IDENTIFIER
+line:56, column:10, Unknown type counter
+line:56, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:57, column:9, extraneous input '.' expecting IDENTIFIER
+line:57, column:10, Unknown type counter
+line:57, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

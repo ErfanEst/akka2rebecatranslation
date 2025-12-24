@@ -1,0 +1,65 @@
+reactiveclass Counter {
+	knownrebec Client client1;
+	knownrebec Client client2;
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; in Akka, messages are sent from main
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebec Counter counter;
+
+	statevars {
+		int clientId;
+	}
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+		// Emulate the Akka main trigger behavior for this client
+		if (clientId == 1) {
+			// First client: send two increments and then get value
+			counter.Increment(this);
+			counter.Increment(this);
+			counter.GetValue(this);
+		} else {
+			// Second client: send one increment
+			counter.Increment(this);
+		}
+	}
+
+	msgsrv ValueResponse(int value) {
+		// Handle response; no output needed for model
+	}
+}
+
+main {
+	Counter counter(counterClient1, counterClient2);
+	Client counterClient1(counter): (1);
+	Client counterClient2(counter): (2);
+}

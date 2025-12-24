@@ -1,5 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:36, column:7, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
-

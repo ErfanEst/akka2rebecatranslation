@@ -1,0 +1,61 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	knownrebecs {
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(rebeca.Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(rebeca.Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(rebeca.Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		rebeca.Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial() {
+		clientId = 0;
+	}
+
+	msgsrv initWithId(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// place holder for printing: "Client " clientId " received value: " value
+	}
+}
+
+main {
+	rebeca.Counter counter() : ();
+	rebeca.Client client1(counter) : ();
+	rebeca.Client client2(counter) : ();
+
+	client1.initWithId(1);
+	client2.initWithId(2);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}

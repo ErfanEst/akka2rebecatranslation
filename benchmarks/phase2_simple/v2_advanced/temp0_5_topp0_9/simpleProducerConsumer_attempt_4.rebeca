@@ -1,0 +1,39 @@
+reactiveclass ProducerConsumerSystem(0) {
+}
+
+reactiveclass Consumer(0) {
+	msgsrv Consume(int item) {
+		// consume item
+	}
+}
+
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+	}
+
+	Producer() {
+		self.produce_item1();
+		self.produce_item2();
+	}
+
+	msgsrv Produce(int item) {
+		consumer.Consume(item);
+	}
+
+	msgsrv produce_item1() {
+		self.Produce(1);
+	}
+
+	msgsrv produce_item2() {
+		self.Produce(2);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+	ProducerConsumerSystem pcs();
+}

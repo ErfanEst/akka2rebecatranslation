@@ -1,0 +1,188 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase2_simple/few_shot_3/temp0_3_topp0_8
+File: counterMulticast
+Timestamp: 2025-12-24T20:29:05.990603
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving concurrency and timed semantics.
+
+Rules:
+
+1. Actor classes → reactiveclass
+2. receive patterns → msgsrv
+3. Member vars → statevars
+4. sender() → knownrebec
+5. context.become → state flags
+6. scheduleOnce / sleep → after(time) / delay()
+7. Random → ?(val1, val2, ...)
+8. Main block → instantiate all reactiveclasses
+9. Only asynchronous messages
+10. No println / I/O
+
+Examples:
+
+1) Communication
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+2) Timed cyclic
+reactiveclass TrafficLight(3) { 
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { if(color == 0) { color = 1; self.change() after(3); } else if(color == 1) { color = 2; self.change() after(5); } else { color = 0; self.change() after(2); } } 
+} 
+
+3) Master-Worker
+reactiveclass Master(10) { 
+  knownrebecs { Worker w1; Worker w2; } 
+  statevars { int[3] tasks; int idx, total, completed; int state; } 
+  Master() { tasks[0]=1; tasks[1]=2; tasks[2]=3; total=3; idx=0; completed=0; state=0; } 
+  msgsrv Ready(int id) { if(idx<total) { if(id==1) w1.Task(tasks[idx]) after(1); else w2.Task(tasks[idx]) after(1); idx=idx+1; state=1; } } 
+  msgsrv Result(int data) { completed=completed+1; if(completed==total) { w1.Shutdown(); w2.Shutdown(); state=2; } } 
+  msgsrv Shutdown() { state=2; } 
+} 
+
+reactiveclass Worker(10) { 
+  knownrebecs { Master m; } 
+  statevars { int id; } 
+  Worker(int myId) { id=myId; self.sendReady(); } 
+  msgsrv sendReady() { m.Ready(id); } 
+  msgsrv Task(int data) { delay(5); m.Result(data); self.sendReady(); } 
+  msgsrv Shutdown() {} 
+} 
+
+main { 
+  Master m(w1, w2):(); 
+  Worker w1(m):(1); 
+  Worker w2(m):(2); 
+}
+
+Translate the following Akka code to Rebeca following these patterns. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Counter(5) {
+  knownrebecs { Client client1; Client client2; }
+  statevars { int count; }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv Increment(Client sender) {
+    count = count + 1;
+    sender.ValueResponse(count);
+  }
+
+  msgsrv Decrement(Client sender) {
+    count = count - 1;
+    sender.ValueResponse(count);
+  }
+
+  msgsrv GetValue(Client sender) {
+    sender.ValueResponse(count);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+  statevars { int clientId; }
+
+  Client(int id) {
+    clientId = id;
+  }
+
+  msgsrv ValueResponse(int value) {
+    // no I/O in Rebeca model
+  }
+}
+
+main {
+  Counter counter(client1, client2):();
+  Client client1(counter):(1);
+  Client client2(counter):(2);
+
+  counter.Increment(client1);
+  counter.Increment(client2);
+  counter.GetValue(client1);
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:42, column:9, extraneous input '.' expecting IDENTIFIER
+line:42, column:10, Unknown type counter
+line:42, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:43, column:9, extraneous input '.' expecting IDENTIFIER
+line:43, column:10, Unknown type counter
+line:43, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:44, column:9, extraneous input '.' expecting IDENTIFIER
+line:44, column:10, Unknown type counter
+line:44, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter(5) {
+  knownrebecs { Client client1; Client client2; }
+  statevars { int count; }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv Increment(Client sender) {
+    count = count + 1;
+    sender.ValueResponse(count);
+  }
+
+  msgsrv Decrement(Client sender) {
+    count = count - 1;
+    sender.ValueResponse(count);
+  }
+
+  msgsrv GetValue(Client sender) {
+    sender.ValueResponse(count);
+  }
+
+  msgsrv initial() {
+    self.Increment(client1);
+    self.Increment(client2);
+    self.GetValue(client1);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+  statevars { int clientId; }
+
+  Client(int id) {
+    clientId = id;
+  }
+
+  msgsrv ValueResponse(int value) {
+    // no I/O in Rebeca model
+  }
+}
+
+main {
+  Client client1(counter):(1);
+  Client client2(counter):(2);
+  Counter counter(client1, client2):();
+}
+
+================================================================================

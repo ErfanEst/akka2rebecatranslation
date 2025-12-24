@@ -1,7 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:38, column:4, A constant variable cannot be in the left-hand side of an assignment
-line:51, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
-line:52, column:7, The method Pong() is undefined for the type Pong
-

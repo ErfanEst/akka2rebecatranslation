@@ -1,0 +1,35 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+	}
+	msgsrv initial() {
+		// no-op
+	}
+	msgsrv Produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+	}
+	statevars {
+	}
+	msgsrv initial() {
+		// no-op
+	}
+	msgsrv Consume(string item) {
+		// println("Consumer: received " + item);
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.Produce("item1");
+	producer.Produce("item2");
+}

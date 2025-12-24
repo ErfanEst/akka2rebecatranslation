@@ -1,0 +1,29 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+	}
+	Producer() {
+	}
+	msgsrv Produce(int item) {
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+	}
+	statevars {
+	}
+	Consumer() {
+	}
+	msgsrv Consume(int item) {
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	// initial triggers can be modeled by constructor or another rebec
+}

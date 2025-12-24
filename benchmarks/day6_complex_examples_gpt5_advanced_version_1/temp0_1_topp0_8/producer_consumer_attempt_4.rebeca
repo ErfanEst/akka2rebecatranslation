@@ -1,0 +1,168 @@
+reactiveclass ProducerConsumerSystem(10) {
+	knownrebecs {
+		// no known rebecs
+	}
+	statevars {
+		// no state variables
+	}
+
+	ProducerConsumerSystem() {
+		// empty constructor
+	}
+}
+
+reactiveclass Producer(10) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+		// no data state variables needed
+	}
+
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		self.produce_item1();
+		self.produce_item2();
+	}
+
+	msgsrv produce_item1() {
+		consumer.item(1);
+	}
+
+	msgsrv produce_item2() {
+		consumer.item(2);
+	}
+}
+
+reactiveclass Consumer(10) {
+	knownrebecs {
+		// no known rebecs
+	}
+	statevars {
+		int buffer0;
+		int buffer1;
+		int buffer2;
+		int buffer3;
+		int buffer4;
+		int buffer5;
+		int buffer6;
+		int buffer7;
+		int buffer8;
+		int buffer9;
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv item(int data) {
+		if (size < 10) {
+			if (tail == 0) {
+				buffer0 = data;
+			} else {
+				if (tail == 1) {
+					buffer1 = data;
+				} else {
+					if (tail == 2) {
+						buffer2 = data;
+					} else {
+						if (tail == 3) {
+							buffer3 = data;
+						} else {
+							if (tail == 4) {
+								buffer4 = data;
+							} else {
+								if (tail == 5) {
+									buffer5 = data;
+								} else {
+									if (tail == 6) {
+										buffer6 = data;
+									} else {
+										if (tail == 7) {
+											buffer7 = data;
+										} else {
+											if (tail == 8) {
+												buffer8 = data;
+											} else {
+												// tail == 9
+												buffer9 = data;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer full, item is dropped
+		}
+	}
+
+	msgsrv consume() {
+		if (size > 0) {
+			int item;
+			if (head == 0) {
+				item = buffer0;
+			} else {
+				if (head == 1) {
+					item = buffer1;
+				} else {
+					if (head == 2) {
+						item = buffer2;
+					} else {
+						if (head == 3) {
+							item = buffer3;
+						} else {
+							if (head == 4) {
+								item = buffer4;
+							} else {
+								if (head == 5) {
+									item = buffer5;
+								} else {
+									if (head == 6) {
+										item = buffer6;
+									} else {
+										if (head == 7) {
+											item = buffer7;
+										} else {
+											if (head == 8) {
+												item = buffer8;
+											} else {
+												// head == 9
+												item = buffer9;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			head = (head + 1) % 10;
+			size = size - 1;
+			// item consumed, no output
+		} else {
+			// buffer empty, no output
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	ProducerConsumerSystem system():();
+	consumer.consume();
+}

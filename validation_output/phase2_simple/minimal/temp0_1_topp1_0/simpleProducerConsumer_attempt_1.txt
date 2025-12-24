@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:26, Unknown type string
+line:9, column:8, The method println(String) is undefined
+line:14, column:23, missing INTLITERAL at ')'
+line:19, column:26, Unknown type string
+line:20, column:8, The method println(String) is undefined
+line:25, column:23, mismatched input ';' expecting ':'
+line:26, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:28, column:12, extraneous input '.' expecting IDENTIFIER
+line:28, column:13, Unknown type producer
+line:28, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:29, column:12, extraneous input '.' expecting IDENTIFIER
+line:29, column:13, Unknown type producer
+line:29, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

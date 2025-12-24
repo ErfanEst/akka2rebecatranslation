@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:25, column:10, There is no meta data for type ReactiveClass
+line:27, column:10, There is no meta data for type ReactiveClass
+line:38, column:9, There is no meta data for type ReactiveClass
+line:47, column:12, mismatched input ';' expecting ':'
+line:48, column:16, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

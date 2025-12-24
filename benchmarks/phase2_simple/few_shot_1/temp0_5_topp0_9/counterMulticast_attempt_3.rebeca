@@ -1,0 +1,67 @@
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv IncrementFromClient1() {
+		count = count + 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv IncrementFromClient2() {
+		count = count + 1;
+		client2.ValueResponse(count);
+	}
+
+	msgsrv DecrementFromClient1() {
+		count = count - 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv DecrementFromClient2() {
+		count = count - 1;
+		client2.ValueResponse(count);
+	}
+
+	msgsrv GetValueFromClient1() {
+		client1.ValueResponse(count);
+	}
+
+	msgsrv GetValueFromClient2() {
+		client2.ValueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int initId) {
+		clientId = initId;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// output omitted
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	// Simulate the sequence in initial message servers
+	// by sending them from an auxiliary starter rebec if needed.
+}

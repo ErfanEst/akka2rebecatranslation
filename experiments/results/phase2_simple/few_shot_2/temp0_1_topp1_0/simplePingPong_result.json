@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Ping(5) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n\n  Ping() {\n    count = 0;\n  }\n\n  msgsrv StartMessage() {\n    pong.PingMessage(self);\n  }\n\n  msgsrv PongMessage(Pong sender) {\n    count = count + 1;\n    if (count >= 10) {\n      sender.StopMessage();\n    } else {\n      sender.PingMessage(self);\n    }\n  }\n}\n\nreactiveclass Pong(5) {\n  statevars { }\n\n  Pong() {\n  }\n\n  msgsrv PingMessage(Ping sender) {\n    sender.PongMessage(self);\n  }\n\n  msgsrv StopMessage() {\n  }\n}\n\nmain {\n  Pong pong():();\n  Ping ping(pong):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(5) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n\n  Ping() {\n    count = 0;\n  }\n\n  msgsrv StartMessage() {\n    pong.PingMessage();\n  }\n\n  msgsrv PongMessage(Pong sender) {\n    count = count + 1;\n    if (count >= 10) {\n      sender.StopMessage();\n    } else {\n      sender.PingMessage();\n    }\n  }\n}\n\nreactiveclass Pong(5) {\n  statevars { }\n\n  Pong() {\n  }\n\n  msgsrv PingMessage(Ping sender) {\n    sender.PongMessage(self);\n  }\n\n  msgsrv StopMessage() {\n  }\n}\n\nmain {\n  Ping ping(pong):();\n  Pong pong():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:10, column:9, The method PingMessage() is undefined for the type Pong\nline:18, column:13, The method PingMessage() is undefined for the type Pong",
+      "timestamp": "2025-12-24T20:13:32.027248",
+      "code_length": 539
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Ping(5) {\n  knownrebecs { Pong pong; }\n  statevars { int count; }\n\n  Ping() {\n    count = 0;\n  }\n\n  msgsrv StartMessage() {\n    pong.PingMessage(self);\n  }\n\n  msgsrv PongMessage(Pong sender) {\n    count = count + 1;\n    if (count >= 10) {\n      sender.StopMessage();\n    } else {\n      sender.PingMessage(self);\n    }\n  }\n}\n\nreactiveclass Pong(5) {\n  statevars { }\n\n  Pong() {\n  }\n\n  msgsrv PingMessage(Ping sender) {\n    sender.PongMessage(self);\n  }\n\n  msgsrv StopMessage() {\n  }\n}\n\nmain {\n  Pong pong():();\n  Ping ping(pong):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:13:34.629228",
+      "code_length": 547
+    }
+  ],
+  "file_name": "simplePingPong.txt",
+  "file_id": "simplePingPong",
+  "elapsed_time": 6.224009275436401,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_1_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:13:34.629262"
+}

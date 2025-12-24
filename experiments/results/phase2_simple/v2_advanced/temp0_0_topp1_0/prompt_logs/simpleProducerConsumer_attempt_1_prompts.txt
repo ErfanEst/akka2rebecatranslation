@@ -1,0 +1,128 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/v2_advanced/temp0_0_topp1_0
+File: simpleProducerConsumer
+Timestamp: 2025-12-24T19:26:47.368059
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+Translate the given Akka code into Rebeca that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Strict rules:
+1. Actors → Reactive Classes
+2. Message Handlers → Message Servers
+3. System Initialization → main block
+4. State and Variables
+5. Sender References
+6. Behavior Changes (context.become)
+7. Timing → after() or delay()
+8. Randomness / Nondeterminism → ?(...)
+9. Communication: asynchronous only
+10. Output format: reactiveclass definitions + main
+11. Timed Rebeca: timing constructs modeled correctly
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package ProducerConsumerSimple
+
+import akka.actor._
+
+case class Produce(item: String)
+case class Consume(item: String)
+
+class Producer(consumer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Produce(item) =>
+      println(s"Producer: sending $item")
+      consumer ! Consume(item)
+  }
+}
+
+class Consumer extends Actor {
+  def receive: Receive = {
+    case Consume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object ProducerConsumerSystem extends App {
+  val system = ActorSystem("ProducerConsumerSystem")
+  val consumer = system.actorOf(Props[Consumer], "consumer")
+  val producer = system.actorOf(Props(new Producer(consumer)), "producer")
+
+  producer ! Produce("item1")
+  producer ! Produce("item2")
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedRebeca {
+
+	import ENV;
+
+	reactiveclass Producer(50) {
+		statevars {
+			Consumer consumer;
+			char item[20];
+		}
+
+		knownrebecs { 
+			Consumer consumer;
+		}
+
+		msgsrv initial() {
+			// simulate initial Akka sends from main
+			produce_item1();
+			produce_item2();
+		}
+
+		msgsrv produce(char it[20]) {
+			// println("Producer: sending " + it);
+			consumer.consume(it);
+		}
+
+		msgsrv produce_item1() {
+			item[0] = 'i'; item[1] = 't'; item[2] = 'e'; item[3] = 'm'; item[4] = '1'; item[5] = '\0';
+			produce(item);
+		}
+
+		msgsrv produce_item2() {
+			item[0] = 'i'; item[1] = 't'; item[2] = 'e'; item[3] = 'm'; item[4] = '2'; item[5] = '\0';
+			produce(item);
+		}
+	}
+
+	reactiveclass Consumer(50) {
+		statevars {
+			char lastItem[20];
+		}
+
+		knownrebecs { }
+
+		msgsrv initial() { }
+
+		msgsrv consume(char it[20]) {
+			// println("Consumer: received " + it);
+			int i;
+			for (i = 0; i < 20; i = i + 1) {
+				lastItem[i] = it[i];
+			}
+		}
+	}
+
+	main {
+		Consumer c();
+		Producer p(c);
+	}
+}
+
+================================================================================

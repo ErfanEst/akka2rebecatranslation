@@ -1,0 +1,66 @@
+reactiveclass Producer {
+	statevars {
+		Consumer consumer;
+	}
+
+	Producer(Consumer consumer) {
+		self.consumer = consumer;
+	}
+
+	msgsrv initial() {
+		Produce("item1");
+		Produce("item2");
+	}
+
+	msgsrv Produce(string item) {
+		consumer.Item(item);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+		int maxSize;
+		string buffer[10];
+		int size;
+	}
+
+	Consumer() {
+		maxSize = 10;
+		size = 0;
+	}
+
+	msgsrv initial() {
+		Consume();
+	}
+
+	msgsrv Item(string data) {
+		if (size < maxSize) {
+			buffer[size] = data;
+			size = size + 1;
+		}
+	}
+
+	msgsrv Consume() {
+		if (size > 0) {
+			string item;
+			int i;
+
+			item = buffer[0];
+
+			i = 0;
+			while (i < size - 1) {
+				buffer[i] = buffer[i + 1];
+				i = i + 1;
+			}
+
+			size = size - 1;
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):(consumer);
+}

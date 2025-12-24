@@ -1,0 +1,27 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input 'c1' expecting INTLITERAL
+line:34, column:21, mismatched input 'c' expecting INTLITERAL
+line:66, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:66, column:24, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:67, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:67, column:24, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:68, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+line:68, column:34, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:70, column:8, extraneous input '.' expecting IDENTIFIER
+line:70, column:9, Unknown type client1
+line:70, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:71, column:8, extraneous input '.' expecting IDENTIFIER
+line:71, column:9, Unknown type client2
+line:71, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:73, column:8, extraneous input '.' expecting IDENTIFIER
+line:73, column:9, Unknown type client1
+line:73, column:24, mismatched input ';' expecting ':'
+line:74, column:8, extraneous input '.' expecting IDENTIFIER
+line:74, column:9, Unknown type client2
+line:74, column:24, mismatched input ';' expecting ':'
+line:75, column:8, extraneous input '.' expecting IDENTIFIER
+line:75, column:9, Unknown type client1
+line:75, column:23, mismatched input ';' expecting ':'
+

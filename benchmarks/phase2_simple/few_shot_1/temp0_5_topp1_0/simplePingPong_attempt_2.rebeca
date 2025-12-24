@@ -1,0 +1,55 @@
+reactiveclass Ping( Ping ping, Pong pong ) {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage(self);
+	}
+
+	msgsrv PongMessage(Pong sender) {
+		count = count + 1;
+		if (count >= 10) {
+			sender.StopMessage();
+		} else {
+			sender.PingMessage(self);
+		}
+	}
+}
+
+reactiveclass Pong( Ping ping, Pong pong ) {
+	knownrebecs {
+		Ping ping;
+	}
+	statevars {
+		boolean isAlive;
+	}
+
+	msgsrv initial() {
+		isAlive = true;
+	}
+
+	msgsrv PingMessage(Ping sender) {
+		if (isAlive) {
+			sender.PongMessage(self);
+		}
+	}
+
+	msgsrv StopMessage() {
+		isAlive = false;
+	}
+}
+
+main {
+	Ping ping(ping, pong):();
+	Pong pong(ping, pong):();
+
+	ping.StartMessage();
+}

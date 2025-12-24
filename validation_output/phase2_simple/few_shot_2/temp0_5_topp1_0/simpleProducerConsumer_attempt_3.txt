@@ -1,0 +1,5 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:32, column:12, Unknown type mainRebeca
+

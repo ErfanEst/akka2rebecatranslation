@@ -1,0 +1,161 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase2_simple/v1_advanced/temp0_1_topp1_0
+File: simplePingPong
+Timestamp: 2025-12-24T19:07:48.799119
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate this given Akka program into fully valid Rebeca code that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Follow these rules:
+1) Actor → Reactiveclass mapping
+2) Message mapping & sender usage
+3) Timed constructs (after, delay)
+4) No return in msgsrv
+5) Initialization / main block rules
+6) Circular dependencies handled statically
+7) Randomness → nondeterministic expressions
+8) Remove println / I/O
+9) Correct timed Rebeca validation
+10) Final checks (no return, correct sender, main bindings)
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    timed reactiveclass Ping {
+    knownrebecs {
+        Pong pong;
+    }
+
+    statevars {
+        int count;
+    }
+
+    Ping(Pong pongRef) {
+        pong = pongRef;
+        count = 0;
+    }
+
+    msgsrv StartMessage() {
+        pong.PingMessage();
+    }
+
+    msgsrv PongMessage() {
+        count = count + 1;
+        if (count >= 10) {
+            sender().StopMessage();
+        } else {
+            sender().PingMessage();
+        }
+    }
+}
+
+timed reactiveclass Pong {
+    knownrebecs {
+    }
+
+    statevars {
+    }
+
+    Pong() {
+    }
+
+    msgsrv PingMessage() {
+        sender().PongMessage();
+    }
+
+    msgsrv StopMessage() {
+        // no further actions
+    }
+}
+
+main {
+    Ping ping(pong):();
+    Pong pong():();
+
+    ping.StartMessage();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:0, extraneous input 'timed' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:1, column:25, mismatched input '{' expecting {'extends', 'implements', '('}
+line:29, column:25, mismatched input '{' expecting {'extends', 'implements', '('}
+line:49, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:52, column:8, extraneous input '.' expecting IDENTIFIER
+line:52, column:9, Unknown type ping
+line:52, column:23, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+$timedRebeca
+
+reactiveclass Ping {
+	knownrebecs {
+		Pong pong;
+	}
+
+	statevars {
+		int count;
+	}
+
+	Ping(Pong pongRef) {
+		pong = pongRef;
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			sender().StopMessage();
+		} else {
+			sender().PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong {
+	knownrebecs {
+	}
+
+	statevars {
+	}
+
+	Pong() {
+	}
+
+	msgsrv PingMessage() {
+		sender().PongMessage();
+	}
+
+	msgsrv StopMessage() {
+		// no further actions
+	}
+}
+
+main {
+	Pong pong():();
+	Ping ping(pong):();
+
+	ping.StartMessage();
+}
+
+================================================================================

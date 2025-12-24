@@ -3,7 +3,7 @@
 System prompt variations for experiments.
 """
 
-MINIMAL = "Translate this Akka code to Rebeca equivalent code. Output only Rebeca code with no explanations."
+MINIMAL = "Translate this Akka code to Rebeca equivalent code."
 
 BASIC = """You are an expert in Akka and Rebeca programming languages.
 Translate accurately this Akka code to Rebeca equivalent code. Output only Rebeca code with no explanations."""
@@ -74,7 +74,7 @@ ClassName instanceName(knownrebecBindings):(constructorArgs);
 - Separate multiple knownrebecs with commas
 
 6) Circular dependencies
-If Akka uses runtime messages to establish links (e.g., SetNeighbor, ConfigurePeer, etc.), convert these to static knownrebec bindings in main.
+If Akka uses runtime messages to establish links that make a circular dependencies, convert these to static knownrebec bindings in main.
 Rebeca supports circular dependencies directly, so such linking messages must not appear at runtime.
 Example conversion:
 a ! SetNeighbor(b)

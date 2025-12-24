@@ -1,0 +1,81 @@
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; in Akka, messages are sent from main
+	}
+
+	msgsrv setClients(Client c1, Client c2) {
+		client1 = c1;
+		client2 = c2;
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		byte clientId;
+	}
+
+	Client() {
+	}
+
+	msgsrv initial() {
+		// clientId is assumed to be set before initial is processed
+		if (clientId == 1) {
+			counter.Increment(this);
+			counter.Increment(this);
+			counter.GetValue(this);
+		} else {
+			counter.Increment(this);
+		}
+	}
+
+	msgsrv setId(byte id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// Handle response; no output needed for model
+	}
+}
+
+main {
+	Counter counter(): ();
+	Client counterClient1(counter): ();
+	Client counterClient2(counter): ();
+
+	// wiring knownrebecs that depend on others' references or parameters
+	// set clients in counter
+	counter.setClients(counterClient1, counterClient2);
+
+	// set ids for clients
+	counterClient1.setId(1);
+	counterClient2.setId(2);
+}

@@ -1,0 +1,108 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		char item1[20];
+		char item2[20];
+	}
+
+	Producer() {
+		int i;
+		i = 0;
+		while (i < 20) {
+			item1[i] = 0;
+			item2[i] = 0;
+			i = i + 1;
+		}
+		// encode "item1" into item1 array
+		item1[0] = 'i';
+		item1[1] = 't';
+		item1[2] = 'e';
+		item1[3] = 'm';
+		item1[4] = '1';
+		// encode "item2" into item2 array
+		item2[0] = 'i';
+		item2[1] = 't';
+		item2[2] = 'e';
+		item2[3] = 'm';
+		item2[4] = '2';
+
+		self.initial();
+	}
+
+	msgsrv initial() {
+		self.produce(item1);
+		self.produce(item2);
+		consumer.consume();
+	}
+
+	msgsrv produce(char item[20]) {
+		consumer.item(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		int bufferSize;
+		char buffer[10][20];
+	}
+
+	Consumer() {
+		int i;
+		int j;
+		bufferSize = 0;
+		i = 0;
+		while (i < 10) {
+			j = 0;
+			while (j < 20) {
+				buffer[i][j] = 0;
+				j = j + 1;
+			}
+			i = i + 1;
+		}
+	}
+
+	msgsrv item(char data[20]) {
+		if (bufferSize < 10) {
+			int i;
+			i = 0;
+			while (i < 20) {
+				buffer[bufferSize][i] = data[i];
+				i = i + 1;
+			}
+			bufferSize = bufferSize + 1;
+		} else {
+			// buffer full, item dropped
+		}
+	}
+
+	msgsrv consume() {
+		if (bufferSize > 0) {
+			int i;
+			int j;
+			i = 0;
+			while (i < bufferSize - 1) {
+				j = 0;
+				while (j < 20) {
+					buffer[i][j] = buffer[i + 1][j];
+					j = j + 1;
+				}
+				i = i + 1;
+			}
+			bufferSize = bufferSize - 1;
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+}

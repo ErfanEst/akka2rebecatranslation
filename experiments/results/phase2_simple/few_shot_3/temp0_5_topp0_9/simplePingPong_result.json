@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Ping(5) {\n\tknownrebecs { Pong pong; }\n\tstatevars { int count; boolean active; }\n\n\tPing() {\n\t\tcount = 0;\n\t\tactive = true;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.StartMessage();\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tif (active) {\n\t\t\tpong.PingMessage();\n\t\t}\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tif (active) {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\tpong.StopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\tpong.PingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(5) {\n\tknownrebecs { Ping ping; }\n\tstatevars { boolean active; }\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tif (active) {\n\t\t\tping.PongMessage();\n\t\t}\n\t}\n\n\tmsgsrv StopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(5) {\n\tknownrebecs { Pong pong; }\n\tstatevars { int count; boolean active; }\n\n\tPing() {\n\t\tcount = 0;\n\t\tactive = true;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.StartMessage();\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tif (active) {\n\t\t\tpong.PingMessage();\n\t\t}\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tif (active) {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\tpong.StopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\tpong.PingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(5) {\n\tknownrebecs { Ping ping; }\n\tstatevars { boolean active; }\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tif (active) {\n\t\t\tping.PongMessage();\n\t\t}\n\t}\n\n\tmsgsrv StopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:31:52.829675",
+      "code_length": 721
+    }
+  ],
+  "file_name": "simplePingPong.txt",
+  "file_id": "simplePingPong",
+  "elapsed_time": 3.686530828475952,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_3/temp0_5_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:31:52.829710"
+}

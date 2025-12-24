@@ -1,0 +1,79 @@
+reactiveclass CounterMulticastSystem(5) {
+	knownrebecs {
+		Counter counter;
+		Client client1;
+		Client client2;
+	}
+
+	statevars {
+	}
+
+	// Constructor
+	CounterMulticastSystem() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// Simulate:
+		// counter.tell(Increment, client1)
+		counter.increment() with (client1);
+
+		// counter.tell(Increment, client2)
+		counter.increment() with (client2);
+
+		// counter.tell(GetValue, client1)
+		counter.getValue() with (client1);
+	}
+}
+
+reactiveclass Counter(5) {
+	knownrebecs {
+	}
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv increment() {
+		count = count + 1;
+		((Client)sender).valueResponse(count);
+	}
+
+	msgsrv decrement() {
+		count = count - 1;
+		((Client)sender).valueResponse(count);
+	}
+
+	msgsrv getValue() {
+		((Client)sender).valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	Client(int clientIdArg) {
+		clientId = clientIdArg;
+	}
+
+	msgsrv valueResponse(int value) {
+		// Original println removed; could store value if needed
+	}
+}
+
+main {
+	Counter counter():();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+	CounterMulticastSystem system(counter, client1, client2):();
+}

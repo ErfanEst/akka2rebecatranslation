@@ -1,0 +1,63 @@
+reactiveclass Ping(knownrebecs { Pong pong; }) {
+    statevars {
+        int count;
+        Pong selfRef;
+    }
+
+    Ping() {
+        count = 0;
+        selfRef = pong; // dummy assignment to use known rebec if needed
+    }
+
+    msgsrv initial() {
+        // no automatic start here; StartMessage is sent from main or another rebec
+    }
+
+    msgsrv StartMessage() {
+        // println("Ping started the game!");
+        pong.PingMessage();
+    }
+
+    msgsrv PongMessage() {
+        count = count + 1;
+        // println("Ping received pong #" + count);
+
+        if (count >= 10) {
+            sender().StopMessage();
+            // println("Ping stopped");
+            // In Rebeca we typically don't model explicit stop; just no further messages
+        } else {
+            sender().PingMessage();
+        }
+    }
+}
+
+reactiveclass Pong() {
+    statevars {
+        // no state
+    }
+
+    Pong() {
+    }
+
+    msgsrv initial() {
+    }
+
+    msgsrv PingMessage() {
+        // println("Pong received ping");
+        sender().PongMessage();
+    }
+
+    msgsrv StopMessage() {
+        // println("Pong stopped");
+        // no more behavior
+    }
+}
+
+main {
+    Ping ping(pong);
+    Pong pong();
+
+    // start the game automatically
+    ping.StartMessage();
+}

@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:16, column:10, The method StopMessage() is undefined for the type Ping
+line:18, column:10, The method PingMessage(Ping) is undefined for the type Ping
+line:31, column:9, The method PongMessage(Pong) is undefined for the type Ping
+line:42, column:5, extraneous input '.' expecting IDENTIFIER
+line:42, column:6, Unknown type ping
+line:42, column:20, mismatched input ';' expecting ':'
+

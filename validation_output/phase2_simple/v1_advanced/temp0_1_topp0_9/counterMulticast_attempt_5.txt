@@ -1,0 +1,26 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:28, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:51, column:18, mismatched input ';' expecting ':'
+line:52, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:52, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:53, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:55, column:8, extraneous input '.' expecting IDENTIFIER
+line:55, column:9, Multiple definition for the actor counter
+line:55, column:16, mismatched input '.' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:55, column:26, missing IDENTIFIER at '('
+line:55, column:29, mismatched input 'after' expecting ':'
+line:56, column:8, extraneous input '.' expecting IDENTIFIER
+line:56, column:9, Multiple definition for the actor counter
+line:56, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:56, column:26, missing IDENTIFIER at '('
+line:56, column:29, mismatched input 'after' expecting ':'
+line:57, column:8, extraneous input '.' expecting IDENTIFIER
+line:57, column:9, Multiple definition for the actor counter
+line:57, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:57, column:25, missing IDENTIFIER at '('
+line:57, column:28, mismatched input 'after' expecting ':'
+

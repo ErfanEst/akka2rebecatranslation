@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input 'pongInterface' expecting INTLITERAL
+line:33, column:14, Reactiveclass Pong should be defined as abstract
+line:33, column:44, mismatched input '{' expecting {'(', ','}
+line:56, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:56, column:6, The method Ping(Pong) is undefined for the type Ping
+line:58, column:5, extraneous input '.' expecting IDENTIFIER
+line:58, column:6, Unknown type ping
+line:58, column:20, mismatched input ';' expecting ':'
+

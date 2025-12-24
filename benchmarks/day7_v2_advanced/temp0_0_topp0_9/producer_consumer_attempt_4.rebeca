@@ -1,0 +1,67 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+	}
+
+	Producer() {
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; main will send produceItem messages
+	}
+
+	msgsrv produceItem(int itemId) {
+		consumer.item(itemId);
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+	}
+
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; main will trigger messages
+	}
+
+	msgsrv item(int data) {
+		if (size < 10) {
+			buffer[tail] = data;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		}
+	}
+
+	msgsrv consume() {
+		if (size > 0) {
+			int item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.produceItem(1);
+	producer.produceItem(2);
+	consumer.consume();
+}

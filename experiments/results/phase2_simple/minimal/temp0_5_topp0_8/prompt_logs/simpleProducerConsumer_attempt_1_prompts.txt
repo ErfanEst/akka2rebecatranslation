@@ -1,0 +1,78 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/minimal/temp0_5_topp0_8
+File: simpleProducerConsumer
+Timestamp: 2025-12-24T17:56:18.437059
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+Translate this Akka code to Rebeca equivalent code. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package ProducerConsumerSimple
+
+import akka.actor._
+
+case class Produce(item: String)
+case class Consume(item: String)
+
+class Producer(consumer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Produce(item) =>
+      println(s"Producer: sending $item")
+      consumer ! Consume(item)
+  }
+}
+
+class Consumer extends Actor {
+  def receive: Receive = {
+    case Consume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object ProducerConsumerSystem extends App {
+  val system = ActorSystem("ProducerConsumerSystem")
+  val consumer = system.actorOf(Props[Consumer], "consumer")
+  val producer = system.actorOf(Props(new Producer(consumer)), "producer")
+
+  producer ! Produce("item1")
+  producer ! Produce("item2")
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Producer(knownrebecs { Consumer consumer }) {
+    msgsrv initial() {
+        // Simulate sending two produce messages as in main
+        self.produce("item1");
+        self.produce("item2");
+    }
+
+    msgsrv produce(char item[]) {
+        // println("Producer: sending " + item);
+        consumer.consume(item);
+    }
+}
+
+reactiveclass Consumer {
+    msgsrv initial() {
+        // No initialization needed
+    }
+
+    msgsrv consume(char item[]) {
+        // println("Consumer: received " + item);
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer);
+}
+
+================================================================================

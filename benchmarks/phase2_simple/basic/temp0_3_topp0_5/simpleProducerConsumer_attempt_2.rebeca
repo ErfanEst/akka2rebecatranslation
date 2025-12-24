@@ -1,0 +1,33 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgsrv initial() {
+		// In Rebeca, we cannot directly trigger from main here.
+		// The main block below will send Produce messages.
+	}
+
+	msgsrv Produce(string item) {
+		println("Producer: sending " + item);
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	msgsrv initial() {
+		// No initialization needed
+	}
+
+	msgsrv Consume(string item) {
+		println("Consumer: received " + item);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	producer.Produce("item1");
+	producer.Produce("item2");
+}

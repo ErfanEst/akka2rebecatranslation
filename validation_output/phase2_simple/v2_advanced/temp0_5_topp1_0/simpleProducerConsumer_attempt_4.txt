@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:19, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:36, column:10, The method Consumer(unknown) is undefined for the type Consumer
+line:37, column:1, "Producer" undeclared
+line:37, column:1, missing '(' at 'Producer'
+line:37, column:10, mismatched input 'producer' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:37, column:18, extraneous input '(' expecting IDENTIFIER
+line:37, column:19, Multiple definition for the actor consumer
+line:37, column:27, missing '(' at ')'
+line:38, column:0, mismatched input '}' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

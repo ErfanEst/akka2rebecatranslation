@@ -1,0 +1,51 @@
+reactiveclass Producer(5) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars { 
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv ProduceMsg(int item) {
+		consumer.ConsumeMsg(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	statevars { 
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv ConsumeMsg(int item) {
+		// no-op
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	mainRebeca m(consumer, producer):();
+}
+
+reactiveclass mainRebeca(5) {
+	knownrebecs {
+		Consumer consumer;
+		Producer producer;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+	}
+}

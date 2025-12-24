@@ -1,0 +1,58 @@
+reactiveclass Counter() {
+	knownrebecs { }
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// println("Counter incremented to " + count);
+		// sender.ValueResponse(count); // 'sender' is not supported in standard Rebeca
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// println("Counter decremented to " + count);
+		// sender.ValueResponse(count); // 'sender' is not supported in standard Rebeca
+	}
+
+	msgsrv GetValue() {
+		// sender.ValueResponse(count); // 'sender' is not supported in standard Rebeca
+	}
+}
+
+reactiveclass Client(int id) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	Client() {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+
+	msgsrv Start() {
+		counter.Increment();
+		counter.Increment();
+		counter.GetValue();
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter, 1);
+	Client client2(counter, 2);
+
+	client1.Start();
+	client2.Start();
+}

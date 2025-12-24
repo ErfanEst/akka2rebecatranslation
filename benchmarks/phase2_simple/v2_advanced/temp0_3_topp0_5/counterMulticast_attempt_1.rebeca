@@ -1,0 +1,60 @@
+timedreactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// println("Counter incremented to " + count);
+		ValueResponse(count, sender);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// println("Counter decremented to " + count);
+		ValueResponse(count, sender);
+	}
+
+	msgsrv GetValue() {
+		ValueResponse(count, sender);
+	}
+
+	msgsrv ValueResponse(int value, ref Client client) {
+		// This message server is not used in Counter; defined for type completeness
+	}
+}
+
+timedreactiveclass Client {
+	statevars {
+		int clientId;
+		ref Counter counter;
+	}
+
+	msgsrv initial(int id, ref Counter c) {
+		clientId = id;
+		counter = c;
+	}
+
+	msgsrv ValueResponse(int value, ref Client client) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(1, counter);
+	Client client2(2, counter);
+
+	// counter.tell(Increment, client1)
+	counter.Increment() after(0) sender(client1);
+
+	// counter.tell(Increment, client2)
+	counter.Increment() after(0) sender(client2);
+
+	// counter.tell(GetValue, client1)
+	counter.GetValue() after(0) sender(client1);
+}

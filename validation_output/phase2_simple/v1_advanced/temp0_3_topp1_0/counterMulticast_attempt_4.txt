@@ -1,0 +1,22 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, missing INTLITERAL at ')'
+line:12, column:9, There is no meta data for type ReactiveClass
+line:17, column:9, There is no meta data for type ReactiveClass
+line:21, column:9, There is no meta data for type ReactiveClass
+line:29, column:21, mismatched input 'Counter' expecting INTLITERAL
+line:45, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:45, column:8, The method Client(byte) is undefined for the type Client
+line:46, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:46, column:8, The method Client(byte) is undefined for the type Client
+line:48, column:8, extraneous input '.' expecting IDENTIFIER
+line:48, column:9, Unknown type counter
+line:48, column:20, mismatched input ';' expecting ':'
+line:49, column:8, extraneous input '.' expecting IDENTIFIER
+line:49, column:9, Unknown type counter
+line:49, column:20, mismatched input ';' expecting ':'
+line:50, column:8, extraneous input '.' expecting IDENTIFIER
+line:50, column:9, Unknown type counter
+line:50, column:19, mismatched input ';' expecting ':'
+

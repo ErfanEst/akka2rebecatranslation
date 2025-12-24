@@ -1,0 +1,33 @@
+reactiveclass Producer {
+    knownrebecs {
+        Consumer consumer;
+    }
+    msgsrv initial() {
+        // initialization if needed
+    }
+    msgsrv Produce(string item) {
+        // println is not available in Rebeca; use comments to represent output
+        // Producer: sending item
+        consumer.Consume(item);
+    }
+}
+
+reactiveclass Consumer {
+    knownrebecs {
+    }
+    msgsrv initial() {
+        // initialization if needed
+    }
+    msgsrv Consume(string item) {
+        // Consumer: received item
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer):();
+    {
+        producer.Produce("item1");
+        producer.Produce("item2");
+    }
+}

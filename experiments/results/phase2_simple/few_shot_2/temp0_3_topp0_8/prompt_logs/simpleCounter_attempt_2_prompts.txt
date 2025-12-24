@@ -1,0 +1,176 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase2_simple/few_shot_2/temp0_3_topp0_8
+File: simpleCounter
+Timestamp: 2025-12-24T20:14:30.555842
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Counter(5) {
+  knownrebecs { Client client1; Client client2; }
+  statevars { int count; }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv initial() {
+    self.increment(client1);
+    self.increment(client2);
+    self.getValue(client1);
+  }
+
+  msgsrv increment(Client sender) {
+    count = count + 1;
+    sender.valueResponse(count);
+  }
+
+  msgsrv decrement(Client sender) {
+    count = count - 1;
+    sender.valueResponse(count);
+  }
+
+  msgsrv getValue(Client sender) {
+    sender.valueResponse(count);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+  statevars { int clientId; }
+
+  Client(int id) {
+    clientId = id;
+  }
+
+  msgsrv initial() {
+  }
+
+  msgsrv valueResponse(int value) {
+  }
+}
+
+main {
+  Counter counter(counter_client1, counter_client2):();
+  Client counter_client1(counter): (counter);
+  Client counter_client2(counter): (counter);
+  Client client1(counter): (counter);
+  Client client2(counter): (counter);
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:47, column:9, The method Client(Counter) is undefined for the type Client
+line:48, column:9, The method Client(Counter) is undefined for the type Client
+line:49, column:9, The method Client(Counter) is undefined for the type Client
+line:50, column:9, The method Client(Counter) is undefined for the type Client
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter(5) {
+  knownrebecs { Client client1; Client client2; }
+  statevars { int count; }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv initial() {
+    self.increment(client1);
+    self.increment(client2);
+    self.getValue(client1);
+  }
+
+  msgsrv increment(Client sender) {
+    count = count + 1;
+    sender.valueResponse(count);
+  }
+
+  msgsrv decrement(Client sender) {
+    count = count - 1;
+    sender.valueResponse(count);
+  }
+
+  msgsrv getValue(Client sender) {
+    sender.valueResponse(count);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+  statevars { int clientId; }
+
+  Client() {
+    clientId = 0;
+  }
+
+  msgsrv initial() {
+  }
+
+  msgsrv valueResponse(int value) {
+  }
+}
+
+main {
+  Counter counter(counter_client1, counter_client2):();
+  Client counter_client1(counter):();
+  Client counter_client2(counter):();
+  Client client1(counter):();
+  Client client2(counter):();
+}
+
+================================================================================

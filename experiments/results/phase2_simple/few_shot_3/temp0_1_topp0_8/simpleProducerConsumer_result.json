@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n\n  statevars { int itemId; }\n\n  Producer() {\n    itemId = 0;\n  }\n\n  msgsrv Produce(int item) {\n    consumer.Consume(item);\n  }\n\n  msgsrv initial() {\n    self.Produce(1);\n    self.Produce(2);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(int item) {\n  }\n}\n\nmain {\n  Consumer consumer():();\n  Producer producer(consumer):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n\n  statevars { }\n\n  Producer() { }\n\n  msgsrv Produce(string item) {\n    consumer.Consume(item);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(string item) {\n  }\n}\n\nmain {\n  Consumer consumer():();\n  Producer producer(consumer):();\n\n  producer.Produce(\"item1\");\n  producer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:24, Unknown type string\nline:20, column:24, Unknown type string\nline:28, column:10, extraneous input '.' expecting IDENTIFIER\nline:28, column:11, Unknown type producer\nline:28, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:29, column:10, extraneous input '.' expecting IDENTIFIER\nline:29, column:11, Unknown type producer\nline:29, column:27, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T20:26:33.987278",
+      "code_length": 416
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n\n  statevars { int itemId; }\n\n  Producer() {\n    itemId = 0;\n  }\n\n  msgsrv Produce(int item) {\n    consumer.Consume(item);\n  }\n\n  msgsrv initial() {\n    self.Produce(1);\n    self.Produce(2);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(int item) {\n  }\n}\n\nmain {\n  Consumer consumer():();\n  Producer producer(consumer):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:26:37.275649",
+      "code_length": 449
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 5.856621980667114,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_3/temp0_1_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:26:37.275686"
+}

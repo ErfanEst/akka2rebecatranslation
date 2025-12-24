@@ -1,0 +1,45 @@
+package CounterMulticast
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+class Counter extends Actor {
+  private var count = 0
+  
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      println(s"Counter incremented to $count")
+      sender() ! ValueResponse(count)
+      
+    case Decrement =>
+      count -= 1
+      println(s"Counter decremented to $count")
+      sender() ! ValueResponse(count)
+      
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterSystem extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+  
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}

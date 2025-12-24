@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, missing INTLITERAL at ')'
+line:14, column:9, There is no meta data for type ReactiveClass
+line:19, column:9, There is no meta data for type ReactiveClass
+line:23, column:9, There is no meta data for type ReactiveClass
+line:27, column:21, mismatched input 'Counter' expecting INTLITERAL
+line:45, column:18, mismatched input 'Counter' expecting INTLITERAL
+line:63, column:5, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:63, column:16, extraneous input ',' expecting IDENTIFIER
+line:63, column:25, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:63, column:34, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+line:63, column:44, extraneous input ',' expecting IDENTIFIER
+line:63, column:53, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:63, column:62, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+

@@ -1,0 +1,45 @@
+reactiveclass Ping (Pong pong) {
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.StopMessage();
+			// self.stop();  // Not supported in standard Rebeca
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong {
+	statevars {
+		// no state variables
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv PingMessage() {
+		sender.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+		// self.stop();  // Not supported in standard Rebeca
+	}
+}
+
+main {
+	Pong pong();
+	Ping ping(pong): StartMessage();
+}

@@ -1,0 +1,27 @@
+reactiveclass Producer(knownrebecs { Consumer consumer }) {
+    msgsrv initial() {
+        // Simulate sending two produce messages as in main
+        self.produce("item1");
+        self.produce("item2");
+    }
+
+    msgsrv produce(char item[]) {
+        // println("Producer: sending " + item);
+        consumer.consume(item);
+    }
+}
+
+reactiveclass Consumer {
+    msgsrv initial() {
+        // No initialization needed
+    }
+
+    msgsrv consume(char item[]) {
+        // println("Consumer: received " + item);
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer);
+}

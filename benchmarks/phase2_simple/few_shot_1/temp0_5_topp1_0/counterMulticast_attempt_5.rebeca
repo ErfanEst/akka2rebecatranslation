@@ -1,0 +1,58 @@
+reactiveclass Counter(5) {
+	knownrebecs { }
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs { Counter counter; }
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial() {
+		// default id assignment based on knownrebecs structure is not supported,
+		// so use separate initialization messages from main instead
+	}
+
+	msgsrv Setup(int id) {
+		clientId = id;
+		if (clientId == 1) {
+			counter.Increment(self);
+			counter.Increment(self);
+			counter.GetValue(self);
+		}
+	}
+
+	msgsrv ValueResponse(int value) {
+		// print: Client clientId received value: value
+	}
+}
+
+main {
+	Counter counter():();
+	Client client1(counter):();
+	Client client2(counter):();
+
+	client1.Setup(1):();
+	client2.Setup(2):();
+}

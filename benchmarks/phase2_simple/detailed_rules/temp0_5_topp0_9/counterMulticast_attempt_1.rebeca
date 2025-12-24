@@ -1,0 +1,66 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+
+	construct() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// println: "Counter incremented to " + count
+		// No direct sender(), so multicast to known clients (approximation)
+		client1.ValueResponse(count);
+		client2.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// println: "Counter decremented to " + count
+		client1.ValueResponse(count);
+		client2.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		client1.ValueResponse(count);
+		client2.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+	}
+
+	knownrebecs {
+		Counter counter;
+	}
+
+	construct(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println: "Client " + clientId + " received value: " + value
+	}
+}
+
+main {
+	Counter counter(counterClient1, counterClient2);
+	Client counterClient1(counter);
+	Client counterClient2(counter);
+
+	// Simulate:
+	// counter.tell(Increment, client1)
+	counter.Increment();
+	// counter.tell(Increment, client2)
+	counter.Increment();
+	// counter.tell(GetValue, client1)
+	counter.GetValue();
+}

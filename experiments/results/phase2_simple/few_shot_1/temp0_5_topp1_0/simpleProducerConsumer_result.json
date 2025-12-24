@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs { \n\t\tConsumer consumer;\n\t} \n\n\tstatevars { \n\t\tint itemId;\n\t} \n\n\tmsgsrv initial() {\n\t\titemId = 0;\n\t\tself.Produce(1);\n\t\tself.Produce(2);\n\t}\n\n\tmsgsrv Produce(int id) {\n\t\titemId = id;\n\t\tconsumer.Consume(itemId);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t\t// no known rebecs\n\t}\n\n\tstatevars {\n\t\tint lastItemId;\n\t}\n\n\tmsgsrv initial() {\n\t\tlastItemId = -1;\n\t}\n\n\tmsgsrv Consume(int id) {\n\t\tlastItemId = id;\n\t}\n}\n\nmain {\n\tConsumer consumer() : ();\n\tProducer producer(consumer) : ();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs { \n\t\tConsumer consumer;\n\t} \n\n\tstatevars { \n\t\t// no internal state\n\t} \n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\t// Producer: sending item\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t\t// no known rebecs\n\t}\n\n\tstatevars {\n\t\t// no internal state\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\t// Consumer: received item\n\t}\n}\n\nmain {\n\tConsumer consumer() : ();\n\tProducer producer(consumer) : (Produce(\"item1\"), Produce(\"item2\"));\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:14, column:23, Unknown type string\nline:33, column:23, Unknown type string\nline:40, column:10, The method Producer(unknown, unknown) is undefined for the type Producer\nline:40, column:32, \"self\" undeclared\nline:40, column:50, \"self\" undeclared",
+      "timestamp": "2025-12-24T20:05:08.480385",
+      "code_length": 587
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs { \n\t\tConsumer consumer;\n\t} \n\n\tstatevars { \n\t\tint itemId;\n\t} \n\n\tmsgsrv initial() {\n\t\titemId = 0;\n\t\tself.Produce(1);\n\t\tself.Produce(2);\n\t}\n\n\tmsgsrv Produce(int id) {\n\t\titemId = id;\n\t\tconsumer.Consume(itemId);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t\t// no known rebecs\n\t}\n\n\tstatevars {\n\t\tint lastItemId;\n\t}\n\n\tmsgsrv initial() {\n\t\tlastItemId = -1;\n\t}\n\n\tmsgsrv Consume(int id) {\n\t\tlastItemId = id;\n\t}\n}\n\nmain {\n\tConsumer consumer() : ();\n\tProducer producer(consumer) : ();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:05:11.206248",
+      "code_length": 521
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 5.988235712051392,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_1/temp0_5_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:05:11.206361"
+}

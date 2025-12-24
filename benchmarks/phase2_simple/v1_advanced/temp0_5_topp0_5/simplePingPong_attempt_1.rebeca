@@ -1,0 +1,45 @@
+reactiveclass Ping {
+		statevars {
+			int count;
+			Pong pong;
+		}
+
+		Ping(Pong pongRef) {
+			count = 0;
+			pong = pongRef;
+		}
+
+		msgsrv StartMessage() {
+			pong.PingMessage();
+		}
+
+		msgsrv PongMessage() {
+			count = count + 1;
+			if (count >= 10) {
+				sender.StopMessage();
+			} else {
+				sender.PingMessage();
+			}
+		}
+	}
+
+	reactiveclass Pong {
+		statevars {
+		}
+
+		Pong() {
+		}
+
+		msgsrv PingMessage() {
+			sender.PongMessage();
+		}
+
+		msgsrv StopMessage() {
+		}
+	}
+
+	main {
+		Pong pong();
+		Ping ping(pong): (StartMessage)@0;
+	}
+}

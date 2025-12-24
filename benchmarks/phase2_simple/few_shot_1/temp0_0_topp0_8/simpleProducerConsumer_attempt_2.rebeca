@@ -1,0 +1,46 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		int itemId;
+	}
+
+	msgsrv initial() {
+		itemId = 0;
+		self.start();
+	}
+
+	msgsrv start() {
+		// send two items as in the original main
+		itemId = 1;
+		consumer.consume(itemId);
+		itemId = 2;
+		consumer.consume(itemId);
+	}
+
+	msgsrv produce(int item) {
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+	}
+	statevars {
+		int lastItem;
+	}
+
+	msgsrv initial() {
+		lastItem = -1;
+	}
+
+	msgsrv consume(int item) {
+		lastItem = item;
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+}

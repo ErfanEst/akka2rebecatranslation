@@ -1,0 +1,62 @@
+reactiveclass Counter {
+	knownrebec Client client1;
+	knownrebec Client client2;
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior on start; messages come from environment (Main).
+	}
+
+	msgsrv Increment(Client senderRef) {
+		count = count + 1;
+		senderRef.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client senderRef) {
+		count = count - 1;
+		senderRef.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client senderRef) {
+		senderRef.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebec Counter counter;
+
+	statevars {
+		int clientId;
+	}
+
+	Client() {
+		clientId = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; messages are initiated from Main.
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	// Declaration of rebecs
+	Client client1(counter):();
+	Client client2(counter):();
+	Counter counter(client1, client2):();
+
+	// Simulation of message passing
+	client1.counter.Increment(client1);
+	client2.counter.Increment(client2);
+	client1.counter.GetValue(client1);
+}

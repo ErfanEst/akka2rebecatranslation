@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n  statevars { }\n\n  Producer() { }\n\n  msgsrv initial() {\n    char[10] item1;\n    char[10] item2;\n    item1[0] = 'i'; item1[1] = 't'; item1[2] = 'e'; item1[3] = 'm'; item1[4] = '1';\n    item2[0] = 'i'; item2[1] = 't'; item2[2] = 'e'; item2[3] = 'm'; item2[4] = '2';\n    self.Produce(item1);\n    self.Produce(item2);\n  }\n\n  msgsrv Produce(char[10] item) {\n    consumer.Consume(item);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(char[10] item) {\n  }\n}\n\nmain {\n  Consumer c():();\n  Producer p(c):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n  statevars { }\n\n  Producer() { }\n\n  msgsrv initial() {\n    self.Produce(\"item1\");\n    self.Produce(\"item2\");\n  }\n\n  msgsrv Produce(char[10] item) {\n    consumer.Consume(item);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(char[10] item) {\n  }\n}\n\nmain {\n  Consumer c():();\n  Producer p(c):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:9, The method Produce(String) is undefined for the type Producer\nline:9, column:9, The method Produce(String) is undefined for the type Producer",
+      "timestamp": "2025-12-24T20:28:48.493346",
+      "code_length": 418
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n  knownrebecs { Consumer consumer; }\n  statevars { }\n\n  Producer() { }\n\n  msgsrv initial() {\n    char[10] item1;\n    char[10] item2;\n    item1[0] = 'i'; item1[1] = 't'; item1[2] = 'e'; item1[3] = 'm'; item1[4] = '1';\n    item2[0] = 'i'; item2[1] = 't'; item2[2] = 'e'; item2[3] = 'm'; item2[4] = '2';\n    self.Produce(item1);\n    self.Produce(item2);\n  }\n\n  msgsrv Produce(char[10] item) {\n    consumer.Consume(item);\n  }\n}\n\nreactiveclass Consumer(5) {\n  knownrebecs { }\n  statevars { }\n\n  Consumer() { }\n\n  msgsrv Consume(char[10] item) {\n  }\n}\n\nmain {\n  Consumer c():();\n  Producer p(c):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:28:52.284527",
+      "code_length": 622
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 6.500422477722168,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_3/temp0_3_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:28:52.284556"
+}

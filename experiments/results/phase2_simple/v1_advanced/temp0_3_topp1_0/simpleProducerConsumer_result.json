@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "timedreactiveclass Producer {\n\t\tknownrebecs {\n\t\t\tConsumer consumer;\n\t\t}\n\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\n\t\tmsgsrv Produce(int item) {\n\t\t\tconsumer.Consume(item);\n\t\t}\n\t}\n\n\ttimedreactiveclass Consumer {\n\t\tknownrebecs {\n\t\t}\n\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\n\t\tmsgsrv Consume(int item) {\n\t\t\t// no-op\n\t\t}\n\t}\n\n\tmain {\n\t\tConsumer consumer() : ();\n\t\tProducer producer(consumer) : ();\n\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "timedreactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\t\n\tstatevars {\n\t\tint dummy;\n\t}\n\t\n\tmsgsrv initial() {\n\t}\n\t\n\tmsgsrv Produce(string item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\ntimedreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\t\n\tstatevars {\n\t\tint dummy;\n\t}\n\t\n\tmsgsrv initial() {\n\t}\n\t\n\tmsgsrv Consume(string item) {\n\t\t// no-op\n\t}\n}\n\nmain {\n\tProducer producer(consumer):();\n\tConsumer consumer():();\n\t\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:12:53.735404",
+      "code_length": 468
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "timedreactiveclass Producer {\n\t\tknownrebecs {\n\t\t\tConsumer consumer;\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Produce(string item) {\n\t\t\tconsumer.Consume(item);\n\t\t}\n\t}\n\n\ttimedreactiveclass Consumer {\n\t\tknownrebecs {\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Consume(string item) {\n\t\t\t// no-op\n\t\t}\n\t}\n\n\tmain {\n\t\tConsumer consumer():();\n\t\tProducer producer(consumer):();\n\t\t\n\t\tproducer.Produce(\"item1\");\n\t\tproducer.Produce(\"item2\");\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:12:58.402140",
+      "code_length": 531
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "timedreactiveclass Producer {\n\t\tknownrebecs {\n\t\t\tConsumer consumer;\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Produce(int item) {\n\t\t\tconsumer.Consume(item);\n\t\t}\n\t}\n\n\ttimedreactiveclass Consumer {\n\t\tknownrebecs {\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Consume(int item) {\n\t\t\t// no-op\n\t\t}\n\t}\n\n\tmain {\n\t\tConsumer consumer():();\n\t\tProducer producer(consumer):();\n\t\t\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:13:03.573931",
+      "code_length": 513
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "timedreactiveclass Producer {\n\t\tknownrebecs {\n\t\t\tConsumer consumer;\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Produce(int item) {\n\t\t\tconsumer.Consume(item);\n\t\t}\n\t}\n\n\ttimedreactiveclass Consumer {\n\t\tknownrebecs {\n\t\t}\n\t\t\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\t\t\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\t\t\n\t\tmsgsrv Consume(int item) {\n\t\t\t// no-op\n\t\t}\n\t}\n\n\tmain {\n\t\tConsumer consumer():();\n\t\tProducer producer(consumer):();\n\t\t\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:13:08.704821",
+      "code_length": 513
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "timedreactiveclass Producer {\n\t\tknownrebecs {\n\t\t\tConsumer consumer;\n\t\t}\n\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\n\t\tmsgsrv Produce(int item) {\n\t\t\tconsumer.Consume(item);\n\t\t}\n\t}\n\n\ttimedreactiveclass Consumer {\n\t\tknownrebecs {\n\t\t}\n\n\t\tstatevars {\n\t\t\tint dummy;\n\t\t}\n\n\t\tmsgsrv initial() {\n\t\t\t// no-op\n\t\t}\n\n\t\tmsgsrv Consume(int item) {\n\t\t\t// no-op\n\t\t}\n\t}\n\n\tmain {\n\t\tConsumer consumer() : ();\n\t\tProducer producer(consumer) : ();\n\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:13:11.484405",
+      "code_length": 503
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 21.359051942825317,
+  "config": {
+    "experiment_name": "phase2_simple/v1_advanced/temp0_3_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:13:11.484478"
+}

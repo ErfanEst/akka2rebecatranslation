@@ -1,0 +1,60 @@
+import Environment;
+
+	reactiveclass Counter {
+		knownrebec Environment env;
+		int count;
+
+		Counter() {
+			count = 0;
+		}
+
+		msgsrv initial() {
+			// no-op
+		}
+
+		msgsrv Increment(Client sender) {
+			count = count + 1;
+			env.print("Counter incremented to " + count);
+			sender.ValueResponse(count);
+		}
+
+		msgsrv Decrement(Client sender) {
+			count = count - 1;
+			env.print("Counter decremented to " + count);
+			sender.ValueResponse(count);
+		}
+
+		msgsrv GetValue(Client sender) {
+			sender.ValueResponse(count);
+		}
+	}
+
+	reactiveclass Client {
+		knownrebec Environment env;
+		knownrebec Counter counter;
+		int clientId;
+
+		Client(int id) {
+			clientId = id;
+		}
+
+		msgsrv initial() {
+			// no-op; interactions are initiated from main
+		}
+
+		msgsrv ValueResponse(int value) {
+			env.print("Client " + clientId + " received value: " + value);
+		}
+	}
+
+	main {
+		Environment env();
+		Counter counter(env);
+		Client client1(env, counter, 1);
+		Client client2(env, counter, 2);
+
+		counter.Increment(client1);
+		counter.Increment(client2);
+		counter.GetValue(client1);
+	}
+}

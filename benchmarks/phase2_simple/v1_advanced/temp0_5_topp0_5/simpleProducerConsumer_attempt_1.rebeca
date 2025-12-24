@@ -1,0 +1,43 @@
+reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+			// simulate sending two items at the start
+			self.produceItem1();
+			self.produceItem2();
+		}
+
+		msgsrv produceItem1() {
+			consumer.consume("item1");
+		}
+
+		msgsrv produceItem2() {
+			consumer.consume("item2");
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+		}
+
+		msgsrv consume(string item) {
+			// item received, no I/O
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+	}
+}

@@ -1,0 +1,36 @@
+timedreactiveclass Producer(knownrebecs { Consumer consumer }) {
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// Start by sending two Produce messages to self with different items
+		self.Produce("item1");
+		self.Produce("item2");
+	}
+
+	msgsrv Produce(string item) {
+		// Producer: sending item
+		consumer.Consume(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// no initialization needed
+	}
+
+	msgsrv Consume(string item) {
+		// Consumer: received item
+	}
+}
+
+main {
+	Producer producer(consumer):();
+	Consumer consumer():();
+
+}

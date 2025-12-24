@@ -1,0 +1,50 @@
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+		// no state variables
+	}
+
+	Producer(Consumer c) {
+		consumer = c;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		// println("Producer: sending " + itemId);
+		consumer.ConsumeMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs {
+		// no known rebecs
+	}
+	statevars {
+		// no state variables
+	}
+
+	Consumer() {
+		// constructor
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ConsumeMsg(int itemId) {
+		// println("Consumer: received " + itemId);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	producer.ProduceMsg(1);
+	producer.ProduceMsg(2);
+}

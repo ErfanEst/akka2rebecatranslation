@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass CounterMulticastSystem(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\tCounterMulticastSystem() {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\t// Simulate:\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment_client1();\n\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment_client2();\n\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue_client1();\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\t// Separate msgsrv per logical sender (client1 / client2)\n\tmsgsrv increment_client1() {\n\t\tcount = count + 1;\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv increment_client2() {\n\t\tcount = count + 1;\n\t\tclient2.valueResponse(count);\n\t}\n\n\tmsgsrv decrement_client1() {\n\t\tcount = count - 1;\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv decrement_client2() {\n\t\tcount = count - 1;\n\t\tclient2.valueResponse(count);\n\t}\n\n\tmsgsrv getValue_client1() {\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv getValue_client2() {\n\t\tclient2.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tClient(int clientIdArg) {\n\t\tclientId = clientIdArg;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// Original println removed; could store value if needed\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounterMulticastSystem system(counter, client1, client2):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass CounterMulticastSystem(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\t// Constructor\n\tCounterMulticastSystem() {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\t// Simulate:\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment() with (client1);\n\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment() with (client2);\n\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue() with (client1);\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv increment() {\n\t\tcount = count + 1;\n\t\t((Client)sender).valueResponse(count);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcount = count - 1;\n\t\t((Client)sender).valueResponse(count);\n\t}\n\n\tmsgsrv getValue() {\n\t\t((Client)sender).valueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tClient(int clientIdArg) {\n\t\tclientId = clientIdArg;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// Original println removed; could store value if needed\n\t}\n}\n\nmain {\n\tCounter counter():();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounterMulticastSystem system(counter, client1, client2):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:19, column:22, The method with(Client) is undefined\nline:19, column:22, missing ';' at 'with'\nline:22, column:22, The method with(Client) is undefined\nline:22, column:22, missing ';' at 'with'\nline:25, column:21, The method with(Client) is undefined\nline:25, column:21, missing ';' at 'with'",
+      "timestamp": "2025-12-24T12:17:23.096584",
+      "code_length": 1225
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass CounterMulticastSystem(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\tCounterMulticastSystem() {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\t// Simulate:\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment_client1();\n\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment_client2();\n\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue_client1();\n\t}\n}\n\nreactiveclass Counter(5) {\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\t// Separate msgsrv per logical sender (client1 / client2)\n\tmsgsrv increment_client1() {\n\t\tcount = count + 1;\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv increment_client2() {\n\t\tcount = count + 1;\n\t\tclient2.valueResponse(count);\n\t}\n\n\tmsgsrv decrement_client1() {\n\t\tcount = count - 1;\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv decrement_client2() {\n\t\tcount = count - 1;\n\t\tclient2.valueResponse(count);\n\t}\n\n\tmsgsrv getValue_client1() {\n\t\tclient1.valueResponse(count);\n\t}\n\n\tmsgsrv getValue_client2() {\n\t\tclient2.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tClient(int clientIdArg) {\n\t\tclientId = clientIdArg;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// Original println removed; could store value if needed\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounterMulticastSystem system(counter, client1, client2):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T12:17:29.672729",
+      "code_length": 1535
+    }
+  ],
+  "file_name": "counter_multicast.txt",
+  "file_id": "counter_multicast",
+  "elapsed_time": 12.550856590270996,
+  "config": {
+    "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_5_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:17:29.672771"
+}

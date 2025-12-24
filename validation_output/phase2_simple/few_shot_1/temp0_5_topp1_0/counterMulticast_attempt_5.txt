@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:56, column:8, extraneous input '.' expecting IDENTIFIER
+line:56, column:9, Unknown type client1
+line:57, column:8, extraneous input '.' expecting IDENTIFIER
+line:57, column:9, Unknown type client2
+

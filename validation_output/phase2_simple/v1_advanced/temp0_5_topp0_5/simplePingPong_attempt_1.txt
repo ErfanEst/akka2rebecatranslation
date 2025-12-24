@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}
+line:26, column:20, mismatched input '{' expecting {'extends', 'implements', '('}
+line:42, column:13, mismatched input ';' expecting ':'
+line:43, column:33, missing ';' at '@'
+line:43, column:34, mismatched input '0' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

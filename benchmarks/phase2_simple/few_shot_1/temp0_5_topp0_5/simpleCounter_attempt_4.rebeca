@@ -1,0 +1,69 @@
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv increment(Client sender) {
+		count = count + 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv decrement(Client sender) {
+		count = count - 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv getValue(Client sender) {
+		sender.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+		Driver driver;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		println(clientId);
+		println(value);
+	}
+}
+
+reactiveclass Driver(5) {
+	knownrebecs {
+		Counter counter;
+		Client client1;
+		Client client2;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		counter.increment(client1);
+		counter.increment(client2);
+		counter.getValue(client1);
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter, driver):(1);
+	Client client2(counter, driver):(2);
+	Driver driver(counter, client1, client2):();
+}

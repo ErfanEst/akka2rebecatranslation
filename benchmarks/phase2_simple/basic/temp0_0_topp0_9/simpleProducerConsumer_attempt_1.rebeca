@@ -1,0 +1,27 @@
+reactiveclass Producer(knownrebecs {Consumer consumer}) {
+    msgsrv initial() {
+        // In Akka main, producer is sent two Produce messages
+        self.Produce("item1");
+        self.Produce("item2");
+    }
+
+    msgsrv Produce(string item) {
+        println("Producer: sending " + item);
+        consumer.Consume(item);
+    }
+}
+
+reactiveclass Consumer {
+    msgsrv initial() {
+        // No initialization needed
+    }
+
+    msgsrv Consume(string item) {
+        println("Consumer: received " + item);
+    }
+}
+
+main {
+    Consumer consumer();
+    Producer producer(consumer);
+}

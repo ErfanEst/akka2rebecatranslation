@@ -1,0 +1,55 @@
+reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			int dummy;
+		}
+
+		Producer(Consumer c) {
+			consumer = c;
+		}
+
+		msgsrv Produce() {
+			// In Akka, item is a String field of the message.
+			// Rebeca messages do not carry data directly, so we
+			// model each distinct item as a separate message type.
+			// Here, Produce is used only as a trigger; the item
+			// selection is encoded by the caller via specific msgs.
+		}
+
+		msgsrv Produce_item1() {
+			consumer.Consume_item1();
+		}
+
+		msgsrv Produce_item2() {
+			consumer.Consume_item2();
+		}
+	}
+
+	reactiveclass Consumer {
+		statevars {
+			int dummy;
+		}
+
+		Consumer() {
+		}
+
+		msgsrv Consume() {
+		}
+
+		msgsrv Consume_item1() {
+		}
+
+		msgsrv Consume_item2() {
+		}
+	}
+
+	main {
+		Consumer consumer( );
+		Producer producer( consumer );
+
+		producer.Produce_item1();
+		producer.Produce_item2();
+	}
+}

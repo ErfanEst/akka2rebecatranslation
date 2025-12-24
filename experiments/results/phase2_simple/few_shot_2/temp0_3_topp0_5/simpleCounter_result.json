@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Counter(10) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.Increment(client1);\n\t\tself.Increment(client2);\n\t\tself.GetValue(client1);\n\t}\n\n\tmsgsrv Increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv Decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv GetValue(Client sender) {\n\t\tsender.ValueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { }\n\tstatevars { int clientId; }\n\n\tClient() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ValueResponse(int value) {\n\t}\n}\n\nmain {\n\tClient client1(5): ();\n\tClient client2(5): ();\n\tCounter counter(10): (client1, client2);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(10) {\n    knownrebecs { Client client1; Client client2; }\n    statevars { int count; }\n\n    Counter() {\n        count = 0;\n    }\n\n    msgsrv initial() {\n        self.Increment(client1);\n        self.Increment(client2);\n        self.GetValue(client1);\n    }\n\n    msgsrv Increment(Client sender) {\n        count = count + 1;\n        sender.ValueResponse(count);\n    }\n\n    msgsrv Decrement(Client sender) {\n        count = count - 1;\n        sender.ValueResponse(count);\n    }\n\n    msgsrv GetValue(Client sender) {\n        sender.ValueResponse(count);\n    }\n}\n\nreactiveclass Client(5) {\n    knownrebecs { }\n\n    statevars { int clientId; }\n\n    Client(int id) {\n        clientId = id;\n    }\n\n    msgsrv initial() {\n    }\n\n    msgsrv ValueResponse(int value) {\n    }\n}\n\nmain {\n    Client client1(5): (1);\n    Client client2(5): (2);\n    Counter counter(10): (client1, client2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:47, column:11, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:48, column:11, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:49, column:12, The Counter knownrebecs type binding of (Client, Client) is not applicable for the arguments (byte)\nline:49, column:12, The method Counter(Client, Client) is undefined for the type Counter",
+      "timestamp": "2025-12-24T20:13:42.015241",
+      "code_length": 898
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Counter(10) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tCounter(Client c1, Client c2) {\n\t\tclient1 = c1;\n\t\tclient2 = c2;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.Increment(client1);\n\t\tself.Increment(client2);\n\t\tself.GetValue(client1);\n\t}\n\n\tmsgsrv Increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv Decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv GetValue(Client sender) {\n\t\tsender.ValueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { }\n\tstatevars { int clientId; }\n\n\tClient(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ValueResponse(int value) {\n\t}\n}\n\nmain {\n\tClient client1(5): (1);\n\tClient client2(5): (2);\n\tCounter counter(10): (client1, client2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:6, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:7, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:48, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:49, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:50, column:9, The Counter knownrebecs type binding of (Client, Client) is not applicable for the arguments (byte)",
+      "timestamp": "2025-12-24T20:13:45.230923",
+      "code_length": 820
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Counter(10) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.Increment(client1);\n\t\tself.Increment(client2);\n\t\tself.GetValue(client1);\n\t}\n\n\tmsgsrv Increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv Decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv GetValue(Client sender) {\n\t\tsender.ValueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { }\n\tstatevars { int clientId; }\n\n\tClient() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ValueResponse(int value) {\n\t}\n}\n\nmain {\n\tClient client1(5): ();\n\tClient client2(5): ();\n\tCounter counter(10): (client1, client2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:46, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:47, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:48, column:9, The Counter knownrebecs type binding of (Client, Client) is not applicable for the arguments (byte)\nline:48, column:9, The method Counter(Client, Client) is undefined for the type Counter",
+      "timestamp": "2025-12-24T20:13:48.216860",
+      "code_length": 759
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Counter(10) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tCounter(Client c1, Client c2) {\n\t\tclient1 = c1;\n\t\tclient2 = c2;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.Increment(client1);\n\t\tself.Increment(client2);\n\t\tself.GetValue(client1);\n\t}\n\n\tmsgsrv Increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv Decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv GetValue(Client sender) {\n\t\tsender.ValueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { }\n\tstatevars { int clientId; }\n\n\tClient() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ValueResponse(int value) {\n\t}\n}\n\nmain {\n\tClient client1(5): ();\n\tClient client2(5): ();\n\tCounter counter(10): (client1, client2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:6, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:7, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:48, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:49, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:50, column:9, The Counter knownrebecs type binding of (Client, Client) is not applicable for the arguments (byte)",
+      "timestamp": "2025-12-24T20:13:51.719703",
+      "code_length": 811
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Counter(10) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.Increment(client1);\n\t\tself.Increment(client2);\n\t\tself.GetValue(client1);\n\t}\n\n\tmsgsrv Increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv Decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.ValueResponse(count);\n\t}\n\n\tmsgsrv GetValue(Client sender) {\n\t\tsender.ValueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { }\n\tstatevars { int clientId; }\n\n\tClient() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ValueResponse(int value) {\n\t}\n}\n\nmain {\n\tClient client1(5): ();\n\tClient client2(5): ();\n\tCounter counter(10): (client1, client2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:46, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:47, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)\nline:48, column:9, The Counter knownrebecs type binding of (Client, Client) is not applicable for the arguments (byte)\nline:48, column:9, The method Counter(Client, Client) is undefined for the type Counter",
+      "timestamp": "2025-12-24T20:13:55.202018",
+      "code_length": 759
+    }
+  ],
+  "file_name": "simpleCounter.txt",
+  "file_id": "simpleCounter",
+  "elapsed_time": 17.083951950073242,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_3_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:13:55.202073"
+}

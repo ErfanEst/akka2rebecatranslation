@@ -1,0 +1,36 @@
+reactiveclass Producer(knownrebecs { Consumer consumer }) {
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// In the Akka code, producer sends two Produce messages from main.
+		// Here we can trigger equivalent behavior from initial.
+		self.produce("item1");
+		self.produce("item2");
+	}
+
+	msgsrv produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// No initialization needed.
+	}
+
+	msgsrv consume(string item) {
+		// println("Consumer: received " + item);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+}

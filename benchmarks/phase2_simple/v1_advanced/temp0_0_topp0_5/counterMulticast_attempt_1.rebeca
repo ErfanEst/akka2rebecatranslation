@@ -1,0 +1,61 @@
+reactiveclass Counter {
+    knownrebecs { }
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv Increment() {
+        count = count + 1;
+        clientResponse(count);
+    }
+
+    msgsrv Decrement() {
+        count = count - 1;
+        clientResponse(count);
+    }
+
+    msgsrv GetValue() {
+        clientResponse(count);
+    }
+
+    msgsrv clientResponse(int v) {
+        // This msgsrv is intended to be called by clients via sender
+        // but in Rebeca we cannot directly send to sender from here.
+        // Instead, clients will call GetValue and handle their own logic.
+    }
+}
+
+reactiveclass Client {
+    knownrebecs { Counter counter; }
+    statevars {
+        int clientId;
+    }
+
+    Client(int id) {
+        clientId = id;
+    }
+
+    msgsrv initial() {
+        // No automatic behavior; messages are sent from main
+    }
+
+    msgsrv ValueResponse(int value) {
+        // No I/O; just a placeholder to receive the value
+        int tmp;
+        tmp = value + clientId; // dummy use to avoid unused variable
+    }
+}
+
+main {
+    Counter counter();
+    Client client1(counter, 1);
+    Client client2(counter, 2);
+
+    counter.Increment() after(0);
+    counter.Increment() after(0);
+    counter.GetValue() after(0);
+}

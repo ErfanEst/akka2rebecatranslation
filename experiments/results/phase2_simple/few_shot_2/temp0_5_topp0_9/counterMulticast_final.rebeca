@@ -1,0 +1,46 @@
+reactiveclass Counter(10) {
+	knownrebecs { Client client1; Client client2; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+		self.increment(client1);
+		self.increment(client2);
+		self.getValue(client1);
+	}
+
+	msgsrv increment(Client senderRef) {
+		count = count + 1;
+		senderRef.valueResponse(count);
+	}
+
+	msgsrv decrement(Client senderRef) {
+		count = count - 1;
+		senderRef.valueResponse(count);
+	}
+
+	msgsrv getValue(Client senderRef) {
+		senderRef.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs { Counter counter; }
+	statevars { int clientId; }
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv valueResponse(int value) {
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+}

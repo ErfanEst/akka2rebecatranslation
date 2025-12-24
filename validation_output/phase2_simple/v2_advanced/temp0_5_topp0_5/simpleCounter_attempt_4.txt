@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input 'counterClient1' expecting INTLITERAL
+line:34, column:21, missing INTLITERAL at ')'
+line:46, column:2, The method println(String) is undefined
+line:51, column:8, The method Client(byte) is undefined for the type Client
+line:52, column:8, The method Client(byte) is undefined for the type Client
+line:53, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+

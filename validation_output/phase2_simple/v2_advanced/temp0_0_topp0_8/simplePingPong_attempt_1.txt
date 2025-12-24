@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:22, column:19, There is no meta data for type ReactiveClass
+line:26, column:19, There is no meta data for type ReactiveClass
+line:42, column:15, There is no meta data for type ReactiveClass
+line:52, column:15, mismatched input ';' expecting ':'
+line:53, column:9, The method Ping(unknown) is undefined for the type Ping
+line:53, column:22, "StartMessage" undeclared
+

@@ -1,0 +1,64 @@
+reactiveclass Counter {
+	knownrebecs { }
+	statevars {
+		int count;
+	}
+
+	// constructor
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// println is not available in Rebeca; logging omitted
+		self.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// println is not available in Rebeca; logging omitted
+		self.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		self.ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int value) {
+		// This msgsrv is defined to match the message type,
+		// but Counter does not use it in the original Akka code.
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println is not available in Rebeca; logging omitted
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter, 1);
+	Client client2(counter, 2);
+
+	// Simulating:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+
+	counter.Increment();
+	counter.Increment();
+	counter.GetValue();
+}

@@ -1,0 +1,121 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/basic/temp0_5_topp0_8
+File: counterMulticast
+Timestamp: 2025-12-24T18:22:52.168866
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package CounterMulticast
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+class Counter extends Actor {
+  private var count = 0
+  
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      println(s"Counter incremented to $count")
+      sender() ! ValueResponse(count)
+      
+    case Decrement =>
+      count -= 1
+      println(s"Counter decremented to $count")
+      sender() ! ValueResponse(count)
+      
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterSystem extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+  
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter {
+    knownrebecs { }
+
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv Increment(clientRef client) {
+        count = count + 1;
+        // println: "Counter incremented to " + count
+        client.ValueResponse(count);
+    }
+
+    msgsrv Decrement(clientRef client) {
+        count = count - 1;
+        // println: "Counter decremented to " + count
+        client.ValueResponse(count);
+    }
+
+    msgsrv GetValue(clientRef client) {
+        client.ValueResponse(count);
+    }
+}
+
+reactiveclass clientRef {
+    knownrebecs { }
+
+    statevars {
+        int clientId;
+    }
+
+    clientRef(int id) {
+        clientId = id;
+    }
+
+    msgsrv ValueResponse(int value) {
+        // println: "Client " + clientId + " received value: " + value
+    }
+}
+
+main {
+    Counter counter;
+    clientRef client1(1);
+    clientRef client2(2);
+
+    counter.Increment(client1);
+    counter.Increment(client2);
+    counter.GetValue(client1);
+}
+
+================================================================================

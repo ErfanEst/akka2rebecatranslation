@@ -1,0 +1,20 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:33, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:51, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+line:52, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:52, column:8, The method Client(byte) is undefined for the type Client
+line:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:53, column:8, The method Client(byte) is undefined for the type Client
+line:55, column:8, extraneous input '.' expecting IDENTIFIER
+line:55, column:9, Unknown type counter
+line:55, column:31, mismatched input ';' expecting ':'
+line:56, column:8, extraneous input '.' expecting IDENTIFIER
+line:56, column:9, Unknown type counter
+line:56, column:31, mismatched input ';' expecting ':'
+line:57, column:8, extraneous input '.' expecting IDENTIFIER
+line:57, column:9, Unknown type counter
+line:57, column:30, mismatched input ';' expecting ':'
+

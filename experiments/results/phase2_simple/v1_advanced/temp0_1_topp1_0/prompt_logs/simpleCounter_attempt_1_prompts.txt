@@ -1,0 +1,135 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/v1_advanced/temp0_1_topp1_0
+File: simpleCounter
+Timestamp: 2025-12-24T19:07:12.001742
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate this given Akka program into fully valid Rebeca code that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Follow these rules:
+1) Actor → Reactiveclass mapping
+2) Message mapping & sender usage
+3) Timed constructs (after, delay)
+4) No return in msgsrv
+5) Initialization / main block rules
+6) Circular dependencies handled statically
+7) Randomness → nondeterministic expressions
+8) Remove println / I/O
+9) Correct timed Rebeca validation
+10) Final checks (no return, correct sender, main bindings)
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package SimpleCounter
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+
+class Counter extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      sender() ! ValueResponse(count)
+
+    case Decrement =>
+      count -= 1
+      sender() ! ValueResponse(count)
+
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterApp extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedrebeca {
+
+	reactiveclass Counter {
+		statevars {
+			int count;
+		}
+
+		Counter() {
+			count = 0;
+		}
+
+		msgsrv Increment(clientRef senderClient) {
+			count = count + 1;
+			senderClient.ValueResponse(count);
+		}
+
+		msgsrv Decrement(clientRef senderClient) {
+			count = count - 1;
+			senderClient.ValueResponse(count);
+		}
+
+		msgsrv GetValue(clientRef senderClient) {
+			senderClient.ValueResponse(count);
+		}
+	}
+
+	reactiveclass Client {
+		statevars {
+			int clientId;
+			Counter counter;
+		}
+
+		Client(int id, Counter c) {
+			clientId = id;
+			counter = c;
+		}
+
+		msgsrv ValueResponse(int value) {
+			// no I/O
+		}
+	}
+
+	main {
+		Counter counterInstance(1):();
+		Client client1(1): (1, counterInstance);
+		Client client2(1): (2, counterInstance);
+
+		counterInstance.Increment(client1);
+		counterInstance.Increment(client2);
+		counterInstance.GetValue(client1);
+	}
+}
+
+================================================================================

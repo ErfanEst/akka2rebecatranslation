@@ -1,0 +1,16 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input 'Consumer' expecting INTLITERAL
+line:18, column:23, missing INTLITERAL at ')'
+line:28, column:23, Unknown type string
+line:34, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:34, column:10, The method Producer(Consumer) is undefined for the type Producer
+line:36, column:1, extraneous input 'main' expecting {'}', '@', IDENTIFIER}
+line:37, column:3, extraneous input '.' expecting IDENTIFIER
+line:37, column:4, Unknown type p
+line:37, column:13, mismatched input ';' expecting ':'
+line:38, column:10, extraneous input '.' expecting IDENTIFIER
+line:38, column:11, Unknown type consumer
+line:38, column:20, mismatched input ';' expecting ':'
+

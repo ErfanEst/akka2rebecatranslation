@@ -1,0 +1,46 @@
+timedreactiveclass Ping {
+	statevars {
+		int count;
+		Pong pong;
+	}
+
+	Ping(Pong pongRef) {
+		count = 0;
+		pong = pongRef;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			sender.StopMessage();
+		} else {
+			sender.PingMessage();
+		}
+	}
+}
+
+timedreactiveclass Pong {
+	statevars {
+	}
+
+	Pong() {
+	}
+
+	msgsrv PingMessage() {
+		sender.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+	}
+}
+
+main {
+	Pong pong(1):();
+	Ping ping(1):(pong);
+
+	ping.StartMessage();
+}

@@ -1,0 +1,32 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:34, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:53, column:8, The method Client(byte) is undefined for the type Client
+line:54, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:54, column:8, The method Client(byte) is undefined for the type Client
+line:55, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+line:57, column:8, extraneous input '.' expecting IDENTIFIER
+line:57, column:9, Multiple definition for the actor counter
+line:57, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:57, column:26, extraneous input '(' expecting IDENTIFIER
+line:57, column:27, Multiple definition for the actor client1
+line:57, column:34, missing '(' at ')'
+line:57, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:58, column:8, extraneous input '.' expecting IDENTIFIER
+line:58, column:9, Multiple definition for the actor counter
+line:58, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:58, column:26, extraneous input '(' expecting IDENTIFIER
+line:58, column:27, Multiple definition for the actor client2
+line:58, column:34, missing '(' at ')'
+line:58, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:59, column:8, extraneous input '.' expecting IDENTIFIER
+line:59, column:9, Multiple definition for the actor counter
+line:59, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:59, column:25, extraneous input '(' expecting IDENTIFIER
+line:59, column:26, Multiple definition for the actor client1
+line:59, column:33, missing '(' at ')'
+line:59, column:34, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

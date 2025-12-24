@@ -1,0 +1,5 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:7, extraneous input 'timedrebeca' expecting {'import', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+

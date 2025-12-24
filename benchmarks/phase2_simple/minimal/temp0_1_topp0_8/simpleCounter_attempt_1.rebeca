@@ -1,0 +1,63 @@
+reactiveclass Counter {
+    knownrebecs { Client client1; Client client2; }
+
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv Increment(Client sender) {
+        count = count + 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv Decrement(Client sender) {
+        count = count - 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv GetValue(Client sender) {
+        sender.ValueResponse(count);
+    }
+}
+
+reactiveclass Client {
+    knownrebecs { Counter counter; int clientId; }
+
+    statevars {
+        int lastValue;
+    }
+
+    Client() {
+        lastValue = 0;
+    }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv ValueResponse(int value) {
+        lastValue = value;
+        // println is not part of core Rebeca; this is a placeholder
+        // to represent the side effect of receiving the value.
+        // In standard Rebeca, you could use an environment or model checking properties.
+    }
+}
+
+main {
+    Counter counter(counterClient1, counterClient2);
+    Client counterClient1(counter, 1);
+    Client counterClient2(counter, 2);
+
+    // simulate the CounterApp behavior
+    counter.Increment(counterClient1);
+    counter.Increment(counterClient2);
+    counter.GetValue(counterClient1);
+}

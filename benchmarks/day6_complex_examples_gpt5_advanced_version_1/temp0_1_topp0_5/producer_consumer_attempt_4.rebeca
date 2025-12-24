@@ -1,0 +1,114 @@
+reactiveclass Producer(10) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+	}
+
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// No automatic behavior on start
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(10) {
+	knownrebecs {
+	}
+
+	statevars {
+		int buffer0;
+		int buffer1;
+		int buffer2;
+		int buffer3;
+		int buffer4;
+		int buffer5;
+		int buffer6;
+		int buffer7;
+		int buffer8;
+		int buffer9;
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			if (tail == 0) {
+				buffer0 = dataId;
+			} else if (tail == 1) {
+				buffer1 = dataId;
+			} else if (tail == 2) {
+				buffer2 = dataId;
+			} else if (tail == 3) {
+				buffer3 = dataId;
+			} else if (tail == 4) {
+				buffer4 = dataId;
+			} else if (tail == 5) {
+				buffer5 = dataId;
+			} else if (tail == 6) {
+				buffer6 = dataId;
+			} else if (tail == 7) {
+				buffer7 = dataId;
+			} else if (tail == 8) {
+				buffer8 = dataId;
+			} else if (tail == 9) {
+				buffer9 = dataId;
+			}
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer full, item is dropped
+		}
+	}
+
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int itemId;
+			if (head == 0) {
+				itemId = buffer0;
+			} else if (head == 1) {
+				itemId = buffer1;
+			} else if (head == 2) {
+				itemId = buffer2;
+			} else if (head == 3) {
+				itemId = buffer3;
+			} else if (head == 4) {
+				itemId = buffer4;
+			} else if (head == 5) {
+				itemId = buffer5;
+			} else if (head == 6) {
+				itemId = buffer6;
+			} else if (head == 7) {
+				itemId = buffer7;
+			} else if (head == 8) {
+				itemId = buffer8;
+			} else if (head == 9) {
+				itemId = buffer9;
+			}
+			head = (head + 1) % 10;
+			size = size - 1;
+			// consumed itemId
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+}

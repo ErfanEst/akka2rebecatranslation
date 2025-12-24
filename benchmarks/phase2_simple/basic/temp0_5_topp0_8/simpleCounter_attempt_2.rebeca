@@ -1,0 +1,53 @@
+reactiveclass Counter() {
+	knownrebecs { }
+
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(client c) {
+		count = count + 1;
+		c.ValueResponse(count);
+	}
+
+	msgsrv Decrement(client c) {
+		count = count - 1;
+		c.ValueResponse(count);
+	}
+
+	msgsrv GetValue(client c) {
+		c.ValueResponse(count);
+	}
+}
+
+reactiveclass client(Counter counter) {
+	knownrebecs { Counter counter; }
+
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// logging/observation placeholder
+	}
+}
+
+main {
+	Counter counter();
+	client client1(counter): (1);
+	client client2(counter): (2);
+
+	// Initial messages must be sent from within an initial message or another msgsrv.
+	// For illustration, we trigger them from client1.initial:
+	client1.Increment(counter);
+	client2.Increment(counter);
+	client1.GetValue(counter);
+}

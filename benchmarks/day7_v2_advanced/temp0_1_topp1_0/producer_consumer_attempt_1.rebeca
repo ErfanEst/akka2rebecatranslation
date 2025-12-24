@@ -1,0 +1,99 @@
+timedreactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no internal state
+	}
+
+	Producer() {
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ProduceMsg(char item[20]) {
+		// println("Producer: sending " + item);
+		consumer.ItemMsg(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	knownrebecs {
+	}
+
+	statevars {
+		int bufferSize;
+		char buffer[10][20];
+	}
+
+	Consumer() {
+		bufferSize = 0;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ItemMsg(char data[20]) {
+		if (bufferSize < 10) {
+			int i;
+			i = 0;
+			while (i < 20) {
+				buffer[bufferSize][i] = data[i];
+				i = i + 1;
+			}
+			bufferSize = bufferSize + 1;
+		}
+		// println("Consumer: received " + data + ", buffer size: " + bufferSize);
+	}
+
+	msgsrv ConsumeMsg() {
+		if (bufferSize > 0) {
+			int i;
+			int j;
+			char item[20];
+
+			// dequeue: take first element
+			i = 0;
+			while (i < 20) {
+				item[i] = buffer[0][i];
+				i = i + 1;
+			}
+
+			// shift remaining elements
+			j = 0;
+			while (j < bufferSize - 1) {
+				i = 0;
+				while (i < 20) {
+					buffer[j][i] = buffer[j + 1][i];
+					i = i + 1;
+				}
+				j = j + 1;
+			}
+			bufferSize = bufferSize - 1;
+
+			// println("Consumer: consumed " + item);
+		} else {
+			// println("Consumer: buffer empty");
+		}
+	}
+}
+
+main {
+	Producer producer;
+	Consumer consumer;
+
+	producer(consumer):();
+	consumer():();
+
+	// simulate:
+	// producer ! Produce("item1")
+	// producer ! Produce("item2")
+	// consumer ! Consume()
+	producer.ProduceMsg("item1");
+	producer.ProduceMsg("item2");
+	consumer.ConsumeMsg();
+}

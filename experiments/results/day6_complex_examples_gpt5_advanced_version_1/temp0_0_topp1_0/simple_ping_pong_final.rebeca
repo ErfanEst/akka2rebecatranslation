@@ -1,0 +1,88 @@
+reactiveclass Ping(5) {
+	knownrebecs { 
+		Pong pong;
+	}
+	statevars {
+		int count;
+		boolean active;
+	}
+
+	Ping() {
+		count = 0;
+		active = true;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		if (active) {
+			pong.pingMessage();
+		}
+	}
+
+	msgsrv pingMessage() {
+		/* This actor never handles PingMessage */
+	}
+
+	msgsrv pongMessage() {
+		if (active) {
+			count = count + 1;
+			if (count >= 10) {
+				Pong s;
+				s = (Pong) sender;
+				s.stopMessage();
+				active = false;
+			} else {
+				Pong s;
+				s = (Pong) sender;
+				s.pingMessage();
+			}
+		}
+	}
+
+	msgsrv startMessage() {
+		if (active) {
+			pong.pingMessage();
+		}
+	}
+
+	msgsrv stopMessage() {
+		active = false;
+	}
+}
+
+reactiveclass Pong(5) {
+	knownrebecs {
+	}
+	statevars {
+		boolean active;
+	}
+
+	Pong() {
+		active = true;
+	}
+
+	msgsrv pingMessage() {
+		if (active) {
+			Ping s;
+			s = (Ping) sender;
+			s.pongMessage();
+		}
+	}
+
+	msgsrv pongMessage() {
+		/* This actor never handles PongMessage */
+	}
+
+	msgsrv startMessage() {
+		/* This actor never initiates StartMessage */
+	}
+
+	msgsrv stopMessage() {
+		active = false;
+	}
+}
+
+main {
+	Pong pong():();
+	Ping ping(pong):();
+}

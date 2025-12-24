@@ -1,0 +1,65 @@
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		/* In Akka, sender() gets the response.
+		   Here we choose client1 as the sender for the first call
+		   and client2 for the second, which is handled in the main block. */
+		/* This msgsrv is generic; actual caller is modeled in main. */
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println is not available in core Rebeca; this is a placeholder
+		// for: println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter(client1, client2);
+	Client client1(1);
+	Client client2(2);
+
+	// counter.tell(Increment, client1)
+	counter.Increment();
+	counter.GetValue(client1);
+
+	// counter.tell(Increment, client2)
+	counter.Increment();
+	counter.GetValue(client2);
+
+	// counter.tell(GetValue, client1)
+	counter.GetValue(client1);
+}

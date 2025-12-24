@@ -1,0 +1,138 @@
+reactiveclass Producer(50) {
+	statevars {
+		Consumer consumer;
+		int item0;
+		int item1;
+		int item2;
+		int item3;
+		int item4;
+		int item5;
+		int item6;
+		int item7;
+		int item8;
+		int item9;
+		int item10;
+		int item11;
+		int item12;
+		int item13;
+		int item14;
+		int item15;
+		int item16;
+		int item17;
+		int item18;
+		int item19;
+	}
+
+	knownrebecs { 
+		Consumer consumer;
+	}
+
+	msgsrv initial() {
+		produce_item1();
+		produce_item2();
+	}
+
+	msgsrv produce(
+		int it0, int it1, int it2, int it3, int it4,
+		int it5, int it6, int it7, int it8, int it9,
+		int it10, int it11, int it12, int it13, int it14,
+		int it15, int it16, int it17, int it18, int it19
+	) {
+		consumer.consume(
+			it0, it1, it2, it3, it4,
+			it5, it6, it7, it8, it9,
+			it10, it11, it12, it13, it14,
+			it15, it16, it17, it18, it19
+		);
+	}
+
+	msgsrv produce_item1() {
+		item0 = (int)'i'; item1 = (int)'t'; item2 = (int)'e'; item3 = (int)'m'; item4 = (int)'1'; item5 = 0;
+		item6 = 0; item7 = 0; item8 = 0; item9 = 0;
+		item10 = 0; item11 = 0; item12 = 0; item13 = 0; item14 = 0;
+		item15 = 0; item16 = 0; item17 = 0; item18 = 0; item19 = 0;
+
+		produce(
+			item0, item1, item2, item3, item4,
+			item5, item6, item7, item8, item9,
+			item10, item11, item12, item13, item14,
+			item15, item16, item17, item18, item19
+		);
+	}
+
+	msgsrv produce_item2() {
+		item0 = (int)'i'; item1 = (int)'t'; item2 = (int)'e'; item3 = (int)'m'; item4 = (int)'2'; item5 = 0;
+		item6 = 0; item7 = 0; item8 = 0; item9 = 0;
+		item10 = 0; item11 = 0; item12 = 0; item13 = 0; item14 = 0;
+		item15 = 0; item16 = 0; item17 = 0; item18 = 0; item19 = 0;
+
+		produce(
+			item0, item1, item2, item3, item4,
+			item5, item6, item7, item8, item9,
+			item10, item11, item12, item13, item14,
+			item15, item16, item17, item18, item19
+		);
+	}
+}
+
+reactiveclass Consumer(50) {
+	statevars {
+		int lastItem0;
+		int lastItem1;
+		int lastItem2;
+		int lastItem3;
+		int lastItem4;
+		int lastItem5;
+		int lastItem6;
+		int lastItem7;
+		int lastItem8;
+		int lastItem9;
+		int lastItem10;
+		int lastItem11;
+		int lastItem12;
+		int lastItem13;
+		int lastItem14;
+		int lastItem15;
+		int lastItem16;
+		int lastItem17;
+		int lastItem18;
+		int lastItem19;
+	}
+
+	knownrebecs { }
+
+	msgsrv initial() { }
+
+	msgsrv consume(
+		int it0, int it1, int it2, int it3, int it4,
+		int it5, int it6, int it7, int it8, int it9,
+		int it10, int it11, int it12, int it13, int it14,
+		int it15, int it16, int it17, int it18, int it19
+	) {
+		lastItem0 = it0;
+		lastItem1 = it1;
+		lastItem2 = it2;
+		lastItem3 = it3;
+		lastItem4 = it4;
+		lastItem5 = it5;
+		lastItem6 = it6;
+		lastItem7 = it7;
+		lastItem8 = it8;
+		lastItem9 = it9;
+		lastItem10 = it10;
+		lastItem11 = it11;
+		lastItem12 = it12;
+		lastItem13 = it13;
+		lastItem14 = it14;
+		lastItem15 = it15;
+		lastItem16 = it16;
+		lastItem17 = it17;
+		lastItem18 = it18;
+		lastItem19 = it19;
+	}
+}
+
+main {
+	Consumer c();
+	Producer p(c);
+}

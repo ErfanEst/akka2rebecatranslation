@@ -1,0 +1,52 @@
+timedreactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		int dummy;
+	}
+
+	Producer(Consumer c) {
+		consumer = c;
+	}
+
+	msgsrv Produce() {
+	}
+
+	msgsrv Produce_item1() {
+		consumer.Consume_item1();
+	}
+
+	msgsrv Produce_item2() {
+		consumer.Consume_item2();
+	}
+}
+
+timedreactiveclass Consumer {
+	knownrebecs {
+	}
+	statevars {
+		int dummy;
+	}
+
+	Consumer() {
+	}
+
+	msgsrv Consume() {
+	}
+
+	msgsrv Consume_item1() {
+	}
+
+	msgsrv Consume_item2() {
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	consumer.Consume();
+	producer.Produce_item1();
+	producer.Produce_item2();
+}

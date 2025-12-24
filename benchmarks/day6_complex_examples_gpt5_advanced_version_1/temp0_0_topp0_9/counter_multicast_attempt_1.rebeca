@@ -1,0 +1,63 @@
+reactiveclass CounterMulticast_Counter(10) {
+	statevars {
+		int count;
+	}
+
+	knownrebecs {
+	}
+
+	CounterMulticast_Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+}
+
+reactiveclass CounterMulticast_Client(10) {
+	statevars {
+		int clientId;
+	}
+
+	knownrebecs {
+		CounterMulticast_Counter counter;
+	}
+
+	CounterMulticast_Client(int clientId) {
+		this.clientId = clientId;
+	}
+
+	msgsrv initial() {
+		// no automatic start behavior required
+	}
+
+	msgsrv ValueResponse(int value) {
+		// original Akka: println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	CounterMulticast_Counter counter():();
+	CounterMulticast_Client client1(counter):(1);
+	CounterMulticast_Client client2(counter):(2);
+
+	// Akka startup message flow:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+
+	counter.Increment() with (client1);
+	counter.Increment() with (client2);
+	counter.GetValue() with (client1);
+}

@@ -1,0 +1,38 @@
+reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			// no state variables
+		}
+		msgsrv initial() {
+			// no initialization logic
+		}
+		msgsrv ProduceMsg(int item) {
+			consumer.ConsumeMsg(item);
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+			// no known rebecs
+		}
+		statevars {
+			// no state variables
+		}
+		msgsrv initial() {
+			// no initialization logic
+		}
+		msgsrv ConsumeMsg(int item) {
+			// no I/O
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+	}
+}

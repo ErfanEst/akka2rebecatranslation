@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:7, extraneous input 'Environment' expecting {'import', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:3, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:28, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:43, column:27, mismatched input '{' expecting {'extends', 'implements', '('}
+line:58, column:19, mismatched input ';' expecting ':'
+line:59, column:26, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:59, column:30, mismatched input ';' expecting ':'
+line:60, column:26, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:60, column:30, mismatched input ';' expecting ':'
+line:61, column:14, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:61, column:25, extraneous input ',' expecting IDENTIFIER
+line:61, column:34, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:61, column:43, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+

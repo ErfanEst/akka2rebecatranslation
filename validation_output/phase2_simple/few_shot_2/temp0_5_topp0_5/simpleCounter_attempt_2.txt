@@ -1,0 +1,25 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:46, column:8, extraneous input '.' expecting IDENTIFIER
+line:46, column:9, Multiple definition for the actor counter
+line:46, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:46, column:26, extraneous input '(' expecting IDENTIFIER
+line:46, column:27, Multiple definition for the actor client1
+line:46, column:34, missing '(' at ')'
+line:46, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:47, column:8, extraneous input '.' expecting IDENTIFIER
+line:47, column:9, Multiple definition for the actor counter
+line:47, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:47, column:26, extraneous input '(' expecting IDENTIFIER
+line:47, column:27, Multiple definition for the actor client2
+line:47, column:34, missing '(' at ')'
+line:47, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:48, column:8, extraneous input '.' expecting IDENTIFIER
+line:48, column:9, Multiple definition for the actor counter
+line:48, column:16, mismatched input '.' expecting {'[', '<', IDENTIFIER}
+line:48, column:25, extraneous input '(' expecting IDENTIFIER
+line:48, column:26, Multiple definition for the actor client1
+line:48, column:33, missing '(' at ')'
+line:48, column:34, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

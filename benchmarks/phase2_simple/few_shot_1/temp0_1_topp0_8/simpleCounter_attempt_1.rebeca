@@ -1,0 +1,63 @@
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv incrementFromClient1() {
+		count = count + 1;
+		client1.valueResponse(count);
+	}
+
+	msgsrv incrementFromClient2() {
+		count = count + 1;
+		client2.valueResponse(count);
+	}
+
+	msgsrv getValueForClient1() {
+		client1.valueResponse(count);
+	}
+
+	msgsrv getValueForClient2() {
+		client2.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		// In Rebeca, printing can be modeled with comments or env vars.
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	// Simulate:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+	counter.incrementFromClient1();
+	counter.incrementFromClient2();
+	counter.getValueForClient1();
+}

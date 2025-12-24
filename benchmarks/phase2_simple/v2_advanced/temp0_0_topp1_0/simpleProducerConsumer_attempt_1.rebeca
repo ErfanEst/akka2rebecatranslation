@@ -1,0 +1,57 @@
+import ENV;
+
+	reactiveclass Producer(50) {
+		statevars {
+			Consumer consumer;
+			char item[20];
+		}
+
+		knownrebecs { 
+			Consumer consumer;
+		}
+
+		msgsrv initial() {
+			// simulate initial Akka sends from main
+			produce_item1();
+			produce_item2();
+		}
+
+		msgsrv produce(char it[20]) {
+			// println("Producer: sending " + it);
+			consumer.consume(it);
+		}
+
+		msgsrv produce_item1() {
+			item[0] = 'i'; item[1] = 't'; item[2] = 'e'; item[3] = 'm'; item[4] = '1'; item[5] = '\0';
+			produce(item);
+		}
+
+		msgsrv produce_item2() {
+			item[0] = 'i'; item[1] = 't'; item[2] = 'e'; item[3] = 'm'; item[4] = '2'; item[5] = '\0';
+			produce(item);
+		}
+	}
+
+	reactiveclass Consumer(50) {
+		statevars {
+			char lastItem[20];
+		}
+
+		knownrebecs { }
+
+		msgsrv initial() { }
+
+		msgsrv consume(char it[20]) {
+			// println("Consumer: received " + it);
+			int i;
+			for (i = 0; i < 20; i = i + 1) {
+				lastItem[i] = it[i];
+			}
+		}
+	}
+
+	main {
+		Consumer c();
+		Producer p(c);
+	}
+}

@@ -1,0 +1,58 @@
+reactiveclass Ping {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+		// In Akka, StartMessage is sent from main; here we can start automatically or via a separate starter.
+		self.start();
+	}
+
+	msgsrv start() {
+		// models StartMessage handling
+		pong.pingMessage();
+	}
+
+	msgsrv pongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.stopMessage();
+			// context.stop(self) modeled by stopping to send further messages
+		} else {
+			pong.pingMessage();
+		}
+	}
+}
+
+reactiveclass Pong {
+	knownrebecs {
+		Ping ping;
+	}
+	statevars {
+		boolean active;
+	}
+
+	msgsrv initial() {
+		active = true;
+	}
+
+	msgsrv pingMessage() {
+		if (active) {
+			ping.pongMessage();
+		}
+	}
+
+	msgsrv stopMessage() {
+		active = false;
+		// context.stop(self) modeled by ignoring further pings
+	}
+}
+
+main {
+	Ping ping(pong):();
+	Pong pong(ping):();
+}

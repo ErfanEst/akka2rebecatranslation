@@ -1,0 +1,119 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/basic/temp0_3_topp1_0
+File: simpleCounter
+Timestamp: 2025-12-24T18:19:27.269503
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package SimpleCounter
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+
+class Counter extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      sender() ! ValueResponse(count)
+
+    case Decrement =>
+      count -= 1
+      sender() ! ValueResponse(count)
+
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterApp extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter {
+    knownrebecs { }
+
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv Increment() {
+        count = count + 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv Decrement() {
+        count = count - 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv GetValue() {
+        sender.ValueResponse(count);
+    }
+}
+
+reactiveclass Client {
+    knownrebecs { Counter counter; }
+
+    statevars {
+        int clientId;
+    }
+
+    Client(int id) {
+        clientId = id;
+    }
+
+    msgsrv ValueResponse(int value) {
+        // In standard Rebeca there is no print, in some tools you can use:
+        // println("Client " + clientId + " received value: " + value);
+    }
+}
+
+main {
+    Counter counter();
+    Client client1(counter, 1);
+    Client client2(counter, 2);
+
+    counter.Increment(client1);
+    counter.Increment(client2);
+    counter.GetValue(client1);
+}
+
+================================================================================

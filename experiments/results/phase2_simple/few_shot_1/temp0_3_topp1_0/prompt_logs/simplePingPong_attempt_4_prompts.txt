@@ -1,0 +1,221 @@
+================================================================================
+ATTEMPT 4 - PROMPT LOG
+Experiment: phase2_simple/few_shot_1/temp0_3_topp1_0
+File: simplePingPong
+Timestamp: 2025-12-24T20:01:06.489775
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Ping(1) {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		// println("Ping started the game!")
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		// println("Ping received pong #" + count + " from pong")
+		if (count >= 10) {
+			pong.StopMessage();
+			// println("Ping stopped")
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong(1) {
+	knownrebecs {
+		Ping ping;
+	}
+	statevars {
+		// no state variables
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv PingMessage() {
+		// println("Pong received ping from ping")
+		ping.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+		// println("Pong stopped")
+	}
+}
+
+main {
+	Pong pong(ping):();
+	Ping ping(pong):();
+
+	ping.StartMessage();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:55, column:5, extraneous input '.' expecting IDENTIFIER
+line:55, column:6, Unknown type ping
+line:55, column:20, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Ping(1) {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			pong.StopMessage();
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong(1) {
+	knownrebecs {
+		Ping ping;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv PingMessage() {
+		ping.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+	}
+}
+
+main {
+	Ping ping(pong):();
+	Pong pong(ping):();
+
+	ping.StartMessage();
+}
+
+================================================================================

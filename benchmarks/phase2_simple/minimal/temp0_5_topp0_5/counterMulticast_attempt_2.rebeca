@@ -1,0 +1,56 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	knownrebecs { }
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		self.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		self.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		self.ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int value) {
+		// placeholder for sender-side handling if needed
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+	}
+
+	knownrebecs { Counter counter; }
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// Client clientId received value: value
+	}
+}
+
+main {
+	Counter counter() : ();
+	Client client1(counter) : (1);
+	Client client2(counter) : (2);
+
+	// simulate the tell with explicit sender by direct calls
+	counter.Increment();
+	counter.Increment();
+	counter.GetValue();
+}

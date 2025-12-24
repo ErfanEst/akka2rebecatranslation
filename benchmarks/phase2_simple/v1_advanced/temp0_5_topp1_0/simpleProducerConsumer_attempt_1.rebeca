@@ -1,0 +1,43 @@
+reactiveclass Producer {
+    knownrebecs {
+        Consumer consumer;
+    }
+    statevars {
+        int dummy;
+    }
+
+    msgsrv initial() {
+        // no automatic messages on start
+    }
+
+    msgsrv Produce(int itemId) {
+        consumer.Consume(itemId);
+    }
+}
+
+reactiveclass Consumer {
+    knownrebecs {
+    }
+    statevars {
+        int dummy;
+    }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv Consume(int itemId) {
+        // consume logic (omitted I/O)
+    }
+}
+
+main {
+    Producer producer(consumer):();
+    Consumer consumer():();
+
+    // simulate sending two items
+    producer.Produce(1);
+    producer.Produce(2);
+}
+
+}

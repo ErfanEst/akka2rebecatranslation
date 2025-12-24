@@ -1,0 +1,78 @@
+reactiveclass ProducerConsumerSystem(1) {
+	knownrebecs {
+		Producer producer;
+		Consumer consumer;
+	}
+	statevars {
+	}
+	ProducerConsumerSystem() {
+		self.initial();
+	}
+	msgsrv initial() {
+		// example interactions moved from main
+		producer.ProduceMsg(1);
+		producer.ProduceMsg(2);
+		consumer.ConsumeMsg();
+	}
+}
+
+reactiveclass Producer(1) {
+	knownrebecs { 
+		Consumer consumer;
+	}
+	statevars {
+	}
+	Producer() {
+	}
+	msgsrv initial() {
+		// No automatic behavior
+	}
+	msgsrv ProduceMsg(int itemId) {
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs {
+	}
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+	msgsrv initial() {
+		// No automatic behavior
+	}
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			buffer[tail] = dataId;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer full, drop item
+		}
+	}
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int itemId;
+			itemId = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// consumed itemId
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+	ProducerConsumerSystem system(producer, consumer):();
+}

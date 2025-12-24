@@ -1,0 +1,71 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+	}
+	
+	knownrebecs { }
+
+	Msgsrv initial() {
+		count = 0;
+	}
+
+	Msgsrv Increment() {
+		count = count + 1;
+		ValueResponse(count, sender);
+	}
+
+	Msgsrv Decrement() {
+		count = count - 1;
+		ValueResponse(count, sender);
+	}
+
+	Msgsrv GetValue() {
+		ValueResponse(count, sender);
+	}
+
+	Msgsrv ValueResponse(int value, Client client) {
+		// not used in Counter
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+		Counter counter;
+	}
+
+	knownrebecs {
+		Counter counterRef;
+	}
+
+	Msgsrv initial(int id, Counter c) {
+		clientId = id;
+		counter = c;
+	}
+
+	Msgsrv ValueResponse(int value) {
+		// print is abstracted in Rebeca; placeholder for logging
+	}
+
+	Msgsrv sendIncrement() {
+		counter.Increment();
+	}
+
+	Msgsrv sendDecrement() {
+		counter.Decrement();
+	}
+
+	Msgsrv sendGetValue() {
+		counter.GetValue();
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter): (1, counter);
+	Client client2(counter): (2, counter);
+
+	client1.sendIncrement();
+	client2.sendIncrement();
+	client1.sendGetValue();
+}

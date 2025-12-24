@@ -1,0 +1,16 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:39, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:57, column:24, mismatched input ';' expecting ':'
+line:58, column:24, mismatched input ';' expecting ':'
+line:59, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+line:59, column:48, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:61, column:15, extraneous input '.' expecting IDENTIFIER
+line:61, column:16, Unknown type counterClient1
+line:61, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:62, column:15, extraneous input '.' expecting IDENTIFIER
+line:62, column:16, Unknown type counterClient2
+line:62, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

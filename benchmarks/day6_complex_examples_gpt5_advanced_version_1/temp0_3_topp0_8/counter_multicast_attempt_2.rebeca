@@ -1,0 +1,72 @@
+reactiveclass CounterMulticast_Counter(5) {
+	statevars {
+		int count;
+	}
+
+	// Constructor
+	CounterMulticast_Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+}
+
+reactiveclass CounterMulticast_Client(5) {
+	knownrebecs {
+		CounterMulticast_Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	CounterMulticast_Client(int id) {
+		clientId = id;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior in original Akka Client
+	}
+
+	msgsrv ValueResponse(int value) {
+		// original Akka prints the received value
+	}
+
+	msgsrv Increment() {
+		counter.Increment();
+	}
+
+	msgsrv Decrement() {
+		counter.Decrement();
+	}
+
+	msgsrv GetValue() {
+		counter.GetValue();
+	}
+}
+
+main {
+	CounterMulticast_Counter counter():();
+	CounterMulticast_Client client1(counter):(1);
+	CounterMulticast_Client client2(counter):(2);
+
+	client1.Increment();
+	client2.Increment();
+	client1.GetValue();
+}

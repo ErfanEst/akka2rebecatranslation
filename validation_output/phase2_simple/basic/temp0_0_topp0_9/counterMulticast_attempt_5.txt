@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:31, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:64, column:18, mismatched input ';' expecting ':'
+line:65, column:34, mismatched input '(' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:65, column:45, mismatched input ')' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:34, mismatched input '(' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:45, mismatched input ')' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:68, column:8, extraneous input '.' expecting IDENTIFIER
+line:68, column:24, mismatched input ';' expecting ':'
+line:69, column:8, extraneous input '.' expecting IDENTIFIER
+line:69, column:24, mismatched input ';' expecting ':'
+line:70, column:8, extraneous input '.' expecting IDENTIFIER
+line:70, column:23, mismatched input ';' expecting ':'
+

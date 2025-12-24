@@ -1,0 +1,66 @@
+timedreactiveclass Counter {
+	knownrebec Client counterClient1;
+	knownrebec Client counterClient2;
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// Simulate:
+		// counter.tell(Increment, client1)
+		// counter.tell(Increment, client2)
+		// counter.tell(GetValue, client1)
+		self.Increment(counterClient1);
+		self.Increment(counterClient2);
+		self.GetValue(counterClient1);
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+timedreactiveclass Client {
+	knownrebec Counter counter;
+
+	statevars {
+		int clientId;
+	}
+
+	Client() {
+		clientId = 0;
+	}
+
+	msgsrv initial() {
+		// No autonomous behavior; all communication initiated from Counter.initial
+	}
+
+	msgsrv ValueResponse(int value) {
+		// "Client " clientId " received value: " value
+	}
+}
+
+main {
+	// Knownrebec bindings order must match declarations in reactive classes
+	// Counter has: Client counterClient1; Client counterClient2;
+	// Client has: Counter counter;
+
+	Counter counter(counterClient1, counterClient2):();
+	Client counterClient1(counter):();
+	Client counterClient2(counter):();
+}

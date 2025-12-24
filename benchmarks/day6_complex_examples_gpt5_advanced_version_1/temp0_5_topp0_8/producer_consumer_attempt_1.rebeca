@@ -1,0 +1,85 @@
+reactiveclass Producer(10) {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		// no data state variables
+	}
+
+	// Constructor
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	// Corresponds to Produce(item)
+	msgsrv produceMsg(int itemId) {
+		// In original code item is a String; here we model it as an int ID
+		consumer.itemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(10) {
+	knownrebecs {
+		// no known rebecs
+	}
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	// Corresponds to Item(data)
+	msgsrv itemMsg(int dataId) {
+		if (size < 10) {
+			buffer[tail] = dataId;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer overflow in original is impossible with mutable Queue; here we ignore extra items
+			{}
+		}
+	}
+
+	// Corresponds to Consume()
+	msgsrv consumeMsg() {
+		if (size > 0) {
+			int itemId;
+			itemId = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// itemId consumed; no printing in Rebeca
+		} else {
+			// buffer empty; no-op
+			{}
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	// Simulate:
+	// producer ! Produce("item1")
+	// producer ! Produce("item2")
+	// consumer ! Consume()
+	producer.produceMsg(1);
+	producer.produceMsg(2);
+	consumer.consumeMsg();
+}

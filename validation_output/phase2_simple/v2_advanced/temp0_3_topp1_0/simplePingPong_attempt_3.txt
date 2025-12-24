@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, missing INTLITERAL at ')'
+line:15, column:2, The method println(String) is undefined
+line:21, column:2, The method println(String) is undefined
+line:24, column:3, The method println(String) is undefined
+line:31, column:19, missing INTLITERAL at ')'
+line:43, column:2, The method println(String) is undefined
+line:48, column:2, The method println(String) is undefined
+line:56, column:5, extraneous input '.' expecting IDENTIFIER
+line:56, column:6, Unknown type ping
+line:56, column:20, mismatched input ';' expecting ':'
+

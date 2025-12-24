@@ -1,0 +1,21 @@
+{
+  "experiment_name": "day1_minimal/temp0_3_topp0_8_freq0_0",
+  "description": "Day1: minimal - temp0_3_topp0_8_freq0_0",
+  "config": {
+    "model": "gpt-4",
+    "temperature": 0.3,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 1,
+    "successful": 0,
+    "failed": 1,
+    "success_rate": 0.0,
+    "avg_attempts": 5.0,
+    "avg_time": 49.79962658882141
+  },
+  "timestamp": "2025-12-19T23:39:41.854403"
+}

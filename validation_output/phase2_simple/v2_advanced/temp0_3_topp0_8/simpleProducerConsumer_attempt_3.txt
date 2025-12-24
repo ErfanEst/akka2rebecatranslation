@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input 'Consumer' expecting INTLITERAL
+line:19, column:23, missing INTLITERAL at ')'
+line:26, column:23, Unknown type string
+line:32, column:20, mismatched input ';' expecting ':'
+line:33, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:33, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

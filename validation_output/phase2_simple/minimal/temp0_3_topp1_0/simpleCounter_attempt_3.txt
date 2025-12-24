@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:31, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:53, column:26, mismatched input '{' expecting {'extends', 'implements', '('}
+line:78, column:18, mismatched input ';' expecting ':'
+line:79, column:13, mismatched input 'env' expecting {'[', '<', IDENTIFIER}
+line:79, column:24, extraneous input ',' expecting IDENTIFIER
+line:79, column:33, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:79, column:42, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+line:80, column:25, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:81, column:25, mismatched input 'env' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+

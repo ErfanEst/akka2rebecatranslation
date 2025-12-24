@@ -1,0 +1,23 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:31, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:57, column:19, extraneous input ':' expecting '('
+line:57, column:22, mismatched input ';' expecting ':'
+line:58, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte, Counter)
+line:58, column:15, extraneous input ':' expecting '('
+line:58, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:59, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte, Counter)
+line:59, column:15, extraneous input ':' expecting '('
+line:59, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:62, column:12, extraneous input '.' expecting IDENTIFIER
+line:62, column:13, Unknown type counterRef
+line:62, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:63, column:12, extraneous input '.' expecting IDENTIFIER
+line:63, column:13, Unknown type counterRef
+line:63, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:64, column:12, extraneous input '.' expecting IDENTIFIER
+line:64, column:13, Unknown type counterRef
+line:64, column:30, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

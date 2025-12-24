@@ -1,6 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:12, column:11, The method terminate() is undefined for the type Ping
-line:25, column:9, The method terminate() is undefined for the type Pong
-

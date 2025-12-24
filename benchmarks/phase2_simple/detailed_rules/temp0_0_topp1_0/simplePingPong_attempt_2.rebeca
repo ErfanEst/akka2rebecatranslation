@@ -1,0 +1,55 @@
+reactiveclass Ping {
+	knownrebecs {
+		Pong pong;
+	}
+	statevars {
+		int count;
+	}
+
+	constructor(Pong p) {
+		pong = p;
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		// Ping started the game!
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		// Ping received pong #count
+		if (count >= 10) {
+			pong.StopMessage();
+			// Ping stopped
+			self.terminate();
+		} else {
+			pong.PingMessage();
+		}
+	}
+}
+
+reactiveclass Pong {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	constructor() {
+	}
+
+	msgsrv PingMessage() {
+		// Pong received ping
+		sender.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+		// Pong stopped
+		self.terminate();
+	}
+}
+
+main {
+	Pong pong();
+	Ping ping(pong): (StartMessage());
+}

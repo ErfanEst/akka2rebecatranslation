@@ -1,0 +1,53 @@
+reactiveclass Counter {
+	statevars {
+		int count;
+		Client clientSender;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client s) {
+		clientSender = s;
+		count = count + 1;
+		clientSender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client s) {
+		clientSender = s;
+		count = count - 1;
+		clientSender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client s) {
+		clientSender = s;
+		clientSender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+		Counter counter;
+	}
+
+	msgsrv initial(int id, Counter c) {
+		clientId = id;
+		counter = c;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println is not available in Rebeca; this is a placeholder for logging
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(1, counter);
+	Client client2(2, counter);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}

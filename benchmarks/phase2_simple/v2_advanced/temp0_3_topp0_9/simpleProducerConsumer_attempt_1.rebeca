@@ -1,0 +1,46 @@
+reactiveclass Producer(50) {
+	statevars {
+		Consumer consumer;
+	}
+
+	Producer(Consumer c) {
+		consumer = c;
+		self.start();
+	}
+
+	msgsrv start() {
+		// initial actions if needed
+	}
+
+	msgsrv Produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer(50) {
+	statevars {
+	}
+
+	Consumer() {
+		self.start();
+	}
+
+	msgsrv start() {
+		// initial actions if needed
+	}
+
+	msgsrv Consume(string item) {
+		// println("Consumer: received " + item);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	producer.Produce("item1");
+	producer.Produce("item2");
+}
+
+}

@@ -1,0 +1,71 @@
+timedreactiveclass Producer {
+	knownrebec Consumer consumer;
+
+	Producer(Consumer c) {
+		consumer = c;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv Produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.Item(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	statevars {
+		int bufferSize;
+		string buffer[10];
+		int head;
+		int tail;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+		head = 0;
+		tail = 0;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv Item(string data) {
+		if (bufferSize < 10) {
+			buffer[tail] = data;
+			tail = (tail + 1) % 10;
+			bufferSize = bufferSize + 1;
+			// println("Consumer: received " + data + ", buffer size: " + bufferSize);
+		}
+		// else buffer overflow is ignored in this model
+	}
+
+	msgsrv Consume() {
+		if (bufferSize > 0) {
+			string item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			bufferSize = bufferSize - 1;
+			// println("Consumer: consumed " + item);
+		} else {
+			// println("Consumer: buffer empty");
+		}
+	}
+}
+
+timedmain {
+	Producer producer;
+	Consumer consumer;
+
+	consumer : Consumer();
+	producer : Producer(consumer);
+
+	main {
+		producer.Produce("item1");
+		producer.Produce("item2");
+		consumer.Consume();
+	}
+}

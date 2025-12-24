@@ -1,0 +1,60 @@
+reactiveclass Counter {
+    knownrebecs { }
+
+    statevars {
+        int count;
+    }
+
+    msgsrv initial() {
+        count = 0;
+    }
+
+    msgsrv Increment(Client sender) {
+        count = count + 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv Decrement(Client sender) {
+        count = count - 1;
+        sender.ValueResponse(count);
+    }
+
+    msgsrv GetValue(Client sender) {
+        sender.ValueResponse(count);
+    }
+}
+
+reactiveclass Client {
+    knownrebecs {
+        Counter counter;
+    }
+
+    statevars {
+        int clientId;
+    }
+
+    msgsrv initial(int id) {
+        clientId = id;
+    }
+
+    msgsrv ValueResponse(int value) {
+        // In standard Rebeca there is no direct printing facility like println.
+        // If using Timed/Hybrid/Probabilistic Rebeca with println support, you could use:
+        // println("Client " + clientId + " received value: " + value);
+    }
+}
+
+main {
+    Counter counter();
+    Client client1(counter): (1);
+    Client client2(counter): (2);
+
+    // Simulating:
+    // counter.tell(Increment, client1)
+    // counter.tell(Increment, client2)
+    // counter.tell(GetValue, client1)
+
+    counter.Increment(client1);
+    counter.Increment(client2);
+    counter.GetValue(client1);
+}

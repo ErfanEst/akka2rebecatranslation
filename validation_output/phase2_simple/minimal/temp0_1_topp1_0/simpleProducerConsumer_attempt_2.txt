@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:12, column:8, mismatched input 'this' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:17, column:23, missing INTLITERAL at ')'
+line:26, column:8, mismatched input 'this' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'break', 'continue', 'for', 'if', 'new', 'return', 'switch', 'while', 'true', 'false', 'null', '(', '{', '}', ';', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:31, column:23, mismatched input ';' expecting ':'
+line:34, column:12, extraneous input '.' expecting IDENTIFIER
+line:34, column:13, Unknown type producer
+line:34, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:35, column:12, extraneous input '.' expecting IDENTIFIER
+line:35, column:13, Unknown type producer
+line:35, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

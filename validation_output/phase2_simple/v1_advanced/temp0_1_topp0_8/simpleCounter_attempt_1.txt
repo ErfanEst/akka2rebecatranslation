@@ -1,0 +1,26 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:25, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:44, column:19, mismatched input ';' expecting ':'
+line:45, column:9, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:45, column:9, The method Client(byte) is undefined for the type Client
+line:46, column:9, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:46, column:9, The method Client(byte) is undefined for the type Client
+line:48, column:9, extraneous input '.' expecting IDENTIFIER
+line:48, column:10, Unknown type counter
+line:48, column:22, mismatched input 'sender' expecting ':'
+line:48, column:29, Multiple definition for the actor client1
+line:48, column:36, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:49, column:9, extraneous input '.' expecting IDENTIFIER
+line:49, column:10, Unknown type counter
+line:49, column:22, mismatched input 'sender' expecting ':'
+line:49, column:29, Multiple definition for the actor client2
+line:49, column:36, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:50, column:9, extraneous input '.' expecting IDENTIFIER
+line:50, column:10, Unknown type counter
+line:50, column:21, mismatched input 'sender' expecting ':'
+line:50, column:28, Multiple definition for the actor client1
+line:50, column:35, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

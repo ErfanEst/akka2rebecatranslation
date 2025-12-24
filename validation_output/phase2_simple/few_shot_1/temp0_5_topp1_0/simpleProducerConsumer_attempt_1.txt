@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:14, column:23, Unknown type string
+line:33, column:23, Unknown type string
+line:40, column:10, The method Producer(unknown, unknown) is undefined for the type Producer
+line:40, column:32, "self" undeclared
+line:40, column:50, "self" undeclared
+

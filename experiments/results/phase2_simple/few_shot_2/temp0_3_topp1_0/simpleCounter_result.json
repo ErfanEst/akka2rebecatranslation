@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Counter(3) {\n    knownrebecs { Client client1; Client client2; }\n    statevars { int count; }\n\n    Counter() {\n        count = 0;\n    }\n\n    msgsrv initial() {\n        self.increment(client1);\n        self.increment(client2);\n        self.getValue(client1);\n    }\n\n    msgsrv increment(Client sender) {\n        count = count + 1;\n        sender.valueResponse(count);\n    }\n\n    msgsrv decrement(Client sender) {\n        count = count - 1;\n        sender.valueResponse(count);\n    }\n\n    msgsrv getValue(Client sender) {\n        sender.valueResponse(count);\n    }\n}\n\nreactiveclass Client(3) {\n    knownrebecs { Counter counter; }\n    statevars { int clientId; }\n\n    Client(int id) {\n        clientId = id;\n    }\n\n    msgsrv initial() {\n        // no-op\n    }\n\n    msgsrv valueResponse(int value) {\n        // original Akka code printed the value; I/O removed\n    }\n}\n\nmain {\n    Counter counter(client1, client2):();\n    Client client1(counter):(1);\n    Client client2(counter):(2);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(3) {\n    knownrebecs { Client client1; Client client2; }\n    statevars { int count; }\n\n    Counter() {\n        count = 0;\n    }\n\n    msgsrv initial() {\n        self.increment(client1);\n        self.increment(client2);\n        self.getValue(client1);\n    }\n\n    msgsrv increment(Client sender) {\n        count = count + 1;\n        sender.valueResponse(count);\n    }\n\n    msgsrv decrement(Client sender) {\n        count = count - 1;\n        sender.valueResponse(count);\n    }\n\n    msgsrv getValue(Client sender) {\n        sender.valueResponse(count);\n    }\n}\n\nreactiveclass Client(3) {\n    knownrebecs { Counter counter; }\n    statevars { int clientId; }\n\n    Client(int id) {\n        clientId = id;\n    }\n\n    msgsrv initial() {\n        // no-op\n    }\n\n    msgsrv valueResponse(int value) {\n        // original Akka code printed the value; I/O removed\n    }\n}\n\nmain {\n    Counter counter(client1, client2):();\n    Client client1(counter):(1);\n    Client client2(counter):(2);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:16:02.687849",
+      "code_length": 998
+    }
+  ],
+  "file_name": "simpleCounter.txt",
+  "file_id": "simpleCounter",
+  "elapsed_time": 4.315641164779663,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_3_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:16:02.687916"
+}

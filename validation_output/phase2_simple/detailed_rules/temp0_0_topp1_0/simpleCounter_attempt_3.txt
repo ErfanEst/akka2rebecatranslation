@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, missing INTLITERAL at ')'
+line:7, column:6, Duplicate method Counter() in reactive class Counter
+line:7, column:6, Unknown type ctor
+line:13, column:9, The method ValueResponse(int) is undefined for the type RebecaSystem
+line:18, column:9, The method ValueResponse(int) is undefined for the type RebecaSystem
+line:22, column:9, The method ValueResponse(int) is undefined for the type RebecaSystem
+line:26, column:21, mismatched input 'Counter' expecting INTLITERAL
+line:43, column:27, mismatched input 'Counter' expecting INTLITERAL
+line:62, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:62, column:8, The method Client(byte) is undefined for the type Client
+line:63, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:63, column:8, The method Client(byte) is undefined for the type Client
+line:64, column:14, The RebecaSystem knownrebecs type binding of () is not applicable for the arguments (Counter, Client, Client)
+

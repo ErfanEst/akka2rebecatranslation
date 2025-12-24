@@ -1,0 +1,23 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgsrv Produce(int item) {
+		// Rebeca core has no println; remove or replace with environment actions if needed
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	msgsrv Consume(int item) {
+		// Rebeca core has no println; remove or replace with environment actions if needed
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+	producer.Produce(1);
+	producer.Produce(2);
+}

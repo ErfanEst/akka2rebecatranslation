@@ -1,0 +1,55 @@
+reactiveclass Counter(counterClient1, counterClient2) {
+	knownrebecs {
+		Client counterClient1;
+		Client counterClient2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+		self.increment(1, counterClient1);
+		self.increment(2, counterClient2);
+		self.getValue(counterClient1);
+	}
+
+	msgsrv increment(int dummy, Client sender) {
+		count = count + 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv decrement(int dummy, Client sender) {
+		count = count - 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv getValue(Client sender) {
+		sender.valueResponse(count);
+	}
+}
+
+reactiveclass Client(clientCounter) {
+	knownrebecs {
+		Counter clientCounter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		skip;
+	}
+}
+
+main {
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+	Counter counter(client1, client2):();
+}

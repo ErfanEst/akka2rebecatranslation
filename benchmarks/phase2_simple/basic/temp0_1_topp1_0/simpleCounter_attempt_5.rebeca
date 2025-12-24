@@ -1,0 +1,69 @@
+reactiveclass Counter() {
+	knownrebecs {
+		Client counter_client1;
+		Client counter_client2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		if (sender == counter_client1) {
+			counter_client1.ValueResponse(count);
+		} else {
+			counter_client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		if (sender == counter_client1) {
+			counter_client1.ValueResponse(count);
+		} else {
+			counter_client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv GetValue() {
+		if (sender == counter_client1) {
+			counter_client1.ValueResponse(count);
+		} else {
+			counter_client2.ValueResponse(count);
+		}
+	}
+}
+
+reactiveclass Client(Counter counterRef) {
+	statevars {
+		int clientId;
+		boolean isFirstClient;
+	}
+
+	msgsrv initial(int id, boolean isFirst) {
+		clientId = id;
+		isFirstClient = isFirst;
+
+		if (isFirstClient) {
+			counterRef.Increment();
+			counterRef.GetValue();
+		} else {
+			counterRef.Increment();
+		}
+	}
+
+	msgsrv ValueResponse(int value) {
+		// placeholder for printing functionality
+	}
+}
+
+main {
+	Client counter_client1(counter):(1, true);
+	Client counter_client2(counter):(2, false);
+	Counter counter(counter_client1, counter_client2):();
+}

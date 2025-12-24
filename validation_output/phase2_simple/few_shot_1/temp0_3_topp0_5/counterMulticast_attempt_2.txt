@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:57, column:8, The method Client(byte) is undefined for the type Client
+line:58, column:8, The method Client(byte) is undefined for the type Client
+line:61, column:8, extraneous input '.' expecting IDENTIFIER
+line:61, column:9, Unknown type client1
+line:61, column:25, mismatched input ';' expecting ':'
+

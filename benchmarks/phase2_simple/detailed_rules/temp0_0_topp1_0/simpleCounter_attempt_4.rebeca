@@ -1,0 +1,65 @@
+reactiveclass Counter {
+	knownrebecs { }
+	statevars {
+		int count;
+	}
+
+	ctor() {
+		count = 0;
+	}
+
+	msgsrv Increment(RebecaSystem sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(RebecaSystem sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(RebecaSystem sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	ctor(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+reactiveclass RebecaSystem {
+	knownrebecs {
+		Counter cntr;
+		Client c1;
+		Client c2;
+	}
+	statevars { }
+
+	ctor() {
+		cntr.Increment(this);
+		cntr.Increment(this);
+		cntr.GetValue(this);
+	}
+
+	msgsrv ValueResponse(int value) { }
+}
+
+main {
+	Counter cntr():();
+	Client c1(cntr):(1);
+	Client c2(cntr):(2);
+	RebecaSystem system(cntr, c1, c2):();
+}

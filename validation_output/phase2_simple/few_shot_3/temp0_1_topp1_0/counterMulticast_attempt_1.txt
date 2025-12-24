@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:42, column:9, extraneous input '.' expecting IDENTIFIER
+line:42, column:10, Unknown type counter
+line:43, column:9, extraneous input '.' expecting IDENTIFIER
+line:43, column:10, Unknown type counter
+line:44, column:9, extraneous input '.' expecting IDENTIFIER
+line:44, column:10, Unknown type counter
+

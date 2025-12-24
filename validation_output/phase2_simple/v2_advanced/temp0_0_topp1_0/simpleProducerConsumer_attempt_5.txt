@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'msgsrv' expecting INTLITERAL
+line:29, column:21, mismatched input 'msgsrv' expecting INTLITERAL
+line:50, column:11, The Actor1 knownrebecs type binding of () is not applicable for the arguments (Actor2)
+line:51, column:11, The Actor2 knownrebecs type binding of () is not applicable for the arguments (Actor1)
+line:53, column:6, extraneous input '.' expecting IDENTIFIER
+line:53, column:7, Unknown type a1
+line:53, column:14, mismatched input ';' expecting ':'
+line:54, column:6, extraneous input '.' expecting IDENTIFIER
+line:54, column:7, Unknown type a2
+line:54, column:14, mismatched input ';' expecting ':'
+

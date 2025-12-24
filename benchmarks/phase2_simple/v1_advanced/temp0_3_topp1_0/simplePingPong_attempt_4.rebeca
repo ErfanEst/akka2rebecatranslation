@@ -1,0 +1,59 @@
+reactiveclass Ping(pongInterface pong) {
+	knownrebecs {
+		pongInterface pong;
+	}
+
+	statevars {
+		int count;
+	}
+
+	Ping() {
+		count = 0;
+	}
+
+	msgsrv StartMessage() {
+		pong.PingMessage();
+	}
+
+	msgsrv PongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			sender.StopMessage();
+			selfDone();
+		} else {
+			sender.PingMessage();
+		}
+	}
+
+	msgsrv selfDone() {
+		// quiescent
+	}
+}
+
+reactiveclass Pong implements pongInterface {
+	Pong() {
+	}
+
+	msgsrv PingMessage() {
+		sender.PongMessage();
+	}
+
+	msgsrv StopMessage() {
+		selfDone();
+	}
+
+	msgsrv selfDone() {
+		// quiescent
+	}
+}
+
+interface pongInterface {
+	msgsrv PingMessage();
+}
+
+main {
+	Pong pong():();
+	Ping ping(pong):(pong);
+
+	ping.StartMessage();
+}

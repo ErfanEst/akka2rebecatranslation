@@ -1,0 +1,40 @@
+timedreactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+	
+	statevars {
+		int dummy;
+	}
+	
+	msgsrv initial() {
+	}
+	
+	msgsrv Produce(string item) {
+		consumer.Consume(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	knownrebecs {
+	}
+	
+	statevars {
+		int dummy;
+	}
+	
+	msgsrv initial() {
+	}
+	
+	msgsrv Consume(string item) {
+		// no-op
+	}
+}
+
+main {
+	Producer producer(consumer):();
+	Consumer consumer():();
+	
+	producer.Produce("item1");
+	producer.Produce("item2");
+}

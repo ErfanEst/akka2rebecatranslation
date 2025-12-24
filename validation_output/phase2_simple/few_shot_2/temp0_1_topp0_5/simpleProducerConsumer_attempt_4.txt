@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:32, column:9, extraneous input '.' expecting IDENTIFIER
+line:32, column:10, Unknown type producer
+line:33, column:9, extraneous input '.' expecting IDENTIFIER
+line:33, column:10, Unknown type producer
+

@@ -1,0 +1,276 @@
+================================================================================
+ATTEMPT 3 - PROMPT LOG
+Experiment: phase2_simple/few_shot_1/temp0_3_topp0_8
+File: simpleCounter
+Timestamp: 2025-12-24T19:58:40.446391
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv incrementFromClient1() {
+		count = count + 1;
+		client1.valueResponse(count);
+	}
+
+	msgsrv incrementFromClient2() {
+		count = count + 1;
+		client2.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient1() {
+		client1.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient2() {
+		client2.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		// placeholder for: println(s"Client $clientId received value: $value")
+	}
+
+	msgsrv startClient1() {
+		counter.incrementFromClient1();
+	}
+
+	msgsrv startClient2() {
+		counter.incrementFromClient2();
+	}
+
+	msgsrv requestValueClient1() {
+		counter.getValueFromClient1();
+	}
+
+	msgsrv requestValueClient2() {
+		counter.getValueFromClient2();
+	}
+}
+
+main {
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+	Counter counter(client1, client2):();
+
+	client1.startClient1();
+	client2.startClient2();
+	client1.requestValueClient1();
+	client2.requestValueClient2();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:67, column:8, The method Client(byte) is undefined for the type Client
+line:68, column:8, The method Client(byte) is undefined for the type Client
+line:71, column:8, extraneous input '.' expecting IDENTIFIER
+line:71, column:9, Unknown type client1
+line:71, column:23, mismatched input ';' expecting ':'
+line:72, column:8, extraneous input '.' expecting IDENTIFIER
+line:72, column:9, Unknown type client2
+line:72, column:23, mismatched input ';' expecting ':'
+line:73, column:8, extraneous input '.' expecting IDENTIFIER
+line:73, column:9, Unknown type client1
+line:73, column:30, mismatched input ';' expecting ':'
+line:74, column:8, extraneous input '.' expecting IDENTIFIER
+line:74, column:9, Unknown type client2
+line:74, column:30, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv incrementFromClient1() {
+		count = count + 1;
+		client1.valueResponse(count);
+	}
+
+	msgsrv incrementFromClient2() {
+		count = count + 1;
+		client2.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient1() {
+		client1.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient2() {
+		client2.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		// placeholder for: println(s"Client " + clientId + " received value: " + value)
+	}
+
+	msgsrv startClient1() {
+		counter.incrementFromClient1();
+	}
+
+	msgsrv startClient2() {
+		counter.incrementFromClient2();
+	}
+
+	msgsrv requestValueClient1() {
+		counter.getValueFromClient1();
+	}
+
+	msgsrv requestValueClient2() {
+		counter.getValueFromClient2();
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	client1.startClient1();
+	client2.startClient2();
+	client1.requestValueClient1();
+	client2.requestValueClient2();
+}
+
+================================================================================

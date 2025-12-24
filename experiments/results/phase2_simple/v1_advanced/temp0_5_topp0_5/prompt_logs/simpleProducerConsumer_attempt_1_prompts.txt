@@ -1,0 +1,114 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/v1_advanced/temp0_5_topp0_5
+File: simpleProducerConsumer
+Timestamp: 2025-12-24T19:14:26.984441
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate this given Akka program into fully valid Rebeca code that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Follow these rules:
+1) Actor → Reactiveclass mapping
+2) Message mapping & sender usage
+3) Timed constructs (after, delay)
+4) No return in msgsrv
+5) Initialization / main block rules
+6) Circular dependencies handled statically
+7) Randomness → nondeterministic expressions
+8) Remove println / I/O
+9) Correct timed Rebeca validation
+10) Final checks (no return, correct sender, main bindings)
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package ProducerConsumerSimple
+
+import akka.actor._
+
+case class Produce(item: String)
+case class Consume(item: String)
+
+class Producer(consumer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Produce(item) =>
+      println(s"Producer: sending $item")
+      consumer ! Consume(item)
+  }
+}
+
+class Consumer extends Actor {
+  def receive: Receive = {
+    case Consume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object ProducerConsumerSystem extends App {
+  val system = ActorSystem("ProducerConsumerSystem")
+  val consumer = system.actorOf(Props[Consumer], "consumer")
+  val producer = system.actorOf(Props(new Producer(consumer)), "producer")
+
+  producer ! Produce("item1")
+  producer ! Produce("item2")
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedRebeca {
+
+	reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+			// simulate sending two items at the start
+			self.produceItem1();
+			self.produceItem2();
+		}
+
+		msgsrv produceItem1() {
+			consumer.consume("item1");
+		}
+
+		msgsrv produceItem2() {
+			consumer.consume("item2");
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+		}
+
+		msgsrv consume(string item) {
+			// item received, no I/O
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+	}
+}
+
+================================================================================

@@ -1,9 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:31, column:4, The method terminate() is undefined
-line:36, column:7, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
-line:38, column:6, extraneous input '.' expecting IDENTIFIER
-line:38, column:7, Unknown type ping
-line:38, column:21, mismatched input ';' expecting ':'
-

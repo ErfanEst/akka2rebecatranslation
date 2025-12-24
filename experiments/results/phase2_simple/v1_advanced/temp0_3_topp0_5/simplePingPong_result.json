@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Ping {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\n\tping.StartMessage();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping {\n    knownrebecs {\n        Pong pong;\n    }\n    statevars {\n        int count;\n    }\n\n    Ping(Pong pongRef) {\n        pong = pongRef;\n        count = 0;\n    }\n\n    msgsrv StartMessage() {\n        pong.PingMessage();\n    }\n\n    msgsrv PongMessage() {\n        count = count + 1;\n        if (count >= 10) {\n            sender.StopMessage();\n        } else {\n            sender.PingMessage();\n        }\n    }\n}\n\nreactiveclass Pong {\n    knownrebecs {\n    }\n    statevars {\n    }\n\n    Pong() {\n    }\n\n    msgsrv PingMessage() {\n        sender.PongMessage();\n    }\n\n    msgsrv StopMessage() {\n        // no-op\n    }\n}\n\nmain {\n    Pong pong();\n    Ping ping(pong);\n\n    ping.StartMessage();\n}\n\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:28, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:47, column:15, mismatched input ';' expecting ':'\nline:48, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:48, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:50, column:8, extraneous input '.' expecting IDENTIFIER\nline:50, column:9, Unknown type ping\nline:50, column:23, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:09:03.390897",
+      "code_length": 709
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "timedreactiveclass Ping {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):();\n\n\tping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:09:06.744090",
+      "code_length": 558
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Ping {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):();\n\n\tping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:28, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:47, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:49, column:5, extraneous input '.' expecting IDENTIFIER\nline:49, column:6, Unknown type ping\nline:49, column:20, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:09:09.630812",
+      "code_length": 548
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping(pongRef: Pong) {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong() {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\n\tping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input 'pongRef' expecting INTLITERAL\nline:28, column:19, missing INTLITERAL at ')'\nline:38, column:9, There is no meta data for type ReactiveClass\nline:47, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:47, column:6, The method Ping(Pong) is undefined for the type Ping\nline:49, column:5, extraneous input '.' expecting IDENTIFIER\nline:49, column:6, Unknown type ping\nline:49, column:20, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:09:12.895161",
+      "code_length": 569
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Ping {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\n\tping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:28, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:47, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:47, column:6, The method Ping(Pong) is undefined for the type Ping\nline:49, column:5, extraneous input '.' expecting IDENTIFIER\nline:49, column:6, Unknown type ping\nline:49, column:20, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:09:16.378269",
+      "code_length": 552
+    }
+  ],
+  "file_name": "simplePingPong.txt",
+  "file_id": "simplePingPong",
+  "elapsed_time": 17.033941745758057,
+  "config": {
+    "experiment_name": "phase2_simple/v1_advanced/temp0_3_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:09:16.378344"
+}

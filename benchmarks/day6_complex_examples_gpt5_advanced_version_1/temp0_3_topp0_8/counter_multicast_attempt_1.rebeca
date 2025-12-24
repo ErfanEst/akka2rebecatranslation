@@ -1,0 +1,94 @@
+reactiveclass CounterMulticast_Counter(5) {
+	statevars {
+		int count;
+	}
+
+	reactiveclass CounterMulticast_Client knownrebecs {
+		CounterMulticast_Counter counter;
+	}
+
+	reactiveclass CounterMulticast_Client statevars {
+		int clientId;
+	}
+
+	reactiveclass CounterMulticast_Counter() {
+		count = 0;
+	}
+
+	reactiveclass CounterMulticast_Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// sender of Increment would receive updated value in Akka version
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// sender of Decrement would receive updated value in Akka version
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int value) {
+		// no-op; Counter does not handle this in Akka
+	}
+}
+
+reactiveclass CounterMulticast_Client(5) {
+	knownrebecs {
+		CounterMulticast_Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	CounterMulticast_Client(int id) {
+		clientId = id;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior in original Akka Client
+	}
+
+	msgsrv ValueResponse(int value) {
+		// original Akka prints the received value
+	}
+
+	msgsrv Increment() {
+		// no-op; Client does not handle this in Akka
+	}
+
+	msgsrv Decrement() {
+		// no-op; Client does not handle this in Akka
+	}
+
+	msgsrv GetValue() {
+		// no-op; Client does not handle this in Akka
+	}
+}
+
+main {
+	CounterMulticast_Counter counter():();
+	CounterMulticast_Client client1(counter):(1);
+	CounterMulticast_Client client2(counter):(2);
+
+	// Emulate:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+
+	counter.Increment() sender client1;
+	counter.Increment() sender client2;
+	counter.GetValue() sender client1;
+}

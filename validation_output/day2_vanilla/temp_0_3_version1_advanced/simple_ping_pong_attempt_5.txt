@@ -1,8 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:38, column:6, The Ping knownrebecs type binding of (Pong) is not applicable for the arguments ()
-line:38, column:6, The method Ping(Pong) is undefined for the type Ping
-line:39, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
-line:39, column:6, The method Pong(Ping) is undefined for the type Pong
-

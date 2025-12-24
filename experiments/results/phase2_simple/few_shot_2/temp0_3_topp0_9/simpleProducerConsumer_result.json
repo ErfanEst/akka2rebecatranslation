@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "total_attempts": 4,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ProduceMsg(int item) {\n\t\tconsumer.ConsumeMsg(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ConsumeMsg(int item) {\n\t}\n}\n\nreactiveclass MainRebeca(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t\tProducer producer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tproducer.ProduceMsg(1);\n\t\tproducer.ProduceMsg(2);\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tMainRebeca starter(consumer, producer):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ProduceMsg(int item) {\n\t\tconsumer.ConsumeMsg(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ConsumeMsg(int item) {\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tproducer.ProduceMsg(1);\n\tproducer.ProduceMsg(2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:9, extraneous input '.' expecting IDENTIFIER\nline:28, column:10, Unknown type producer\nline:28, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:29, column:9, extraneous input '.' expecting IDENTIFIER\nline:29, column:10, Unknown type producer\nline:29, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T20:15:14.410890",
+      "code_length": 410
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ProduceMsg(int item) {\n\t\tconsumer.ConsumeMsg(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ConsumeMsg(int item) {\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tproducer.ProduceMsg(1);\n\tproducer.ProduceMsg(2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:9, extraneous input '.' expecting IDENTIFIER\nline:28, column:10, Unknown type producer\nline:28, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:29, column:9, extraneous input '.' expecting IDENTIFIER\nline:29, column:10, Unknown type producer\nline:29, column:23, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T20:15:16.941114",
+      "code_length": 410
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ProduceMsg(int item) {\n\t\tconsumer.ConsumeMsg(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ConsumeMsg(int item) {\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tmainRebeca starter(consumer, producer):();\n}\n\nreactiveclass mainRebeca(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t\tProducer producer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tproducer.ProduceMsg(1);\n\t\tproducer.ProduceMsg(2);\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:12, Unknown type mainRebeca",
+      "timestamp": "2025-12-24T20:15:20.312319",
+      "code_length": 588
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ProduceMsg(int item) {\n\t\tconsumer.ConsumeMsg(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ConsumeMsg(int item) {\n\t}\n}\n\nreactiveclass MainRebeca(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t\tProducer producer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tproducer.ProduceMsg(1);\n\t\tproducer.ProduceMsg(2);\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tMainRebeca starter(consumer, producer):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:15:24.113564",
+      "code_length": 588
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 12.146993398666382,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_3_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:15:24.113590"
+}

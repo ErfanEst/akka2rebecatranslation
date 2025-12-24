@@ -1,7 +1,7 @@
 # experiments/base_model_v2.py
 """
 Configurable translation engine for systematic experimentation.
-Version 2.0 - Thesis edition with full prompt logging
+Version 2.0 - Thesis edition with full prompt logging and parameter support
 """
 import json
 import time
@@ -26,7 +26,7 @@ class BaseModelV2:
     Configurable LLM-based Akka-to-Rebeca translator.
 
     Designed for systematic experimentation with:
-    - Configurable temperature, model, prompts
+    - Configurable temperature, top_p, frequency/presence penalties
     - Detailed attempt tracking
     - Error history and metrics
     - Full prompt logging for analysis
@@ -41,7 +41,10 @@ class BaseModelV2:
             config: Dictionary with experiment parameters:
                 - experiment_name: str - Unique experiment identifier
                 - model: str - LLM model name (default: gpt-4)
-                - temperature: float - 0.0-1.0 (default: 0.1)
+                - temperature: float - 0.0-2.0 (default: 0.1)
+                - top_p: float - 0.0-1.0 (default: 1.0)
+                - frequency_penalty: float - -2.0 to 2.0 (default: 0.0)
+                - presence_penalty: float - -2.0 to 2.0 (default: 0.0)
                 - max_retries: int - Maximum retry attempts (default: 5)
                 - system_prompt: str - System prompt text
                 - initial_prompt_template: str - First translation prompt
@@ -57,13 +60,21 @@ class BaseModelV2:
         self.experiment_name = config.get("experiment_name", "default")
         self.model_name = config.get("model", settings.DEFAULT_MODEL)
         self.temperature = config.get("temperature", settings.TEMPERATURE)
+        self.top_p = config.get("top_p", 1.0)
+        self.frequency_penalty = config.get("frequency_penalty", 0.0)
+        self.presence_penalty = config.get("presence_penalty", 0.0)
         self.max_retries = config.get("max_retries", settings.MAX_RETRIES)
         self.description = config.get("description", "")
 
-        # Initialize LLM
+        # Initialize LLM with all parameters
         self.llm = ChatOpenAI(
             model=self.model_name,
             temperature=self.temperature,
+            model_kwargs={
+                "top_p": self.top_p,
+                "frequency_penalty": self.frequency_penalty,
+                "presence_penalty": self.presence_penalty,
+            },
             api_key=settings.OPENAI_API_KEY,
         )
 
@@ -90,24 +101,17 @@ class BaseModelV2:
 
     def _default_initial_prompt(self) -> str:
         """Default initial translation prompt."""
-        return """Translate the following Akka code into Rebeca code.
-
-Input Akka code:
-{akka_code}
-
-Output only valid Rebeca code with no explanations or markdown formatting."""
+        return """{akka_code}"""
 
     def _default_retry_prompt(self) -> str:
         """Default retry prompt with error feedback."""
-        return """The following Rebeca code has compilation errors:
+        return """Previous code:
+    {previous_code}
 
-Code:
-{previous_code}
+    Errors:
+    {errors}
 
-Errors:
-{errors}
-
-Provide corrected Rebeca code. Output only the code with no explanations."""
+    Provide corrected Rebeca code."""
 
     def clean_output(self, text: str) -> str:
         """
@@ -412,6 +416,9 @@ Provide corrected Rebeca code. Output only the code with no explanations."""
             "experiment_name": self.experiment_name,
             "model": self.model_name,
             "temperature": self.temperature,
+            "top_p": self.top_p,
+            "frequency_penalty": self.frequency_penalty,
+            "presence_penalty": self.presence_penalty,
             "max_retries": self.max_retries,
         }
         result["timestamp"] = datetime.now().isoformat()
@@ -449,7 +456,12 @@ Provide corrected Rebeca code. Output only the code with no explanations."""
 
         print(f"\n{'#'*70}")
         print(f"EXPERIMENT: {self.experiment_name}")
-        print(f"Model: {self.model_name} | Temp: {self.temperature}")
+        print(
+            f"Model: {self.model_name} | Temp: {self.temperature} | Top-p: {self.top_p}"
+        )
+        print(
+            f"Freq penalty: {self.frequency_penalty} | Presence penalty: {self.presence_penalty}"
+        )
         print(f"Files: {len(akka_files)} | Max retries: {self.max_retries}")
         print(f"{'#'*70}\n")
 
@@ -480,6 +492,9 @@ Provide corrected Rebeca code. Output only the code with no explanations."""
             "config": {
                 "model": self.model_name,
                 "temperature": self.temperature,
+                "top_p": self.top_p,
+                "frequency_penalty": self.frequency_penalty,
+                "presence_penalty": self.presence_penalty,
                 "max_retries": self.max_retries,
             },
             "results": {

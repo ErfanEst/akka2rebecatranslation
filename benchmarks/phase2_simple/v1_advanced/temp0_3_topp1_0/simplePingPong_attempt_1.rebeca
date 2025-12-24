@@ -1,0 +1,57 @@
+import java.lang.*;
+
+	abstract reactiveclass AbstractPingPong {
+	}
+
+	reactiveclass Ping(AbstractPingPong pong) {
+		statevars {
+			int count;
+		}
+
+		Ping() {
+			count = 0;
+		}
+
+		msgsrv StartMessage() {
+			pong.PingMessage();
+		}
+
+		msgsrv PongMessage() {
+			count = count + 1;
+			if (count >= 10) {
+				sender.StopMessage();
+				selfDone();
+			} else {
+				sender.PingMessage();
+			}
+		}
+
+		msgsrv selfDone() {
+			// no further behavior; modeled as quiescent
+		}
+	}
+
+	reactiveclass Pong(AbstractPingPong dummy) {
+		Pong() {
+		}
+
+		msgsrv PingMessage() {
+			sender.PongMessage();
+		}
+
+		msgsrv StopMessage() {
+			selfDone();
+		}
+
+		msgsrv selfDone() {
+			// no further behavior; modeled as quiescent
+		}
+	}
+
+	main {
+		Pong pong(dummy):();
+		Ping ping(pong):( );
+
+		ping.StartMessage();
+	}
+}

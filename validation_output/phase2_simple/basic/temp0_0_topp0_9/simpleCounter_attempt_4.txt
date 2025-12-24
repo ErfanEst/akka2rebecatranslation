@@ -1,0 +1,25 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:42, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:66, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:66, column:8, The method Client(byte) is undefined for the type Client
+line:67, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)
+line:67, column:8, The method Client(byte) is undefined for the type Client
+line:69, column:8, extraneous input '.' expecting IDENTIFIER
+line:69, column:9, Unknown type client1
+line:69, column:18, mismatched input ';' expecting ':'
+line:70, column:8, extraneous input '.' expecting IDENTIFIER
+line:70, column:9, Unknown type client2
+line:70, column:18, mismatched input ';' expecting ':'
+line:72, column:8, extraneous input '.' expecting IDENTIFIER
+line:72, column:9, Unknown type counter
+line:72, column:20, mismatched input ';' expecting ':'
+line:73, column:8, extraneous input '.' expecting IDENTIFIER
+line:73, column:9, Unknown type counter
+line:73, column:20, mismatched input ';' expecting ':'
+line:74, column:8, extraneous input '.' expecting IDENTIFIER
+line:74, column:9, Unknown type counter
+line:74, column:19, mismatched input ';' expecting ':'
+

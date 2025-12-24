@@ -1,0 +1,78 @@
+reactiveclass Producer(1) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no data statevars needed
+	}
+
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		// itemId encodes which item to produce
+		// 1 -> "item1", 2 -> "item2"
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(1) {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior
+	}
+
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			buffer[tail] = dataId;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer overflow ignored in this model
+		}
+	}
+
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int itemId;
+			itemId = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// itemId represents the consumed item
+		} else {
+			// buffer empty, nothing to consume
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.ProduceMsg(1);
+	producer.ProduceMsg(2);
+	consumer.ConsumeMsg();
+}

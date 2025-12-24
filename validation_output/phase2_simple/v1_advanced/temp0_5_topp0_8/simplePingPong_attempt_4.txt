@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}
+line:27, column:19, mismatched input '{' expecting {'extends', 'implements', '('}
+line:45, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:45, column:6, The method Ping(unknown) is undefined for the type Ping
+line:45, column:19, "self" undeclared
+

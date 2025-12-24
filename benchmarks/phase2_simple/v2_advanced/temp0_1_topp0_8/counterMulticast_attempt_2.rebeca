@@ -1,0 +1,62 @@
+timedreactiveclass Counter {
+	knownrebecs {
+	}
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior; counter reacts to external messages
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		// println("Counter incremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		// println("Counter decremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+timedreactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+		// no automatic behavior on start
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter, 1);
+	Client client2(counter, 2);
+
+	counter.Increment(client1) after(0);
+	counter.Increment(client2) after(0);
+	counter.GetValue(client1) after(0);
+}

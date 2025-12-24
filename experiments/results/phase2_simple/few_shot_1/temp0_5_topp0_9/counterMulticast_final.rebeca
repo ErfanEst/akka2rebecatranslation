@@ -1,0 +1,86 @@
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv IncrementFromClient1() {
+		count = count + 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv IncrementFromClient2() {
+		count = count + 1;
+		client2.ValueResponse(count);
+	}
+
+	msgsrv DecrementFromClient1() {
+		count = count - 1;
+		client1.ValueResponse(count);
+	}
+
+	msgsrv DecrementFromClient2() {
+		count = count - 1;
+		client2.ValueResponse(count);
+	}
+
+	msgsrv GetValueFromClient1() {
+		client1.ValueResponse(count);
+	}
+
+	msgsrv GetValueFromClient2() {
+		client2.ValueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial() {
+		// default initialization, will be set by Starter
+		clientId = 0;
+	}
+
+	msgsrv setId(int initId) {
+		clientId = initId;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// output omitted
+	}
+}
+
+reactiveclass Starter(5) {
+	knownrebecs {
+		Counter counter;
+		Client client1;
+		Client client2;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		client1.setId(1);
+		client2.setId(2);
+		// additional stimulation of the system can be added here
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):();
+	Client client2(counter):();
+	Starter starter(counter, client1, client2):();
+}

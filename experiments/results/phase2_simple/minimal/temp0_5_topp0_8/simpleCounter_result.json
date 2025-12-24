@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Counter(knownrebecs { \n\tClient client1; \n\tClient client2; \n}) {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(knownrebecs { \n\tCounter counter; \n}) {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):();\n\tClient client2(counter):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tCounter() {\n\t\tcount = 0;\n\t}\n\n\tmsgsrv initial() {\n\t\t// simulate the main logic\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tClient(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv initial() {\n\t\t// no-op\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// print is not part of core Rebeca semantics; kept as a comment\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}\nline:37, column:21, mismatched input '{' expecting {'extends', 'implements', '('}\nline:61, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)\nline:62, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:62, column:8, The method Client(byte) is undefined for the type Client\nline:63, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:63, column:8, The method Client(byte) is undefined for the type Client",
+      "timestamp": "2025-12-24T17:55:56.449606",
+      "code_length": 974
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Counter() {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(int id) {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n\tCounter counter(client1, client2):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:22, missing INTLITERAL at ')'\nline:20, column:9, The method valueResponse(int) is undefined for the type Client\nline:25, column:9, The method valueResponse(int) is undefined for the type Client\nline:29, column:9, The method valueResponse(int) is undefined for the type Client\nline:33, column:21, mismatched input 'int' expecting INTLITERAL\nline:52, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:52, column:8, The method Client(byte) is undefined for the type Client\nline:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:53, column:8, The method Client(byte) is undefined for the type Client",
+      "timestamp": "2025-12-24T17:56:01.685449",
+      "code_length": 838
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Counter {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tmsgsrv initial(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:21, mismatched input '{' expecting {'extends', 'implements', '('}\nline:52, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)\nline:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:53, column:8, The method Client(byte) is undefined for the type Client\nline:54, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:54, column:8, The method Client(byte) is undefined for the type Client",
+      "timestamp": "2025-12-24T17:56:08.635825",
+      "code_length": 834
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Counter {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tknownrebecs {\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tClient client1(counter):();\n\tClient client2(counter):();\n\tCounter counter(client1, client2):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:21, mismatched input '{' expecting {'extends', 'implements', '('}\nline:52, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:54, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)",
+      "timestamp": "2025-12-24T17:56:12.333809",
+      "code_length": 825
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Counter(knownrebecs { \n\tClient client1; \n\tClient client2; \n}) {\n\tstatevars {\n\t\tint count;\n\t}\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tself.increment(client1);\n\t\tself.increment(client2);\n\t\tself.getValue(client1);\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(knownrebecs { \n\tCounter counter; \n}) {\n\tstatevars {\n\t\tint clientId;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientId = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\t// println(\"Client \" + clientId + \" received value: \" + value);\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):();\n\tClient client2(counter):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:22, mismatched input 'knownrebecs' expecting INTLITERAL\nline:31, column:21, mismatched input 'knownrebecs' expecting INTLITERAL\nline:48, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)\nline:49, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)\nline:50, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter)",
+      "timestamp": "2025-12-24T17:56:16.060658",
+      "code_length": 823
+    }
+  ],
+  "file_name": "simpleCounter.txt",
+  "file_id": "simpleCounter",
+  "elapsed_time": 24.85743808746338,
+  "config": {
+    "experiment_name": "phase2_simple/minimal/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T17:56:16.060701"
+}

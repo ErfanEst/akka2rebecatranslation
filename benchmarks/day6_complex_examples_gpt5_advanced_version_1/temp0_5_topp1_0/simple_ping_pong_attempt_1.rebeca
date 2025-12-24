@@ -1,0 +1,63 @@
+reactiveclass PingPingPongPing(int bufferSize) {
+	knownrebecs {
+		PingPingPongPong pong;
+	}
+	statevars {
+		int count;
+		boolean active;
+	}
+
+	PingPingPongPing() {
+		count = 0;
+		active = true;
+		self.startMsg();
+	}
+
+	msgsrv startMsg() {
+		if (active) {
+			pong.pingMsg();
+		}
+	}
+
+	msgsrv pongMsg() {
+		if (!active) {
+		} else {
+			count = count + 1;
+			if (count >= 10) {
+				((PingPingPongPong)sender).stopMsg();
+				active = false;
+			} else {
+				((PingPingPongPong)sender).pingMsg();
+			}
+		}
+	}
+}
+
+reactiveclass PingPingPongPong(int bufferSize) {
+	knownrebecs {
+	}
+
+	statevars {
+		boolean active;
+	}
+
+	PingPingPongPong() {
+		active = true;
+	}
+
+	msgsrv pingMsg() {
+		if (!active) {
+		} else {
+			((PingPingPongPing)sender).pongMsg();
+		}
+	}
+
+	msgsrv stopMsg() {
+		active = false;
+	}
+}
+
+main {
+	PingPingPongPong pong(10):();
+	PingPingPongPing ping(pong,10):();
+}

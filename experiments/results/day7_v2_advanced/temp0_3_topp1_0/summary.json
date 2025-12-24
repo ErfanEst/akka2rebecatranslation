@@ -1,0 +1,21 @@
+{
+  "experiment_name": "day7_v2_advanced/temp0_3_topp1_0",
+  "description": "Day7: V2 Advanced - temp0_3_topp1_0",
+  "config": {
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 3,
+    "successful": 0,
+    "failed": 3,
+    "success_rate": 0.0,
+    "avg_attempts": 5.0,
+    "avg_time": 30.759467840194702
+  },
+  "timestamp": "2025-12-24T12:46:07.174545"
+}

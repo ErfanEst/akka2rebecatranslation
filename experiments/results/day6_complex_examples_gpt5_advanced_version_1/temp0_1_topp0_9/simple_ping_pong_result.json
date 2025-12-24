@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass PingPing(10) {\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\t((Pong)sender).stopMessage();\n\t\t} else {\n\t\t\t((Pong)sender).pingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t((Ping)sender).pongMessage();\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// no further behavior; actor effectively stops\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingPing(int bufferSize) {\n}\n\nreactiveclass Ping(int bufferSize) {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\t((Pong)sender).stopMessage();\n\t\t} else {\n\t\t\t((Pong)sender).pingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(int bufferSize) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t((Ping)sender).pongMessage();\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// no further behavior; actor effectively stops\n\t}\n}\n\nmain {\n\tPing ping(pong):( );\n\tPong pong(ping):( );\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input 'int' expecting INTLITERAL\nline:4, column:19, mismatched input 'int' expecting INTLITERAL\nline:32, column:19, mismatched input 'int' expecting INTLITERAL\nline:50, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)\nline:51, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (Ping)",
+      "timestamp": "2025-12-24T12:10:57.669719",
+      "code_length": 662
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingPing(10) {\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs {\n\t\tPong pong;\n\t}\n\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\t((Pong)sender).stopMessage();\n\t\t} else {\n\t\t\t((Pong)sender).pingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tknownrebecs {\n\t\tPing ping;\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t((Ping)sender).pongMessage();\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// no further behavior; actor effectively stops\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T12:11:01.118276",
+      "code_length": 624
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 6.99734902381897,
+  "config": {
+    "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_1_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:11:01.118317"
+}

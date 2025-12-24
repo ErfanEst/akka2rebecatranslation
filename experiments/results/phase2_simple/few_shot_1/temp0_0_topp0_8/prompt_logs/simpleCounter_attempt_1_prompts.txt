@@ -1,0 +1,212 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/few_shot_1/temp0_0_topp0_8
+File: simpleCounter
+Timestamp: 2025-12-24T19:50:18.200932
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package SimpleCounter
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+
+class Counter extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      sender() ! ValueResponse(count)
+
+    case Decrement =>
+      count -= 1
+      sender() ! ValueResponse(count)
+
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterApp extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv incrementFromClient1() {
+		count = count + 1;
+		client1.valueResponse(count);
+	}
+
+	msgsrv incrementFromClient2() {
+		count = count + 1;
+		client2.valueResponse(count);
+	}
+
+	msgsrv getValueForClient1() {
+		client1.valueResponse(count);
+	}
+
+	msgsrv getValueForClient2() {
+		client2.valueResponse(count);
+	}
+}
+
+reactiveclass Client(int clientId) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int lastValue;
+	}
+
+	msgsrv initial() {
+		lastValue = 0;
+	}
+
+	msgsrv valueResponse(int value) {
+		lastValue = value;
+		// println is not supported in core Rebeca; state is stored in lastValue
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	// Simulate:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+	counter.incrementFromClient1();
+	counter.incrementFromClient2();
+	counter.getValueForClient1();
+}
+
+================================================================================

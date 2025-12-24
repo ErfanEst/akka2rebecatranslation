@@ -1,0 +1,156 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/few_shot_2/temp0_5_topp0_5
+File: simpleCounter
+Timestamp: 2025-12-24T20:16:32.671751
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package SimpleCounter
+
+import akka.actor._
+
+case object Increment
+case object Decrement
+case object GetValue
+case class ValueResponse(value: Int)
+
+
+class Counter extends Actor {
+  private var count = 0
+
+  def receive: Receive = {
+    case Increment =>
+      count += 1
+      sender() ! ValueResponse(count)
+
+    case Decrement =>
+      count -= 1
+      sender() ! ValueResponse(count)
+
+    case GetValue =>
+      sender() ! ValueResponse(count)
+  }
+}
+
+class Client(counter: ActorRef, clientId: Int) extends Actor {
+  def receive: Receive = {
+    case ValueResponse(value) =>
+      println(s"Client $clientId received value: $value")
+  }
+}
+
+object CounterApp extends App {
+  val system = ActorSystem("CounterSystem")
+  val counter = system.actorOf(Props[Counter], "counter")
+  val client1 = system.actorOf(Props(new Client(counter, 1)), "client1")
+  val client2 = system.actorOf(Props(new Client(counter, 2)), "client2")
+
+  counter.tell(Increment, client1)
+  counter.tell(Increment, client2)
+  counter.tell(GetValue, client1)
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter(10) {
+	knownrebecs { Client client1; Client client2; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(Client sender) {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement(Client sender) {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs { Counter counter; }
+	statevars { int clientId; }
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv ValueResponse(int value) {
+		// original code printed the value; I/O removed
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}
+
+================================================================================

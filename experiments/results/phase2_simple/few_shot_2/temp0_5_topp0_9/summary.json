@@ -1,0 +1,21 @@
+{
+  "experiment_name": "phase2_simple/few_shot_2/temp0_5_topp0_9",
+  "description": "Phase2 Simple: few_shot_2 - temp0_5_topp0_9",
+  "config": {
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 4,
+    "successful": 2,
+    "failed": 2,
+    "success_rate": 50.0,
+    "avg_attempts": 3.75,
+    "avg_time": 11.696281552314758
+  },
+  "timestamp": "2025-12-24T20:18:42.162782"
+}

@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "total_attempts": 3,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv ProduceMsg(int itemId) {\n\t\tconsumer.itemMsg(itemId);\n\t}\n\tmsgsrv initial() {\n\t\tself.ProduceMsg(1);\n\t\tself.ProduceMsg(2);\n\t\tconsumer.consumeMsg();\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint buffer0;\n\t\tint buffer1;\n\t\tint buffer2;\n\t\tint buffer3;\n\t\tint buffer4;\n\t\tint buffer5;\n\t\tint buffer6;\n\t\tint buffer7;\n\t\tint buffer8;\n\t\tint buffer9;\n\t\tint head;\n\t\tint tail;\n\t\tint size;\n\t}\n\tmsgsrv initial() {\n\t\thead = 0;\n\t\ttail = 0;\n\t\tsize = 0;\n\t}\n\tmsgsrv itemMsg(int data) {\n\t\tif (size < 10) {\n\t\t\tif (tail == 0) { buffer0 = data; }\n\t\t\telse if (tail == 1) { buffer1 = data; }\n\t\t\telse if (tail == 2) { buffer2 = data; }\n\t\t\telse if (tail == 3) { buffer3 = data; }\n\t\t\telse if (tail == 4) { buffer4 = data; }\n\t\t\telse if (tail == 5) { buffer5 = data; }\n\t\t\telse if (tail == 6) { buffer6 = data; }\n\t\t\telse if (tail == 7) { buffer7 = data; }\n\t\t\telse if (tail == 8) { buffer8 = data; }\n\t\t\telse { buffer9 = data; }\n\n\t\t\ttail = (tail + 1) % 10;\n\t\t\tsize = size + 1;\n\t\t} else {\n\t\t\t// buffer full, item dropped\n\t\t}\n\t}\n\tmsgsrv consumeMsg() {\n\t\tif (size > 0) {\n\t\t\tint item;\n\t\t\tif (head == 0) { item = buffer0; }\n\t\t\telse if (head == 1) { item = buffer1; }\n\t\t\telse if (head == 2) { item = buffer2; }\n\t\t\telse if (head == 3) { item = buffer3; }\n\t\t\telse if (head == 4) { item = buffer4; }\n\t\t\telse if (head == 5) { item = buffer5; }\n\t\t\telse if (head == 6) { item = buffer6; }\n\t\t\telse if (head == 7) { item = buffer7; }\n\t\t\telse if (head == 8) { item = buffer8; }\n\t\t\telse { item = buffer9; }\n\n\t\t\thead = (head + 1) % 10;\n\t\t\tsize = size - 1;\n\t\t\t// item consumed\n\t\t} else {\n\t\t\t// buffer empty\n\t\t}\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv ProduceMsg(int itemId) {\n\t\tconsumer.ItemMsg(itemId);\n\t}\n\tmsgsrv initial() {\n\t\tself.ProduceMsg(1);\n\t\tself.ProduceMsg(2);\n\t\tconsumer.ConsumeMsg();\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint buffer[10];\n\t\tint head;\n\t\tint tail;\n\t\tint size;\n\t}\n\tmsgsrv initial() {\n\t\thead = 0;\n\t\ttail = 0;\n\t\tsize = 0;\n\t}\n\tmsgsrv ItemMsg(int data) {\n\t\tif (size < 10) {\n\t\t\tbuffer[tail] = data;\n\t\t\ttail = (tail + 1) % 10;\n\t\t\tsize = size + 1;\n\t\t} else {\n\t\t\t// buffer full, item dropped\n\t\t}\n\t}\n\tmsgsrv ConsumeMsg() {\n\t\tif (size > 0) {\n\t\t\tint item;\n\t\t\titem = buffer[head];\n\t\t\thead = (head + 1) % 10;\n\t\t\tsize = size - 1;\n\t\t\t// item consumed\n\t\t} else {\n\t\t\t// buffer empty\n\t\t}\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:11, The method ItemMsg(int) is undefined for the type Consumer\nline:13, column:11, The method ConsumeMsg() is undefined for the type Consumer\nline:21, column:12, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-24T12:16:13.821670",
+      "code_length": 836
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv ProduceMsg(int itemId) {\n\t\tconsumer.itemMsg(itemId);\n\t}\n\tmsgsrv initial() {\n\t\tself.ProduceMsg(1);\n\t\tself.ProduceMsg(2);\n\t\tconsumer.consumeMsg();\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint buffer[10];\n\t\tint head;\n\t\tint tail;\n\t\tint size;\n\t}\n\tmsgsrv initial() {\n\t\thead = 0;\n\t\ttail = 0;\n\t\tsize = 0;\n\t}\n\tmsgsrv itemMsg(int data) {\n\t\tif (size < 10) {\n\t\t\tbuffer[tail] = data;\n\t\t\ttail = (tail + 1) % 10;\n\t\t\tsize = size + 1;\n\t\t} else {\n\t\t\t// buffer full, item dropped\n\t\t}\n\t}\n\tmsgsrv consumeMsg() {\n\t\tif (size > 0) {\n\t\t\tint item;\n\t\t\titem = buffer[head];\n\t\t\thead = (head + 1) % 10;\n\t\t\tsize = size - 1;\n\t\t\t// item consumed\n\t\t} else {\n\t\t\t// buffer empty\n\t\t}\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:11, The method itemMsg(int) is undefined for the type Consumer\nline:13, column:11, The method consumeMsg() is undefined for the type Consumer\nline:21, column:12, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-24T12:16:20.038767",
+      "code_length": 836
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv ProduceMsg(int itemId) {\n\t\tconsumer.itemMsg(itemId);\n\t}\n\tmsgsrv initial() {\n\t\tself.ProduceMsg(1);\n\t\tself.ProduceMsg(2);\n\t\tconsumer.consumeMsg();\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint buffer0;\n\t\tint buffer1;\n\t\tint buffer2;\n\t\tint buffer3;\n\t\tint buffer4;\n\t\tint buffer5;\n\t\tint buffer6;\n\t\tint buffer7;\n\t\tint buffer8;\n\t\tint buffer9;\n\t\tint head;\n\t\tint tail;\n\t\tint size;\n\t}\n\tmsgsrv initial() {\n\t\thead = 0;\n\t\ttail = 0;\n\t\tsize = 0;\n\t}\n\tmsgsrv itemMsg(int data) {\n\t\tif (size < 10) {\n\t\t\tif (tail == 0) { buffer0 = data; }\n\t\t\telse if (tail == 1) { buffer1 = data; }\n\t\t\telse if (tail == 2) { buffer2 = data; }\n\t\t\telse if (tail == 3) { buffer3 = data; }\n\t\t\telse if (tail == 4) { buffer4 = data; }\n\t\t\telse if (tail == 5) { buffer5 = data; }\n\t\t\telse if (tail == 6) { buffer6 = data; }\n\t\t\telse if (tail == 7) { buffer7 = data; }\n\t\t\telse if (tail == 8) { buffer8 = data; }\n\t\t\telse { buffer9 = data; }\n\n\t\t\ttail = (tail + 1) % 10;\n\t\t\tsize = size + 1;\n\t\t} else {\n\t\t\t// buffer full, item dropped\n\t\t}\n\t}\n\tmsgsrv consumeMsg() {\n\t\tif (size > 0) {\n\t\t\tint item;\n\t\t\tif (head == 0) { item = buffer0; }\n\t\t\telse if (head == 1) { item = buffer1; }\n\t\t\telse if (head == 2) { item = buffer2; }\n\t\t\telse if (head == 3) { item = buffer3; }\n\t\t\telse if (head == 4) { item = buffer4; }\n\t\t\telse if (head == 5) { item = buffer5; }\n\t\t\telse if (head == 6) { item = buffer6; }\n\t\t\telse if (head == 7) { item = buffer7; }\n\t\t\telse if (head == 8) { item = buffer8; }\n\t\t\telse { item = buffer9; }\n\n\t\t\thead = (head + 1) % 10;\n\t\t\tsize = size - 1;\n\t\t\t// item consumed\n\t\t} else {\n\t\t\t// buffer empty\n\t\t}\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T12:16:27.485229",
+      "code_length": 1742
+    }
+  ],
+  "file_name": "producer_consumer.txt",
+  "file_id": "producer_consumer",
+  "elapsed_time": 18.25194025039673,
+  "config": {
+    "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_5_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:16:27.485277"
+}

@@ -1,0 +1,63 @@
+reactiveclass Ping {
+    knownrebecs {
+        Pong pong;
+    }
+    statevars {
+        int count;
+    }
+
+    Ping(Pong pong) {
+        self.pong = pong;
+        count = 0;
+    }
+
+    msgsrv StartMessage() {
+        // println("Ping started the game!");
+        pong.PingMessage();
+    }
+
+    msgsrv PongMessage() {
+        count = count + 1;
+        // println("Ping received pong #" + count);
+
+        if (count >= 10) {
+            self.StopPong();
+            // println("Ping stopped");
+            // self is "stopped" logically; no further behavior
+        } else {
+            self.SendPing();
+        }
+    }
+
+    msgsrv SendPing() {
+        pong.PingMessage();
+    }
+
+    msgsrv StopPong() {
+        pong.StopMessage();
+    }
+}
+
+reactiveclass Pong {
+    knownrebecs { }
+
+    Pong() {
+    }
+
+    msgsrv PingMessage() {
+        // println("Pong received ping");
+        sender.PongMessage();
+    }
+
+    msgsrv StopMessage() {
+        // println("Pong stopped");
+        // self is "stopped" logically; no further behavior
+    }
+}
+
+main {
+    Pong pong();
+    Ping ping(pong);
+
+    ping.StartMessage();
+}

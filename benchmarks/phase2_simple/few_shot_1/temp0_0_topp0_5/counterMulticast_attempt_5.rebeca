@@ -1,0 +1,69 @@
+reactiveclass Counter(5) {
+	knownrebecs { Client client1; Client client2; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment(int senderId) {
+		count = count + 1;
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv Decrement(int senderId) {
+		count = count - 1;
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv GetValue(int senderId) {
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs { Counter counter; }
+	statevars { int clientId; }
+
+	msgsrv initial() {
+		// default initialization, real id is set via a separate msgsrv
+	}
+
+	msgsrv setId(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):();
+	Client client2(counter):();
+
+	// initialize client ids
+	client1.setId(1);
+	client2.setId(2);
+
+	// simulate:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+	counter.Increment(1);
+	counter.Increment(2);
+	counter.GetValue(1);
+}

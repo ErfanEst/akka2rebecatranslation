@@ -1,0 +1,19 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:6, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:7, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:33, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:43, column:9, The method Counter() is undefined for the type Counter
+line:44, column:8, The method Client(byte) is undefined for the type Client
+line:45, column:8, The method Client(byte) is undefined for the type Client
+line:47, column:8, extraneous input '.' expecting IDENTIFIER
+line:47, column:9, Unknown type counter
+line:47, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:48, column:8, extraneous input '.' expecting IDENTIFIER
+line:48, column:9, Unknown type counter
+line:48, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:49, column:8, extraneous input '.' expecting IDENTIFIER
+line:49, column:9, Unknown type counter
+line:49, column:26, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

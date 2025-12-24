@@ -1,0 +1,39 @@
+reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+			// Simulate sending of two items at start
+			self.produce("item1");
+			self.produce("item2");
+		}
+
+		msgsrv produce(string item) {
+			consumer.consume(item);
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+		}
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+		}
+
+		msgsrv consume(string item) {
+			// No I/O in Rebeca model
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+	}
+}

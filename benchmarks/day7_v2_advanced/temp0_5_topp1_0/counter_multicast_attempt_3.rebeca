@@ -1,0 +1,97 @@
+reactiveclass Env() {
+	knownrebecs { }
+	statevars { }
+
+	Env() {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv printInt(int x) {
+		// modeling print as a side effect, no operation needed
+	}
+}
+
+reactiveclass Client(Env env, Counter counter) {
+	knownrebecs {
+		Env env;
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+		// no initial actions here
+	}
+
+	msgsrv ValueResponse(int value) {
+		env.printInt(value);
+	}
+}
+
+reactiveclass Counter(Env env, Client client1, Client client2) {
+	knownrebecs {
+		Env env;
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// no initial actions
+	}
+
+	msgsrv Increment(int senderId) {
+		count = count + 1;
+		env.printInt(count);
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv Decrement(int senderId) {
+		count = count - 1;
+		env.printInt(count);
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv GetValue(int senderId) {
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+}
+
+main {
+	Env env();
+	// forward declarations for circular references are not needed in Rebeca;
+	// use instance names directly as constructor parameters.
+	Client client1(env, counter)(1);
+	Client client2(env, counter)(2);
+	Counter counter(env, client1, client2);
+
+	// Initial messages
+	counter.Increment(1);
+	counter.Increment(2);
+	counter.GetValue(1);
+}

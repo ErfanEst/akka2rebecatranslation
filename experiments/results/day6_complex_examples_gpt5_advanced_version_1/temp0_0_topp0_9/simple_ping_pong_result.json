@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "total_attempts": 4,
+  "final_code": "reactiveclass PingPing(10) {\n\tPingPing() {\n\t}\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t\tboolean active;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tactive = true;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tif (active) {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv startMessage() {\n\t\t// Not used in this translation; start is done in constructor via initial\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tif (!active) {\n\t\t} else {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\t((Pong)sender).stopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\tpong.pingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\tPingPing dummy():();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingPing(bufferSize) {\n}\n\nreactiveclass Ping(bufferSize) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t\tboolean active;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t\tactive = true;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tif (active) {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv startMessage() {\n\t\t// Not used in this translation; start is done in constructor via initial\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tif (!active) {\n\t\t} else {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\t((Pong)sender).stopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\t((Pong)sender).pingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(bufferSize) {\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):();\n\tPingPing dummy():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input 'bufferSize' expecting INTLITERAL\nline:4, column:19, mismatched input 'bufferSize' expecting INTLITERAL\nline:44, column:19, mismatched input 'bufferSize' expecting INTLITERAL\nline:66, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)",
+      "timestamp": "2025-12-24T12:07:04.694494",
+      "code_length": 924
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingPing(10) {\n\tPingPing() {\n\t}\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t\tboolean active;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t\tactive = true;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tif (active) {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv startMessage() {\n\t\t// Not used in this translation; start is done in constructor via initial\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tif (!active) {\n\t\t} else {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\t((Pong)sender).stopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\t((Pong)sender).pingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\tPingPing dummy():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:16, column:2, A constant variable cannot be in the left-hand side of an assignment",
+      "timestamp": "2025-12-24T12:07:09.997481",
+      "code_length": 921
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass PingPing(10) {\n\tPingPing() {\n\t}\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t\tboolean active;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tpong = pongRef;\n\t\tcount = 0;\n\t\tactive = true;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tif (active) {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv startMessage() {\n\t\t// Not used in this translation; start is done in constructor via initial\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tif (!active) {\n\t\t} else {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\t((Pong)sender).stopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\tpong.pingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\tPingPing dummy():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:16, column:2, A constant variable cannot be in the left-hand side of an assignment",
+      "timestamp": "2025-12-24T12:07:14.533235",
+      "code_length": 911
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass PingPing(10) {\n\tPingPing() {\n\t}\n}\n\nreactiveclass Ping(10) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t\tboolean active;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tactive = true;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\tif (active) {\n\t\t\tpong.pingMessage();\n\t\t}\n\t}\n\n\tmsgsrv startMessage() {\n\t\t// Not used in this translation; start is done in constructor via initial\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tif (!active) {\n\t\t} else {\n\t\t\tcount = count + 1;\n\t\t\tif (count >= 10) {\n\t\t\t\t((Pong)sender).stopMessage();\n\t\t\t\tactive = false;\n\t\t\t} else {\n\t\t\t\tpong.pingMessage();\n\t\t\t}\n\t\t}\n\t}\n}\n\nreactiveclass Pong(10) {\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPong pong():();\n\tPing ping(pong):(pong);\n\tPingPing dummy():();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T12:07:19.907789",
+      "code_length": 893
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 20.075648069381714,
+  "config": {
+    "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_0_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:07:19.907851"
+}

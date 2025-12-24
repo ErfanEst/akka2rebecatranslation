@@ -1,0 +1,37 @@
+reactiveclass Producer {
+	knownrebecs { 
+		Consumer consumer;
+	}
+
+	statevars {
+	}
+
+	msgsrv initial(Consumer c) {
+		consumer = c;
+	}
+
+	msgsrv Produce(String item) {
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+	}
+
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Consume(String item) {
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer):();
+	producer.Produce("item1");
+	producer.Produce("item2");
+}

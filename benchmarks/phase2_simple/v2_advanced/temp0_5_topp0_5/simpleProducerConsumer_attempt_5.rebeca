@@ -1,0 +1,40 @@
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// simulate sending two items at start
+		Produce(1);
+		Produce(2);
+	}
+
+	msgsrv Produce(int item) {
+		// Producer: sending item
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// no initialization needed
+	}
+
+	msgsrv Consume(int item) {
+		// Consumer: received item
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+}

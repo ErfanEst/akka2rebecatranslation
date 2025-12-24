@@ -1,0 +1,105 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase2_simple/detailed_rules/temp0_0_topp0_5
+File: simpleProducerConsumer
+Timestamp: 2025-12-24T18:29:03.711971
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+
+KEY TRANSLATION RULES:
+1. Akka Actor → Rebeca reactiveclass
+2. Actor messages → msgsrv methods
+3. Actor state → statevars section
+4. Actor references → knownrebecs section
+5. Message send (!) → method call
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package ProducerConsumerSimple
+
+import akka.actor._
+
+case class Produce(item: String)
+case class Consume(item: String)
+
+class Producer(consumer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Produce(item) =>
+      println(s"Producer: sending $item")
+      consumer ! Consume(item)
+  }
+}
+
+class Consumer extends Actor {
+  def receive: Receive = {
+    case Consume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object ProducerConsumerSystem extends App {
+  val system = ActorSystem("ProducerConsumerSystem")
+  val consumer = system.actorOf(Props[Consumer], "consumer")
+  val producer = system.actorOf(Props(new Producer(consumer)), "producer")
+
+  producer ! Produce("item1")
+  producer ! Produce("item2")
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no state variables
+	}
+
+	msgsrv initial() {
+		// no initialization needed
+	}
+
+	msgsrv Produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.Consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		// no state variables
+	}
+
+	msgsrv initial() {
+		// no initialization needed
+	}
+
+	msgsrv Consume(string item) {
+		// println("Consumer: received " + item);
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+
+	producer.Produce("item1");
+	producer.Produce("item2");
+}
+
+================================================================================

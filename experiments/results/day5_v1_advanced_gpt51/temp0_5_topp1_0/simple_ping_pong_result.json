@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Ping(5) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\t// Ping started the game!\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\t// Ping received pong #count from sender\n\t\tif (count >= 10) {\n\t\t\t((Pong)sender).stopMessage();\n\t\t\t// Ping stopped\n\t\t} else {\n\t\t\t((Pong)sender).pingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(5) {\n\tknownrebecs { \n\t\tPing ping;\n\t}\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Pong received ping from sender\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t} else {\n\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stopped\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Ping(5) {\n\tknownrebecs { \n\t\tPong pong;\n\t}\n\tstatevars {\n\t\tint count;\n\t}\n\n\tPing() {\n\t\tcount = 0;\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() {\n\t\t// Ping started the game!\n\t\tpong.pingMessage();\n\t}\n\n\tmsgsrv pongMessage() {\n\t\tcount = count + 1;\n\t\t// Ping received pong #count from sender\n\t\tif (count >= 10) {\n\t\t\t((Pong)sender).stopMessage();\n\t\t\t// Ping stopped\n\t\t} else {\n\t\t\t((Pong)sender).pingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong(5) {\n\tknownrebecs { \n\t\tPing ping;\n\t}\n\tstatevars {\n\t\tboolean active;\n\t}\n\n\tPong() {\n\t\tactive = true;\n\t}\n\n\tmsgsrv pingMessage() {\n\t\t// Pong received ping from sender\n\t\tif (active) {\n\t\t\t((Ping)sender).pongMessage();\n\t\t} else {\n\n\t\t}\n\t}\n\n\tmsgsrv stopMessage() {\n\t\t// Pong stopped\n\t\tactive = false;\n\t}\n}\n\nmain {\n\tPing ping(pong):();\n\tPong pong(ping):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-20T00:45:12.597959",
+      "code_length": 787
+    }
+  ],
+  "file_name": "simple_ping_pong.txt",
+  "file_id": "simple_ping_pong",
+  "elapsed_time": 5.357150316238403,
+  "config": {
+    "experiment_name": "day5_v1_advanced_gpt51/temp0_5_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-20T00:45:12.597992"
+}

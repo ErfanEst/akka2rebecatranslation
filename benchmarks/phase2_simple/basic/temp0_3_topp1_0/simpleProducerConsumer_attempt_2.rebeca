@@ -1,0 +1,32 @@
+reactiveclass Producer(1) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	msgsrv Produce(int item) {
+		println("Producer: sending ");
+		print(item);
+		consumer.Consume(item);
+	}
+
+	constructor(Consumer c) {
+		consumer = c;
+	}
+}
+
+reactiveclass Consumer {
+	msgsrv Consume(int item) {
+		println("Consumer: received ");
+		print(item);
+	}
+
+	constructor() {
+	}
+}
+
+main {
+	Consumer consumer() : ();
+	Producer producer(consumer) : ();
+	producer.Produce(1);
+	producer.Produce(2);
+}

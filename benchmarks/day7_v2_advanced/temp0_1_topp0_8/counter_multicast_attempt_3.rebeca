@@ -1,0 +1,84 @@
+reactiveclass Counter {
+	knownrebec Client client1;
+	knownrebec Client client2;
+
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv initial() {
+		// No initial behavior; messages are sent from main
+	}
+
+	msgsrv Increment(int senderId) {
+		count = count + 1;
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv Decrement(int senderId) {
+		count = count - 1;
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+
+	msgsrv GetValue(int senderId) {
+		if (senderId == 1) {
+			client1.ValueResponse(count);
+		} else {
+			client2.ValueResponse(count);
+		}
+	}
+}
+
+reactiveclass Client {
+	knownrebec Counter counter;
+
+	statevars {
+		int clientId;
+	}
+
+	Client() {
+		clientId = 0;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	// Declaration section
+	Clock c1();
+	Counter counter(c1, c1);
+	Client counterClient1(counter);
+	Client counterClient2(counter);
+
+	// Bindings section
+	c1:();
+	counter: (counterClient1, counterClient2);
+	counterClient1: (counter);
+	counterClient2: (counter);
+
+	// Initial messages
+	counterClient1.initial(1);
+	counterClient2.initial(2);
+
+	counter.Increment(1);
+	counter.Increment(2);
+	counter.GetValue(1);
+}

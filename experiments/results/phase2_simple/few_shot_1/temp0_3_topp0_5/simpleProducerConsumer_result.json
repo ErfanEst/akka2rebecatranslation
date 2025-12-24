@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "total_attempts": 4,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tstatevars {\n\t\tint item;\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(int item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv Consume(int item) {\n\t\t// handle received item\n\t}\n\n\tmsgsrv start() {\n\t\t// entry point to start the scenario if needed\n\t}\n}\n\nreactiveclass System(5) {\n\tknownrebecs {\n\t\tProducer producer;\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tSystem system(producer):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\t// println(\"Producer: sending \" + item);\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\t// println(\"Consumer: received \" + item);\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:19, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:37, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:39, column:9, extraneous input '.' expecting IDENTIFIER\nline:39, column:10, Unknown type producer\nline:39, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:40, column:9, extraneous input '.' expecting IDENTIFIER\nline:40, column:10, Unknown type producer\nline:40, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T19:57:43.335882",
+      "code_length": 559
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(Consumer consumer) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\t// println(\"Producer: sending \" + item);\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer() {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t\tself.start();\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\t// println(\"Consumer: received \" + item);\n\t}\n\n\tmsgsrv start() {\n\t\t// entry point to start the scenario if needed\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):(consumer);\n\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input 'Consumer' expecting INTLITERAL\nline:19, column:23, missing INTLITERAL at ')'\nline:31, column:23, Unknown type string\nline:42, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:42, column:10, The method Producer(Consumer) is undefined for the type Producer\nline:44, column:9, extraneous input '.' expecting IDENTIFIER\nline:44, column:10, Unknown type producer\nline:44, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:45, column:9, extraneous input '.' expecting IDENTIFIER\nline:45, column:10, Unknown type producer\nline:45, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T19:57:46.458793",
+      "code_length": 675
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tstatevars {\n\t\tint item;\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(int item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv Consume(int item) {\n\t\t// handle received item\n\t}\n\n\tmsgsrv start() {\n\t\t// entry point to start the scenario if needed\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\n\tproducer.Produce(1);\n\tproducer.Produce(2);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:43, column:9, extraneous input '.' expecting IDENTIFIER\nline:43, column:10, Unknown type producer\nline:43, column:20, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:44, column:9, extraneous input '.' expecting IDENTIFIER\nline:44, column:10, Unknown type producer\nline:44, column:20, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T19:57:49.818834",
+      "code_length": 556
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tstatevars {\n\t\tint item;\n\t}\n\n\tmsgsrv initial() {\n\t\t// no initialization logic\n\t}\n\n\tmsgsrv Produce(int item) {\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv Consume(int item) {\n\t\t// handle received item\n\t}\n\n\tmsgsrv start() {\n\t\t// entry point to start the scenario if needed\n\t}\n}\n\nreactiveclass System(5) {\n\tknownrebecs {\n\t\tProducer producer;\n\t}\n\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tproducer.Produce(1);\n\t\tproducer.Produce(2);\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tSystem system(producer):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T19:57:52.565837",
+      "code_length": 695
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 11.608765125274658,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_1/temp0_3_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:57:52.565971"
+}

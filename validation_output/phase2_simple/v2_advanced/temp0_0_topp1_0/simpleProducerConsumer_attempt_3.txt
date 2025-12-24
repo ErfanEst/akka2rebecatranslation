@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:27, column:11, Redeclaration of "Consumer consumer", it has already been declared in line 3 column 11
+line:50, column:15, Type mismatch: cannot convert from char to int
+line:50, column:33, Type mismatch: cannot convert from char to int
+line:50, column:51, Type mismatch: cannot convert from char to int
+line:50, column:69, Type mismatch: cannot convert from char to int
+line:50, column:87, Type mismatch: cannot convert from char to int
+line:64, column:15, Type mismatch: cannot convert from char to int
+line:64, column:33, Type mismatch: cannot convert from char to int
+line:64, column:51, Type mismatch: cannot convert from char to int
+line:64, column:69, Type mismatch: cannot convert from char to int
+line:64, column:87, Type mismatch: cannot convert from char to int
+line:136, column:13, mismatched input ';' expecting ':'
+line:137, column:14, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

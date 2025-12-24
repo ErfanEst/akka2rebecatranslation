@@ -1,0 +1,75 @@
+reactiveclass Counter {
+    knownrebecs {
+        Client client1;
+        Client client2;
+    }
+
+    statevars {
+        int count;
+    }
+
+    Counter() {
+        count = 0;
+    }
+
+    msgsrv Increment() {
+        count = count + 1;
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+
+    msgsrv Decrement() {
+        count = count - 1;
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+
+    msgsrv GetValue() {
+        if (sender == client1) {
+            client1.ValueResponse(count);
+        } else {
+            client2.ValueResponse(count);
+        }
+    }
+}
+
+reactiveclass Client {
+    knownrebecs {
+        Counter counter;
+    }
+
+    statevars {
+        int clientId;
+    }
+
+    Client(int id) {
+        clientId = id;
+    }
+
+    msgsrv initial() {
+        // No initial behavior, interactions are triggered from main
+    }
+
+    msgsrv ValueResponse(int value) {
+        // In Rebeca we cannot print with string interpolation; use basic print
+        // println: clientId and value
+        // (Assuming core Rebeca without println, we leave this as a placeholder)
+        // print("Client "); print(clientId); print(" received value: "); println(value);
+    }
+}
+
+main {
+    Client client1(counter, 1):();
+    Client client2(counter, 2):();
+    Counter counter(client1, client2):();
+
+    counter.Increment() sender client1;
+    counter.Increment() sender client2;
+    counter.GetValue() sender client1;
+}

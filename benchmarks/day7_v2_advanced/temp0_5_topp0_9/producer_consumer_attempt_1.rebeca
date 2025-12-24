@@ -1,0 +1,69 @@
+reactiveclass Producer {
+		knownrebecs { 
+			Consumer consumer;
+		}
+		statevars {
+			// no additional state variables
+		}
+
+		Producer() {
+			// constructor
+		}
+
+		msgsrv initial() {
+			// no automatic behavior
+		}
+
+		// Corresponds to case Produce(item)
+		msgsrv ProduceMsg(char item[]) {
+			// println("Producer: sending " + item);
+			consumer.ItemMsg(item);
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+			// no known rebecs needed
+		}
+		statevars {
+			int bufferSize;
+		}
+
+		Consumer() {
+			bufferSize = 0;
+		}
+
+		msgsrv initial() {
+			// no automatic behavior
+		}
+
+		// Corresponds to case Item(data)
+		msgsrv ItemMsg(char data[]) {
+			bufferSize = bufferSize + 1;
+			// println("Consumer: received " + data + ", buffer size: " + bufferSize);
+		}
+
+		// Corresponds to case Consume()
+		msgsrv ConsumeMsg() {
+			if (bufferSize > 0) {
+				bufferSize = bufferSize - 1;
+				// println("Consumer: consumed one item");
+			} else {
+				// println("Consumer: buffer empty");
+			}
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+
+		// Simulate:
+		// producer ! Produce("item1")
+		// producer ! Produce("item2")
+		// consumer ! Consume()
+		producer.ProduceMsg("item1");
+		producer.ProduceMsg("item2");
+		consumer.ConsumeMsg();
+	}
+}

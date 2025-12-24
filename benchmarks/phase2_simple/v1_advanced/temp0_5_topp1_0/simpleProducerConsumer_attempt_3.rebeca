@@ -1,0 +1,40 @@
+timedreactiveclass Producer {
+	knownrebecs {
+		Consumer consumer;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// no automatic messages on start
+	}
+
+	msgsrv Produce(int itemId) {
+		consumer.Consume(itemId);
+	}
+}
+
+timedreactiveclass Consumer {
+	knownrebecs {
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv Consume(int itemId) {
+		// consume logic (omitted)
+	}
+}
+
+main {
+	Consumer consumer() : ();
+	Producer producer(consumer) : ();
+
+	producer.Produce(1);
+	producer.Produce(2);
+}

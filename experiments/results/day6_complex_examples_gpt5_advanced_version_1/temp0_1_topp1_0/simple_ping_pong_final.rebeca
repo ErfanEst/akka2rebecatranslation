@@ -1,0 +1,65 @@
+reactiveclass Ping(5) {
+	knownrebecs {
+		Pong pong;
+	}
+
+	statevars {
+		int count;
+	}
+
+	Ping() {
+		count = 0;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		pong.pingMessage();
+	}
+
+	msgsrv startMessage() {
+		// In Akka this would start the game explicitly; here game starts in constructor
+	}
+
+	msgsrv pongMessage() {
+		count = count + 1;
+		if (count >= 10) {
+			((Pong)sender).stopMessage();
+			// In Akka: context.stop(self)
+			// Here, we simply stop sending further messages
+		} else {
+			((Pong)sender).pingMessage();
+		}
+	}
+}
+
+reactiveclass Pong(5) {
+	knownrebecs {
+	}
+
+	statevars {
+		boolean active;
+	}
+
+	Pong() {
+		active = true;
+	}
+
+	msgsrv pingMessage() {
+		if (active) {
+			((Ping)sender).pongMessage();
+		} else {
+			{}
+		}
+	}
+
+	msgsrv stopMessage() {
+		active = false;
+		// In Akka: context.stop(self)
+		// Here, we just stop responding
+	}
+}
+
+main {
+	Pong pong():();
+	Ping ping(pong):();
+}

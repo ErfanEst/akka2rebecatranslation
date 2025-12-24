@@ -1,0 +1,15 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:16, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:31, column:23, mismatched input ';' expecting ':'
+line:32, column:13, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:32, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:34, column:12, extraneous input '.' expecting IDENTIFIER
+line:34, column:13, Unknown type producer
+line:34, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:35, column:12, extraneous input '.' expecting IDENTIFIER
+line:35, column:13, Unknown type producer
+line:35, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

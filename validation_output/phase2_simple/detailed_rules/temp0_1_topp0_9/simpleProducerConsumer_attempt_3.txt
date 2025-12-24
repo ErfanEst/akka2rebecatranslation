@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input 'Consumer' expecting INTLITERAL
+line:23, column:23, missing INTLITERAL at ')'
+line:39, column:23, Unknown type string
+line:46, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:47, column:9, extraneous input '.' expecting IDENTIFIER
+line:47, column:10, Unknown type producer
+line:47, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:48, column:9, extraneous input '.' expecting IDENTIFIER
+line:48, column:10, Unknown type producer
+line:48, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

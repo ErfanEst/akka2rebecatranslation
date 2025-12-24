@@ -1,0 +1,75 @@
+reactiveclass Counter(5) {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv incrementFromClient1() {
+		count = count + 1;
+		client1.valueResponse(count);
+	}
+
+	msgsrv incrementFromClient2() {
+		count = count + 1;
+		client2.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient1() {
+		client1.valueResponse(count);
+	}
+
+	msgsrv getValueFromClient2() {
+		client2.valueResponse(count);
+	}
+}
+
+reactiveclass Client(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		// placeholder for: println(s"Client " + clientId + " received value: " + value)
+	}
+
+	msgsrv startClient1() {
+		counter.incrementFromClient1();
+	}
+
+	msgsrv startClient2() {
+		counter.incrementFromClient2();
+	}
+
+	msgsrv requestValueClient1() {
+		counter.getValueFromClient1();
+	}
+
+	msgsrv requestValueClient2() {
+		counter.getValueFromClient2();
+	}
+}
+
+main {
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+	Counter counter(client1, client2):();
+
+	client1.startClient1();
+	client2.startClient2();
+	client1.requestValueClient1();
+	client2.requestValueClient2();
+}

@@ -1,0 +1,6 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:9, The method PingMessage() is undefined for the type Pong
+line:18, column:13, The method PingMessage() is undefined for the type Pong
+

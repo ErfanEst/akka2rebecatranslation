@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\tprint(\"Producer: sending \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\tprint(\"Consumer: received \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(knownrebecs { Consumer consumer }) {\n    msgsrv initial() {\n    }\n\n    msgsrv Produce(string item) {\n        println(\"Producer: sending \" + item);\n        consumer.Consume(item);\n    }\n}\n\nreactiveclass Consumer {\n    msgsrv initial() {\n    }\n\n    msgsrv Consume(string item) {\n        println(\"Consumer: received \" + item);\n    }\n}\n\nmain {\n    Consumer consumer();\n    Producer producer(consumer);\n\n    producer.Produce(\"item1\");\n    producer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input 'knownrebecs' expecting INTLITERAL\nline:11, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:21, column:23, mismatched input ';' expecting ':'\nline:22, column:13, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:22, column:31, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:24, column:12, extraneous input '.' expecting IDENTIFIER\nline:24, column:13, Unknown type producer\nline:24, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:25, column:12, extraneous input '.' expecting IDENTIFIER\nline:25, column:13, Unknown type producer\nline:25, column:29, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T18:23:31.296545",
+      "code_length": 485
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\tprintln(\"Producer: sending \" + item);\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\tprintln(\"Consumer: received \" + item);\n\t}\n}\n\nmain {\n\tConsumer consumer();\n\tProducer producer(consumer):();\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:15, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:28, column:20, mismatched input ';' expecting ':'\nline:29, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:30, column:9, extraneous input '.' expecting IDENTIFIER\nline:30, column:10, Unknown type producer\nline:30, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:31, column:9, extraneous input '.' expecting IDENTIFIER\nline:31, column:10, Unknown type producer\nline:31, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T18:23:33.906547",
+      "code_length": 457
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Produce(String item) {\n\t\tprint(\"Producer: sending \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Consume(String item) {\n\t\tprint(\"Consumer: received \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:17, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:34, column:9, extraneous input '.' expecting IDENTIFIER\nline:34, column:10, Unknown type producer\nline:34, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:35, column:9, extraneous input '.' expecting IDENTIFIER\nline:35, column:10, Unknown type producer\nline:35, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T18:23:37.162860",
+      "code_length": 502
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Producer (Consumer consumer) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\tprint(\"Producer: sending \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\tprint(\"Consumer: received \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):(consumer);\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input 'Consumer' expecting INTLITERAL\nline:17, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:33, column:10, The method Producer(Consumer) is undefined for the type Producer\nline:34, column:9, extraneous input '.' expecting IDENTIFIER\nline:34, column:10, Unknown type producer\nline:34, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:35, column:9, extraneous input '.' expecting IDENTIFIER\nline:35, column:10, Unknown type producer\nline:35, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T18:23:40.579539",
+      "code_length": 530
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Producer {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Produce(string item) {\n\t\tprint(\"Producer: sending \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t\tconsumer.Consume(item);\n\t}\n}\n\nreactiveclass Consumer {\n\tknownrebecs {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Consume(string item) {\n\t\tprint(\"Consumer: received \");\n\t\tprint(item);\n\t\tprint(\"\\n\");\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\tproducer.Produce(\"item1\");\n\tproducer.Produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:17, column:23, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)\nline:34, column:9, extraneous input '.' expecting IDENTIFIER\nline:34, column:10, Unknown type producer\nline:34, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:35, column:9, extraneous input '.' expecting IDENTIFIER\nline:35, column:10, Unknown type producer\nline:35, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T18:23:43.781083",
+      "code_length": 502
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 15.864402770996094,
+  "config": {
+    "experiment_name": "phase2_simple/basic/temp0_5_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T18:23:43.781123"
+}

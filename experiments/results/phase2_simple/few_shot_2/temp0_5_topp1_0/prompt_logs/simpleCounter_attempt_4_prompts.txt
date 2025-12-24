@@ -1,0 +1,206 @@
+================================================================================
+ATTEMPT 4 - PROMPT LOG
+Experiment: phase2_simple/few_shot_2/temp0_5_topp1_0
+File: simpleCounter
+Timestamp: 2025-12-24T20:18:58.778715
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Counter(10) {
+  knownrebecs { Client client1; Client client2; }
+
+  statevars {
+    int count;
+  }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv initial() {
+    self.Increment(client1);
+    self.Increment(client2);
+    self.GetValue(client1);
+  }
+
+  msgsrv Increment(Client snd) {
+    count = count + 1;
+    snd.ValueResponse(count);
+  }
+
+  msgsrv Decrement(Client snd) {
+    count = count - 1;
+    snd.ValueResponse(count);
+  }
+
+  msgsrv GetValue(Client snd) {
+    snd.ValueResponse(count);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+
+  statevars {
+    int clientId;
+  }
+
+  Client() {
+    clientId = 0;
+  }
+
+  msgsrv initial() {
+    // no parameters; set a default id or leave as 0
+    clientId = 0;
+  }
+
+  msgsrv setId(int id) {
+    clientId = id;
+  }
+
+  msgsrv ValueResponse(int value) {
+    // no I/O in Rebeca model
+  }
+}
+
+main {
+  Counter counter(client1, client2):();
+  Client client1(counter):();
+  Client client2(counter):();
+
+  // initialize client ids
+  client1.setId(1);
+  client2.setId(2);
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:64, column:9, extraneous input '.' expecting IDENTIFIER
+line:64, column:10, Unknown type client1
+line:64, column:18, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:65, column:9, extraneous input '.' expecting IDENTIFIER
+line:65, column:10, Unknown type client2
+line:65, column:18, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter(10) {
+  knownrebecs { Client client1; Client client2; }
+
+  statevars {
+    int count;
+  }
+
+  Counter() {
+    count = 0;
+  }
+
+  msgsrv initial() {
+    self.Increment(client1);
+    self.Increment(client2);
+    self.GetValue(client1);
+  }
+
+  msgsrv Increment(Client snd) {
+    count = count + 1;
+    snd.ValueResponse(count);
+  }
+
+  msgsrv Decrement(Client snd) {
+    count = count - 1;
+    snd.ValueResponse(count);
+  }
+
+  msgsrv GetValue(Client snd) {
+    snd.ValueResponse(count);
+  }
+}
+
+reactiveclass Client(5) {
+  knownrebecs { Counter counter; }
+
+  statevars {
+    int clientId;
+  }
+
+  Client() {
+    clientId = 0;
+  }
+
+  msgsrv initial() {
+    clientId = 0;
+  }
+
+  msgsrv setId(int id) {
+    clientId = id;
+  }
+
+  msgsrv ValueResponse(int value) {
+    // no I/O in Rebeca model
+  }
+}
+
+main {
+  Client client1(counter):();
+  Client client2(counter):();
+  Counter counter(client1, client2):();
+
+  client1.setId(1);
+  client2.setId(2);
+}
+
+================================================================================

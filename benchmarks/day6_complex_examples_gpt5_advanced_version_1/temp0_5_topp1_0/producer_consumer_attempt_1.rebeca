@@ -1,0 +1,73 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no data state variables
+	}
+
+	// constructor with no data parameters
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// send initial messages equivalent to main behavior
+		self.produce("item1");
+		self.produce("item2");
+		consumer.consume();
+	}
+
+	msgsrv produce(String item) {
+		// Producer: sending item (removed I/O)
+		consumer.item(item);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		int bufferSize;
+		String buffer[10];
+		int head;
+		int tail;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+		head = 0;
+		tail = 0;
+	}
+
+	msgsrv item(String data) {
+		if (bufferSize < 10) {
+			buffer[tail] = data;
+			tail = (tail + 1) % 10;
+			bufferSize = bufferSize + 1;
+			// Consumer: received data, buffer size updated (removed I/O)
+		} else {
+			// buffer full, item dropped (no-op)
+		}
+	}
+
+	msgsrv consume() {
+		if (bufferSize > 0) {
+			String item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			bufferSize = bufferSize - 1;
+			// Consumer: consumed item (removed I/O)
+		} else {
+			// Consumer: buffer empty (removed I/O)
+		}
+	}
+}
+
+main {
+	Consumer consumer() : ();
+	Producer producer(consumer) : ();
+}

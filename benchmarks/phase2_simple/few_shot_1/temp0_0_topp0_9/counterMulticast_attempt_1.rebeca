@@ -1,0 +1,68 @@
+reactiveclass CounterClient(5) {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int initId) {
+		clientId = initId;
+	}
+
+	msgsrv valueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+reactiveclass Counter(5) {
+	knownrebecs {
+		CounterClient client1;
+		CounterClient client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+		// Simulate the sequence of messages in CounterSystem main
+		self.increment(1);   // from client1
+		self.increment(2);   // from client2
+		self.getValue(1);    // from client1
+	}
+
+	msgsrv increment(int senderId) {
+		count = count + 1;
+		// println("Counter incremented to " + count);
+		if (senderId == 1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+
+	msgsrv decrement(int senderId) {
+		count = count - 1;
+		// println("Counter decremented to " + count);
+		if (senderId == 1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+
+	msgsrv getValue(int senderId) {
+		if (senderId == 1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+}
+
+main {
+	CounterClient client1(counter):(1);
+	CounterClient client2(counter):(2);
+	Counter counter(client1, client2):();
+}

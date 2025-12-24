@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:7, The method PingMessage() is undefined for the type Pong
+line:18, column:10, The method PingMessage() is undefined for the type Pong
+line:41, column:5, extraneous input '.' expecting IDENTIFIER
+line:41, column:6, Unknown type ping
+line:41, column:20, mismatched input ';' expecting ':'
+

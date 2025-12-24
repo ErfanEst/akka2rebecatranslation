@@ -1,0 +1,58 @@
+reactiveclass Counter {
+	knownrebecs {
+		// In Rebeca, sender is implicitly available; no explicit knownrebec for sender is needed
+	}
+
+	statevars {
+		int count;
+	}
+
+	Constructor() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		sender.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		sender.ValueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+
+	statevars {
+		int clientId;
+	}
+
+	Constructor(Counter c, int id) {
+		counter = c;
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println is not available in standard Rebeca; side effects are omitted
+		// This msgsrv represents handling the response
+		skip;
+	}
+}
+
+main {
+	Counter counter();
+	Client client1(counter, 1);
+	Client client2(counter, 2);
+
+	counter.Increment() after(0) deadline(0) with(client1);
+	counter.Increment() after(0) deadline(0) with(client2);
+	counter.GetValue() after(0) deadline(0) with(client1);
+}

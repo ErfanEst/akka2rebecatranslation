@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "timedreactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong[1]();\n\tPing ping[1](pong[0]);\n\n\tping[0].StartMessage();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "timedreactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong(1):();\n\tPing ping(1):(pong);\n\n\tping.StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:02:51.532888",
+      "code_length": 524
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "import timedrebeca.*;\n\ntimedreactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong[1]();\n\tPing ping[1](pong);\n\n\tping[0].StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:7, extraneous input 'timedrebeca' expecting {'import', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:02:54.792079",
+      "code_length": 548
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "timedreactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong[1]();\n\tPing ping[1](pong);\n\n\tping[0].StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:02:57.763083",
+      "code_length": 525
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\nreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong[1]();\n\tPing ping[1](pong);\n\n\tping[0].StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:26, column:19, mismatched input '{' expecting {'extends', 'implements', '('}\nline:42, column:10, mismatched input '[' expecting {'[', '<', IDENTIFIER}\nline:43, column:10, mismatched input '[' expecting {'[', '<', IDENTIFIER}\nline:43, column:18, mismatched input ')' expecting {'[', '<', IDENTIFIER}\nline:45, column:8, extraneous input '.' expecting IDENTIFIER\nline:45, column:23, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-24T19:03:00.916299",
+      "code_length": 515
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "timedreactiveclass Ping {\n\tstatevars {\n\t\tint count;\n\t\tPong pong;\n\t}\n\n\tPing(Pong pongRef) {\n\t\tcount = 0;\n\t\tpong = pongRef;\n\t}\n\n\tmsgsrv StartMessage() {\n\t\tpong.PingMessage();\n\t}\n\n\tmsgsrv PongMessage() {\n\t\tcount = count + 1;\n\t\tif (count >= 10) {\n\t\t\tsender.StopMessage();\n\t\t} else {\n\t\t\tsender.PingMessage();\n\t\t}\n\t}\n}\n\ntimedreactiveclass Pong {\n\tstatevars {\n\t}\n\n\tPong() {\n\t}\n\n\tmsgsrv PingMessage() {\n\t\tsender.PongMessage();\n\t}\n\n\tmsgsrv StopMessage() {\n\t}\n}\n\nmain {\n\tPong pong[1]();\n\tPing ping[1](pong[0]);\n\n\tping[0].StartMessage();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-24T19:03:04.243675",
+      "code_length": 528
+    }
+  ],
+  "file_name": "simplePingPong.txt",
+  "file_id": "simplePingPong",
+  "elapsed_time": 16.63092589378357,
+  "config": {
+    "experiment_name": "phase2_simple/v1_advanced/temp0_0_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:03:04.243719"
+}

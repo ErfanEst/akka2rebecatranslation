@@ -1,0 +1,15 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input 'pongType' expecting INTLITERAL
+line:31, column:19, mismatched input 'pingType' expecting INTLITERAL
+line:53, column:5, extraneous input '(' expecting IDENTIFIER
+line:53, column:14, missing '(' at ')'
+line:53, column:17, extraneous input 'ping' expecting '('
+line:54, column:5, extraneous input '(' expecting IDENTIFIER
+line:54, column:14, missing '(' at ')'
+line:54, column:17, extraneous input 'pong' expecting '('
+line:55, column:5, extraneous input '.' expecting IDENTIFIER
+line:55, column:6, Unknown type ping
+line:55, column:20, mismatched input ';' expecting ':'
+

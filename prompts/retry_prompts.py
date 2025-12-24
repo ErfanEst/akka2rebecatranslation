@@ -29,5 +29,3 @@ INSTRUCTIONS:
 5. Output corrected code only
 
 Provide the corrected Rebeca code."""
-
-# Will add TARGETED version on Day 5

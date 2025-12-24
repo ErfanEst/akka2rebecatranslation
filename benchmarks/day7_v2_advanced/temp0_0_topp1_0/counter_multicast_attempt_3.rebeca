@@ -1,0 +1,72 @@
+reactiveclass Environment (0) {
+	msgrpc Environment() {
+	}
+
+	msgrpc initial() {
+	}
+
+	msgrpc print(string msg) {
+		// In Afra/RMC this will be shown in the trace/output
+	}
+}
+
+reactiveclass Client (2) {
+	knownrebec Environment env;
+	knownrebec Counter counter;
+	int clientId;
+
+	msgrpc Client(Environment env, Counter counter, int id) {
+		self.env = env;
+		self.counter = counter;
+		clientId = id;
+	}
+
+	msgrpc initial() {
+		// no-op; interactions are initiated from main
+	}
+
+	msgrpc ValueResponse(int value) {
+		env.print("Client " + clientId + " received value: " + value);
+	}
+}
+
+reactiveclass Counter (1) {
+	knownrebec Environment env;
+	int count;
+
+	msgrpc Counter(Environment env) {
+		self.env = env;
+		count = 0;
+	}
+
+	msgrpc initial() {
+		// no-op
+	}
+
+	msgrpc Increment(Client sender) {
+		count = count + 1;
+		env.print("Counter incremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgrpc Decrement(Client sender) {
+		count = count - 1;
+		env.print("Counter decremented to " + count);
+		sender.ValueResponse(count);
+	}
+
+	msgrpc GetValue(Client sender) {
+		sender.ValueResponse(count);
+	}
+}
+
+main {
+	Environment env():();
+	Counter counter(env):(initial);
+	Client client1(env, counter, 1):(initial);
+	Client client2(env, counter, 2):(initial);
+
+	counter.Increment(client1);
+	counter.Increment(client2);
+	counter.GetValue(client1);
+}

@@ -1,8 +1,0 @@
-File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
-Errors:
-================================================================================
-line:45, column:6, The Pong knownrebecs type binding of (Ping) is not applicable for the arguments ()
-line:47, column:5, extraneous input '.' expecting IDENTIFIER
-line:47, column:6, Unknown type ping
-line:47, column:15, mismatched input ';' expecting ':'
-

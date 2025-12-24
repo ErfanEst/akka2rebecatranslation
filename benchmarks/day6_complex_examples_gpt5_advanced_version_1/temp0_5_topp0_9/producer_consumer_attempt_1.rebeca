@@ -1,0 +1,78 @@
+reactiveclass Producer(5) {
+	knownrebecs {
+		Consumer consumer;
+	}
+
+	statevars {
+		// no data state variables
+	}
+
+	// constructor with knownrebecs only
+	Producer() {
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior on start
+	}
+
+	msgsrv ProduceMsg(int itemId) {
+		// In Rebeca we model item as an int identifier
+		consumer.ItemMsg(itemId);
+	}
+}
+
+reactiveclass Consumer(5) {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+		self.initial();
+	}
+
+	msgsrv initial() {
+		// no automatic behavior on start
+	}
+
+	msgsrv ItemMsg(int dataId) {
+		if (size < 10) {
+			buffer[tail] = dataId;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+		} else {
+			// buffer overflow ignored
+		}
+	}
+
+	msgsrv ConsumeMsg() {
+		if (size > 0) {
+			int item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// consumed item stored in 'item' (no printing)
+		} else {
+			// buffer empty
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.ProduceMsg(1);
+	producer.ProduceMsg(2);
+	consumer.ConsumeMsg();
+}

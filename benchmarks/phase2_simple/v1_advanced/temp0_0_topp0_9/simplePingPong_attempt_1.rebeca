@@ -1,0 +1,50 @@
+reactiveclass Ping {
+		statevars {
+			int count;
+			Pong pong;
+		}
+
+		Ping(Pong pongRef) {
+			count = 0;
+			pong = pongRef;
+		}
+
+		msgsrv initial() {
+			self.startMessage();
+		}
+
+		msgsrv startMessage() {
+			pong.pingMessage();
+		}
+
+		msgsrv pongMessage() {
+			count = count + 1;
+			if (count >= 10) {
+				sender.stopMessage();
+			} else {
+				sender.pingMessage();
+			}
+		}
+	}
+
+	reactiveclass Pong {
+		statevars {
+		}
+
+		Pong() {
+		}
+
+		msgsrv pingMessage() {
+			sender.pongMessage();
+		}
+
+		msgsrv stopMessage() {
+			// no operation; represents actor stop
+		}
+	}
+
+	main {
+		Pong pong(1):();
+		Ping ping(1):(pong);
+	}
+}

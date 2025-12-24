@@ -1,0 +1,15 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:21, column:23, mismatched input '{' expecting {'extends', 'implements', '('}
+line:39, column:10, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:39, column:10, The method Producer(Consumer) is undefined for the type Producer
+line:41, column:1, extraneous input 'main' expecting {'}', '@', IDENTIFIER}
+line:42, column:3, extraneous input '.' expecting IDENTIFIER
+line:42, column:4, Unknown type p
+line:42, column:13, mismatched input ';' expecting ':'
+line:43, column:10, extraneous input '.' expecting IDENTIFIER
+line:43, column:11, Unknown type consumer
+line:43, column:20, mismatched input ';' expecting ':'
+

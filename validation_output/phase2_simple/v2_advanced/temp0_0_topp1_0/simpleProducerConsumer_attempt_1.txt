@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:7, extraneous input 'ENV' expecting {'import', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:6, column:12, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:37, column:16, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:54, column:14, mismatched input ';' expecting ':'
+line:55, column:11, The Producer knownrebecs type binding of () is not applicable for the arguments (Consumer)
+line:55, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

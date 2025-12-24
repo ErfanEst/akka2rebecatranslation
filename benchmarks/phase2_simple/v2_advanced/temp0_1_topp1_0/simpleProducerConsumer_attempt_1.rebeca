@@ -1,0 +1,45 @@
+reactiveclass Producer {
+	statevars {
+		int consumer;
+	}
+
+	Producer(int c) {
+		consumer = c;
+	}
+
+	msgsrv initial() {
+		// send initial messages similar to main in Akka
+		self.produce("item1");
+		self.produce("item2");
+	}
+
+	msgsrv produce(string item) {
+		// println("Producer: sending " + item);
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+	}
+
+	Consumer() {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv consume(string item) {
+		// println("Consumer: received " + item);
+	}
+}
+
+main {
+	Producer p(consumer):();
+	Consumer consumer():();
+
+	p.initial();
+	consumer.initial();
+}
+
+}

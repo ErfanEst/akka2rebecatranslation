@@ -1,0 +1,86 @@
+timedreactiveclass Producer {
+	knownrebec Consumer consumer;
+
+	Producer(Consumer consumer) {
+		self.start();
+	}
+
+	msgsrv start() {
+		// corresponds to initial behavior, no automatic sends here
+	}
+
+	msgsrv Produce(string item) {
+		consumer.Item(item);
+	}
+}
+
+timedreactiveclass Consumer {
+	statevars {
+		int bufferSize;
+		string buffer0;
+		string buffer1;
+		string buffer2;
+		string buffer3;
+		string buffer4;
+	}
+
+	Consumer() {
+		bufferSize = 0;
+	}
+
+	msgsrv Item(string data) {
+		if (bufferSize == 0) {
+			buffer0 = data;
+			bufferSize = 1;
+		} else if (bufferSize == 1) {
+			buffer1 = data;
+			bufferSize = 2;
+		} else if (bufferSize == 2) {
+			buffer2 = data;
+			bufferSize = 3;
+		} else if (bufferSize == 3) {
+			buffer3 = data;
+			bufferSize = 4;
+		} else if (bufferSize == 4) {
+			buffer4 = data;
+			bufferSize = 5;
+		}
+	}
+
+	msgsrv Consume() {
+		if (bufferSize > 0) {
+			string item;
+			if (bufferSize == 1) {
+				item = buffer0;
+			} else if (bufferSize == 2) {
+				item = buffer0;
+				buffer0 = buffer1;
+			} else if (bufferSize == 3) {
+				item = buffer0;
+				buffer0 = buffer1;
+				buffer1 = buffer2;
+			} else if (bufferSize == 4) {
+				item = buffer0;
+				buffer0 = buffer1;
+				buffer1 = buffer2;
+				buffer2 = buffer3;
+			} else { // bufferSize == 5
+				item = buffer0;
+				buffer0 = buffer1;
+				buffer1 = buffer2;
+				buffer2 = buffer3;
+				buffer3 = buffer4;
+			}
+			bufferSize = bufferSize - 1;
+		}
+	}
+}
+
+main {
+	Producer producer(consumer):();
+	Consumer consumer():();
+
+	producer.Produce("item1");
+	producer.Produce("item2");
+	consumer.Consume();
+}

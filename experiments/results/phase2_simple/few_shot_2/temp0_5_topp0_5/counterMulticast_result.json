@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass Counter(5) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tclient1.increment();\n\t\tclient2.increment();\n\t\tclient1.getValue();\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { Counter counter; }\n\tstatevars { int clientId; }\n\n\tClient(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv increment() {\n\t\tcounter.increment(self);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcounter.decrement(self);\n\t}\n\n\tmsgsrv getValue() {\n\t\tcounter.getValue(self);\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Counter(5) {\n\tknownrebecs { Client client1; Client client2; }\n\tstatevars { int count; }\n\n\tmsgsrv initial() {\n\t\tcount = 0;\n\t\tclient1.increment();\n\t\tclient2.increment();\n\t\tclient1.getValue();\n\t}\n\n\tmsgsrv increment(Client sender) {\n\t\tcount = count + 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv decrement(Client sender) {\n\t\tcount = count - 1;\n\t\tsender.valueResponse(count);\n\t}\n\n\tmsgsrv getValue(Client sender) {\n\t\tsender.valueResponse(count);\n\t}\n}\n\nreactiveclass Client(5) {\n\tknownrebecs { Counter counter; }\n\tstatevars { int clientId; }\n\n\tClient(int id) {\n\t\tclientId = id;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv increment() {\n\t\tcounter.increment(self);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcounter.decrement(self);\n\t}\n\n\tmsgsrv getValue() {\n\t\tcounter.getValue(self);\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t}\n}\n\nmain {\n\tCounter counter(client1, client2):();\n\tClient client1(counter):(1);\n\tClient client2(counter):(2);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T20:17:12.177873",
+      "code_length": 919
+    }
+  ],
+  "file_name": "counterMulticast.txt",
+  "file_id": "counterMulticast",
+  "elapsed_time": 3.5283470153808594,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_2/temp0_5_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T20:17:12.177904"
+}

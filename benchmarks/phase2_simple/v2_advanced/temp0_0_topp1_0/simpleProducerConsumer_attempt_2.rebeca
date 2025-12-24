@@ -1,0 +1,59 @@
+reactiveclass Producer(50) {
+	statevars {
+		Consumer consumer;
+		int item[20];
+	}
+
+	knownrebecs { 
+		Consumer consumer;
+	}
+
+	msgsrv initial() {
+		produce_item1();
+		produce_item2();
+	}
+
+	msgsrv produce(int it[20]) {
+		consumer.consume(it);
+	}
+
+	msgsrv produce_item1() {
+		item[0] = (int)'i'; item[1] = (int)'t'; item[2] = (int)'e'; item[3] = (int)'m'; item[4] = (int)'1'; item[5] = 0;
+		int i;
+		for (i = 6; i < 20; i = i + 1) {
+			item[i] = 0;
+		}
+		produce(item);
+	}
+
+	msgsrv produce_item2() {
+		item[0] = (int)'i'; item[1] = (int)'t'; item[2] = (int)'e'; item[3] = (int)'m'; item[4] = (int)'2'; item[5] = 0;
+		int i;
+		for (i = 6; i < 20; i = i + 1) {
+			item[i] = 0;
+		}
+		produce(item);
+	}
+}
+
+reactiveclass Consumer(50) {
+	statevars {
+		int lastItem[20];
+	}
+
+	knownrebecs { }
+
+	msgsrv initial() { }
+
+	msgsrv consume(int it[20]) {
+		int i;
+		for (i = 0; i < 20; i = i + 1) {
+			lastItem[i] = it[i];
+		}
+	}
+}
+
+main {
+	Consumer c();
+	Producer p(c);
+}

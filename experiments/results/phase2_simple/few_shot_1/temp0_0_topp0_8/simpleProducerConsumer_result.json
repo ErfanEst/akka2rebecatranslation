@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t\tint itemId;\n\t}\n\n\tmsgsrv initial() {\n\t\titemId = 0;\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\t// send two items as in the original main\n\t\titemId = 1;\n\t\tconsumer.consume(itemId);\n\t\titemId = 2;\n\t\tconsumer.consume(itemId);\n\t}\n\n\tmsgsrv produce(int item) {\n\t\tconsumer.consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint lastItem;\n\t}\n\n\tmsgsrv initial() {\n\t\tlastItem = -1;\n\t}\n\n\tmsgsrv consume(int item) {\n\t\tlastItem = item;\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv produce(string item) {\n\t\tconsumer.consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv consume(string item) {\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n\n\tproducer.produce(\"item1\");\n\tproducer.produce(\"item2\");\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:11, column:23, Unknown type string\nline:25, column:23, Unknown type string\nline:33, column:9, extraneous input '.' expecting IDENTIFIER\nline:33, column:10, Unknown type producer\nline:33, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:34, column:9, extraneous input '.' expecting IDENTIFIER\nline:34, column:10, Unknown type producer\nline:34, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-24T19:50:39.141200",
+      "code_length": 418
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Producer(5) {\n\tknownrebecs {\n\t\tConsumer consumer;\n\t}\n\tstatevars {\n\t\tint itemId;\n\t}\n\n\tmsgsrv initial() {\n\t\titemId = 0;\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\t// send two items as in the original main\n\t\titemId = 1;\n\t\tconsumer.consume(itemId);\n\t\titemId = 2;\n\t\tconsumer.consume(itemId);\n\t}\n\n\tmsgsrv produce(int item) {\n\t\tconsumer.consume(item);\n\t}\n}\n\nreactiveclass Consumer(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t\tint lastItem;\n\t}\n\n\tmsgsrv initial() {\n\t\tlastItem = -1;\n\t}\n\n\tmsgsrv consume(int item) {\n\t\tlastItem = item;\n\t}\n}\n\nmain {\n\tConsumer consumer():();\n\tProducer producer(consumer):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T19:50:43.396753",
+      "code_length": 601
+    }
+  ],
+  "file_name": "simpleProducerConsumer.txt",
+  "file_id": "simpleProducerConsumer",
+  "elapsed_time": 7.651605129241943,
+  "config": {
+    "experiment_name": "phase2_simple/few_shot_1/temp0_0_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T19:50:43.396809"
+}

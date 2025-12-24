@@ -1,0 +1,23 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, missing INTLITERAL at ')'
+line:8, column:1, Duplicate method constructor() in reactive class Counter
+line:8, column:1, Return type for the method is missing
+line:14, column:9, The method ValueResponse(int) is undefined for the type Client
+line:19, column:9, The method ValueResponse(int) is undefined for the type Client
+line:23, column:9, The method ValueResponse(int) is undefined for the type Client
+line:27, column:21, mismatched input 'Counter' expecting INTLITERAL
+line:49, column:9, The method Counter() is undefined for the type Counter
+line:50, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:51, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Counter, byte)
+line:53, column:8, extraneous input '.' expecting IDENTIFIER
+line:53, column:9, Unknown type counter
+line:53, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:54, column:8, extraneous input '.' expecting IDENTIFIER
+line:54, column:9, Unknown type counter
+line:54, column:27, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:55, column:8, extraneous input '.' expecting IDENTIFIER
+line:55, column:9, Unknown type counter
+line:55, column:26, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

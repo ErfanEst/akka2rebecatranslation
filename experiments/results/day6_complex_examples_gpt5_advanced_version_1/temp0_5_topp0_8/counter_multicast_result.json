@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass CounterMulticastSystem(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\t// Entry point to start the scenario\n\tmsgsrv initial() {\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment();\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment();\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue();\n\t}\n}\n\nreactiveclass Counter(10) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t\tint count;\n\t\tint lastValueSent;\n\t}\n\n\t// Constructor\n\tCounter() {\n\t\tcount = 0;\n\t\tlastValueSent = 0;\n\t}\n\n\tmsgsrv increment() {\n\t\tcount = count + 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcount = count - 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv getValue() {\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n}\n\nreactiveclass Client(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t\tint lastReceivedValue;\n\t}\n\n\t// Constructor with clientId as data parameter\n\tClient(int id) {\n\t\tclientId = id;\n\t\tlastReceivedValue = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\tlastReceivedValue = value;\n\t\t// original println removed; state updated instead\n\t}\n}\n\nmain {\n\tCounter counter() :();\n\tClient client1(counter) :(1);\n\tClient client2(counter) :(2);\n\tCounterMulticastSystem system(counter, client1, client2) :();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass CounterMulticastSystem(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\t// Entry point to start the scenario\n\tmsgsrv initial() {\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment() with (client1);\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment() with (client2);\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue() with (client1);\n\t}\n}\n\nreactiveclass Counter(10) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t\tint count;\n\t\tint lastValueSent;\n\t}\n\n\t// Constructor\n\tCounter() {\n\t\tcount = 0;\n\t\tlastValueSent = 0;\n\t}\n\n\tmsgsrv increment() {\n\t\tcount = count + 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcount = count - 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv getValue() {\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n}\n\nreactiveclass Client(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t\tint lastReceivedValue;\n\t}\n\n\t// Constructor with clientId as data parameter\n\tClient(int id) {\n\t\tclientId = id;\n\t\tlastReceivedValue = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\tlastReceivedValue = value;\n\t\t// original println removed; state updated instead\n\t}\n}\n\nmain {\n\tCounter counter() :();\n\tClient client1(counter) :(1);\n\tClient client2(counter) :(2);\n\tCounterMulticastSystem system(counter, client1, client2) :();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:14, column:22, The method with(Client) is undefined\nline:14, column:22, missing ';' at 'with'\nline:16, column:22, The method with(Client) is undefined\nline:16, column:22, missing ';' at 'with'\nline:18, column:21, The method with(Client) is undefined\nline:18, column:21, missing ';' at 'with'",
+      "timestamp": "2025-12-24T12:16:40.605047",
+      "code_length": 1558
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass CounterMulticastSystem(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t\tClient client1;\n\t\tClient client2;\n\t}\n\n\tstatevars {\n\t}\n\n\t// Entry point to start the scenario\n\tmsgsrv initial() {\n\t\t// counter.tell(Increment, client1)\n\t\tcounter.increment();\n\t\t// counter.tell(Increment, client2)\n\t\tcounter.increment();\n\t\t// counter.tell(GetValue, client1)\n\t\tcounter.getValue();\n\t}\n}\n\nreactiveclass Counter(10) {\n\tknownrebecs {\n\t}\n\n\tstatevars {\n\t\tint count;\n\t\tint lastValueSent;\n\t}\n\n\t// Constructor\n\tCounter() {\n\t\tcount = 0;\n\t\tlastValueSent = 0;\n\t}\n\n\tmsgsrv increment() {\n\t\tcount = count + 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv decrement() {\n\t\tcount = count - 1;\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n\n\tmsgsrv getValue() {\n\t\tlastValueSent = count;\n\t\t// sender() ! ValueResponse(count)\n\t\t((Client)sender).valueResponse(lastValueSent);\n\t}\n}\n\nreactiveclass Client(10) {\n\tknownrebecs {\n\t\tCounter counter;\n\t}\n\n\tstatevars {\n\t\tint clientId;\n\t\tint lastReceivedValue;\n\t}\n\n\t// Constructor with clientId as data parameter\n\tClient(int id) {\n\t\tclientId = id;\n\t\tlastReceivedValue = 0;\n\t}\n\n\tmsgsrv valueResponse(int value) {\n\t\tlastReceivedValue = value;\n\t\t// original println removed; state updated instead\n\t}\n}\n\nmain {\n\tCounter counter() :();\n\tClient client1(counter) :(1);\n\tClient client2(counter) :(2);\n\tCounterMulticastSystem system(counter, client1, client2) :();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-24T12:16:46.756445",
+      "code_length": 1513
+    }
+  ],
+  "file_name": "counter_multicast.txt",
+  "file_id": "counter_multicast",
+  "elapsed_time": 14.51065969467163,
+  "config": {
+    "experiment_name": "day6_complex_examples_gpt5_advanced_version_1/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-24T12:16:46.756504"
+}

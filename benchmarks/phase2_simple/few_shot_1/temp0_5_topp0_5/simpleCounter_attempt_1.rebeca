@@ -1,0 +1,60 @@
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv increment(Client sender) {
+		count = count + 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv decrement(Client sender) {
+		count = count - 1;
+		sender.valueResponse(count);
+	}
+
+	msgsrv getValue(Client sender) {
+		sender.valueResponse(count);
+	}
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv valueResponse(int value) {
+		// In Rebeca, printing is usually done with println
+		println(clientId);
+		println(value);
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+
+	// Simulate:
+	// counter.tell(Increment, client1)
+	// counter.tell(Increment, client2)
+	// counter.tell(GetValue, client1)
+	counter.increment(client1);
+	counter.increment(client2);
+	counter.getValue(client1);
+}

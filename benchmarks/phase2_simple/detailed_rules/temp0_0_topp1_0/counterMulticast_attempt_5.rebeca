@@ -1,0 +1,52 @@
+reactiveclass Counter {
+	knownrebecs() { }
+	statevars {
+		int count;
+	}
+
+	Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		self.ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		self.ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		self.ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int value) { }
+}
+
+reactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+	statevars {
+		int clientId;
+	}
+
+	Client(Counter _counter, int _clientId) {
+		counter = _counter;
+		clientId = _clientId;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println("Client " + clientId + " received value: " + value);
+	}
+}
+
+main {
+	Counter counter():();
+	Client client1(counter):(counter, 1);
+	Client client2(counter):(counter, 2);
+
+	// Initial messages can be sent via an environment rebec or init msgsrv.
+}

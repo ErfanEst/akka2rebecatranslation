@@ -1,0 +1,44 @@
+import java.lang.String;
+
+	reactiveclass Producer {
+		knownrebecs {
+			Consumer consumer;
+		}
+		statevars {
+			String item;
+		}
+
+		msgsrv initial() {
+			// No initial behavior
+		}
+
+		msgsrv Produce(String _item) {
+			item = _item;
+			consumer.Consume(item);
+		}
+	}
+
+	reactiveclass Consumer {
+		knownrebecs {
+		}
+		statevars {
+			String item;
+		}
+
+		msgsrv initial() {
+			// No initial behavior
+		}
+
+		msgsrv Consume(String _item) {
+			item = _item;
+		}
+	}
+
+	main {
+		Consumer consumer();
+		Producer producer(consumer);
+
+		producer.Produce("item1");
+		producer.Produce("item2");
+	}
+}

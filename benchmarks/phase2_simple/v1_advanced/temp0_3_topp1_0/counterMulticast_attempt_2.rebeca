@@ -1,0 +1,57 @@
+timedreactiveclass Counter {
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		sender!ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		sender!ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		sender!ValueResponse(count);
+	}
+
+	msgsrv ValueResponse(int value) {
+		// no-op for this rebec
+	}
+}
+
+timedreactiveclass Client {
+	knownrebecs {
+		Counter counter;
+	}
+
+	statevars {
+		byte clientId;
+	}
+
+	msgsrv initial(byte id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// no-op
+	}
+}
+
+main {
+	// bindings of knownrebecs
+	Counter counter() : ();
+	Client client1(counter) : (1);
+	Client client2(counter) : (2);
+
+	// initial messages
+	counter.Increment() after(0) deadline(0);
+	counter.Increment() after(0) deadline(0);
+	counter.GetValue()  after(0) deadline(0);
+}

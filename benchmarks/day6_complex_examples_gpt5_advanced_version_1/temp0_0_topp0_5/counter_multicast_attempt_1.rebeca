@@ -1,0 +1,60 @@
+reactiveclass CounterMulticast_Counter(5) {
+	statevars {
+		int count;
+	}
+
+	knownrebecs {
+	}
+
+	CounterMulticast_Counter() {
+		count = 0;
+	}
+
+	msgsrv Increment() {
+		count = count + 1;
+		// sender() ! ValueResponse(count)
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv Decrement() {
+		count = count - 1;
+		// sender() ! ValueResponse(count)
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+
+	msgsrv GetValue() {
+		// sender() ! ValueResponse(count)
+		((CounterMulticast_Client)sender).ValueResponse(count);
+	}
+}
+
+reactiveclass CounterMulticast_Client(5) {
+	statevars {
+		int clientId;
+	}
+
+	knownrebecs {
+		CounterMulticast_Counter counter;
+	}
+
+	CounterMulticast_Client(int clientIdArg) {
+		clientId = clientIdArg;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// println(s"Client $clientId received value: $value")
+	}
+}
+
+main {
+	CounterMulticast_Counter counter():();
+	CounterMulticast_Client client1(counter):(1);
+	CounterMulticast_Client client2(counter):(2);
+
+	// counter.tell(Increment, client1)
+	counter.Increment() sender client1;
+	// counter.tell(Increment, client2)
+	counter.Increment() sender client2;
+	// counter.tell(GetValue, client1)
+	counter.GetValue() sender client1;
+}

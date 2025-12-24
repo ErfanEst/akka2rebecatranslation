@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input 'pong' expecting INTLITERAL
+line:28, column:19, missing INTLITERAL at ')'
+line:39, column:2, The method sender() is undefined
+line:39, column:11, There is no meta data for type unknown
+line:47, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (byte)
+line:48, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (byte)
+line:48, column:6, The method Ping(Pong) is undefined for the type Ping
+line:50, column:5, extraneous input '.' expecting IDENTIFIER
+line:50, column:6, Unknown type ping
+line:50, column:20, mismatched input ';' expecting ':'
+

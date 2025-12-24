@@ -1,0 +1,155 @@
+================================================================================
+ATTEMPT 3 - PROMPT LOG
+Experiment: phase2_simple/v2_advanced/temp0_1_topp1_0
+File: simpleCounter
+Timestamp: 2025-12-24T19:35:09.962698
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+Translate the given Akka code into Rebeca that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Strict rules:
+1. Actors → Reactive Classes
+2. Message Handlers → Message Servers
+3. System Initialization → main block
+4. State and Variables
+5. Sender References
+6. Behavior Changes (context.become)
+7. Timing → after() or delay()
+8. Randomness / Nondeterminism → ?(...)
+9. Communication: asynchronous only
+10. Output format: reactiveclass definitions + main
+11. Timed Rebeca: timing constructs modeled correctly
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+
+		Increment(client1);
+		Increment(client2);
+		GetValue(client1);
+	}
+
+	msgsrv Increment(Client sender) {
+		ValueResponse(sender, count + 1);
+		count = count + 1;
+	}
+
+	msgsrv Decrement(Client sender) {
+		ValueResponse(sender, count - 1);
+		count = count - 1;
+	}
+
+	msgsrv GetValue(Client sender) {
+		ValueResponse(sender, count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		int clientId;
+	}
+
+	msgsrv initial(int id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// do nothing
+	}
+}
+
+main {
+	Client counterClient1(1):();
+	Client counterClient2(2):();
+	Counter counter(counterClient1, counterClient2):();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input '{' expecting {'extends', 'implements', '('}
+line:34, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:49, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)
+line:50, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (byte)
+line:51, column:9, The Counter knownrebecs type binding of () is not applicable for the arguments (Client, Client)
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Counter {
+	knownrebecs {
+		Client client1;
+		Client client2;
+	}
+
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+
+		Increment(client1);
+		Increment(client2);
+		GetValue(client1);
+	}
+
+	msgsrv Increment(Client sender) {
+		ValueResponse(sender, count + 1);
+		count = count + 1;
+	}
+
+	msgsrv Decrement(Client sender) {
+		ValueResponse(sender, count - 1);
+		count = count - 1;
+	}
+
+	msgsrv GetValue(Client sender) {
+		ValueResponse(sender, count);
+	}
+}
+
+reactiveclass Client {
+	statevars {
+		byte clientId;
+	}
+
+	msgsrv initial(byte id) {
+		clientId = id;
+	}
+
+	msgsrv ValueResponse(int value) {
+		// do nothing
+	}
+}
+
+main {
+	Client counterClient1(): (1);
+	Client counterClient2(): (2);
+	Counter counter(counterClient1, counterClient2): ();
+}
+
+================================================================================

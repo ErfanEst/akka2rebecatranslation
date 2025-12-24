@@ -1,0 +1,70 @@
+reactiveclass Producer {
+	knownrebec Consumer consumer;
+
+	Producer(Consumer consumer) {
+		self.consumer = consumer;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; main will send Produce-like messages via Item
+	}
+
+	// In Akka, Producer receives Produce(item) and sends Item(item) to consumer.
+	// Here we directly model the effect as a message server that forwards to consumer.
+	msgsrv produceItem(int itemId) {
+		// println("Producer: sending item" + itemId);
+		consumer.item(itemId);
+	}
+}
+
+reactiveclass Consumer {
+	statevars {
+		int buffer[10];
+		int head;
+		int tail;
+		int size;
+	}
+
+	Consumer() {
+		head = 0;
+		tail = 0;
+		size = 0;
+	}
+
+	msgsrv initial() {
+		// No automatic behavior; main will trigger messages
+	}
+
+	// Corresponds to case Item(data) in Akka Consumer
+	msgsrv item(int data) {
+		if (size < 10) {
+			buffer[tail] = data;
+			tail = (tail + 1) % 10;
+			size = size + 1;
+			// println("Consumer: received " + data + ", buffer size: " + size);
+		}
+		// else buffer overflow ignored in this simple model
+	}
+
+	// Corresponds to case Consume() in Akka Consumer
+	msgsrv consume() {
+		if (size > 0) {
+			int item;
+			item = buffer[head];
+			head = (head + 1) % 10;
+			size = size - 1;
+			// println("Consumer: consumed " + item);
+		} else {
+			// println("Consumer: buffer empty");
+		}
+	}
+}
+
+main {
+	Consumer consumer():();
+	Producer producer(consumer):();
+
+	producer.produceItem(1);
+	producer.produceItem(2);
+	consumer.consume();
+}

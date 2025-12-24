@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:20, column:10, There is no meta data for type ReactiveClass
+line:22, column:10, There is no meta data for type ReactiveClass
+line:32, column:9, There is no meta data for type ReactiveClass
+line:40, column:6, The Pong knownrebecs type binding of () is not applicable for the arguments (byte)
+line:41, column:6, The Ping knownrebecs type binding of () is not applicable for the arguments (byte)
+line:41, column:6, The method Ping(Pong) is undefined for the type Ping
+

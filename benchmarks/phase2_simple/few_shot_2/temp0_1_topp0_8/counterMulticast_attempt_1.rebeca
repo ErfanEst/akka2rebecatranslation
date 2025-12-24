@@ -1,0 +1,66 @@
+reactiveclass Counter(10) {
+	knownrebecs { Client client1; Client client2; }
+	statevars { int count; }
+
+	msgsrv initial() {
+		count = 0;
+		client1.increment();
+		client2.increment();
+		client1.getValue();
+	}
+
+	msgsrv increment() {
+		count = count + 1;
+		if (sender == client1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+
+	msgsrv decrement() {
+		count = count - 1;
+		if (sender == client1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+
+	msgsrv getValue() {
+		if (sender == client1) {
+			client1.valueResponse(count);
+		} else {
+			client2.valueResponse(count);
+		}
+	}
+}
+
+reactiveclass Client(10) {
+	knownrebecs { Counter counter; }
+	statevars { int clientId; }
+
+	Client(int id) {
+		clientId = id;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv increment() {
+		counter.increment();
+	}
+
+	msgsrv getValue() {
+		counter.getValue();
+	}
+
+	msgsrv valueResponse(int value) {
+	}
+}
+
+main {
+	Counter counter(client1, client2):();
+	Client client1(counter):(1);
+	Client client2(counter):(2);
+}

@@ -1,0 +1,29 @@
+reactiveclass Producer(Consumer consumer) {
+	msgsrv initial() {
+		char item1[6];
+		char item2[6];
+
+		item1[0] = 'i'; item1[1] = 't'; item1[2] = 'e'; item1[3] = 'm'; item1[4] = '1'; item1[5] = '\0';
+		item2[0] = 'i'; item2[1] = 't'; item2[2] = 'e'; item2[3] = 'm'; item2[4] = '2'; item2[5] = '\0';
+
+		self.produce(item1);
+		self.produce(item2);
+	}
+
+	msgsrv produce(char item[]) {
+		consumer.consume(item);
+	}
+}
+
+reactiveclass Consumer() {
+	msgsrv initial() {
+	}
+
+	msgsrv consume(char item[]) {
+	}
+}
+
+main {
+	Consumer consumer();
+	Producer producer(consumer);
+}
