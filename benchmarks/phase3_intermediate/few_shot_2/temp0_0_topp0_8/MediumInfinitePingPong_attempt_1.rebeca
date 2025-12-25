@@ -1,0 +1,35 @@
+reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Ping() {
+		// sender() is always PingActor in this model
+		// so we assume knownrebec ping exists in main and calls back directly
+		// This is handled via knownrebecs in main
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):();
+
+	// start the system
+	ping.Start();
+}

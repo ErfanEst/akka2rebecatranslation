@@ -1,0 +1,59 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pongId' expecting INTLITERAL
+line:24, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:45, column:18, extraneous input ':' expecting '('
+line:45, column:22, mismatched input ';' expecting ':'
+line:46, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:46, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:47, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:47, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:48, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:48, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:49, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:49, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:50, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:50, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:51, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:51, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:52, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:52, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:53, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:53, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:54, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:54, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:55, column:14, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:55, column:14, The method PingActor(PongActor, byte) is undefined for the type PingActor
+line:57, column:4, extraneous input '{' expecting {'}', '@', IDENTIFIER}
+line:58, column:13, extraneous input '.' expecting IDENTIFIER
+line:58, column:14, Unknown type ping1
+line:58, column:21, mismatched input ';' expecting ':'
+line:59, column:13, extraneous input '.' expecting IDENTIFIER
+line:59, column:14, Unknown type ping2
+line:59, column:21, mismatched input ';' expecting ':'
+line:60, column:13, extraneous input '.' expecting IDENTIFIER
+line:60, column:14, Unknown type ping3
+line:60, column:21, mismatched input ';' expecting ':'
+line:61, column:13, extraneous input '.' expecting IDENTIFIER
+line:61, column:14, Unknown type ping4
+line:61, column:21, mismatched input ';' expecting ':'
+line:62, column:13, extraneous input '.' expecting IDENTIFIER
+line:62, column:14, Unknown type ping5
+line:62, column:21, mismatched input ';' expecting ':'
+line:63, column:13, extraneous input '.' expecting IDENTIFIER
+line:63, column:14, Unknown type ping6
+line:63, column:21, mismatched input ';' expecting ':'
+line:64, column:13, extraneous input '.' expecting IDENTIFIER
+line:64, column:14, Unknown type ping7
+line:64, column:21, mismatched input ';' expecting ':'
+line:65, column:13, extraneous input '.' expecting IDENTIFIER
+line:65, column:14, Unknown type ping8
+line:65, column:21, mismatched input ';' expecting ':'
+line:66, column:13, extraneous input '.' expecting IDENTIFIER
+line:66, column:14, Unknown type ping9
+line:66, column:21, mismatched input ';' expecting ':'
+line:67, column:14, extraneous input '.' expecting IDENTIFIER
+line:67, column:15, Unknown type ping10
+line:67, column:22, mismatched input ';' expecting ':'
+

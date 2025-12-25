@@ -1,0 +1,21 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:6, The method Ping() is undefined for the type Hub
+line:12, column:6, The method Ping() is undefined for the type Hub
+line:71, column:4, extraneous input '.' expecting IDENTIFIER
+line:71, column:5, Unknown type hub
+line:71, column:16, mismatched input ';' expecting ':'
+line:72, column:4, extraneous input '.' expecting IDENTIFIER
+line:72, column:5, Unknown type hub
+line:72, column:16, mismatched input ';' expecting ':'
+line:73, column:4, extraneous input '.' expecting IDENTIFIER
+line:73, column:5, Unknown type hub
+line:73, column:16, mismatched input ';' expecting ':'
+line:74, column:4, extraneous input '.' expecting IDENTIFIER
+line:74, column:5, Unknown type hub
+line:74, column:16, mismatched input ';' expecting ':'
+line:75, column:4, extraneous input '.' expecting IDENTIFIER
+line:75, column:5, Unknown type hub
+line:75, column:16, mismatched input ';' expecting ':'
+

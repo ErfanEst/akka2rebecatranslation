@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass PingActor {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPingActor ping();\n\tPongActor pong(ping);\n\n\tping.start();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor {\n\t\tknownrebecs { PongActor pong; }\n\t\tstatevars { }\n\n\t\tmsgsrv initial() {\n\t\t\tself.start();\n\t\t}\n\n\t\tmsgsrv start() {\n\t\t\tpong.ping();\n\t\t}\n\n\t\tmsgsrv pong() {\n\t\t\tpong.ping();\n\t\t}\n\t}\n\n\treactiveclass PongActor {\n\t\tknownrebecs { }\n\t\tstatevars { }\n\n\t\tmsgsrv initial() {\n\t\t}\n\n\t\tmsgsrv ping() {\n\t\t\tsender.pong();\n\t\t}\n\t}\n\n\tmain {\n\t\tPongActor pong();\n\t\tPingActor ping(pong);\n\n\t\tping.start();\n\t}\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:25, mismatched input '{' expecting {'extends', 'implements', '('}\nline:31, column:18, mismatched input ';' expecting ':'\nline:32, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)\nline:32, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:34, column:6, extraneous input '.' expecting IDENTIFIER\nline:34, column:7, Unknown type ping\nline:34, column:14, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T14:29:30.889044",
+      "code_length": 407
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "timedreactiveclass PingActor {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\ntimedreactiveclass PongActor {\n\tknownrebecs { }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping() {\n\t\tsender.pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\tping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, mismatched input 'timedreactiveclass' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}",
+      "timestamp": "2025-12-25T14:29:34.156014",
+      "code_length": 395
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs { }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping() {\n\t\tsender.pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\tping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:32, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)\nline:34, column:5, extraneous input '.' expecting IDENTIFIER\nline:34, column:6, Unknown type ping\nline:34, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T14:29:37.421129",
+      "code_length": 385
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping() {\n\t\tsender.pong();\n\t}\n}\n\nmain {\n\tPingActor ping():();\n\tPongActor pong(ping):();\n\n\tping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:32, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)\nline:34, column:5, extraneous input '.' expecting IDENTIFIER\nline:34, column:6, Unknown type ping\nline:34, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T14:29:40.807044",
+      "code_length": 401
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPingActor ping();\n\tPongActor pong(ping);\n\n\tping.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:31, column:17, mismatched input ';' expecting ':'\nline:32, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)\nline:32, column:21, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:34, column:5, extraneous input '.' expecting IDENTIFIER\nline:34, column:6, Unknown type ping\nline:34, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T14:29:44.366037",
+      "code_length": 393
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 17.156314849853516,
+  "config": {
+    "experiment_name": "phase3_intermediate/v1_advanced/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T14:29:44.366156"
+}

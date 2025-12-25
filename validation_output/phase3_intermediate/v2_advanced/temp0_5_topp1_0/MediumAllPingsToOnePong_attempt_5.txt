@@ -1,0 +1,47 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'ping0' expecting INTLITERAL
+line:47, column:24, mismatched input 'pongRef' expecting INTLITERAL
+line:73, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:74, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:75, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:76, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:77, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:78, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:79, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:80, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:81, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:82, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:84, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor)
+line:86, column:6, extraneous input '.' expecting IDENTIFIER
+line:86, column:7, Unknown type ping0
+line:86, column:15, mismatched input 'after' expecting ':'
+line:87, column:6, extraneous input '.' expecting IDENTIFIER
+line:87, column:7, Unknown type ping1
+line:87, column:15, mismatched input 'after' expecting ':'
+line:88, column:6, extraneous input '.' expecting IDENTIFIER
+line:88, column:7, Unknown type ping2
+line:88, column:15, mismatched input 'after' expecting ':'
+line:89, column:6, extraneous input '.' expecting IDENTIFIER
+line:89, column:7, Unknown type ping3
+line:89, column:15, mismatched input 'after' expecting ':'
+line:90, column:6, extraneous input '.' expecting IDENTIFIER
+line:90, column:7, Unknown type ping4
+line:90, column:15, mismatched input 'after' expecting ':'
+line:91, column:6, extraneous input '.' expecting IDENTIFIER
+line:91, column:7, Unknown type ping5
+line:91, column:15, mismatched input 'after' expecting ':'
+line:92, column:6, extraneous input '.' expecting IDENTIFIER
+line:92, column:7, Unknown type ping6
+line:92, column:15, mismatched input 'after' expecting ':'
+line:93, column:6, extraneous input '.' expecting IDENTIFIER
+line:93, column:7, Unknown type ping7
+line:93, column:15, mismatched input 'after' expecting ':'
+line:94, column:6, extraneous input '.' expecting IDENTIFIER
+line:94, column:7, Unknown type ping8
+line:94, column:15, mismatched input 'after' expecting ':'
+line:95, column:6, extraneous input '.' expecting IDENTIFIER
+line:95, column:7, Unknown type ping9
+line:95, column:15, mismatched input 'after' expecting ':'
+

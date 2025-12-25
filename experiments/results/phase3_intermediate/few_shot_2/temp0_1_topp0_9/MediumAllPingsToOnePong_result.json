@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { \n\t\tPongActor pong; \n\t} \n\tstatevars { \n\t\tint id; \n\t} \n\n\tPingActor(int _id) { \n\t\tid = _id; \n\t\tself.start(); \n\t} \n\n\tmsgsrv start() { \n\t\tpong.ping(id); \n\t} \n\n\tmsgsrv msg(String _msg) { \n\t\tpong.ping(id); \n\t} \n} \n\nreactiveclass PongActor(5) {\n\tknownrebecs { \n\t} \n\tstatevars { \n\t} \n\n\tPongActor() { \n\t} \n\n\tmsgsrv ping(int pingId) { \n\t\t// in Akka: sender() ! s\"pong-for-$msg\"\n\t\t// Here we only model reception; response to specific sender is omitted\n\t} \n} \n\nmain { \n\tPongActor pong():(); \n\tPingActor p1(pong):(1); \n\tPingActor p2(pong):(2); \n\tPingActor p3(pong):(3); \n\tPingActor p4(pong):(4); \n\tPingActor p5(pong):(5); \n\tPingActor p6(pong):(6); \n\tPingActor p7(pong):(7); \n\tPingActor p8(pong):(8); \n\tPingActor p9(pong):(9); \n\tPingActor p10(pong):(10); \n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { \n\t\tPongActor pong; \n\t} \n\tstatevars { \n\t\tint id; \n\t} \n\n\tPingActor(int _id) { \n\t\tid = _id; \n\t\tself.start(); \n\t} \n\n\tmsgsrv start() { \n\t\tpong.ping(id); \n\t} \n\n\tmsgsrv msg(String _msg) { \n\t\tpong.ping(id); \n\t} \n} \n\nreactiveclass PongActor(5) {\n\tknownrebecs { \n\t} \n\tstatevars { \n\t} \n\n\tPongActor() { \n\t} \n\n\tmsgsrv ping(int pingId) { \n\t\t// in Akka: sender() ! s\"pong-for-$msg\"\n\t\t// Here we only model reception; response to specific sender is omitted\n\t} \n} \n\nmain { \n\tPongActor pong():(); \n\tPingActor p1(pong):(1); \n\tPingActor p2(pong):(2); \n\tPingActor p3(pong):(3); \n\tPingActor p4(pong):(4); \n\tPingActor p5(pong):(5); \n\tPingActor p6(pong):(6); \n\tPingActor p7(pong):(7); \n\tPingActor p8(pong):(8); \n\tPingActor p9(pong):(9); \n\tPingActor p10(pong):(10); \n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:39:07.548671",
+      "code_length": 787
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 7.194302082061768,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_1_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:39:07.548759"
+}

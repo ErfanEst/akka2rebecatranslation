@@ -1,0 +1,129 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/v2_advanced/temp0_0_topp0_9
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T14:41:51.209646
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+Translate the given Akka code into Rebeca that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Strict rules:
+1. Actors → Reactive Classes
+2. Message Handlers → Message Servers
+3. System Initialization → main block
+4. State and Variables
+5. Sender References
+6. Behavior Changes (context.become)
+7. Timing → after() or delay()
+8. Randomness / Nondeterminism → ?(...)
+9. Communication: asynchronous only
+10. Output format: reactiveclass definitions + main
+11. Timed Rebeca: timing constructs modeled correctly
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumAllPingsToOnePong
+
+import akka.actor._
+
+class PingActor(pong: ActorRef, id: Int) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      pong ! s"ping-$id"
+
+    case msg: String =>
+      pong ! s"ping-$id"
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case msg: String =>
+      sender() ! s"pong-for-$msg"
+  }
+}
+
+object AllPingsToOnePongApp extends App {
+  val system = ActorSystem("AllToOneSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+
+  (1 to 10).foreach { i =>
+    val ping = system.actorOf(Props(new PingActor(pong, i)), s"ping$i")
+    ping ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timed reactiveclass PingActor(pongId: int, id: int) {
+    knownrebecs {
+        PongActor pong;
+    }
+
+    statevars {
+        int myId;
+    }
+
+    PingActor(PongActor p, int pid, int _id) {
+        pong = p;
+        pongId = pid;
+        myId = _id;
+    }
+
+    msgsrv start() {
+        ping();
+    }
+
+    msgsrv ping() {
+        pong.pingMsg(myId) after(0);
+    }
+}
+
+timed reactiveclass PongActor(int myId) {
+    knownrebecs {
+        PingActor pings[10];
+    }
+
+    statevars {
+        int id;
+    }
+
+    PongActor(int _id) {
+        id = _id;
+    }
+
+    msgsrv pingMsg(int pingId) {
+        pings[pingId - 1].pongMsg(pingId, id) after(0);
+    }
+
+    msgsrv pongMsg(int pingId, int pongId) {
+        // This models receiving "pong-for-ping-X" at ping actor.
+        // No further action required as in original code.
+    }
+}
+
+timed main {
+    PingActor pings[10](pong, i, i);
+    PongActor pong(0): (pings);
+
+    {
+        int i;
+        i = 0;
+        while (i < 10) {
+            pings[i].start() after(0);
+            i = i + 1;
+        }
+    }
+}
+
+================================================================================

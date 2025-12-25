@@ -1,0 +1,99 @@
+reactiveclass PingActor(PongActor pong) {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial() {
+		// default id, will be set by a separate init message
+		id = 0;
+	}
+
+	msgsrv setId(int _id) {
+		id = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv pingBack(int dummy) {
+		// In original Akka code, PingActor ignores the content and just sends another ping
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor(PingActor ping1, PingActor ping2, PingActor ping3, PingActor ping4,
+                        PingActor ping5, PingActor ping6, PingActor ping7, PingActor ping8,
+                        PingActor ping9, PingActor ping10) {
+	knownrebecs {
+		PingActor ping1;
+		PingActor ping2;
+		PingActor ping3;
+		PingActor ping4;
+		PingActor ping5;
+		PingActor ping6;
+		PingActor ping7;
+		PingActor ping8;
+		PingActor ping9;
+		PingActor ping10;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping(int id) {
+		if (id == 1) {
+			ping1.pingBack(1);
+		} else if (id == 2) {
+			ping2.pingBack(2);
+		} else if (id == 3) {
+			ping3.pingBack(3);
+		} else if (id == 4) {
+			ping4.pingBack(4);
+		} else if (id == 5) {
+			ping5.pingBack(5);
+		} else if (id == 6) {
+			ping6.pingBack(6);
+		} else if (id == 7) {
+			ping7.pingBack(7);
+		} else if (id == 8) {
+			ping8.pingBack(8);
+		} else if (id == 9) {
+			ping9.pingBack(9);
+		} else if (id == 10) {
+			ping10.pingBack(10);
+		}
+	}
+}
+
+main {
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+	PingActor ping10(pong):();
+
+	PongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10):();
+
+	ping1.setId(1);
+	ping2.setId(2);
+	ping3.setId(3);
+	ping4.setId(4);
+	ping5.setId(5);
+	ping6.setId(6);
+	ping7.setId(7);
+	ping8.setId(8);
+	ping9.setId(9);
+	ping10.setId(10);
+}

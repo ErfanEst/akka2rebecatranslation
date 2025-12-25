@@ -1,0 +1,46 @@
+reactiveclass Client {
+	knownrebecs { Hub hubRef; }
+
+	msgsrv initial() {
+		start();
+	}
+
+	msgsrv start() {
+		hubRef.Ping();
+	}
+
+	msgsrv Pong() {
+		hubRef.Ping();
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs { Client c1Ref; Client c2Ref; Client c3Ref; Client c4Ref; Client c5Ref; }
+
+	msgsrv initial() {
+		// Registration happens via environment in main
+	}
+
+	msgsrv Register(Client ref) {
+		// This msgsrv is kept for structural similarity but does nothing.
+	}
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	c1.start():();
+	c2.start():();
+	c3.start():();
+	c4.start():();
+	c5.start():();
+}

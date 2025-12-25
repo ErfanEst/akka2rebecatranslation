@@ -1,0 +1,81 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial(int _id) {
+		id = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv pingBack(string msg) {
+		// In original Akka code, PingActor ignores the content and just sends another ping
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+		PingActor ping1;
+		PingActor ping2;
+		PingActor ping3;
+		PingActor ping4;
+		PingActor ping5;
+		PingActor ping6;
+		PingActor ping7;
+		PingActor ping8;
+		PingActor ping9;
+		PingActor ping10;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping(int id) {
+		if (id == 1) {
+			ping1.pingBack("pong-for-ping-1");
+		} else if (id == 2) {
+			ping2.pingBack("pong-for-ping-2");
+		} else if (id == 3) {
+			ping3.pingBack("pong-for-ping-3");
+		} else if (id == 4) {
+			ping4.pingBack("pong-for-ping-4");
+		} else if (id == 5) {
+			ping5.pingBack("pong-for-ping-5");
+		} else if (id == 6) {
+			ping6.pingBack("pong-for-ping-6");
+		} else if (id == 7) {
+			ping7.pingBack("pong-for-ping-7");
+		} else if (id == 8) {
+			ping8.pingBack("pong-for-ping-8");
+		} else if (id == 9) {
+			ping9.pingBack("pong-for-ping-9");
+		} else if (id == 10) {
+			ping10.pingBack("pong-for-ping-10");
+		}
+	}
+}
+
+main {
+	PingActor ping1(pong):(1);
+	PingActor ping2(pong):(2);
+	PingActor ping3(pong):(3);
+	PingActor ping4(pong):(4);
+	PingActor ping5(pong):(5);
+	PingActor ping6(pong):(6);
+	PingActor ping7(pong):(7);
+	PingActor ping8(pong):(8);
+	PingActor ping9(pong):(9);
+	PingActor ping10(pong):(10);
+
+	PongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10):();
+}

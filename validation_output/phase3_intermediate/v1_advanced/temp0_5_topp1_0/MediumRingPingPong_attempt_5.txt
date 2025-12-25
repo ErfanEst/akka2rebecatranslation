@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, missing INTLITERAL at ')'
+line:14, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:32, column:3, extraneous input '.' expecting IDENTIFIER
+line:32, column:4, Unknown type a1
+line:32, column:10, mismatched input ';' expecting ':'
+

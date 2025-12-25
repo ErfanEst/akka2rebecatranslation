@@ -1,0 +1,24 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:45, column:7, extraneous input '.' expecting IDENTIFIER
+line:45, column:8, Unknown type hub
+line:46, column:6, extraneous input '.' expecting IDENTIFIER
+line:46, column:7, Unknown type c1
+line:48, column:7, extraneous input '.' expecting IDENTIFIER
+line:48, column:8, Unknown type hub
+line:49, column:6, extraneous input '.' expecting IDENTIFIER
+line:49, column:7, Unknown type c2
+line:51, column:7, extraneous input '.' expecting IDENTIFIER
+line:51, column:8, Unknown type hub
+line:52, column:6, extraneous input '.' expecting IDENTIFIER
+line:52, column:7, Unknown type c3
+line:54, column:7, extraneous input '.' expecting IDENTIFIER
+line:54, column:8, Unknown type hub
+line:55, column:6, extraneous input '.' expecting IDENTIFIER
+line:55, column:7, Unknown type c4
+line:57, column:7, extraneous input '.' expecting IDENTIFIER
+line:57, column:8, Unknown type hub
+line:58, column:6, extraneous input '.' expecting IDENTIFIER
+line:58, column:7, Unknown type c5
+

@@ -1,0 +1,43 @@
+reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { int id; }
+
+	PingActor(int _id) {
+		id = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv msg(String m) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }
+
+	statevars { }
+
+	PongActor() { }
+
+	msgsrv ping(int pid) {
+		// sender() ! s"pong-for-$msg" is omitted (no direct sender in Rebeca)
+	}
+}
+
+main {
+	PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();
+	PingActor p1(pong):(1);
+	PingActor p2(pong):(2);
+	PingActor p3(pong):(3);
+	PingActor p4(pong):(4);
+	PingActor p5(pong):(5);
+	PingActor p6(pong):(6);
+	PingActor p7(pong):(7);
+	PingActor p8(pong):(8);
+	PingActor p9(pong):(9);
+	PingActor p10(pong):(10);
+}

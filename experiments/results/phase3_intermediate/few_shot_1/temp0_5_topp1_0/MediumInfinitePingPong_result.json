@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor pingRef;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tpingRef.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.initial();\n\tpong.initial();\n\n\tping.Start();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// No automatic start; Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\t// In Akka: sender() ! Pong\n\t\t// Here, always reply to the single PingActor in the system.\n\t\t// We model this by having the main wire PongActor to a single PingActor.\n\t\t// Since PongActor has no knownrebecs in its constructor, we use environment rebec binding in main.\n\t\tpingRef.Pong();\n\t}\n}\n\nenv rebec PingActor pingRef;\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\t// Wire environment reference used by PongActor to the actual ping instance\n\tpingRef = ping;\n\n\t// Start the interaction\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:35, column:2, \"pingRef\" undeclared\nline:35, column:10, There is no meta data for type unknown\nline:39, column:0, extraneous input 'env' expecting {'reactiveclass', 'interface', 'abstract', 'main', '@'}\nline:46, column:9, extraneous input '=' expecting IDENTIFIER\nline:46, column:11, Multiple definition for the actor ping\nline:46, column:15, mismatched input ';' expecting {'[', '<', IDENTIFIER}\nline:49, column:5, extraneous input '.' expecting IDENTIFIER\nline:49, column:6, Unknown type ping\nline:49, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:27:56.286842",
+      "code_length": 858
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor pingRef;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tpingRef.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:40, column:5, extraneous input '.' expecting IDENTIFIER\nline:40, column:6, Unknown type ping\nline:40, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:27:59.599151",
+      "code_length": 441
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor pingRef;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tpingRef.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.initial();\n\tpong.initial();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:40, column:5, extraneous input '.' expecting IDENTIFIER\nline:40, column:6, Unknown type ping\nline:40, column:15, mismatched input ';' expecting ':'\nline:41, column:5, extraneous input '.' expecting IDENTIFIER\nline:41, column:6, Unknown type pong\nline:41, column:15, mismatched input ';' expecting ':'\nline:43, column:5, extraneous input '.' expecting IDENTIFIER\nline:43, column:6, Unknown type ping\nline:43, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:28:02.768920",
+      "code_length": 476
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor pingRef;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tpingRef.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong(ping):();\n\tPingActor ping(pong):();\n\n\tping.initial();\n\tpong.initial();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:40, column:5, extraneous input '.' expecting IDENTIFIER\nline:40, column:6, Unknown type ping\nline:40, column:15, mismatched input ';' expecting ':'\nline:41, column:5, extraneous input '.' expecting IDENTIFIER\nline:41, column:6, Unknown type pong\nline:41, column:15, mismatched input ';' expecting ':'\nline:43, column:5, extraneous input '.' expecting IDENTIFIER\nline:43, column:6, Unknown type ping\nline:43, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:28:06.321300",
+      "code_length": 476
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\t// Start will be sent from main\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor pingRef;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tpingRef.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.initial();\n\tpong.initial();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:40, column:5, extraneous input '.' expecting IDENTIFIER\nline:40, column:6, Unknown type ping\nline:40, column:15, mismatched input ';' expecting ':'\nline:41, column:5, extraneous input '.' expecting IDENTIFIER\nline:41, column:6, Unknown type pong\nline:41, column:15, mismatched input ';' expecting ':'\nline:43, column:5, extraneous input '.' expecting IDENTIFIER\nline:43, column:6, Unknown type ping\nline:43, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:28:10.049022",
+      "code_length": 476
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 18.860585927963257,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_1/temp0_5_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:28:10.049097"
+}

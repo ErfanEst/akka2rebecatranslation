@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:13, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:27, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:28, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:29, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:30, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:31, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:32, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+

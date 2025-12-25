@@ -1,0 +1,38 @@
+package MediumStarTopology
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case class Register(ref: ActorRef)
+
+class Client(hub: ActorRef) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      hub ! Ping
+    case Pong =>
+      hub ! Ping
+  }
+}
+
+class Hub extends Actor {
+  var clients: List[ActorRef] = Nil
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients ::= ref
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object StarApp extends App {
+  val system = ActorSystem("StarSystem")
+  val hub = system.actorOf(Props[Hub], "hub")
+
+  (1 to 5).foreach { i =>
+    val c = system.actorOf(Props(new Client(hub)), s"c$i")
+    hub ! Register(c)
+    c ! "start"
+  }
+}

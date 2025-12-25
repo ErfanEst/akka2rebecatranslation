@@ -1,0 +1,40 @@
+reactiveclass Ping(knownrebecs { Pong pong; }) {
+	statevars {
+	}
+
+	// constructor
+	Ping() {
+	}
+
+	// maps to "Start" message in Akka
+	msgcnt Start() {
+		pong.Ping();
+	}
+
+	// maps to handling Pong in Akka
+	msgcnt Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass Pong(knownrebecs { }) {
+	statevars {
+	}
+
+	// constructor
+	Pong() {
+	}
+
+	// maps to handling Ping in Akka
+	msgcnt Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	Pong pong();
+	Ping ping(pong);
+
+	// corresponds to: ping ! Start
+	ping.Start();
+}

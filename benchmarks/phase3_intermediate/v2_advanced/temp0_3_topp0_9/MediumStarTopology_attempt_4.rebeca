@@ -1,0 +1,76 @@
+reactiveclass Client {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+
+	msgsrv initial() {
+		// no automatic start here; main will call start()
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+	}
+
+	msgsrv Register(Client ref) {
+		// kept to mirror the Akka interface but is unused
+	}
+
+	msgsrv Ping() {
+		int choice;
+		choice = ?(1, 2, 3, 4, 5);
+		if (choice == 1) {
+			c1.Pong();
+		} else if (choice == 2) {
+			c2.Pong();
+		} else if (choice == 3) {
+			c3.Pong();
+		} else if (choice == 4) {
+			c4.Pong();
+		} else {
+			c5.Pong();
+		}
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5);
+	Client c1(hub);
+	Client c2(hub);
+	Client c3(hub);
+	Client c4(hub);
+	Client c5(hub);
+
+	hub.Register(c1);
+	hub.Register(c2);
+	hub.Register(c3);
+	hub.Register(c4);
+	hub.Register(c5);
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

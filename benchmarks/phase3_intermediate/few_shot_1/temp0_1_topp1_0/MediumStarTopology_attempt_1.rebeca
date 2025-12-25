@@ -1,0 +1,70 @@
+reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		self.start();
+	}
+
+	msgsrv start() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		Client lastSender;
+		int clientsCount;
+		Client clients[5];
+	}
+
+	msgsrv initial() {
+		clientsCount = 0;
+		self.register(c1);
+		self.register(c2);
+		self.register(c3);
+		self.register(c4);
+		self.register(c5);
+	}
+
+	msgsrv register(Client ref) {
+		if (clientsCount < 5) {
+			clients[clientsCount] = ref;
+			clientsCount = clientsCount + 1;
+		}
+	}
+
+	msgsrv ping() {
+		/* in Akka: sender() ! Pong */
+		lastSender.pong();
+	}
+
+	/* Auxiliary message to set lastSender before calling ping, when needed */
+	msgsrv pingFrom(Client ref) {
+		lastSender = ref;
+		self.ping();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

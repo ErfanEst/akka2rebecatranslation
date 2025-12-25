@@ -1,0 +1,35 @@
+reactiveclass PingActor (50) {
+    knownrebecs { PongActor pong; }
+
+    msgsrv Start() {
+        pong.Ping();
+    }
+
+    msgsrv Pong() {
+        pong.Ping();
+    }
+
+    main {
+        // nothing in main, Start is triggered from environment (InfiniteApp)
+    }
+}
+
+reactiveclass PongActor (50) {
+    knownrebecs { }
+
+    msgsrv Ping() {
+        sender.Pong();
+    }
+
+    main {
+        // no initialization needed
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping(pong);
+
+    // simulate "ping ! Start"
+    ping.Start();
+}

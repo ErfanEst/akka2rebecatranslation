@@ -1,0 +1,20 @@
+reactiveclass PingActor (PongActor pong) {
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor (PingActor ping) {
+	msgsrv Ping() {
+		ping.Pong();
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):();
+}

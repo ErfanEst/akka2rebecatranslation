@@ -1,0 +1,24 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:96, column:15, missing IDENTIFIER at '('
+line:96, column:17, mismatched input ';' expecting ':'
+line:97, column:15, missing IDENTIFIER at '('
+line:97, column:17, mismatched input ';' expecting ':'
+line:98, column:15, missing IDENTIFIER at '('
+line:98, column:17, mismatched input ';' expecting ':'
+line:99, column:15, missing IDENTIFIER at '('
+line:99, column:17, mismatched input ';' expecting ':'
+line:100, column:15, missing IDENTIFIER at '('
+line:100, column:17, mismatched input ';' expecting ':'
+line:102, column:9, missing IDENTIFIER at '('
+line:102, column:11, mismatched input ';' expecting ':'
+line:103, column:9, missing IDENTIFIER at '('
+line:103, column:11, mismatched input ';' expecting ':'
+line:104, column:9, missing IDENTIFIER at '('
+line:104, column:11, mismatched input ';' expecting ':'
+line:105, column:9, missing IDENTIFIER at '('
+line:105, column:11, mismatched input ';' expecting ':'
+line:106, column:9, missing IDENTIFIER at '('
+line:106, column:11, mismatched input ';' expecting ':'
+

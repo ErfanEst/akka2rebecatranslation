@@ -1,0 +1,70 @@
+reactiveclass Client {
+    knownrebecs { Hub hub; }
+
+    msgsrv start() {
+        hub.Ping();
+    }
+
+    msgsrv Pong() {
+        hub.Ping();
+    }
+
+    msgsrv initial() {
+        // no-op
+    }
+}
+
+reactiveclass Hub {
+    knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+
+    msgsrv Ping() {
+        // In Akka, sender() is the client that sent Ping.
+        // In Rebeca, we model the star statically: each client sends Ping,
+        // and Hub replies directly to that client.
+        // To preserve behavior, each client calls Ping on hub,
+        // and hub replies Pong to the caller.
+        // Since Rebeca does not have sender(), we assume each client
+        // has its own Ping handler in hub; here we model a generic one
+        // and rely on direct calls from clients.
+        // This generic version cannot distinguish callers, so we omit reply.
+    }
+
+    msgsrv PingFromC1() {
+        c1.Pong();
+    }
+
+    msgsrv PingFromC2() {
+        c2.Pong();
+    }
+
+    msgsrv PingFromC3() {
+        c3.Pong();
+    }
+
+    msgsrv PingFromC4() {
+        c4.Pong();
+    }
+
+    msgsrv PingFromC5() {
+        c5.Pong();
+    }
+
+    msgsrv initial() {
+        // no-op
+    }
+}
+
+main {
+    Hub hub(c1, c2, c3, c4, c5);
+    Client c1(hub);
+    Client c2(hub);
+    Client c3(hub);
+    Client c4(hub);
+    Client c5(hub);
+
+    c1.start();
+    c2.start();
+    c3.start();
+    c4.start();
+    c5.start();
+}

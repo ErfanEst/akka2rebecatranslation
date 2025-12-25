@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n  knownrebecs { PongActor pong; }\n  statevars { }\n\n  msgsrv initial() {\n    pong.ping();\n  }\n\n  msgsrv start() {\n    pong.ping();\n  }\n\n  msgsrv pong() {\n    pong.ping();\n  }\n}\n\nreactiveclass PongActor(5) {\n  knownrebecs { PingActor ping; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv ping() {\n    ping.pong();\n  }\n}\n\nmain {\n  PingActor ping(pong):();\n  PongActor pong(ping):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n  knownrebecs { PongActor pong; }\n  statevars { }\n\n  msgsrv initial() {\n    pong.ping();\n  }\n\n  msgsrv start() {\n    pong.ping();\n  }\n\n  msgsrv pong() {\n    pong.ping();\n  }\n}\n\nreactiveclass PongActor(5) {\n  knownrebecs { PingActor ping; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv ping() {\n    ping.pong();\n  }\n}\n\nmain {\n  PingActor ping(pong):();\n  PongActor pong(ping):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:09:36.623910",
+      "code_length": 414
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 3.9417827129364014,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_1/temp0_0_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:09:36.623966"
+}

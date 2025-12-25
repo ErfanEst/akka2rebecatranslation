@@ -1,0 +1,72 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { int lastClient; }
+
+	msgsrv initial() {
+		lastClient = 0;
+
+		// Simulate the StarApp initialization:
+		// register each client and start them
+		self.register(1);
+		self.register(2);
+		self.register(3);
+		self.register(4);
+		self.register(5);
+
+		c1.initial();
+		c2.initial();
+		c3.initial();
+		c4.initial();
+		c5.initial();
+	}
+
+	msgsrv register(int id) {
+		// In this simple model, registration only records the last client id.
+		lastClient = id;
+	}
+
+	msgsrv ping() {
+		int which;
+		which = ?(1,2,3,4,5);
+		if (which == 1) {
+			c1.pong();
+		} else {
+			if (which == 2) {
+				c2.pong();
+			} else {
+				if (which == 3) {
+					c3.pong();
+				} else {
+					if (which == 4) {
+						c4.pong();
+					} else {
+						c5.pong();
+					}
+				}
+			}
+		}
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	Hub hub(c1, c2, c3, c4, c5):();
+}

@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:19, column:7, The method Register() is undefined for the type Client
+line:20, column:7, The method Register() is undefined for the type Client
+line:21, column:7, The method Register() is undefined for the type Client
+line:22, column:7, The method Register() is undefined for the type Client
+line:23, column:7, The method Register() is undefined for the type Client
+line:31, column:11, There is no meta data for type ReactiveClass
+

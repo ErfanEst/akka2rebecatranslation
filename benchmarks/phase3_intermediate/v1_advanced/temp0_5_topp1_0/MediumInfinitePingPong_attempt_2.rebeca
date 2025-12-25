@@ -1,0 +1,26 @@
+timedreactiveclass PingActor {
+	knownrebecs { PongActor pong; }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+timedreactiveclass PongActor {
+	knownrebecs { }
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	PongActor pong();
+	PingActor ping(pong):();
+
+	ping.Start();
+}

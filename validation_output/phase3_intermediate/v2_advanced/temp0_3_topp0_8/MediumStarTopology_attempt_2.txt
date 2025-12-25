@@ -1,0 +1,37 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:14, column:6, The method Ping() is undefined for the type Hub
+line:18, column:6, The method Ping() is undefined for the type Hub
+line:27, column:16, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:60, column:4, extraneous input '.' expecting IDENTIFIER
+line:60, column:5, Unknown type hub
+line:60, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:61, column:4, extraneous input '.' expecting IDENTIFIER
+line:61, column:5, Unknown type hub
+line:61, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:62, column:4, extraneous input '.' expecting IDENTIFIER
+line:62, column:5, Unknown type hub
+line:62, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:63, column:4, extraneous input '.' expecting IDENTIFIER
+line:63, column:5, Unknown type hub
+line:63, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:64, column:4, extraneous input '.' expecting IDENTIFIER
+line:64, column:5, Unknown type hub
+line:64, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:3, extraneous input '.' expecting IDENTIFIER
+line:66, column:4, Unknown type c1
+line:66, column:11, mismatched input ';' expecting ':'
+line:67, column:3, extraneous input '.' expecting IDENTIFIER
+line:67, column:4, Unknown type c2
+line:67, column:11, mismatched input ';' expecting ':'
+line:68, column:3, extraneous input '.' expecting IDENTIFIER
+line:68, column:4, Unknown type c3
+line:68, column:11, mismatched input ';' expecting ':'
+line:69, column:3, extraneous input '.' expecting IDENTIFIER
+line:69, column:4, Unknown type c4
+line:69, column:11, mismatched input ';' expecting ':'
+line:70, column:3, extraneous input '.' expecting IDENTIFIER
+line:70, column:4, Unknown type c5
+line:70, column:11, mismatched input ';' expecting ':'
+

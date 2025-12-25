@@ -1,0 +1,81 @@
+reactiveclass Client(5) {
+  knownrebecs { Hub hub; }
+  statevars { }
+
+  Client() {
+    self.start();
+  }
+
+  msgsrv start() {
+    hub.Ping();
+  }
+
+  msgsrv Pong() {
+    hub.Ping();
+  }
+}
+
+reactiveclass Hub(5) {
+  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+  statevars { }
+
+  Hub() {
+    self.Register1();
+    self.Register2();
+    self.Register3();
+    self.Register4();
+    self.Register5();
+  }
+
+  msgsrv Register1() {
+    // no-op
+  }
+
+  msgsrv Register2() {
+    // no-op
+  }
+
+  msgsrv Register3() {
+    // no-op
+  }
+
+  msgsrv Register4() {
+    // no-op
+  }
+
+  msgsrv Register5() {
+    // no-op
+  }
+
+  msgsrv Ping() {
+    // sender() cannot be modeled directly; choose a client nondeterministically
+    int which;
+    which = ?(1, 2, 3, 4, 5);
+    if (which == 1) {
+      c1.Pong();
+    } else {
+      if (which == 2) {
+        c2.Pong();
+      } else {
+        if (which == 3) {
+          c3.Pong();
+        } else {
+          if (which == 4) {
+            c4.Pong();
+          } else {
+            c5.Pong();
+          }
+        }
+      }
+    }
+  }
+}
+
+main {
+  Client c1(h):();
+  Client c2(h):();
+  Client c3(h):();
+  Client c4(h):();
+  Client c5(h):();
+  Hub h(c1, c2, c3, c4, c5):();
+}

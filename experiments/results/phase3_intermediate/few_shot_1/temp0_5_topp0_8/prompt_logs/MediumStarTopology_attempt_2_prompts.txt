@@ -1,0 +1,286 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_1/temp0_5_topp0_8
+File: MediumStarTopology
+Timestamp: 2025-12-25T15:25:44.155074
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { int lastClient; }
+
+	msgsrv initial() {
+		lastClient = 0;
+	}
+
+	msgsrv register(int id) {
+		// In this simple model, registration only records the last client id.
+		lastClient = id;
+	}
+
+	msgsrv ping() {
+		int which;
+		which = ?(1,2,3,4,5);
+		if (which == 1) {
+			c1.pong();
+		} else {
+			if (which == 2) {
+				c2.pong();
+			} else {
+				if (which == 3) {
+					c3.pong();
+				} else {
+					if (which == 4) {
+						c4.pong();
+					} else {
+						c5.pong();
+					}
+				}
+			}
+		}
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	// Simulate the StarApp initialization:
+	// register each client and start them
+	hub.register(1);
+	hub.register(2);
+	hub.register(3);
+	hub.register(4);
+	hub.register(5);
+
+	c1.initial();
+	c2.initial();
+	c3.initial();
+	c4.initial();
+	c5.initial();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:61, column:4, extraneous input '.' expecting IDENTIFIER
+line:61, column:5, Unknown type hub
+line:61, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:62, column:4, extraneous input '.' expecting IDENTIFIER
+line:62, column:5, Unknown type hub
+line:62, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:63, column:4, extraneous input '.' expecting IDENTIFIER
+line:63, column:5, Unknown type hub
+line:63, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:64, column:4, extraneous input '.' expecting IDENTIFIER
+line:64, column:5, Unknown type hub
+line:64, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:65, column:4, extraneous input '.' expecting IDENTIFIER
+line:65, column:5, Unknown type hub
+line:65, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:67, column:3, extraneous input '.' expecting IDENTIFIER
+line:67, column:4, Unknown type c1
+line:67, column:13, mismatched input ';' expecting ':'
+line:68, column:3, extraneous input '.' expecting IDENTIFIER
+line:68, column:4, Unknown type c2
+line:68, column:13, mismatched input ';' expecting ':'
+line:69, column:3, extraneous input '.' expecting IDENTIFIER
+line:69, column:4, Unknown type c3
+line:69, column:13, mismatched input ';' expecting ':'
+line:70, column:3, extraneous input '.' expecting IDENTIFIER
+line:70, column:4, Unknown type c4
+line:70, column:13, mismatched input ';' expecting ':'
+line:71, column:3, extraneous input '.' expecting IDENTIFIER
+line:71, column:4, Unknown type c5
+line:71, column:13, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { int lastClient; }
+
+	msgsrv initial() {
+		lastClient = 0;
+
+		// Simulate the StarApp initialization:
+		// register each client and start them
+		self.register(1);
+		self.register(2);
+		self.register(3);
+		self.register(4);
+		self.register(5);
+
+		c1.initial();
+		c2.initial();
+		c3.initial();
+		c4.initial();
+		c5.initial();
+	}
+
+	msgsrv register(int id) {
+		// In this simple model, registration only records the last client id.
+		lastClient = id;
+	}
+
+	msgsrv ping() {
+		int which;
+		which = ?(1,2,3,4,5);
+		if (which == 1) {
+			c1.pong();
+		} else {
+			if (which == 2) {
+				c2.pong();
+			} else {
+				if (which == 3) {
+					c3.pong();
+				} else {
+					if (which == 4) {
+						c4.pong();
+					} else {
+						c5.pong();
+					}
+				}
+			}
+		}
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	Hub hub(c1, c2, c3, c4, c5):();
+}
+
+================================================================================

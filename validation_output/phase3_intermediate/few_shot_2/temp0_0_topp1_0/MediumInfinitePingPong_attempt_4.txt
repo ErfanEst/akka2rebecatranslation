@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:9, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:32, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:44, column:11, The PingActor knownrebecs type binding of (PongActor) is not applicable for the arguments (unknown)
+line:44, column:16, "PongActor" undeclared
+line:45, column:11, The PongActor knownrebecs type binding of (PingActor) is not applicable for the arguments (unknown)
+line:45, column:16, "PingActor" undeclared
+line:47, column:5, extraneous input '.' expecting IDENTIFIER
+line:47, column:6, Unknown type ping
+line:47, column:13, mismatched input ';' expecting ':'
+

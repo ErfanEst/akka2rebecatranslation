@@ -1,0 +1,27 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:6, The method ping(Client) is undefined for the type Hub
+line:12, column:6, The method ping(Client) is undefined for the type Hub
+line:20, column:16, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:50, column:2, extraneous input '.' expecting IDENTIFIER
+line:50, column:3, Unknown type h
+line:51, column:2, extraneous input '.' expecting IDENTIFIER
+line:51, column:3, Unknown type h
+line:52, column:2, extraneous input '.' expecting IDENTIFIER
+line:52, column:3, Unknown type h
+line:53, column:2, extraneous input '.' expecting IDENTIFIER
+line:53, column:3, Unknown type h
+line:54, column:2, extraneous input '.' expecting IDENTIFIER
+line:54, column:3, Unknown type h
+line:56, column:3, extraneous input '.' expecting IDENTIFIER
+line:56, column:4, Unknown type c1
+line:57, column:3, extraneous input '.' expecting IDENTIFIER
+line:57, column:4, Unknown type c2
+line:58, column:3, extraneous input '.' expecting IDENTIFIER
+line:58, column:4, Unknown type c3
+line:59, column:3, extraneous input '.' expecting IDENTIFIER
+line:59, column:4, Unknown type c4
+line:60, column:3, extraneous input '.' expecting IDENTIFIER
+line:60, column:4, Unknown type c5
+

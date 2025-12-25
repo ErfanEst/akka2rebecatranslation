@@ -1,0 +1,54 @@
+reactiveclass Ping (Pong pong) {
+	statevars {
+		int id;
+	}
+
+	msgsrv initial(int _id) {
+		id = _id;
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv pongFor(int _id) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass Pong {
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping(int id) {
+		// do nothing
+	}
+}
+
+main {
+	Pong pong():();
+	Ping ping1(pong):(1);
+	Ping ping2(pong):(2);
+	Ping ping3(pong):(3);
+	Ping ping4(pong):(4);
+	Ping ping5(pong):(5);
+	Ping ping6(pong):(6);
+	Ping ping7(pong):(7);
+	Ping ping8(pong):(8);
+	Ping ping9(pong):(9);
+	Ping ping10(pong):(10);
+
+	ping1.start();
+	ping2.start();
+	ping3.start();
+	ping4.start();
+	ping5.start();
+	ping6.start();
+	ping7.start();
+	ping8.start();
+	ping9.start();
+	ping10.start();
+}

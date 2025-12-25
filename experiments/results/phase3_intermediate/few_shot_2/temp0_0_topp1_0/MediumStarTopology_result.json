@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { \n    int clientsCount; \n    Client clients[5];\n  }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register1() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c1;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register2() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c2;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register3() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c3;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register4() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c4;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register5() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c5;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping() {\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping(self);\n  }\n\n  msgsrv Pong() {\n    hub.Ping(self);\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int clientsCount; Client clients[5]; }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register(c1);\n    self.Register(c2);\n    self.Register(c3);\n    self.Register(c4);\n    self.Register(c5);\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register(Client ref) {\n    if (clientsCount < 5) {\n      clients[clientsCount] = ref;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping(Client senderRef) {\n    senderRef.Pong();\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:8, The method Ping(Client) is undefined for the type Hub\nline:12, column:8, The method Ping(Client) is undefined for the type Hub\nline:18, column:46, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:35:36.805470",
+      "code_length": 920
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping(self);\n  }\n\n  msgsrv Pong() {\n    hub.Ping(self);\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int clientsCount; Client clients[5]; }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register(c1);\n    self.Register(c2);\n    self.Register(c3);\n    self.Register(c4);\n    self.Register(c5);\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register(Client ref) {\n    if (clientsCount < 5) {\n      clients[clientsCount] = ref;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping(Client senderRef) {\n    senderRef.Pong();\n  }\n}\n\nmain {\n  Hub h(c1, c2, c3, c4, c5):();\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:8, The method Ping(Client) is undefined for the type Hub\nline:12, column:8, The method Ping(Client) is undefined for the type Hub\nline:18, column:46, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:35:41.946580",
+      "code_length": 920
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int clientsCount; Client clients[5]; }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register1() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c1;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register2() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c2;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register3() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c3;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register4() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c4;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register5() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c5;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping() {\n    // no-op or any internal behavior; original just replied immediately\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:8, The method Ping() is undefined for the type Hub\nline:12, column:8, The method Ping() is undefined for the type Hub\nline:18, column:46, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:35:48.722993",
+      "code_length": 1472
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { \n    int clientsCount; \n    Client clients[5]; \n  }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register1() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c1;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register2() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c2;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register3() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c3;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register4() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c4;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register5() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c5;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping() {\n    // no-op\n  }\n}\n\nmain {\n  Hub h(c1, c2, c3, c4, c5):();\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:8, The method Ping() is undefined for the type Hub\nline:12, column:8, The method Ping() is undefined for the type Hub\nline:20, column:18, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:35:57.124626",
+      "code_length": 1425
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  msgsrv initial() { }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(10) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { \n    int clientsCount; \n    Client clients[5];\n  }\n\n  msgsrv initial() {\n    clientsCount = 0;\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv Register1() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c1;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register2() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c2;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register3() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c3;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register4() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c4;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Register5() {\n    if (clientsCount < 5) {\n      clients[clientsCount] = c5;\n      clientsCount = clientsCount + 1;\n    }\n  }\n\n  msgsrv Ping() {\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:8, The method Ping() is undefined for the type Hub\nline:12, column:8, The method Ping() is undefined for the type Hub\nline:20, column:18, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:36:03.238873",
+      "code_length": 1411
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 33.513028621673584,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_0_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:36:03.238949"
+}

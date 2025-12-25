@@ -1,0 +1,51 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:20, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:99, column:12, mismatched input ';' expecting ':'
+line:100, column:12, mismatched input ';' expecting ':'
+line:101, column:12, mismatched input ';' expecting ':'
+line:102, column:12, mismatched input ';' expecting ':'
+line:103, column:12, mismatched input ';' expecting ':'
+line:104, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:104, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:106, column:3, extraneous input '.' expecting IDENTIFIER
+line:106, column:4, Multiple definition for the actor hub
+line:106, column:8, mismatched input '=' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:106, column:13, extraneous input ';' expecting IDENTIFIER
+line:107, column:1, Multiple definition for the actor c2
+line:107, column:3, mismatched input '.' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:107, column:8, extraneous input '=' expecting IDENTIFIER
+line:107, column:10, Multiple definition for the actor hub
+line:107, column:13, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:108, column:3, extraneous input '.' expecting IDENTIFIER
+line:108, column:4, Multiple definition for the actor hub
+line:108, column:8, mismatched input '=' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:108, column:13, extraneous input ';' expecting IDENTIFIER
+line:109, column:1, Multiple definition for the actor c4
+line:109, column:3, mismatched input '.' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:109, column:8, extraneous input '=' expecting IDENTIFIER
+line:109, column:10, Multiple definition for the actor hub
+line:109, column:13, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:110, column:3, extraneous input '.' expecting IDENTIFIER
+line:110, column:4, Multiple definition for the actor hub
+line:110, column:8, mismatched input '=' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:110, column:13, extraneous input ';' expecting IDENTIFIER
+line:112, column:1, Multiple definition for the actor hub
+line:112, column:4, mismatched input '.' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:112, column:14, missing IDENTIFIER at '('
+line:112, column:16, mismatched input ';' expecting ':'
+line:113, column:4, extraneous input '.' expecting IDENTIFIER
+line:113, column:5, Unknown type hub
+line:113, column:16, mismatched input ';' expecting ':'
+line:114, column:4, extraneous input '.' expecting IDENTIFIER
+line:114, column:5, Unknown type hub
+line:114, column:16, mismatched input ';' expecting ':'
+line:115, column:4, extraneous input '.' expecting IDENTIFIER
+line:115, column:5, Unknown type hub
+line:115, column:16, mismatched input ';' expecting ':'
+line:116, column:4, extraneous input '.' expecting IDENTIFIER
+line:116, column:5, Unknown type hub
+line:116, column:16, mismatched input ';' expecting ':'
+

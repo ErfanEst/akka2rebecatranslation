@@ -1,0 +1,99 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	PingActor(PongActor p) {
+		pong = p;
+	}
+
+	msgsrv initial(int _id) {
+		id = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		self.ping();
+	}
+
+	msgsrv ping() {
+		pong.pong(id);
+	}
+
+	msgsrv pongResponse(int msg) {
+		self.ping();
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+		PingActor ping1;
+		PingActor ping2;
+		PingActor ping3;
+		PingActor ping4;
+		PingActor ping5;
+		PingActor ping6;
+		PingActor ping7;
+		PingActor ping8;
+		PingActor ping9;
+		PingActor ping10;
+	}
+
+	PongActor(PingActor p1, PingActor p2, PingActor p3, PingActor p4, PingActor p5,
+	          PingActor p6, PingActor p7, PingActor p8, PingActor p9, PingActor p10) {
+		ping1 = p1;
+		ping2 = p2;
+		ping3 = p3;
+		ping4 = p4;
+		ping5 = p5;
+		ping6 = p6;
+		ping7 = p7;
+		ping8 = p8;
+		ping9 = p9;
+		ping10 = p10;
+	}
+
+	msgsrv initial() { }
+
+	msgsrv pong(int senderId) {
+		if (senderId == 1) {
+			ping1.pongResponse(senderId);
+		} else if (senderId == 2) {
+			ping2.pongResponse(senderId);
+		} else if (senderId == 3) {
+			ping3.pongResponse(senderId);
+		} else if (senderId == 4) {
+			ping4.pongResponse(senderId);
+		} else if (senderId == 5) {
+			ping5.pongResponse(senderId);
+		} else if (senderId == 6) {
+			ping6.pongResponse(senderId);
+		} else if (senderId == 7) {
+			ping7.pongResponse(senderId);
+		} else if (senderId == 8) {
+			ping8.pongResponse(senderId);
+		} else if (senderId == 9) {
+			ping9.pongResponse(senderId);
+		} else if (senderId == 10) {
+			ping10.pongResponse(senderId);
+		}
+	}
+}
+
+main {
+	PongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10): ();
+
+	PingActor ping1(pong): (1);
+	PingActor ping2(pong): (2);
+	PingActor ping3(pong): (3);
+	PingActor ping4(pong): (4);
+	PingActor ping5(pong): (5);
+	PingActor ping6(pong): (6);
+	PingActor ping7(pong): (7);
+	PingActor ping8(pong): (8);
+	PingActor ping9(pong): (9);
+	PingActor ping10(pong): (10);
+}

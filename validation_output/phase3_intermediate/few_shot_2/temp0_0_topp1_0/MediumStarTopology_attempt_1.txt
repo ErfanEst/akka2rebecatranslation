@@ -1,0 +1,7 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:8, The method Ping(Client) is undefined for the type Hub
+line:12, column:8, The method Ping(Client) is undefined for the type Hub
+line:18, column:46, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+

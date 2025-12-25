@@ -1,0 +1,42 @@
+reactiveclass PingActor (knownrebecs { PongActor pong }) {
+	
+	statevars {
+	}
+	
+	Msgsrv initial() {
+	}
+	
+	msgsrv Start() {
+		pong.Ping();
+	}
+	
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor {
+	
+	statevars {
+	}
+	
+	Msgsrv initial() {
+	}
+	
+	msgsrv Ping() {
+		self.PongToSender();
+	}
+	
+	msgsrv PongToSender() {
+		// In Rebeca, 'sender' is implicit in the message handling context.
+		// To emulate sender() ! Pong, we define a separate message and rely
+		// on the runtime semantics where replies go to the sender.
+	}
+}
+
+main {
+	PongActor pong();
+	PingActor ping(pong);
+
+	ping.Start();
+}

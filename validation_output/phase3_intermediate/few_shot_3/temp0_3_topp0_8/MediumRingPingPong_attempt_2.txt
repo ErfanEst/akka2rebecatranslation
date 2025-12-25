@@ -1,0 +1,7 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:35, column:3, extraneous input '.' expecting IDENTIFIER
+line:35, column:4, Unknown type a1
+line:35, column:10, mismatched input ';' expecting ':'
+

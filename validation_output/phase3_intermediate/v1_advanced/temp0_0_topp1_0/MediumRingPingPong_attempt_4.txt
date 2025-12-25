@@ -1,0 +1,28 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:26, column:3, extraneous input '(' expecting IDENTIFIER
+line:26, column:4, Multiple definition for the actor a2
+line:26, column:6, missing '(' at ')'
+line:26, column:7, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:27, column:3, extraneous input '(' expecting IDENTIFIER
+line:27, column:4, Multiple definition for the actor a3
+line:27, column:6, missing '(' at ')'
+line:27, column:7, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:28, column:3, extraneous input '(' expecting IDENTIFIER
+line:28, column:4, Multiple definition for the actor a4
+line:28, column:6, missing '(' at ')'
+line:28, column:7, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:29, column:3, extraneous input '(' expecting IDENTIFIER
+line:29, column:4, Multiple definition for the actor a5
+line:29, column:6, missing '(' at ')'
+line:29, column:7, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:30, column:3, extraneous input '(' expecting IDENTIFIER
+line:30, column:4, Multiple definition for the actor a1
+line:30, column:6, missing '(' at ')'
+line:30, column:7, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:32, column:3, extraneous input '.' expecting IDENTIFIER
+line:32, column:4, Unknown type a1
+line:32, column:10, mismatched input ';' expecting ':'
+

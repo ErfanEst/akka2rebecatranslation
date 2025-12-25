@@ -1,0 +1,11 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:19, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:34, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (byte)
+line:35, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (byte)
+line:35, column:11, The method PingActor(PongActor) is undefined for the type PingActor
+line:35, column:18, missing ':' at '('
+line:35, column:24, mismatched input ':' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

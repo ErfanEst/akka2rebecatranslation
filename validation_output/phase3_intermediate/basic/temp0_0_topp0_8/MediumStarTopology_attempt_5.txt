@@ -1,0 +1,28 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hubType' expecting INTLITERAL
+line:17, column:18, mismatched input 'c1Type' expecting INTLITERAL
+line:30, column:13, Unknown type Client<?>
+line:30, column:16, "hub" undeclared
+line:31, column:13, Unknown type Client<?>
+line:32, column:13, Unknown type Client<?>
+line:33, column:13, Unknown type Client<?>
+line:34, column:13, Unknown type Client<?>
+line:35, column:45, Unknown type Hub<?,?,?,?,?>
+line:37, column:3, extraneous input '.' expecting IDENTIFIER
+line:37, column:4, Unknown type c1
+line:37, column:11, mismatched input ';' expecting ':'
+line:38, column:3, extraneous input '.' expecting IDENTIFIER
+line:38, column:4, Unknown type c2
+line:38, column:11, mismatched input ';' expecting ':'
+line:39, column:3, extraneous input '.' expecting IDENTIFIER
+line:39, column:4, Unknown type c3
+line:39, column:11, mismatched input ';' expecting ':'
+line:40, column:3, extraneous input '.' expecting IDENTIFIER
+line:40, column:4, Unknown type c4
+line:40, column:11, mismatched input ';' expecting ':'
+line:41, column:3, extraneous input '.' expecting IDENTIFIER
+line:41, column:4, Unknown type c5
+line:41, column:11, mismatched input ';' expecting ':'
+

@@ -1,0 +1,53 @@
+reactiveclass PingActor {
+    knownrebecs { PongActor pong; }
+    statevars { int id; }
+
+    PingActor(PongActor pongRef, int pingId) {
+        pong = pongRef;
+        id = pingId;
+        self.start();
+    }
+
+    msgsrv start() {
+        pong.ping(id);
+    }
+
+    msgsrv pongResponse(int id, int pongId) {
+        // In this simple translation we just react by sending another ping,
+        // similar to the Akka behavior of replying with another ping on any String.
+        pong.ping(id);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs { }
+
+    PongActor() {
+    }
+
+    msgsrv ping(int id) {
+        self.pongForPing(id);
+    }
+
+    msgsrv pongForPing(int id) {
+        // In Akka, pong replies to sender with "pong-for-<msg>".
+        // Here we just simulate a response back to PingActor by a known protocol.
+        // Since Rebeca doesn't have sender(), we assume the PingActor encodes its id.
+        // This is a simplified adaptation.
+    }
+}
+
+main {
+    PongActor pong();
+
+    PingActor ping1(pong, 1);
+    PingActor ping2(pong, 2);
+    PingActor ping3(pong, 3);
+    PingActor ping4(pong, 4);
+    PingActor ping5(pong, 5);
+    PingActor ping6(pong, 6);
+    PingActor ping7(pong, 7);
+    PingActor ping8(pong, 8);
+    PingActor ping9(pong, 9);
+    PingActor ping10(pong, 10);
+}

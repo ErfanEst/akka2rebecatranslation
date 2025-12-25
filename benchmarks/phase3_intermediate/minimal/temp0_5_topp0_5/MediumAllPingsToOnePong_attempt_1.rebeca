@@ -1,0 +1,56 @@
+reactiveclass PingActor(pong: PongActor, id: int) {
+    knownrebecs { PongActor pong; }
+
+    msgsrv initial() {
+        // In Rebeca, initialization can be used to start the behavior
+        start();
+    }
+
+    msgsrv start() {
+        ping();
+    }
+
+    msgsrv ping() {
+        pong.ping(id);
+    }
+
+    msgsrv pongFor(string msg) {
+        // In the Akka code, upon receiving any String, PingActor sends another ping
+        ping();
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs { }
+
+    msgsrv initial() {
+        // No initialization behavior
+    }
+
+    msgsrv ping(int id) {
+        string msg;
+        msg = "ping-";
+        msg = msg + id;
+        self.pongFor(msg);
+    }
+
+    msgsrv pongFor(string msg) {
+        // In Akka, PongActor replies to sender; here we model the reply
+        // by calling back to PingActor's pongFor; however, Rebeca does not
+        // support dynamic sender references directly, so this is a simplified model.
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping1(pong, 1);
+    PingActor ping2(pong, 2);
+    PingActor ping3(pong, 3);
+    PingActor ping4(pong, 4);
+    PingActor ping5(pong, 5);
+    PingActor ping6(pong, 6);
+    PingActor ping7(pong, 7);
+    PingActor ping8(pong, 8);
+    PingActor ping9(pong, 9);
+    PingActor ping10(pong, 10);
+}

@@ -1,0 +1,63 @@
+reactiveclass Client(hubType hub) {
+	knownrebecs { 
+		hubType hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub() {
+	knownrebecs {
+		Client clients[5];
+	}
+	statevars {
+		int count;
+	}
+
+	msgsrv initial() {
+		count = 0;
+	}
+
+	msgsrv Register(Client ref) {
+		if (count < 5) {
+			clients[count] = ref;
+			count = count + 1;
+		}
+	}
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	Hub hub();
+	Client c1(hub);
+	Client c2(hub);
+	Client c3(hub);
+	Client c4(hub);
+	Client c5(hub);
+
+	hub.Register(c1):();
+	hub.Register(c2):();
+	hub.Register(c3):();
+	hub.Register(c4):();
+	hub.Register(c5):();
+
+	c1.start():();
+	c2.start():();
+	c3.start():();
+	c4.start():();
+	c5.start():();
+}

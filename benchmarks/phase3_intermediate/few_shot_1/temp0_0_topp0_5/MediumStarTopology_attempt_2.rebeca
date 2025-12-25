@@ -1,0 +1,60 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() {
+		hub.register(self);
+		self.start();
+	}
+
+	msgsrv start() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv register(Client ref) {
+		// registration is implicit via knownrebecs; no dynamic list needed
+	}
+
+	msgsrv ping() {
+		// nondeterministically choose one registered client to pong
+		int choice;
+		choice = ?(1,2,3,4,5);
+		if (choice == 1) {
+			c1.pong();
+		} else {
+			if (choice == 2) {
+				c2.pong();
+			} else {
+				if (choice == 3) {
+					c3.pong();
+				} else {
+					if (choice == 4) {
+						c4.pong();
+					} else {
+						c5.pong();
+					}
+				}
+			}
+		}
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+}

@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass PingActor(3) {\n  knownrebecs { \n    PongActor pong; \n  } \n  statevars { \n    int id; \n  } \n  PingActor(int _id) { \n    id = _id; \n  } \n  msgsrv initial() { \n  } \n  msgsrv start() { \n    pong.ping(id); \n  } \n  msgsrv pongFor(int msgId) { \n    pong.ping(id); \n  } \n}\n\nreactiveclass PongActor(3) {\n  knownrebecs { \n  } \n  statevars { \n  } \n  PongActor() { \n  } \n  msgsrv initial() { \n  } \n  msgsrv ping(int id) { \n    self.pongFor(id); \n  } \n  msgsrv pongFor(int msgId) { \n  } \n}\n\nmain { \n  PongActor pong():(); \n  PingActor ping1(pong):(1); \n  PingActor ping2(pong):(2); \n  PingActor ping3(pong):(3); \n  PingActor ping4(pong):(4); \n  PingActor ping5(pong):(5); \n  PingActor ping6(pong):(6); \n  PingActor ping7(pong):(7); \n  PingActor ping8(pong):(8); \n  PingActor ping9(pong):(9); \n  PingActor ping10(pong):(10); \n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(3) {\n  knownrebecs { \n    PongActor pong; \n  } \n  statevars { \n    int id; \n  } \n  PingActor(int _id) { \n    id = _id; \n  } \n  msgsrv initial() { \n  } \n  msgsrv start() { \n    pong.ping(id); \n  } \n  msgsrv pongFor(int msgId) { \n    pong.ping(id); \n  } \n}\n\nreactiveclass PongActor(3) {\n  knownrebecs { \n  } \n  statevars { \n  } \n  PongActor() { \n  } \n  msgsrv initial() { \n  } \n  msgsrv ping(int id) { \n    self.pongFor(id); \n  } \n  msgsrv pongFor(int msgId) { \n  } \n}\n\nmain { \n  PongActor pong():(); \n  PingActor ping1(pong):(1); \n  PingActor ping2(pong):(2); \n  PingActor ping3(pong):(3); \n  PingActor ping4(pong):(4); \n  PingActor ping5(pong):(5); \n  PingActor ping6(pong):(6); \n  PingActor ping7(pong):(7); \n  PingActor ping8(pong):(8); \n  PingActor ping9(pong):(9); \n  PingActor ping10(pong):(10); \n\n  ping1.start(); \n  ping2.start(); \n  ping3.start(); \n  ping4.start(); \n  ping5.start(); \n  ping6.start(); \n  ping7.start(); \n  ping8.start(); \n  ping9.start(); \n  ping10.start(); \n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:50, column:7, extraneous input '.' expecting IDENTIFIER\nline:50, column:8, Unknown type ping1\nline:50, column:15, mismatched input ';' expecting ':'\nline:51, column:7, extraneous input '.' expecting IDENTIFIER\nline:51, column:8, Unknown type ping2\nline:51, column:15, mismatched input ';' expecting ':'\nline:52, column:7, extraneous input '.' expecting IDENTIFIER\nline:52, column:8, Unknown type ping3\nline:52, column:15, mismatched input ';' expecting ':'\nline:53, column:7, extraneous input '.' expecting IDENTIFIER\nline:53, column:8, Unknown type ping4\nline:53, column:15, mismatched input ';' expecting ':'\nline:54, column:7, extraneous input '.' expecting IDENTIFIER\nline:54, column:8, Unknown type ping5\nline:54, column:15, mismatched input ';' expecting ':'\nline:55, column:7, extraneous input '.' expecting IDENTIFIER\nline:55, column:8, Unknown type ping6\nline:55, column:15, mismatched input ';' expecting ':'\nline:56, column:7, extraneous input '.' expecting IDENTIFIER\nline:56, column:8, Unknown type ping7\nline:56, column:15, mismatched input ';' expecting ':'\nline:57, column:7, extraneous input '.' expecting IDENTIFIER\nline:57, column:8, Unknown type ping8\nline:57, column:15, mismatched input ';' expecting ':'\nline:58, column:7, extraneous input '.' expecting IDENTIFIER\nline:58, column:8, Unknown type ping9\nline:58, column:15, mismatched input ';' expecting ':'\nline:59, column:8, extraneous input '.' expecting IDENTIFIER\nline:59, column:9, Unknown type ping10\nline:59, column:16, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:40:15.884721",
+      "code_length": 1009
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor(3) {\n  knownrebecs { \n    PongActor pong; \n  } \n  statevars { \n    int id; \n  } \n  PingActor(int _id) { \n    id = _id; \n  } \n  msgsrv initial() { \n  } \n  msgsrv start() { \n    pong.ping(id); \n  } \n  msgsrv pongFor(int msgId) { \n    pong.ping(id); \n  } \n}\n\nreactiveclass PongActor(3) {\n  knownrebecs { \n  } \n  statevars { \n  } \n  PongActor() { \n  } \n  msgsrv initial() { \n  } \n  msgsrv ping(int id) { \n    self.pongFor(id); \n  } \n  msgsrv pongFor(int msgId) { \n  } \n}\n\nmain { \n  PongActor pong():(); \n  PingActor ping1(pong):(1); \n  PingActor ping2(pong):(2); \n  PingActor ping3(pong):(3); \n  PingActor ping4(pong):(4); \n  PingActor ping5(pong):(5); \n  PingActor ping6(pong):(6); \n  PingActor ping7(pong):(7); \n  PingActor ping8(pong):(8); \n  PingActor ping9(pong):(9); \n  PingActor ping10(pong):(10); \n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:40:20.810750",
+      "code_length": 827
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 12.621419429779053,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_1_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:40:20.810792"
+}

@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:14, column:14, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:15, column:14, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:16, column:14, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:17, column:14, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:18, column:14, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:20, column:6, extraneous input '.' expecting IDENTIFIER
+line:20, column:7, Unknown type a1
+line:20, column:13, mismatched input ';' expecting ':'
+

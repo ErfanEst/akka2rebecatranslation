@@ -1,0 +1,141 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_3/temp0_5_topp0_8
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T16:06:37.952238
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving concurrency and timed semantics.
+
+Rules:
+
+1. Actor classes → reactiveclass
+2. receive patterns → msgsrv
+3. Member vars → statevars
+4. sender() → knownrebec
+5. context.become → state flags
+6. scheduleOnce / sleep → after(time) / delay()
+7. Random → ?(val1, val2, ...)
+8. Main block → instantiate all reactiveclasses
+9. Only asynchronous messages
+10. No println / I/O
+
+Examples:
+
+1) Communication
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+2) Timed cyclic
+reactiveclass TrafficLight(3) { 
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { if(color == 0) { color = 1; self.change() after(3); } else if(color == 1) { color = 2; self.change() after(5); } else { color = 0; self.change() after(2); } } 
+} 
+
+3) Master-Worker
+reactiveclass Master(10) { 
+  knownrebecs { Worker w1; Worker w2; } 
+  statevars { int[3] tasks; int idx, total, completed; int state; } 
+  Master() { tasks[0]=1; tasks[1]=2; tasks[2]=3; total=3; idx=0; completed=0; state=0; } 
+  msgsrv Ready(int id) { if(idx<total) { if(id==1) w1.Task(tasks[idx]) after(1); else w2.Task(tasks[idx]) after(1); idx=idx+1; state=1; } } 
+  msgsrv Result(int data) { completed=completed+1; if(completed==total) { w1.Shutdown(); w2.Shutdown(); state=2; } } 
+  msgsrv Shutdown() { state=2; } 
+} 
+
+reactiveclass Worker(10) { 
+  knownrebecs { Master m; } 
+  statevars { int id; } 
+  Worker(int myId) { id=myId; self.sendReady(); } 
+  msgsrv sendReady() { m.Ready(id); } 
+  msgsrv Task(int data) { delay(5); m.Result(data); self.sendReady(); } 
+  msgsrv Shutdown() {} 
+} 
+
+main { 
+  Master m(w1, w2):(); 
+  Worker w1(m):(1); 
+  Worker w2(m):(2); 
+}
+
+Translate the following Akka code to Rebeca following these patterns. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { PingActor ping; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Ping() {
+		ping.Pong();
+	}
+}
+
+main {
+	PingActor ping(pong):();
+	PongActor pong(ping):();
+}
+
+================================================================================

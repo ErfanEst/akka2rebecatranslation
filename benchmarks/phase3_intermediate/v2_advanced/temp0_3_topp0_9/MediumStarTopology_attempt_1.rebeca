@@ -1,0 +1,79 @@
+timed reactiveclass Client {
+    knownrebecs {
+        Hub hub;
+    }
+    statevars {
+    }
+
+    msgsrv start() {
+        hub.Ping();
+    }
+
+    msgsrv Pong() {
+        hub.Ping();
+    }
+
+    msgsrv initial() {
+        // no automatic start here; main will call start()
+    }
+}
+
+timed reactiveclass Hub {
+    knownrebecs {
+    }
+    statevars {
+        Client c1;
+        Client c2;
+        Client c3;
+        Client c4;
+        Client c5;
+    }
+
+    msgsrv Register(Client ref) {
+        // In this concrete model, registration is done in main via knownrebecs;
+        // this message server is kept to mirror the Akka interface but is unused.
+    }
+
+    msgsrv Ping() {
+        // Nondeterministically choose one client as the sender counterpart
+        int choice;
+        choice = ?(1, 2, 3, 4, 5);
+        if (choice == 1) {
+            c1.Pong();
+        } else if (choice == 2) {
+            c2.Pong();
+        } else if (choice == 3) {
+            c3.Pong();
+        } else if (choice == 4) {
+            c4.Pong();
+        } else {
+            c5.Pong();
+        }
+    }
+
+    msgsrv initial() {
+        // nothing
+    }
+}
+
+timed main {
+    Hub hub;
+    Client c1(called hub): (hub);
+    Client c2(called hub): (hub);
+    Client c3(called hub): (hub);
+    Client c4(called hub): (hub);
+    Client c5(called hub): (hub);
+    Hub hubInstance(called c1, c2, c3, c4, c5): ();
+
+    hubInstance.Register(c1);
+    hubInstance.Register(c2);
+    hubInstance.Register(c3);
+    hubInstance.Register(c4);
+    hubInstance.Register(c5);
+
+    c1.start();
+    c2.start();
+    c3.start();
+    c4.start();
+    c5.start();
+}

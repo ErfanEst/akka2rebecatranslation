@@ -1,0 +1,32 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pong' expecting INTLITERAL
+line:26, column:24, mismatched input '_id' expecting INTLITERAL
+line:49, column:18, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:50, column:16, mismatched input '[' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:50, column:25, mismatched input ',' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:50, column:39, mismatched input ')' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:53, column:7, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:54, column:4, mismatched input '=' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:55, column:11, mismatched input '<' expecting {'[', IDENTIFIER}
+line:56, column:9, mismatched input 'i' expecting INTLITERAL
+line:56, column:10, mismatched input ']' expecting '('
+line:56, column:17, extraneous input '=' expecting IDENTIFIER
+line:56, column:23, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:57, column:9, mismatched input 'i' expecting INTLITERAL
+line:57, column:10, mismatched input ']' expecting '('
+line:57, column:19, mismatched input '=' expecting {'[', '<', IDENTIFIER}
+line:58, column:9, mismatched input 'i' expecting INTLITERAL
+line:58, column:10, mismatched input ']' expecting '('
+line:58, column:17, extraneous input '=' expecting IDENTIFIER
+line:58, column:21, missing '(' at '+'
+line:58, column:24, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:59, column:9, mismatched input 'i' expecting INTLITERAL
+line:59, column:10, mismatched input ']' expecting '('
+line:59, column:17, missing IDENTIFIER at '('
+line:59, column:19, mismatched input ';' expecting ':'
+line:60, column:5, extraneous input '=' expecting IDENTIFIER
+line:60, column:9, missing '(' at '+'
+line:60, column:12, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

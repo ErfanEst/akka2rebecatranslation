@@ -1,0 +1,29 @@
+reactiveclass RingActor {
+	knownrebecs {
+		RingActor next;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv ping() {
+		next.ping();
+	}
+}
+
+main {
+	RingActor a1();
+	RingActor a2();
+	RingActor a3();
+	RingActor a4();
+	RingActor a5();
+
+	a1.next = a2;
+	a2.next = a3;
+	a3.next = a4;
+	a4.next = a5;
+	a5.next = a1;
+
+	a1.ping();
+}

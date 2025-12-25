@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:35, column:8, The method sender() is undefined
+line:35, column:17, There is no meta data for type unknown
+line:43, column:8, extraneous input '.' expecting IDENTIFIER
+line:43, column:9, Unknown type ping
+line:43, column:16, mismatched input ';' expecting ':'
+

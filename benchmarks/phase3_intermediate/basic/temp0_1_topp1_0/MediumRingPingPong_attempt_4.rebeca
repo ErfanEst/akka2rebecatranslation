@@ -1,0 +1,33 @@
+reactiveclass RingActor {
+	knownrebecs {
+		RingActor next;
+	}
+	statevars {
+		int aid;
+	}
+	constructor(int id, RingActor n) {
+		aid = id;
+		next = n;
+	}
+	msgsrv initial() {
+	}
+	msgsrv ping() {
+		next.ping();
+	}
+}
+
+main {
+	RingActor a1(a1):(1, a2);
+	RingActor a2(a2):(2, a3);
+	RingActor a3(a3):(3, a4);
+	RingActor a4(a4):(4, a5);
+	RingActor a5(a5):(5, a1);
+
+	a1.initial();
+	a2.initial();
+	a3.initial();
+	a4.initial();
+	a5.initial();
+
+	a1.ping();
+}

@@ -1,0 +1,55 @@
+reactiveclass PingActor {
+	knownrebecs { 
+		PongActor pong;
+	}
+
+	statevars {
+		byte pongId;
+		byte myId;
+	}
+
+	PingActor(PongActor p, byte pid, byte _id) {
+		pong = p;
+		pongId = pid;
+		myId = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(myId);
+	}
+
+	msgsrv pongFor(byte msg) {
+		pong.ping(myId);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs { }
+
+	statevars { }
+
+	PongActor() { }
+
+	msgsrv ping(byte id) {
+		self.pongFor(id);
+	}
+
+	msgsrv pongFor(byte id) {
+		// response to ping-id
+	}
+}
+
+main {
+	PongActor pong() : ();
+	PingActor ping1(pong, 1, 1) : (pong);
+	PingActor ping2(pong, 2, 2) : (pong);
+	PingActor ping3(pong, 3, 3) : (pong);
+	PingActor ping4(pong, 4, 4) : (pong);
+	PingActor ping5(pong, 5, 5) : (pong);
+	PingActor ping6(pong, 6, 6) : (pong);
+	PingActor ping7(pong, 7, 7) : (pong);
+	PingActor ping8(pong, 8, 8) : (pong);
+	PingActor ping9(pong, 9, 9) : (pong);
+	PingActor ping10(pong, 10, 10) : (pong);
+}

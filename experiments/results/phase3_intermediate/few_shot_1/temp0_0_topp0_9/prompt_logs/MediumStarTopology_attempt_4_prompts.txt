@@ -1,0 +1,331 @@
+================================================================================
+ATTEMPT 4 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_1/temp0_0_topp0_9
+File: MediumStarTopology
+Timestamp: 2025-12-25T15:10:09.154633
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		hub.Ping1();
+	}
+
+	msgsrv Pong() {
+		hub.Ping1();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars {
+		boolean registered1;
+		boolean registered2;
+		boolean registered3;
+		boolean registered4;
+		boolean registered5;
+	}
+
+	msgsrv initial() {
+		registered1 = false;
+		registered2 = false;
+		registered3 = false;
+		registered4 = false;
+		registered5 = false;
+	}
+
+	msgsrv Register1() {
+		registered1 = true;
+	}
+
+	msgsrv Register2() {
+		registered2 = true;
+	}
+
+	msgsrv Register3() {
+		registered3 = true;
+	}
+
+	msgsrv Register4() {
+		registered4 = true;
+	}
+
+	msgsrv Register5() {
+		registered5 = true;
+	}
+
+	msgsrv Ping1() {
+		c1.Pong();
+	}
+
+	msgsrv Ping2() {
+		c2.Pong();
+	}
+
+	msgsrv Ping3() {
+		c3.Pong();
+	}
+
+	msgsrv Ping4() {
+		c4.Pong();
+	}
+
+	msgsrv Ping5() {
+		c5.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:84, column:4, extraneous input '.' expecting IDENTIFIER
+line:84, column:5, Unknown type hub
+line:84, column:16, mismatched input ';' expecting ':'
+line:85, column:4, extraneous input '.' expecting IDENTIFIER
+line:85, column:5, Unknown type hub
+line:85, column:16, mismatched input ';' expecting ':'
+line:86, column:4, extraneous input '.' expecting IDENTIFIER
+line:86, column:5, Unknown type hub
+line:86, column:16, mismatched input ';' expecting ':'
+line:87, column:4, extraneous input '.' expecting IDENTIFIER
+line:87, column:5, Unknown type hub
+line:87, column:16, mismatched input ';' expecting ':'
+line:88, column:4, extraneous input '.' expecting IDENTIFIER
+line:88, column:5, Unknown type hub
+line:88, column:16, mismatched input ';' expecting ':'
+line:90, column:3, extraneous input '.' expecting IDENTIFIER
+line:90, column:4, Unknown type c1
+line:90, column:11, mismatched input ';' expecting ':'
+line:91, column:3, extraneous input '.' expecting IDENTIFIER
+line:91, column:4, Unknown type c2
+line:91, column:11, mismatched input ';' expecting ':'
+line:92, column:3, extraneous input '.' expecting IDENTIFIER
+line:92, column:4, Unknown type c3
+line:92, column:11, mismatched input ';' expecting ':'
+line:93, column:3, extraneous input '.' expecting IDENTIFIER
+line:93, column:4, Unknown type c4
+line:93, column:11, mismatched input ';' expecting ':'
+line:94, column:3, extraneous input '.' expecting IDENTIFIER
+line:94, column:4, Unknown type c5
+line:94, column:11, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		hub.Ping1();
+	}
+
+	msgsrv Pong() {
+		hub.Ping1();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars {
+		boolean registered1;
+		boolean registered2;
+		boolean registered3;
+		boolean registered4;
+		boolean registered5;
+	}
+
+	msgsrv initial() {
+		registered1 = false;
+		registered2 = false;
+		registered3 = false;
+		registered4 = false;
+		registered5 = false;
+
+		self.Register1();
+		self.Register2();
+		self.Register3();
+		self.Register4();
+		self.Register5();
+
+		c1.start();
+		c2.start();
+		c3.start();
+		c4.start();
+		c5.start();
+	}
+
+	msgsrv Register1() {
+		registered1 = true;
+	}
+
+	msgsrv Register2() {
+		registered2 = true;
+	}
+
+	msgsrv Register3() {
+		registered3 = true;
+	}
+
+	msgsrv Register4() {
+		registered4 = true;
+	}
+
+	msgsrv Register5() {
+		registered5 = true;
+	}
+
+	msgsrv Ping1() {
+		c1.Pong();
+	}
+
+	msgsrv Ping2() {
+		c2.Pong();
+	}
+
+	msgsrv Ping3() {
+		c3.Pong();
+	}
+
+	msgsrv Ping4() {
+		c4.Pong();
+	}
+
+	msgsrv Ping5() {
+		c5.Pong();
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+}
+
+================================================================================

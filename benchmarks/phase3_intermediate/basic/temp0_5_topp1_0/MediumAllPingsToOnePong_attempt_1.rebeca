@@ -1,0 +1,61 @@
+reactiveclass PingActor(pongId: int) {
+    knownrebecs {
+        PongActor pong;
+    }
+
+    statevars {
+        int id;
+    }
+
+    PingActor(int pongIdArg) {
+        id = pongIdArg;
+        self.start();
+    }
+
+    msgsrv start() {
+        pong.ping(id);
+    }
+
+    msgsrv pongResponse(int id, int pongId) {
+        pong.ping(id);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs {
+    }
+
+    statevars {
+    }
+
+    PongActor() {
+    }
+
+    msgsrv ping(int id) {
+        self.pong(id);
+    }
+
+    msgsrv pong(int id) {
+        // In Rebeca, we can't dynamically get sender reference as in Akka,
+        // so we assume that PingActor's knownrebecs include PongActor only.
+        // To simulate `sender() ! "pong-for-ping-id"`,
+        // we define a response msgsrv in PingActor (pongResponse).
+        // Here we just send back using a known reference;
+        // but since Pong doesn't know Ping(s) a priori,
+        // full dynamic behavior can't be perfectly modeled.
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor p1(pong, 1);
+    PingActor p2(pong, 2);
+    PingActor p3(pong, 3);
+    PingActor p4(pong, 4);
+    PingActor p5(pong, 5);
+    PingActor p6(pong, 6);
+    PingActor p7(pong, 7);
+    PingActor p8(pong, 8);
+    PingActor p9(pong, 9);
+    PingActor p10(pong, 10);
+}

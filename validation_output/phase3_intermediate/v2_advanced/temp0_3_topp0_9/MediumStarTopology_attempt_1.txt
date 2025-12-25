@@ -1,0 +1,41 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:0, extraneous input 'timed' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}
+line:1, column:27, mismatched input '{' expecting {'extends', 'implements', '('}
+line:21, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:60, column:11, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:61, column:21, extraneous input 'hub' expecting ')'
+line:62, column:21, extraneous input 'hub' expecting ')'
+line:63, column:21, extraneous input 'hub' expecting ')'
+line:64, column:21, extraneous input 'hub' expecting ')'
+line:65, column:21, extraneous input 'hub' expecting ')'
+line:66, column:27, mismatched input 'c1' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:29, extraneous input ',' expecting IDENTIFIER
+line:66, column:31, Multiple definition for the actor c2
+line:66, column:33, mismatched input ',' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:37, extraneous input ',' expecting IDENTIFIER
+line:66, column:39, Multiple definition for the actor c4
+line:66, column:41, mismatched input ',' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:45, mismatched input ')' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:68, column:15, extraneous input '.' expecting IDENTIFIER
+line:68, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:69, column:15, extraneous input '.' expecting IDENTIFIER
+line:69, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:70, column:15, extraneous input '.' expecting IDENTIFIER
+line:70, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:71, column:15, extraneous input '.' expecting IDENTIFIER
+line:71, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:72, column:15, extraneous input '.' expecting IDENTIFIER
+line:72, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:74, column:6, extraneous input '.' expecting IDENTIFIER
+line:74, column:14, mismatched input ';' expecting ':'
+line:75, column:6, extraneous input '.' expecting IDENTIFIER
+line:75, column:14, mismatched input ';' expecting ':'
+line:76, column:6, extraneous input '.' expecting IDENTIFIER
+line:76, column:14, mismatched input ';' expecting ':'
+line:77, column:6, extraneous input '.' expecting IDENTIFIER
+line:77, column:14, mismatched input ';' expecting ':'
+line:78, column:6, extraneous input '.' expecting IDENTIFIER
+line:78, column:14, mismatched input ';' expecting ':'
+

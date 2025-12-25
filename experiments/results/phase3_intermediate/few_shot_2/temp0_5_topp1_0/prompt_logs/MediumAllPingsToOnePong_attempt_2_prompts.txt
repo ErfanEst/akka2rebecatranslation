@@ -1,0 +1,213 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_2/temp0_5_topp1_0
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T15:52:16.256563
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { int id; }
+
+	PingActor(int _id) {
+		id = _id;
+	}
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv anyString() {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { }
+
+	statevars { }
+
+	PongActor() { }
+
+	msgsrv initial() { }
+
+	msgsrv ping(int pingId) {
+		// sender() response omitted: no back reference available in this mapping
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping1(pong):(1);
+	PingActor ping2(pong):(2);
+	PingActor ping3(pong):(3);
+	PingActor ping4(pong):(4);
+	PingActor ping5(pong):(5);
+	PingActor ping6(pong):(6);
+	PingActor ping7(pong):(7);
+	PingActor ping8(pong):(8);
+	PingActor ping9(pong):(9);
+	PingActor ping10(pong):(10);
+
+	ping1.start();
+	ping2.start();
+	ping3.start();
+	ping4.start();
+	ping5.start();
+	ping6.start();
+	ping7.start();
+	ping8.start();
+	ping9.start();
+	ping10.start();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:47, column:6, extraneous input '.' expecting IDENTIFIER
+line:47, column:7, Unknown type ping1
+line:47, column:14, mismatched input ';' expecting ':'
+line:48, column:6, extraneous input '.' expecting IDENTIFIER
+line:48, column:7, Unknown type ping2
+line:48, column:14, mismatched input ';' expecting ':'
+line:49, column:6, extraneous input '.' expecting IDENTIFIER
+line:49, column:7, Unknown type ping3
+line:49, column:14, mismatched input ';' expecting ':'
+line:50, column:6, extraneous input '.' expecting IDENTIFIER
+line:50, column:7, Unknown type ping4
+line:50, column:14, mismatched input ';' expecting ':'
+line:51, column:6, extraneous input '.' expecting IDENTIFIER
+line:51, column:7, Unknown type ping5
+line:51, column:14, mismatched input ';' expecting ':'
+line:52, column:6, extraneous input '.' expecting IDENTIFIER
+line:52, column:7, Unknown type ping6
+line:52, column:14, mismatched input ';' expecting ':'
+line:53, column:6, extraneous input '.' expecting IDENTIFIER
+line:53, column:7, Unknown type ping7
+line:53, column:14, mismatched input ';' expecting ':'
+line:54, column:6, extraneous input '.' expecting IDENTIFIER
+line:54, column:7, Unknown type ping8
+line:54, column:14, mismatched input ';' expecting ':'
+line:55, column:6, extraneous input '.' expecting IDENTIFIER
+line:55, column:7, Unknown type ping9
+line:55, column:14, mismatched input ';' expecting ':'
+line:56, column:7, extraneous input '.' expecting IDENTIFIER
+line:56, column:8, Unknown type ping10
+line:56, column:15, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { int id; }
+
+	PingActor(int _id) {
+		id = _id;
+	}
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv anyString() {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { }
+	statevars { }
+
+	PongActor() { }
+
+	msgsrv initial() { }
+
+	msgsrv ping(int pingId) {
+		// sender() response omitted: no back reference available in this mapping
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping1(pong):(1);
+	PingActor ping2(pong):(2);
+	PingActor ping3(pong):(3);
+	PingActor ping4(pong):(4);
+	PingActor ping5(pong):(5);
+	PingActor ping6(pong):(6);
+	PingActor ping7(pong):(7);
+	PingActor ping8(pong):(8);
+	PingActor ping9(pong):(9);
+	PingActor ping10(pong):(10);
+
+	ping1.start:();
+	ping2.start:();
+	ping3.start:();
+	ping4.start:();
+	ping5.start:();
+	ping6.start:();
+	ping7.start:();
+	ping8.start:();
+	ping9.start:();
+	ping10.start:();
+}
+
+================================================================================

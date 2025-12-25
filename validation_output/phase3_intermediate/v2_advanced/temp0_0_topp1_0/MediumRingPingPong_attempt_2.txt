@@ -1,0 +1,34 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:19, column:14, "a1_1" undeclared
+line:20, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:20, column:14, "a2_1" undeclared
+line:21, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:21, column:14, "a3_1" undeclared
+line:22, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:22, column:14, "a4_1" undeclared
+line:23, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:23, column:14, "a5_1" undeclared
+line:25, column:5, extraneous input '.' expecting IDENTIFIER
+line:25, column:6, Unknown type a1_1
+line:25, column:14, "a2_1" undeclared
+line:25, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:26, column:5, extraneous input '.' expecting IDENTIFIER
+line:26, column:6, Unknown type a2_1
+line:26, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:27, column:5, extraneous input '.' expecting IDENTIFIER
+line:27, column:6, Unknown type a3_1
+line:27, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:28, column:5, extraneous input '.' expecting IDENTIFIER
+line:28, column:6, Unknown type a4_1
+line:28, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:29, column:5, extraneous input '.' expecting IDENTIFIER
+line:29, column:6, Unknown type a5_1
+line:29, column:19, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:31, column:5, extraneous input '.' expecting IDENTIFIER
+line:31, column:6, Unknown type a1_1
+line:31, column:12, mismatched input ';' expecting ':'
+

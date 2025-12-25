@@ -1,0 +1,32 @@
+reactiveclass RingActor {
+	knownrebecs {
+		RingActor next;
+	}
+
+	msgsrv Ping() {
+		next.Ping();
+	}
+
+	msgsrv setNext(RingActor ref) {
+		next = ref;
+	}
+
+	RingActor() {
+	}
+}
+
+main {
+	RingActor a1():();
+	RingActor a2():();
+	RingActor a3():();
+	RingActor a4():();
+	RingActor a5():();
+
+	a1.setNext(a2);
+	a2.setNext(a3);
+	a3.setNext(a4);
+	a4.setNext(a5);
+	a5.setNext(a1);
+
+	a1.Ping();
+}

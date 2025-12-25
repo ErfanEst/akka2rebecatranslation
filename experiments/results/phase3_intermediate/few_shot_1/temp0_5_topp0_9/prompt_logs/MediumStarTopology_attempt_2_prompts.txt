@@ -1,0 +1,383 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_1/temp0_5_topp0_9
+File: MediumStarTopology
+Timestamp: 2025-12-25T15:27:06.788286
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean c1Reg;
+		boolean c2Reg;
+		boolean c3Reg;
+		boolean c4Reg;
+		boolean c5Reg;
+	}
+
+	msgsrv initial() {
+		c1Reg = false;
+		c2Reg = false;
+		c3Reg = false;
+		c4Reg = false;
+		c5Reg = false;
+	}
+
+	msgsrv Register1() {
+		c1Reg = true;
+	}
+
+	msgsrv Register2() {
+		c2Reg = true;
+	}
+
+	msgsrv Register3() {
+		c3Reg = true;
+	}
+
+	msgsrv Register4() {
+		c4Reg = true;
+	}
+
+	msgsrv Register5() {
+		c5Reg = true;
+	}
+
+	msgsrv PingFrom1() {
+		c1.Pong();
+	}
+
+	msgsrv PingFrom2() {
+		c2.Pong();
+	}
+
+	msgsrv PingFrom3() {
+		c3.Pong();
+	}
+
+	msgsrv PingFrom4() {
+		c4.Pong();
+	}
+
+	msgsrv PingFrom5() {
+		c5.Pong();
+	}
+
+	msgsrv Ping() {
+		/* nondeterministically choose a registered client as sender */
+		int s;
+		s = ?(1,2,3,4,5);
+		if (s == 1 && c1Reg) {
+			self.PingFrom1();
+		} else if (s == 2 && c2Reg) {
+			self.PingFrom2();
+		} else if (s == 3 && c3Reg) {
+			self.PingFrom3();
+		} else if (s == 4 && c4Reg) {
+			self.PingFrom4();
+		} else if (s == 5 && c5Reg) {
+			self.PingFrom5();
+		}
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:110, column:4, extraneous input '.' expecting IDENTIFIER
+line:110, column:5, Unknown type hub
+line:110, column:16, mismatched input ';' expecting ':'
+line:111, column:4, extraneous input '.' expecting IDENTIFIER
+line:111, column:5, Unknown type hub
+line:111, column:16, mismatched input ';' expecting ':'
+line:112, column:4, extraneous input '.' expecting IDENTIFIER
+line:112, column:5, Unknown type hub
+line:112, column:16, mismatched input ';' expecting ':'
+line:113, column:4, extraneous input '.' expecting IDENTIFIER
+line:113, column:5, Unknown type hub
+line:113, column:16, mismatched input ';' expecting ':'
+line:114, column:4, extraneous input '.' expecting IDENTIFIER
+line:114, column:5, Unknown type hub
+line:114, column:16, mismatched input ';' expecting ':'
+line:116, column:3, extraneous input '.' expecting IDENTIFIER
+line:116, column:4, Unknown type c1
+line:116, column:11, mismatched input ';' expecting ':'
+line:117, column:3, extraneous input '.' expecting IDENTIFIER
+line:117, column:4, Unknown type c2
+line:117, column:11, mismatched input ';' expecting ':'
+line:118, column:3, extraneous input '.' expecting IDENTIFIER
+line:118, column:4, Unknown type c3
+line:118, column:11, mismatched input ';' expecting ':'
+line:119, column:3, extraneous input '.' expecting IDENTIFIER
+line:119, column:4, Unknown type c4
+line:119, column:11, mismatched input ';' expecting ':'
+line:120, column:3, extraneous input '.' expecting IDENTIFIER
+line:120, column:4, Unknown type c5
+line:120, column:11, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean c1Reg;
+		boolean c2Reg;
+		boolean c3Reg;
+		boolean c4Reg;
+		boolean c5Reg;
+	}
+
+	msgsrv initial() {
+		c1Reg = false;
+		c2Reg = false;
+		c3Reg = false;
+		c4Reg = false;
+		c5Reg = false;
+	}
+
+	msgsrv Register1() {
+		c1Reg = true;
+	}
+
+	msgsrv Register2() {
+		c2Reg = true;
+	}
+
+	msgsrv Register3() {
+		c3Reg = true;
+	}
+
+	msgsrv Register4() {
+		c4Reg = true;
+	}
+
+	msgsrv Register5() {
+		c5Reg = true;
+	}
+
+	msgsrv PingFrom1() {
+		c1.Pong();
+	}
+
+	msgsrv PingFrom2() {
+		c2.Pong();
+	}
+
+	msgsrv PingFrom3() {
+		c3.Pong();
+	}
+
+	msgsrv PingFrom4() {
+		c4.Pong();
+	}
+
+	msgsrv PingFrom5() {
+		c5.Pong();
+	}
+
+	msgsrv Ping() {
+		int s;
+		s = ?(1,2,3,4,5);
+		if (s == 1 && c1Reg) {
+			self.PingFrom1();
+		} else if (s == 2 && c2Reg) {
+			self.PingFrom2();
+		} else if (s == 3 && c3Reg) {
+			self.PingFrom3();
+		} else if (s == 4 && c4Reg) {
+			self.PingFrom4();
+		} else if (s == 5 && c5Reg) {
+			self.PingFrom5();
+		}
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}
+
+================================================================================

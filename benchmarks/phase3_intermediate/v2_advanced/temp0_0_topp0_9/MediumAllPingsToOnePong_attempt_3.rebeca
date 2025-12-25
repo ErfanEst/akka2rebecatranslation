@@ -1,0 +1,63 @@
+reactiveclass PingActor(pong: PongActor, pid: int, _id: int) {
+	knownrebecs {
+		PongActor pong;
+	}
+
+	statevars {
+		int pongId;
+		int myId;
+	}
+
+	PingActor(PongActor p, int pid, int _id) {
+		pong = p;
+		pongId = pid;
+		myId = _id;
+	}
+
+	msgsrv start() {
+		ping();
+	}
+
+	msgsrv ping() {
+		pong.pingMsg(myId);
+	}
+}
+
+reactiveclass PongActor(_id: int) {
+	knownrebecs {
+		PingActor pings[10];
+	}
+
+	statevars {
+		int myId;
+	}
+
+	PongActor(int _id) {
+		myId = _id;
+	}
+
+	msgsrv pingMsg(int pingId) {
+		pings[pingId - 1].pongMsg(pingId, myId);
+	}
+
+	msgsrv pongMsg(int pingId, int pongId) {
+		// no further action
+	}
+}
+
+main {
+	PongActor pong(0);
+	PingActor pings[10](pong, 0, 0): (pong);
+
+	{
+		int i;
+		i = 0;
+		while (i < 10) {
+			pings[i].pong = pong;
+			pings[i].pongId = 0;
+			pings[i].myId = i + 1;
+			pings[i].start();
+			i = i + 1;
+		}
+	}
+}

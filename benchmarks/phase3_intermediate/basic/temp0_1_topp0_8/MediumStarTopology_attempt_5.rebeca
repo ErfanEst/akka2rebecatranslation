@@ -1,0 +1,56 @@
+reactiveclass Client {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv start() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+	}
+
+	msgsrv register() {
+		// registration is implicit in knownrebecs
+	}
+
+	msgsrv ping() {
+		// getSender is not available in Rebeca standard; using c1 as a placeholder
+		c1.pong();
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	hub.register():();
+	c1.start():();
+	hub.register():();
+	c2.start():();
+	hub.register():();
+	c3.start():();
+	hub.register():();
+	c4.start():();
+	hub.register():();
+	c5.start():();
+}

@@ -1,0 +1,38 @@
+timedreactiveclass PingActor {
+	knownrebecs { 
+		PongActor pong;
+	}
+
+	PingActor(PongActor pongRef) {
+		pong = pongRef;
+		self.pingStarter();
+	}
+
+	msgsrv pingStarter() {
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping();
+	}
+
+	msgsrv pong() {
+		pong.ping();
+	}
+}
+
+timedreactiveclass PongActor {
+	knownrebecs { }
+
+	PongActor() {
+	}
+
+	msgsrv ping() {
+		sender.pong();
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):(pong);
+}

@@ -1,0 +1,27 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:13, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:22, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:23, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:24, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:25, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:26, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:27, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:29, column:3, extraneous input '.' expecting IDENTIFIER
+line:29, column:4, Unknown type c1
+line:29, column:11, mismatched input ';' expecting ':'
+line:30, column:3, extraneous input '.' expecting IDENTIFIER
+line:30, column:4, Unknown type c2
+line:30, column:11, mismatched input ';' expecting ':'
+line:31, column:3, extraneous input '.' expecting IDENTIFIER
+line:31, column:4, Unknown type c3
+line:31, column:11, mismatched input ';' expecting ':'
+line:32, column:3, extraneous input '.' expecting IDENTIFIER
+line:32, column:4, Unknown type c4
+line:32, column:11, mismatched input ';' expecting ':'
+line:33, column:3, extraneous input '.' expecting IDENTIFIER
+line:33, column:4, Unknown type c5
+line:33, column:11, mismatched input ';' expecting ':'
+

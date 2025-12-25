@@ -1,0 +1,81 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() {
+	}
+
+	msgsrv start() {
+		hub.ping(self);
+	}
+
+	msgsrv pong() {
+		hub.ping(self);
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars {
+		boolean c1Registered;
+		boolean c2Registered;
+		boolean c3Registered;
+		boolean c4Registered;
+		boolean c5Registered;
+	}
+
+	msgsrv initial() {
+		c1Registered = false;
+		c2Registered = false;
+		c3Registered = false;
+		c4Registered = false;
+		c5Registered = false;
+
+		self.register(c1);
+		self.register(c2);
+		self.register(c3);
+		self.register(c4);
+		self.register(c5);
+
+		c1.start();
+		c2.start();
+		c3.start();
+		c4.start();
+		c5.start();
+	}
+
+	msgsrv register(Client ref) {
+		if (ref == c1) {
+			c1Registered = true;
+		} else {
+			if (ref == c2) {
+				c2Registered = true;
+			} else {
+				if (ref == c3) {
+					c3Registered = true;
+				} else {
+					if (ref == c4) {
+						c4Registered = true;
+					} else {
+						if (ref == c5) {
+							c5Registered = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	msgsrv ping(Client snd) {
+		snd.pong();
+	}
+}
+
+main {
+	Client c1(h):();
+	Client c2(h):();
+	Client c3(h):();
+	Client c4(h):();
+	Client c5(h):();
+	Hub h(c1, c2, c3, c4, c5):();
+}

@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:12, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:24, column:11, The method RingActor() is undefined for the type RingActor
+line:25, column:11, The method RingActor() is undefined for the type RingActor
+line:26, column:11, The method RingActor() is undefined for the type RingActor
+line:27, column:11, The method RingActor() is undefined for the type RingActor
+line:28, column:11, The method RingActor() is undefined for the type RingActor
+line:30, column:3, extraneous input '.' expecting IDENTIFIER
+line:30, column:4, Unknown type a1
+

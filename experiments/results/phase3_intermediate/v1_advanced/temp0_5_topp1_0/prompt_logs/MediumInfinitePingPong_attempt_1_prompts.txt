@@ -1,0 +1,100 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/v1_advanced/temp0_5_topp1_0
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T14:33:27.719305
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate this given Akka program into fully valid Rebeca code that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Follow these rules:
+1) Actor → Reactiveclass mapping
+2) Message mapping & sender usage
+3) Timed constructs (after, delay)
+4) No return in msgsrv
+5) Initialization / main block rules
+6) Circular dependencies handled statically
+7) Randomness → nondeterministic expressions
+8) Remove println / I/O
+9) Correct timed Rebeca validation
+10) Final checks (no return, correct sender, main bindings)
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedRebeca {
+
+reactiveclass PingActor {
+	knownrebecs { PongActor pong; }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {}
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	PongActor pong();
+	PingActor ping(pong);
+
+	ping.Start();
+}
+
+}
+
+================================================================================

@@ -1,0 +1,40 @@
+reactiveclass RingActor {
+	knownrebecs { 
+		RingActor a2;
+		RingActor a3;
+		RingActor a4;
+		RingActor a5;
+	}
+
+	statevars {
+		RingActor next;
+	}
+
+	msgsrv setNext(RingActor ref) {
+		next = ref;
+	}
+
+	msgsrv ping() {
+		next.ping();
+	}
+
+	RingActor() {
+		// no initial behavior
+	}
+}
+
+main {
+	RingActor a1(a2,a3,a4,a5):();
+	RingActor a2(a1,a3,a4,a5):();
+	RingActor a3(a1,a2,a4,a5):();
+	RingActor a4(a1,a2,a3,a5):();
+	RingActor a5(a1,a2,a3,a4):();
+
+	a1.setNext(a2);
+	a2.setNext(a3);
+	a3.setNext(a4);
+	a4.setNext(a5);
+	a5.setNext(a1);
+
+	a1.ping();
+}

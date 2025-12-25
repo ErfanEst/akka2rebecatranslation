@@ -1,0 +1,266 @@
+================================================================================
+ATTEMPT 2 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_3/temp0_5_topp0_9
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T16:07:20.554039
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving concurrency and timed semantics.
+
+Rules:
+
+1. Actor classes → reactiveclass
+2. receive patterns → msgsrv
+3. Member vars → statevars
+4. sender() → knownrebec
+5. context.become → state flags
+6. scheduleOnce / sleep → after(time) / delay()
+7. Random → ?(val1, val2, ...)
+8. Main block → instantiate all reactiveclasses
+9. Only asynchronous messages
+10. No println / I/O
+
+Examples:
+
+1) Communication
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+2) Timed cyclic
+reactiveclass TrafficLight(3) { 
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { if(color == 0) { color = 1; self.change() after(3); } else if(color == 1) { color = 2; self.change() after(5); } else { color = 0; self.change() after(2); } } 
+} 
+
+3) Master-Worker
+reactiveclass Master(10) { 
+  knownrebecs { Worker w1; Worker w2; } 
+  statevars { int[3] tasks; int idx, total, completed; int state; } 
+  Master() { tasks[0]=1; tasks[1]=2; tasks[2]=3; total=3; idx=0; completed=0; state=0; } 
+  msgsrv Ready(int id) { if(idx<total) { if(id==1) w1.Task(tasks[idx]) after(1); else w2.Task(tasks[idx]) after(1); idx=idx+1; state=1; } } 
+  msgsrv Result(int data) { completed=completed+1; if(completed==total) { w1.Shutdown(); w2.Shutdown(); state=2; } } 
+  msgsrv Shutdown() { state=2; } 
+} 
+
+reactiveclass Worker(10) { 
+  knownrebecs { Master m; } 
+  statevars { int id; } 
+  Worker(int myId) { id=myId; self.sendReady(); } 
+  msgsrv sendReady() { m.Ready(id); } 
+  msgsrv Task(int data) { delay(5); m.Result(data); self.sendReady(); } 
+  msgsrv Shutdown() {} 
+} 
+
+main { 
+  Master m(w1, w2):(); 
+  Worker w1(m):(1); 
+  Worker w2(m):(2); 
+}
+
+Translate the following Akka code to Rebeca following these patterns. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass PingActor(5) {
+  knownrebecs { PongActor pong; }
+  statevars { int id; }
+
+  PingActor(int _id) {
+    id = _id;
+  }
+
+  msgsrv start() {
+    pong.ping(id);
+  }
+
+  msgsrv strMsg() {
+    pong.ping(id);
+  }
+
+  msgsrv pongMsg(int dummy) {
+  }
+}
+
+reactiveclass PongActor(5) {
+  knownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }
+
+  PongActor() {
+  }
+
+  msgsrv ping(int pid) {
+    if (pid == 1) {
+      p1.pongMsg(0);
+    } else if (pid == 2) {
+      p2.pongMsg(0);
+    } else if (pid == 3) {
+      p3.pongMsg(0);
+    } else if (pid == 4) {
+      p4.pongMsg(0);
+    } else if (pid == 5) {
+      p5.pongMsg(0);
+    } else if (pid == 6) {
+      p6.pongMsg(0);
+    } else if (pid == 7) {
+      p7.pongMsg(0);
+    } else if (pid == 8) {
+      p8.pongMsg(0);
+    } else if (pid == 9) {
+      p9.pongMsg(0);
+    } else if (pid == 10) {
+      p10.pongMsg(0);
+    }
+  }
+}
+
+main {
+  PingActor p1(pong):(1);
+  PingActor p2(pong):(2);
+  PingActor p3(pong):(3);
+  PingActor p4(pong):(4);
+  PingActor p5(pong):(5);
+  PingActor p6(pong):(6);
+  PingActor p7(pong):(7);
+  PingActor p8(pong):(8);
+  PingActor p9(pong):(9);
+  PingActor p10(pong):(10);
+  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();
+
+  p1.start();
+  p2.start();
+  p3.start();
+  p4.start();
+  p5.start();
+  p6.start();
+  p7.start();
+  p8.start();
+  p9.start();
+  p10.start();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:65, column:4, extraneous input '.' expecting IDENTIFIER
+line:65, column:5, Unknown type p1
+line:65, column:12, mismatched input ';' expecting ':'
+line:66, column:4, extraneous input '.' expecting IDENTIFIER
+line:66, column:5, Unknown type p2
+line:66, column:12, mismatched input ';' expecting ':'
+line:67, column:4, extraneous input '.' expecting IDENTIFIER
+line:67, column:5, Unknown type p3
+line:67, column:12, mismatched input ';' expecting ':'
+line:68, column:4, extraneous input '.' expecting IDENTIFIER
+line:68, column:5, Unknown type p4
+line:68, column:12, mismatched input ';' expecting ':'
+line:69, column:4, extraneous input '.' expecting IDENTIFIER
+line:69, column:5, Unknown type p5
+line:69, column:12, mismatched input ';' expecting ':'
+line:70, column:4, extraneous input '.' expecting IDENTIFIER
+line:70, column:5, Unknown type p6
+line:70, column:12, mismatched input ';' expecting ':'
+line:71, column:4, extraneous input '.' expecting IDENTIFIER
+line:71, column:5, Unknown type p7
+line:71, column:12, mismatched input ';' expecting ':'
+line:72, column:4, extraneous input '.' expecting IDENTIFIER
+line:72, column:5, Unknown type p8
+line:72, column:12, mismatched input ';' expecting ':'
+line:73, column:4, extraneous input '.' expecting IDENTIFIER
+line:73, column:5, Unknown type p9
+line:73, column:12, mismatched input ';' expecting ':'
+line:74, column:5, extraneous input '.' expecting IDENTIFIER
+line:74, column:6, Unknown type p10
+line:74, column:13, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(5) {
+  knownrebecs { PongActor pong; }
+  statevars { int id; }
+
+  PingActor(int _id) {
+    id = _id;
+  }
+
+  msgsrv initial() {
+    // no automatic start
+  }
+
+  msgsrv start() {
+    pong.ping(id);
+  }
+
+  msgsrv strMsg() {
+    pong.ping(id);
+  }
+
+  msgsrv pongMsg(int dummy) {
+  }
+}
+
+reactiveclass PongActor(5) {
+  knownrebecs { 
+    PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; 
+    PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; 
+  }
+
+  PongActor() {
+  }
+
+  msgsrv initial() {
+  }
+
+  msgsrv ping(int pid) {
+    if (pid == 1) {
+      p1.pongMsg(0);
+    } else if (pid == 2) {
+      p2.pongMsg(0);
+    } else if (pid == 3) {
+      p3.pongMsg(0);
+    } else if (pid == 4) {
+      p4.pongMsg(0);
+    } else if (pid == 5) {
+      p5.pongMsg(0);
+    } else if (pid == 6) {
+      p6.pongMsg(0);
+    } else if (pid == 7) {
+      p7.pongMsg(0);
+    } else if (pid == 8) {
+      p8.pongMsg(0);
+    } else if (pid == 9) {
+      p9.pongMsg(0);
+    } else if (pid == 10) {
+      p10.pongMsg(0);
+    }
+  }
+}
+
+main {
+  PingActor p1(pong):(1);
+  PingActor p2(pong):(2);
+  PingActor p3(pong):(3);
+  PingActor p4(pong):(4);
+  PingActor p5(pong):(5);
+  PingActor p6(pong):(6);
+  PingActor p7(pong):(7);
+  PingActor p8(pong):(8);
+  PingActor p9(pong):(9);
+  PingActor p10(pong):(10);
+  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();
+}
+
+================================================================================

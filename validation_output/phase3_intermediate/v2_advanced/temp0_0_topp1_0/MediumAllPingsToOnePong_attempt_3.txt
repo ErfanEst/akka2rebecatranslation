@@ -1,0 +1,38 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:20, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:36, column:15, extraneous input ':' expecting '('
+line:36, column:18, mismatched input ';' expecting ':'
+line:38, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:38, column:16, extraneous input ':' expecting '('
+line:38, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:39, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:39, column:16, extraneous input ':' expecting '('
+line:39, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:40, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:40, column:16, extraneous input ':' expecting '('
+line:40, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:41, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:41, column:16, extraneous input ':' expecting '('
+line:41, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:42, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:42, column:16, extraneous input ':' expecting '('
+line:42, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:43, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:43, column:16, extraneous input ':' expecting '('
+line:43, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:44, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:44, column:16, extraneous input ':' expecting '('
+line:44, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:45, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:45, column:16, extraneous input ':' expecting '('
+line:45, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:46, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:46, column:16, extraneous input ':' expecting '('
+line:46, column:26, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:47, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:47, column:17, extraneous input ':' expecting '('
+line:47, column:28, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+

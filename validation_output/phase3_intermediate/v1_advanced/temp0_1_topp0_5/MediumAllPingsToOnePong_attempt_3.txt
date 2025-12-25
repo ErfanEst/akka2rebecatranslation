@@ -1,0 +1,17 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, missing INTLITERAL at ')'
+line:8, column:9, There is no meta data for type ReactiveClass
+line:12, column:24, mismatched input 'PongActor' expecting INTLITERAL
+line:28, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:29, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:30, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:31, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:32, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:33, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:34, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:35, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:36, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:37, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+

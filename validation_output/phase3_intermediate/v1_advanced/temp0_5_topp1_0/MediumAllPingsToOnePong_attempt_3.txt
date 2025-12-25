@@ -1,0 +1,78 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pongRef' expecting INTLITERAL
+line:22, column:24, mismatched input 'p1' expecting INTLITERAL
+line:86, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:87, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:88, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:89, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:90, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:91, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:92, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:93, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:94, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:95, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:97, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor)
+line:99, column:1, extraneous input '{' expecting {'}', '@', IDENTIFIER}
+line:100, column:7, extraneous input '.' expecting IDENTIFIER
+line:100, column:8, Unknown type ping1
+line:100, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:101, column:7, extraneous input '.' expecting IDENTIFIER
+line:101, column:8, Unknown type ping2
+line:101, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:102, column:7, extraneous input '.' expecting IDENTIFIER
+line:102, column:8, Unknown type ping3
+line:102, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:103, column:7, extraneous input '.' expecting IDENTIFIER
+line:103, column:8, Unknown type ping4
+line:103, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:104, column:7, extraneous input '.' expecting IDENTIFIER
+line:104, column:8, Unknown type ping5
+line:104, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:105, column:7, extraneous input '.' expecting IDENTIFIER
+line:105, column:8, Unknown type ping6
+line:105, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:106, column:7, extraneous input '.' expecting IDENTIFIER
+line:106, column:8, Unknown type ping7
+line:106, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:107, column:7, extraneous input '.' expecting IDENTIFIER
+line:107, column:8, Unknown type ping8
+line:107, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:108, column:7, extraneous input '.' expecting IDENTIFIER
+line:108, column:8, Unknown type ping9
+line:108, column:16, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:109, column:8, extraneous input '.' expecting IDENTIFIER
+line:109, column:9, Unknown type ping10
+line:109, column:18, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:111, column:7, extraneous input '.' expecting IDENTIFIER
+line:111, column:8, Unknown type ping1
+line:111, column:15, mismatched input ';' expecting ':'
+line:112, column:7, extraneous input '.' expecting IDENTIFIER
+line:112, column:8, Unknown type ping2
+line:112, column:15, mismatched input ';' expecting ':'
+line:113, column:7, extraneous input '.' expecting IDENTIFIER
+line:113, column:8, Unknown type ping3
+line:113, column:15, mismatched input ';' expecting ':'
+line:114, column:7, extraneous input '.' expecting IDENTIFIER
+line:114, column:8, Unknown type ping4
+line:114, column:15, mismatched input ';' expecting ':'
+line:115, column:7, extraneous input '.' expecting IDENTIFIER
+line:115, column:8, Unknown type ping5
+line:115, column:15, mismatched input ';' expecting ':'
+line:116, column:7, extraneous input '.' expecting IDENTIFIER
+line:116, column:8, Unknown type ping6
+line:116, column:15, mismatched input ';' expecting ':'
+line:117, column:7, extraneous input '.' expecting IDENTIFIER
+line:117, column:8, Unknown type ping7
+line:117, column:15, mismatched input ';' expecting ':'
+line:118, column:7, extraneous input '.' expecting IDENTIFIER
+line:118, column:8, Unknown type ping8
+line:118, column:15, mismatched input ';' expecting ':'
+line:119, column:7, extraneous input '.' expecting IDENTIFIER
+line:119, column:8, Unknown type ping9
+line:119, column:15, mismatched input ';' expecting ':'
+line:120, column:8, extraneous input '.' expecting IDENTIFIER
+line:120, column:9, Unknown type ping10
+line:120, column:16, mismatched input ';' expecting ':'
+

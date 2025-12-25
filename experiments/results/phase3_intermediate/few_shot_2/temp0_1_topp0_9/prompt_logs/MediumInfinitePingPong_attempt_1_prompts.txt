@@ -1,0 +1,126 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_2/temp0_1_topp0_9
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T15:39:10.537314
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving:
+- Actor structure
+- Message flow
+- Concurrency semantics
+- Timed behavior if any
+
+Rules:
+
+1. Actors → reactiveclass
+2. receive → msgsrv
+3. sender() handling as knownrebecs
+4. context.system.scheduler.scheduleOnce → after(time) / delay
+5. Random → ?(val1, val2, ...)
+6. Only asynchronous messages
+7. Statevars for mutable fields, constants for immutable
+8. Main block: instantiate all reactiveclasses and knownrebecs
+9. Remove println / I/O
+10. Output complete Rebeca code, properly indented
+
+Example 1: Asynchronous message passing
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+Example 2: Timed cyclic behavior
+reactiveclass TrafficLight(3) {
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { 
+    if(color == 0) { color = 1; self.change() after(3); } 
+    else if(color == 1) { color = 2; self.change() after(5); } 
+    else { color = 0; self.change() after(2); } 
+  } 
+} 
+
+main { TrafficLight tl():(); }
+
+Translate the following Akka code to Rebeca following these examples. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(5) {
+	knownrebecs { PongActor pong; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs { }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):();
+
+	ping.Start();
+}
+
+================================================================================

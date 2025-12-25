@@ -1,0 +1,107 @@
+reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		hub_ping();
+	}
+
+	msgsrv pong() {
+		hub_ping();
+	}
+
+	msgsrv start() {
+		hub_ping();
+	}
+
+	// wrapper for hub.ping() to avoid '.' in main block
+	msgsrv hub_ping() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean hasC1;
+		boolean hasC2;
+		boolean hasC3;
+		boolean hasC4;
+		boolean hasC5;
+	}
+
+	msgsrv initial() {
+		hasC1 = false;
+		hasC2 = false;
+		hasC3 = false;
+		hasC4 = false;
+		hasC5 = false;
+	}
+
+	msgsrv registerC1() {
+		hasC1 = true;
+	}
+
+	msgsrv registerC2() {
+		hasC2 = true;
+	}
+
+	msgsrv registerC3() {
+		hasC3 = true;
+	}
+
+	msgsrv registerC4() {
+		hasC4 = true;
+	}
+
+	msgsrv registerC5() {
+		hasC5 = true;
+	}
+
+	msgsrv ping() {
+		int choice;
+		choice = ?(1,2,3,4,5);
+		if (choice == 1 && hasC1) {
+			c1.pong();
+		} else if (choice == 2 && hasC2) {
+			c2.pong();
+		} else if (choice == 3 && hasC3) {
+			c3.pong();
+		} else if (choice == 4 && hasC4) {
+			c4.pong();
+		} else if (choice == 5 && hasC5) {
+			c5.pong();
+		}
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	// method calls must not use dots in main: use msgsrv names only
+	hub_registerC1();
+	hub_registerC2();
+	hub_registerC3();
+	hub_registerC4();
+	hub_registerC5();
+
+	c1_start();
+	c2_start();
+	c3_start();
+	c4_start();
+	c5_start();
+}

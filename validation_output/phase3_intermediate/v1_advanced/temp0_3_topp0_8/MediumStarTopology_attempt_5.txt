@@ -1,0 +1,36 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input 'Hub' expecting INTLITERAL
+line:21, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:44, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:44, column:8, The method Client(Hub) is undefined for the type Client
+line:45, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:45, column:8, The method Client(Hub) is undefined for the type Client
+line:46, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:46, column:8, The method Client(Hub) is undefined for the type Client
+line:47, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:47, column:8, The method Client(Hub) is undefined for the type Client
+line:48, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:48, column:8, The method Client(Hub) is undefined for the type Client
+line:50, column:4, extraneous input '.' expecting IDENTIFIER
+line:50, column:5, Unknown type hub
+line:51, column:3, extraneous input '.' expecting IDENTIFIER
+line:51, column:4, Unknown type c1
+line:53, column:4, extraneous input '.' expecting IDENTIFIER
+line:53, column:5, Unknown type hub
+line:54, column:3, extraneous input '.' expecting IDENTIFIER
+line:54, column:4, Unknown type c2
+line:56, column:4, extraneous input '.' expecting IDENTIFIER
+line:56, column:5, Unknown type hub
+line:57, column:3, extraneous input '.' expecting IDENTIFIER
+line:57, column:4, Unknown type c3
+line:59, column:4, extraneous input '.' expecting IDENTIFIER
+line:59, column:5, Unknown type hub
+line:60, column:3, extraneous input '.' expecting IDENTIFIER
+line:60, column:4, Unknown type c4
+line:62, column:4, extraneous input '.' expecting IDENTIFIER
+line:62, column:5, Unknown type hub
+line:63, column:3, extraneous input '.' expecting IDENTIFIER
+line:63, column:4, Unknown type c5
+

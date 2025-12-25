@@ -1,0 +1,96 @@
+reactiveclass PongActor(ping0, ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9) {
+	knownrebecs {
+		PingActor ping0;
+		PingActor ping1;
+		PingActor ping2;
+		PingActor ping3;
+		PingActor ping4;
+		PingActor ping5;
+		PingActor ping6;
+		PingActor ping7;
+		PingActor ping8;
+		PingActor ping9;
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv handleString(int msgId, int pingId) {
+		if (pingId == 0) {
+			ping0.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 1) {
+			ping1.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 2) {
+			ping2.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 3) {
+			ping3.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 4) {
+			ping4.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 5) {
+			ping5.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 6) {
+			ping6.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 7) {
+			ping7.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 8) {
+			ping8.handlePong(msgId, pingId) after(0);
+		} else if (pingId == 9) {
+			ping9.handlePong(msgId, pingId) after(0);
+		}
+	}
+}
+
+reactiveclass PingActor(pongRef, myId) {
+	knownrebecs {
+		PongActor pongRef;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial() {
+		id = myId;
+	}
+
+	msgsrv start() {
+		pongRef.handleString(0, id) after(0);
+	}
+
+	msgsrv handleString(int msgId, int ignored) {
+		pongRef.handleString(msgId, id) after(0);
+	}
+
+	msgsrv handlePong(int msgId, int pingId) {
+		// no further action
+	}
+}
+
+main {
+	PingActor ping0(pong, 0):();
+	PingActor ping1(pong, 1):();
+	PingActor ping2(pong, 2):();
+	PingActor ping3(pong, 3):();
+	PingActor ping4(pong, 4):();
+	PingActor ping5(pong, 5):();
+	PingActor ping6(pong, 6):();
+	PingActor ping7(pong, 7):();
+	PingActor ping8(pong, 8):();
+	PingActor ping9(pong, 9):();
+
+	PongActor pong(ping0, ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9):();
+
+	ping0.start() after(0);
+	ping1.start() after(0);
+	ping2.start() after(0);
+	ping3.start() after(0);
+	ping4.start() after(0);
+	ping5.start() after(0);
+	ping6.start() after(0);
+	ping7.start() after(0);
+	ping8.start() after(0);
+	ping9.start() after(0);
+}

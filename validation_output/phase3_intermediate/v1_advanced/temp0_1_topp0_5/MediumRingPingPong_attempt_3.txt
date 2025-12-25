@@ -1,0 +1,23 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, missing INTLITERAL at ')'
+line:15, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:25, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()
+line:26, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()
+line:27, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()
+line:28, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()
+line:29, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()
+line:31, column:3, extraneous input '.' expecting IDENTIFIER
+line:31, column:4, Unknown type a1
+line:32, column:3, extraneous input '.' expecting IDENTIFIER
+line:32, column:4, Unknown type a2
+line:33, column:3, extraneous input '.' expecting IDENTIFIER
+line:33, column:4, Unknown type a3
+line:34, column:3, extraneous input '.' expecting IDENTIFIER
+line:34, column:4, Unknown type a4
+line:35, column:3, extraneous input '.' expecting IDENTIFIER
+line:35, column:4, Unknown type a5
+line:37, column:3, extraneous input '.' expecting IDENTIFIER
+line:37, column:4, Unknown type a1
+

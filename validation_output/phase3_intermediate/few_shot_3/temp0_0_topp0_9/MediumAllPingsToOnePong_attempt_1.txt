@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:27, column:9, The method pong() is undefined for the type PingActor
+line:29, column:9, The method pong() is undefined for the type PingActor
+line:31, column:9, The method pong() is undefined for the type PingActor
+line:33, column:9, The method pong() is undefined for the type PingActor
+line:35, column:9, The method pong() is undefined for the type PingActor
+line:37, column:9, The method pong() is undefined for the type PingActor
+line:39, column:9, The method pong() is undefined for the type PingActor
+line:41, column:9, The method pong() is undefined for the type PingActor
+line:43, column:9, The method pong() is undefined for the type PingActor
+line:45, column:10, The method pong() is undefined for the type PingActor
+

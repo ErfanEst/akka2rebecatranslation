@@ -1,0 +1,51 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:44, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:45, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:46, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:47, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:48, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:49, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:50, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:51, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:52, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:53, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:98, column:6, extraneous input '(' expecting IDENTIFIER
+line:98, column:7, Multiple definition for the actor p1
+line:98, column:9, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:98, column:13, extraneous input ',' expecting IDENTIFIER
+line:98, column:15, Multiple definition for the actor p3
+line:98, column:17, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:98, column:21, extraneous input ',' expecting IDENTIFIER
+line:98, column:23, Multiple definition for the actor p5
+line:98, column:25, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:98, column:29, extraneous input ',' expecting IDENTIFIER
+line:98, column:31, Multiple definition for the actor p7
+line:98, column:33, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:98, column:37, extraneous input ',' expecting IDENTIFIER
+line:98, column:39, Multiple definition for the actor p9
+line:98, column:41, mismatched input ',' expecting {'[', '<', IDENTIFIER}
+line:98, column:46, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+line:100, column:4, extraneous input '.' expecting IDENTIFIER
+line:100, column:12, mismatched input ';' expecting ':'
+line:101, column:4, extraneous input '.' expecting IDENTIFIER
+line:101, column:12, mismatched input ';' expecting ':'
+line:102, column:4, extraneous input '.' expecting IDENTIFIER
+line:102, column:12, mismatched input ';' expecting ':'
+line:103, column:4, extraneous input '.' expecting IDENTIFIER
+line:103, column:12, mismatched input ';' expecting ':'
+line:104, column:4, extraneous input '.' expecting IDENTIFIER
+line:104, column:12, mismatched input ';' expecting ':'
+line:105, column:4, extraneous input '.' expecting IDENTIFIER
+line:105, column:12, mismatched input ';' expecting ':'
+line:106, column:4, extraneous input '.' expecting IDENTIFIER
+line:106, column:12, mismatched input ';' expecting ':'
+line:107, column:4, extraneous input '.' expecting IDENTIFIER
+line:107, column:12, mismatched input ';' expecting ':'
+line:108, column:4, extraneous input '.' expecting IDENTIFIER
+line:108, column:12, mismatched input ';' expecting ':'
+line:109, column:5, extraneous input '.' expecting IDENTIFIER
+line:109, column:13, mismatched input ';' expecting ':'
+

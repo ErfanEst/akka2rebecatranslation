@@ -1,0 +1,40 @@
+reactiveclass RingActor() {
+	knownrebecs {
+		RingActor next;
+	}
+
+	statevars {
+		boolean isNextSet;
+	}
+
+	msgsrv initial() {
+		isNextSet = false;
+	}
+
+	msgsrv setNext(RingActor ref) {
+		if (!isNextSet) {
+			next = ref;
+			isNextSet = true;
+		}
+	}
+
+	msgsrv ping() {
+		next.ping();
+	}
+}
+
+main {
+	RingActor a1():();
+	RingActor a2():();
+	RingActor a3():();
+	RingActor a4():();
+	RingActor a5():();
+
+	a1.setNext(a2);
+	a2.setNext(a3);
+	a3.setNext(a4);
+	a4.setNext(a5);
+	a5.setNext(a1);
+
+	a1.ping();
+}

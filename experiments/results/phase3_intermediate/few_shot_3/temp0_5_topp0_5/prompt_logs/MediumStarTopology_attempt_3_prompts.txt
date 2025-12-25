@@ -1,0 +1,224 @@
+================================================================================
+ATTEMPT 3 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_3/temp0_5_topp0_5
+File: MediumStarTopology
+Timestamp: 2025-12-25T16:06:09.387341
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving concurrency and timed semantics.
+
+Rules:
+
+1. Actor classes → reactiveclass
+2. receive patterns → msgsrv
+3. Member vars → statevars
+4. sender() → knownrebec
+5. context.become → state flags
+6. scheduleOnce / sleep → after(time) / delay()
+7. Random → ?(val1, val2, ...)
+8. Main block → instantiate all reactiveclasses
+9. Only asynchronous messages
+10. No println / I/O
+
+Examples:
+
+1) Communication
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+2) Timed cyclic
+reactiveclass TrafficLight(3) { 
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { if(color == 0) { color = 1; self.change() after(3); } else if(color == 1) { color = 2; self.change() after(5); } else { color = 0; self.change() after(2); } } 
+} 
+
+3) Master-Worker
+reactiveclass Master(10) { 
+  knownrebecs { Worker w1; Worker w2; } 
+  statevars { int[3] tasks; int idx, total, completed; int state; } 
+  Master() { tasks[0]=1; tasks[1]=2; tasks[2]=3; total=3; idx=0; completed=0; state=0; } 
+  msgsrv Ready(int id) { if(idx<total) { if(id==1) w1.Task(tasks[idx]) after(1); else w2.Task(tasks[idx]) after(1); idx=idx+1; state=1; } } 
+  msgsrv Result(int data) { completed=completed+1; if(completed==total) { w1.Shutdown(); w2.Shutdown(); state=2; } } 
+  msgsrv Shutdown() { state=2; } 
+} 
+
+reactiveclass Worker(10) { 
+  knownrebecs { Master m; } 
+  statevars { int id; } 
+  Worker(int myId) { id=myId; self.sendReady(); } 
+  msgsrv sendReady() { m.Ready(id); } 
+  msgsrv Task(int data) { delay(5); m.Result(data); self.sendReady(); } 
+  msgsrv Shutdown() {} 
+} 
+
+main { 
+  Master m(w1, w2):(); 
+  Worker w1(m):(1); 
+  Worker w2(m):(2); 
+}
+
+Translate the following Akka code to Rebeca following these patterns. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	Client() { }
+
+	msgsrv initial() { 
+		hub.Ping(); 
+	}
+
+	msgsrv Pong() { 
+		hub.Ping(); 
+	}
+}
+
+reactiveclass Hub(10) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	Hub() { }
+
+	msgsrv Register1() { }
+	msgsrv Register2() { }
+	msgsrv Register3() { }
+	msgsrv Register4() { }
+	msgsrv Register5() { }
+
+	msgsrv Ping() { 
+		sender.Pong(); 
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.initial();
+	c2.initial();
+	c3.initial();
+	c4.initial();
+	c5.initial();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:29, column:9, There is no meta data for type ReactiveClass
+line:41, column:4, extraneous input '.' expecting IDENTIFIER
+line:41, column:5, Unknown type hub
+line:41, column:16, mismatched input ';' expecting ':'
+line:42, column:4, extraneous input '.' expecting IDENTIFIER
+line:42, column:5, Unknown type hub
+line:42, column:16, mismatched input ';' expecting ':'
+line:43, column:4, extraneous input '.' expecting IDENTIFIER
+line:43, column:5, Unknown type hub
+line:43, column:16, mismatched input ';' expecting ':'
+line:44, column:4, extraneous input '.' expecting IDENTIFIER
+line:44, column:5, Unknown type hub
+line:44, column:16, mismatched input ';' expecting ':'
+line:45, column:4, extraneous input '.' expecting IDENTIFIER
+line:45, column:5, Unknown type hub
+line:45, column:16, mismatched input ';' expecting ':'
+line:47, column:3, extraneous input '.' expecting IDENTIFIER
+line:47, column:4, Unknown type c1
+line:47, column:13, mismatched input ';' expecting ':'
+line:48, column:3, extraneous input '.' expecting IDENTIFIER
+line:48, column:4, Unknown type c2
+line:48, column:13, mismatched input ';' expecting ':'
+line:49, column:3, extraneous input '.' expecting IDENTIFIER
+line:49, column:4, Unknown type c3
+line:49, column:13, mismatched input ';' expecting ':'
+line:50, column:3, extraneous input '.' expecting IDENTIFIER
+line:50, column:4, Unknown type c4
+line:50, column:13, mismatched input ';' expecting ':'
+line:51, column:3, extraneous input '.' expecting IDENTIFIER
+line:51, column:4, Unknown type c5
+line:51, column:13, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	Client() { }
+
+	msgsrv initial() { 
+		hub.Ping();
+	}
+
+	msgsrv Pong() { 
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(10) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	Hub() { }
+
+	msgsrv Register1() { }
+	msgsrv Register2() { }
+	msgsrv Register3() { }
+	msgsrv Register4() { }
+	msgsrv Register5() { }
+
+	msgsrv Ping() { 
+		// In Rebeca there is no sender(), so we need explicit routing.
+		// Here we just respond to a fixed client, e.g., c1.
+		c1.Pong();
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.initial();
+	c2.initial();
+	c3.initial();
+	c4.initial();
+	c5.initial();
+}
+
+================================================================================

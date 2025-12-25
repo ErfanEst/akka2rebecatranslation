@@ -1,0 +1,38 @@
+reactiveclass PingActor {
+	knownrebecs { 
+		PongActor pong; 
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs { 
+		PingActor ping;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv Ping() {
+		ping.Pong();
+	}
+}
+
+main {
+	PingActor ping(pong):();
+	PongActor pong(ping):();
+
+	ping.Start();
+}

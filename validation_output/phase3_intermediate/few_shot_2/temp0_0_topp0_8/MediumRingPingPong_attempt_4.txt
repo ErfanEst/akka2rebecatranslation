@@ -1,0 +1,7 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:8, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:23, column:3, extraneous input '.' expecting IDENTIFIER
+line:23, column:4, Unknown type a1
+

@@ -1,0 +1,61 @@
+reactiveclass Client(5) {
+  knownrebecs { Hub hub; }
+  statevars { }
+
+  Client() { }
+
+  msgsrv initial() { }
+
+  msgsrv start() {
+    hub.Ping();
+  }
+
+  msgsrv Pong() {
+    hub.Ping();
+  }
+}
+
+reactiveclass Hub(5) {
+  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+  statevars { }
+
+  Hub() { }
+
+  msgsrv initial() { }
+
+  msgsrv Register1() { }
+  msgsrv Register2() { }
+  msgsrv Register3() { }
+  msgsrv Register4() { }
+  msgsrv Register5() { }
+
+  msgsrv Ping() {
+    // sender() is not available in Rebeca; explicitly choose a client if needed
+    // Here we just forward Pong to c1 as a placeholder
+    c1.Pong();
+  }
+}
+
+main {
+  Hub hub(c1, c2, c3, c4, c5):();
+  Client c1(hub):();
+  Client c2(hub):();
+  Client c3(hub):();
+  Client c4(hub):();
+  Client c5(hub):();
+
+  hub.Register1():() after(1);
+  c1.start():() after(1);
+
+  hub.Register2():() after(1);
+  c2.start():() after(1);
+
+  hub.Register3():() after(1);
+  c3.start():() after(1);
+
+  hub.Register4():() after(1);
+  c4.start():() after(1);
+
+  hub.Register5():() after(1);
+  c5.start():() after(1);
+}

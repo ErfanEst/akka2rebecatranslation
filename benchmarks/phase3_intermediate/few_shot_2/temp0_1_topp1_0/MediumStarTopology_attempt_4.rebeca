@@ -1,0 +1,105 @@
+reactiveclass Client(3) {
+	statevars {
+		int dummy;
+	}
+
+	knownrebecs {
+		Hub hub;
+	}
+
+	Client(Hub h) {
+		hub = h;
+	}
+
+	msgsrv initial() {
+		self.start();
+	}
+
+	msgsrv start() {
+		hub.ping(self);
+	}
+
+	msgsrv pong() {
+		hub.ping(self);
+	}
+}
+
+reactiveclass Hub(6) {
+	statevars {
+		int clientCount;
+		Client client1;
+		Client client2;
+		Client client3;
+		Client client4;
+		Client client5;
+	}
+
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+
+	Hub(Client cc1, Client cc2, Client cc3, Client cc4, Client cc5) {
+		clientCount = 0;
+		client1 = cc1;
+		client2 = cc2;
+		client3 = cc3;
+		client4 = cc4;
+		client5 = cc5;
+	}
+
+	msgsrv initial() {
+		// initialization already done in constructor
+	}
+
+	msgsrv register(Client ref) {
+		clientCount = clientCount + 1;
+		if (clientCount == 1) {
+			client1 = ref;
+		} else {
+			if (clientCount == 2) {
+				client2 = ref;
+			} else {
+				if (clientCount == 3) {
+					client3 = ref;
+				} else {
+					if (clientCount == 4) {
+						client4 = ref;
+					} else {
+						if (clientCount == 5) {
+							client5 = ref;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	msgsrv ping(Client senderRef) {
+		senderRef.pong();
+	}
+}
+
+main {
+	Client c1(h):();
+	Client c2(h):();
+	Client c3(h):();
+	Client c4(h):();
+	Client c5(h):();
+	Hub h(c1, c2, c3, c4, c5):();
+
+	h.register(c1);
+	h.register(c2);
+	h.register(c3);
+	h.register(c4);
+	h.register(c5);
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

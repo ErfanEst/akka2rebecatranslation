@@ -1,0 +1,35 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:108, column:1, extraneous input 'main' expecting {'}', '@', IDENTIFIER}
+line:109, column:7, extraneous input '.' expecting IDENTIFIER
+line:109, column:8, Unknown type ping1
+line:109, column:15, mismatched input ';' expecting ':'
+line:110, column:7, extraneous input '.' expecting IDENTIFIER
+line:110, column:8, Unknown type ping2
+line:110, column:15, mismatched input ';' expecting ':'
+line:111, column:7, extraneous input '.' expecting IDENTIFIER
+line:111, column:8, Unknown type ping3
+line:111, column:15, mismatched input ';' expecting ':'
+line:112, column:7, extraneous input '.' expecting IDENTIFIER
+line:112, column:8, Unknown type ping4
+line:112, column:15, mismatched input ';' expecting ':'
+line:113, column:7, extraneous input '.' expecting IDENTIFIER
+line:113, column:8, Unknown type ping5
+line:113, column:15, mismatched input ';' expecting ':'
+line:114, column:7, extraneous input '.' expecting IDENTIFIER
+line:114, column:8, Unknown type ping6
+line:114, column:15, mismatched input ';' expecting ':'
+line:115, column:7, extraneous input '.' expecting IDENTIFIER
+line:115, column:8, Unknown type ping7
+line:115, column:15, mismatched input ';' expecting ':'
+line:116, column:7, extraneous input '.' expecting IDENTIFIER
+line:116, column:8, Unknown type ping8
+line:116, column:15, mismatched input ';' expecting ':'
+line:117, column:7, extraneous input '.' expecting IDENTIFIER
+line:117, column:8, Unknown type ping9
+line:117, column:15, mismatched input ';' expecting ':'
+line:118, column:8, extraneous input '.' expecting IDENTIFIER
+line:118, column:9, Unknown type ping10
+line:118, column:16, mismatched input ';' expecting ':'
+

@@ -1,0 +1,27 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:16, column:25, mismatched input '{' expecting {'extends', 'implements', '('}
+line:39, column:18, mismatched input ';' expecting ':'
+line:41, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:41, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:42, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:42, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:43, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:43, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:44, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:44, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:45, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:45, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:46, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:46, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:47, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:47, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:48, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:48, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:49, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:49, column:12, The method PingActor(byte) is undefined for the type PingActor
+line:50, column:12, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:50, column:12, The method PingActor(byte) is undefined for the type PingActor
+

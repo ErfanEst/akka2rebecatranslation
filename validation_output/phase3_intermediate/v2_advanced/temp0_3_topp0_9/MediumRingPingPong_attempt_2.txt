@@ -1,0 +1,33 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:18, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:18, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:18, column:14, "next" undeclared
+line:18, column:18, missing ')' at ':'
+line:18, column:19, missing '(' at 'a2'
+line:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:19, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:19, column:14, "next" undeclared
+line:19, column:18, missing ')' at ':'
+line:19, column:19, missing '(' at 'a3'
+line:20, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:20, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:20, column:14, "next" undeclared
+line:20, column:18, missing ')' at ':'
+line:20, column:19, missing '(' at 'a4'
+line:21, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:21, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:21, column:14, "next" undeclared
+line:21, column:18, missing ')' at ':'
+line:21, column:19, missing '(' at 'a5'
+line:22, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:22, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:22, column:14, "next" undeclared
+line:22, column:18, missing ')' at ':'
+line:22, column:19, missing '(' at 'a1'
+line:24, column:3, extraneous input '.' expecting IDENTIFIER
+line:24, column:4, Unknown type a1
+line:24, column:10, mismatched input ';' expecting ':'
+

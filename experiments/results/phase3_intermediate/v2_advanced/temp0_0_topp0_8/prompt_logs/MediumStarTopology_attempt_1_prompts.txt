@@ -1,0 +1,150 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/v2_advanced/temp0_0_topp0_8
+File: MediumStarTopology
+Timestamp: 2025-12-25T14:41:11.693561
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+Translate the given Akka code into Rebeca that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Strict rules:
+1. Actors → Reactive Classes
+2. Message Handlers → Message Servers
+3. System Initialization → main block
+4. State and Variables
+5. Sender References
+6. Behavior Changes (context.become)
+7. Timing → after() or delay()
+8. Randomness / Nondeterminism → ?(...)
+9. Communication: asynchronous only
+10. Output format: reactiveclass definitions + main
+11. Timed Rebeca: timing constructs modeled correctly
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumStarTopology
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case class Register(ref: ActorRef)
+
+class Client(hub: ActorRef) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      hub ! Ping
+    case Pong =>
+      hub ! Ping
+  }
+}
+
+class Hub extends Actor {
+  var clients: List[ActorRef] = Nil
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients ::= ref
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object StarApp extends App {
+  val system = ActorSystem("StarSystem")
+  val hub = system.actorOf(Props[Hub], "hub")
+
+  (1 to 5).foreach { i =>
+    val c = system.actorOf(Props(new Client(hub)), s"c$i")
+    hub ! Register(c)
+    c ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedRebeca {
+
+	reactiveclass Client {
+		knownrebecs { Hub hub; }
+		statevars { }
+
+		msgsrv initial() {
+			// do nothing
+		}
+
+		msgsrv start() {
+			hub.Ping();
+		}
+
+		msgsrv Pong() {
+			hub.Ping();
+		}
+	}
+
+	reactiveclass Hub {
+		knownrebecs { }
+		statevars {
+			Client clients[5];
+			int clientCount;
+		}
+
+		msgsrv initial() {
+			clientCount = 0;
+		}
+
+		msgsrv Register(Client ref) {
+			if (clientCount < 5) {
+				clients[clientCount] = ref;
+				clientCount = clientCount + 1;
+			}
+		}
+
+		msgsrv Ping() {
+			// In Akka: sender() ! Pong
+			// Here we broadcast Pong to all registered clients
+			int i;
+			i = 0;
+			while (i < clientCount) {
+				clients[i].Pong();
+				i = i + 1;
+			}
+		}
+	}
+
+	main {
+		Hub hub();
+		Client c1(hub);
+		Client c2(hub);
+		Client c3(hub);
+		Client c4(hub);
+		Client c5(hub);
+
+		hub.Register(c1);
+		c1.start();
+
+		hub.Register(c2);
+		c2.start();
+
+		hub.Register(c3);
+		c3.start();
+
+		hub.Register(c4);
+		c4.start();
+
+		hub.Register(c5);
+		c5.start();
+	}
+}
+
+================================================================================

@@ -1,0 +1,70 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+
+	statevars {
+		int myId;
+	}
+
+	PingActor(PongActor p, int i) {
+		pong = p;
+		myId = i;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(myId);
+	}
+
+	msgsrv externalStart() {
+		pong.ping(myId);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+		// no known rebecs
+	}
+
+	statevars {
+		// no state variables
+	}
+
+	PongActor() {
+		// empty constructor
+	}
+
+	msgsrv ping(int pingId) {
+		self.pongForPing(pingId);
+	}
+
+	msgsrv pongForPing(int pingId) {
+		// reply to pingId (no direct sender reference in Rebeca)
+	}
+}
+
+main {
+	PongActor pong() : ();
+	PingActor ping1(pong, 1) : ();
+	PingActor ping2(pong, 2) : ();
+	PingActor ping3(pong, 3) : ();
+	PingActor ping4(pong, 4) : ();
+	PingActor ping5(pong, 5) : ();
+	PingActor ping6(pong, 6) : ();
+	PingActor ping7(pong, 7) : ();
+	PingActor ping8(pong, 8) : ();
+	PingActor ping9(pong, 9) : ();
+	PingActor ping10(pong, 10) : ();
+
+	ping1.externalStart();
+	ping2.externalStart();
+	ping3.externalStart();
+	ping4.externalStart();
+	ping5.externalStart();
+	ping6.externalStart();
+	ping7.externalStart();
+	ping8.externalStart();
+	ping9.externalStart();
+	ping10.externalStart();
+}

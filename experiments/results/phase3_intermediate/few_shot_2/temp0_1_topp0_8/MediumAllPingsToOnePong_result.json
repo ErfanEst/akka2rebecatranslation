@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv onString() {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\n\tstatevars { }\n\n\tPongActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv ping(int id) {\n\t\t// originally: sender() ! s\"pong-for-$msg\"\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping1(pong):(1);\n\tPingActor ping2(pong):(2);\n\tPingActor ping3(pong):(3);\n\tPingActor ping4(pong):(4);\n\tPingActor ping5(pong):(5);\n\tPingActor ping6(pong):(6);\n\tPingActor ping7(pong):(7);\n\tPingActor ping8(pong):(8);\n\tPingActor ping9(pong):(9);\n\tPingActor ping10(pong):(10);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv onString() {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\n\tstatevars { }\n\n\tPongActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv ping(int id) {\n\t\t// originally: sender() ! s\"pong-for-$msg\"\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping1(pong):(1);\n\tPingActor ping2(pong):(2);\n\tPingActor ping3(pong):(3);\n\tPingActor ping4(pong):(4);\n\tPingActor ping5(pong):(5);\n\tPingActor ping6(pong):(6);\n\tPingActor ping7(pong):(7);\n\tPingActor ping8(pong):(8);\n\tPingActor ping9(pong):(9);\n\tPingActor ping10(pong):(10);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:37:45.835284",
+      "code_length": 737
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 5.118589878082275,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_1_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:37:45.835329"
+}

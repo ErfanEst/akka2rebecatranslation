@@ -1,0 +1,69 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial() {
+		// default initial, will be called automatically
+	}
+
+	msgsrv initWithId(int _id) {
+		id = _id;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv handleString() {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping(int id) {
+		self.pongFor(id);
+	}
+
+	msgsrv pongFor(int id) {
+		// models sender() ! s"pong-for-$msg"
+	}
+}
+
+main {
+	PongActor pong():();
+
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+	PingActor ping10(pong):();
+
+	ping1.initWithId(1);
+	ping2.initWithId(2);
+	ping3.initWithId(3);
+	ping4.initWithId(4);
+	ping5.initWithId(5);
+	ping6.initWithId(6);
+	ping7.initWithId(7);
+	ping8.initWithId(8);
+	ping9.initWithId(9);
+	ping10.initWithId(10);
+}

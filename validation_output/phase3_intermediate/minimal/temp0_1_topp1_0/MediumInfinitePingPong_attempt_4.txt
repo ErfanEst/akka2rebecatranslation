@@ -1,0 +1,11 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pong' expecting INTLITERAL
+line:21, column:24, mismatched input 'ping' expecting INTLITERAL
+line:38, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:39, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)
+line:41, column:5, extraneous input '.' expecting IDENTIFIER
+line:41, column:6, Unknown type ping
+line:41, column:13, mismatched input ';' expecting ':'
+

@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:36, column:11, The PingActor knownrebecs type binding of (PongActor) is not applicable for the arguments (unknown)
+line:36, column:16, "PongActor" undeclared
+line:37, column:11, The PongActor knownrebecs type binding of (PingActor) is not applicable for the arguments (unknown)
+line:37, column:11, The method PongActor(PingActor) is undefined for the type PongActor
+line:37, column:16, "PingActor" undeclared
+line:39, column:5, extraneous input '.' expecting IDENTIFIER
+line:39, column:6, Unknown type ping
+line:39, column:13, mismatched input ';' expecting ':'
+

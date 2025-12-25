@@ -1,0 +1,67 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pongRef;
+	}
+	statevars {
+		int pong;
+		int myId;
+	}
+
+	msgsrv initial(int pongId, int id) {
+		pong = pongId;
+		myId = id;
+	}
+
+	msgsrv start() {
+		ping();
+	}
+
+	msgsrv ping() {
+		pongRef.pingFromPing(myId);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv pingFromPing(int pingId) {
+		pongForPing(pingId);
+	}
+
+	msgsrv pongForPing(int pingId) {
+		// models sending "pong-for-ping-<id>" back to sender
+		// no explicit sender reference in Rebeca, so this is a placeholder
+	}
+}
+
+main {
+	PongActor pong():();
+
+	PingActor ping1(pong):(1, 1);
+	PingActor ping2(pong):(1, 2);
+	PingActor ping3(pong):(1, 3);
+	PingActor ping4(pong):(1, 4);
+	PingActor ping5(pong):(1, 5);
+	PingActor ping6(pong):(1, 6);
+	PingActor ping7(pong):(1, 7);
+	PingActor ping8(pong):(1, 8);
+	PingActor ping9(pong):(1, 9);
+	PingActor ping10(pong):(1, 10);
+
+	ping1.start();
+	ping2.start();
+	ping3.start();
+	ping4.start();
+	ping5.start();
+	ping6.start();
+	ping7.start();
+	ping8.start();
+	ping9.start();
+	ping10.start();
+}

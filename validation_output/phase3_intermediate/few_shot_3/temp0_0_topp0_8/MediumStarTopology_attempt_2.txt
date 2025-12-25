@@ -1,0 +1,9 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:24, column:27, A constant variable cannot be in the left-hand side of an assignment
+line:25, column:32, A constant variable cannot be in the left-hand side of an assignment
+line:26, column:32, A constant variable cannot be in the left-hand side of an assignment
+line:27, column:32, A constant variable cannot be in the left-hand side of an assignment
+line:28, column:32, A constant variable cannot be in the left-hand side of an assignment
+

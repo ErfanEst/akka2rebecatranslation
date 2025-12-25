@@ -1,0 +1,193 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_1/temp0_1_topp0_8
+File: MediumStarTopology
+Timestamp: 2025-12-25T15:14:00.998484
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate the given Akka program into equivalent Rebeca code that preserves:
+- Actor structure
+- Message flow
+- Concurrency semantics
+
+Rebeca code should compile under RMC/Afra and start automatically.
+
+Strict rules:
+
+1. Actors → Reactive Classes
+Each class extending Actor becomes a reactiveclass.
+Constructor parameters → knownrebecs or statevars.
+
+2. Messages → Message Servers
+Each receive case becomes a msgsrv.
+actorRef ! msg → target.msgName(params);
+
+3. System Initialization
+ActorSystem & Props → main block in Rebeca with reactive class instantiation and links.
+
+4. State & Variables
+Actor member variables → statevars.
+Immutable vals → environment constants.
+
+5. Sender References
+sender() ! msg → knownrebec or parameter modeling.
+
+6. Behavior Changes
+context.become → boolean flags / statevars or conditional message handling.
+
+7. Timing
+Akka scheduleOnce, sleep, delay → Timed Rebeca using after(time) or delay().
+
+8. Randomness / Nondeterminism
+Random choices → ?(val1, val2, ..., valn).
+
+9. Communication
+Asynchronous messages only.
+
+10. Output
+Complete Rebeca model:
+- reactiveclass definitions
+- main block with bindings
+- proper indentation
+
+Example:
+
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean receivedBit; boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { 
+    sendBit = false; medium.pass(sendBit); self.sendMsg(); 
+  } 
+  msgsrv sendMsg() { 
+    if(hasSucceeded) { sendBit = !sendBit; } 
+    medium.pass(sendBit); self.sendMsg(); 
+  } 
+} 
+
+reactiveclass Receiver(5) { 
+  knownrebecs { Medium medium; Sender sender; } 
+  statevars { boolean messageBit; } 
+  msgsrv initial() {} 
+  msgsrv receiveMsg(boolean msgBit) { messageBit = msgBit; } 
+} 
+
+reactiveclass Medium(5) { 
+  knownrebecs { Receiver receiver; Sender sender; } 
+  statevars { boolean passMessage; } 
+  msgsrv initial() { passMessage = true; } 
+  msgsrv pass(boolean msgBit) { 
+    passMessage = ?(true,false); 
+    if(passMessage) receiver.receiveMsg(msgBit); 
+  } 
+} 
+
+main { 
+  Sender sender(medium, receiver):(); 
+  Medium medium(receiver, sender):(); 
+  Receiver receiver(medium, sender):(); 
+}
+
+Translate the following Akka code to Rebeca following this pattern. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumStarTopology
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case class Register(ref: ActorRef)
+
+class Client(hub: ActorRef) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      hub ! Ping
+    case Pong =>
+      hub ! Ping
+  }
+}
+
+class Hub extends Actor {
+  var clients: List[ActorRef] = Nil
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients ::= ref
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object StarApp extends App {
+  val system = ActorSystem("StarSystem")
+  val hub = system.actorOf(Props[Hub], "hub")
+
+  (1 to 5).foreach { i =>
+    val c = system.actorOf(Props(new Client(hub)), s"c$i")
+    hub ! Register(c)
+    c ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Register(Client ref) {
+		// clients list is implicit via knownrebecs; no action needed
+	}
+
+	msgsrv Ping() {
+		// In Akka, sender() gets Pong; here we approximate by broadcasting
+		c1.Pong();
+		c2.Pong();
+		c3.Pong();
+		c4.Pong();
+		c5.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	// simulate "start" messages sent after registration
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}
+
+================================================================================

@@ -1,0 +1,48 @@
+reactiveclass PingActor {
+	knownrebecs { PongActor pong; }
+	statevars { byte id; }
+
+	PingActor(byte _id, PongActor _pong) {
+		id = _id;
+		pong = _pong;
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv pongResponse(byte pongId, byte pingId) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs { }
+
+	PongActor() {
+	}
+
+	msgsrv ping(byte pingId) {
+		self.pongForPing(pingId);
+	}
+
+	msgsrv pongForPing(byte pingId) {
+		// response modeled via knownrebecs in PingActor
+	}
+}
+
+main {
+	PongActor pong();
+
+	PingActor ping1(1, pong);
+	PingActor ping2(2, pong);
+	PingActor ping3(3, pong);
+	PingActor ping4(4, pong);
+	PingActor ping5(5, pong);
+	PingActor ping6(6, pong);
+	PingActor ping7(7, pong);
+	PingActor ping8(8, pong);
+	PingActor ping9(9, pong);
+	PingActor ping10(10, pong);
+}

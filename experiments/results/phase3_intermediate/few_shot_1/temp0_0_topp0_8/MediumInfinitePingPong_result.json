@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "total_attempts": 5,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPongActor pong(ping):();\n\tPingActor ping(pong):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:32, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)\nline:33, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)",
+      "timestamp": "2025-12-25T15:08:05.154900",
+      "code_length": 390
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:32, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)\nline:33, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)",
+      "timestamp": "2025-12-25T15:08:08.678885",
+      "code_length": 390
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)",
+      "timestamp": "2025-12-25T15:08:11.674744",
+      "code_length": 386
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass PingActor {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:18, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:33, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)",
+      "timestamp": "2025-12-25T15:08:15.536654",
+      "code_length": 386
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\tmsgsrv start() {\n\t\tpong.ping();\n\t}\n\tmsgsrv pong() {\n\t\tpong.ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs {\n\t\tPingActor ping;\n\t}\n\tstatevars {\n\t}\n\tmsgsrv initial() {\n\t}\n\tmsgsrv ping() {\n\t\tping.pong();\n\t}\n}\n\nmain {\n\tPongActor pong(ping):();\n\tPingActor ping(pong):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:08:19.646631",
+      "code_length": 396
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 17.8032009601593,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_1/temp0_0_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:08:19.646675"
+}

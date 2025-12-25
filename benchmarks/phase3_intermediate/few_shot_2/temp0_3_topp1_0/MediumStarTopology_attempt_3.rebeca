@@ -1,0 +1,65 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	Client() {
+	}
+
+	msgsrv initial() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(10) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	Hub() {
+	}
+
+	msgsrv initial() {
+		self.register1();
+		self.register2();
+		self.register3();
+		self.register4();
+		self.register5();
+
+		c1.initial();
+		c2.initial();
+		c3.initial();
+		c4.initial();
+		c5.initial();
+	}
+
+	msgsrv register1() {
+	}
+
+	msgsrv register2() {
+	}
+
+	msgsrv register3() {
+	}
+
+	msgsrv register4() {
+	}
+
+	msgsrv register5() {
+	}
+
+	msgsrv ping() {
+		sender.pong();
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+}

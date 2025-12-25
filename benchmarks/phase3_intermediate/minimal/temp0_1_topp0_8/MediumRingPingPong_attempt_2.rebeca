@@ -1,0 +1,27 @@
+reactiveclass RingActor {
+	knownrebecs {
+		RingActor next;
+	}
+
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping() {
+		next.ping();
+	}
+}
+
+main {
+	// known rebecs binding list must match constructor parameter list (here: one RingActor per instance)
+	RingActor a1(a2);
+	RingActor a2(a3);
+	RingActor a3(a4);
+	RingActor a4(a5);
+	RingActor a5(a1);
+
+	// initial message sending block
+	a1.ping();
+}

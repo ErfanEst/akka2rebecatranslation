@@ -1,0 +1,58 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+
+	statevars {
+		int id;
+	}
+
+	PingActor(PongActor pongRef, int pingId) {
+		pong = pongRef;
+		id = pingId;
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv msg(int m) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+
+	statevars {
+	}
+
+	PongActor() {
+	}
+
+	msgsrv ping(int pingId) {
+		self.pongForPing(pingId);
+	}
+
+	msgsrv pongForPing(int pingId) {
+		// In Akka: sender() ! s"pong-for-$msg"
+		// The original sender is not tracked in this simple Rebeca model.
+	}
+}
+
+main {
+	PongActor pong() : ();
+	PingActor p1(pong, 1) : ();
+	PingActor p2(pong, 2) : ();
+	PingActor p3(pong, 3) : ();
+	PingActor p4(pong, 4) : ();
+	PingActor p5(pong, 5) : ();
+	PingActor p6(pong, 6) : ();
+	PingActor p7(pong, 7) : ();
+	PingActor p8(pong, 8) : ();
+	PingActor p9(pong, 9) : ();
+	PingActor p10(pong, 10) : ();
+
+	// initial messages are specified as part of rebec instantiation above
+}

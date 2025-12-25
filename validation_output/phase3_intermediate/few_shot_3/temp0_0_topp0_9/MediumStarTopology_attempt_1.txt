@@ -1,0 +1,5 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:35, column:11, There is no meta data for type ReactiveClass
+

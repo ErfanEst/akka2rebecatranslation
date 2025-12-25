@@ -1,0 +1,87 @@
+reactiveclass Worker {
+    knownrebecs {
+        Coordinator coord;
+    }
+
+    statevars {
+        int id;
+    }
+
+    Worker(int i) {
+        id = i;
+        self.start();
+    }
+
+    msgsrv start() {
+        coord.workerReady(id);
+    }
+
+    msgsrv doWork(int jobId, int workUnits) {
+        int i;
+        i = 0;
+        while (i < workUnits) {
+            i = i + 1;
+        }
+        coord.workDone(id, jobId);
+    }
+}
+
+reactiveclass Coordinator {
+    knownrebecs {
+        Worker w1;
+        Worker w2;
+    }
+
+    statevars {
+        int pendingJobs;
+        int nextJobId;
+        int turn;  // 0 -> w1, 1 -> w2
+    }
+
+    Coordinator() {
+        pendingJobs = 0;
+        nextJobId = 0;
+        turn = 0;
+        self.start();
+    }
+
+    msgsrv start() {
+        self.submitJob(5);
+        self.submitJob(3);
+        self.submitJob(4);
+    }
+
+    msgsrv submitJob(int workUnits) {
+        int jobId;
+        jobId = nextJobId;
+        nextJobId = nextJobId + 1;
+        pendingJobs = pendingJobs + 1;
+
+        if (turn == 0) {
+            w1.doWork(jobId, workUnits) after(1);
+            turn = 1;
+        } else {
+            w2.doWork(jobId, workUnits) after(1);
+            turn = 0;
+        }
+    }
+
+    msgsrv workerReady(int workerId) {
+        // no-op in this abstraction
+        pendingJobs = pendingJobs;
+    }
+
+    msgsrv workDone(int workerId, int jobId) {
+        if (pendingJobs > 0) {
+            pendingJobs = pendingJobs - 1;
+        }
+    }
+}
+
+main {
+    Worker w1(coord): (1);
+    Worker w2(coord): (2);
+    Coordinator coord(w1, w2): ();
+}
+
+}

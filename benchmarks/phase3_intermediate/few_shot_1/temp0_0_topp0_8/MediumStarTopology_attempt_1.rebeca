@@ -1,0 +1,61 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv register1() { }
+	msgsrv register2() { }
+	msgsrv register3() { }
+	msgsrv register4() { }
+	msgsrv register5() { }
+
+	msgsrv ping() {
+		// In Akka: sender() ! Pong
+		// Here modeled by nondeterministic choice among registered clients
+		int who;
+		who = ?(1,2,3,4,5);
+		if (who == 1) { c1.pong(); }
+		if (who == 2) { c2.pong(); }
+		if (who == 3) { c3.pong(); }
+		if (who == 4) { c4.pong(); }
+		if (who == 5) { c5.pong(); }
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	// StarApp behavior
+	hub.register1();
+	hub.register2();
+	hub.register3();
+	hub.register4();
+	hub.register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

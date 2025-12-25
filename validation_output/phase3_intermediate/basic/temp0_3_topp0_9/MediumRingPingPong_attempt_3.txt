@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:22, column:6, extraneous input '{' expecting IDENTIFIER
+line:23, column:2, Unknown type Wire
+line:23, column:12, extraneous input 'a1' expecting '('
+line:23, column:16, mismatched input ';' expecting ':'
+line:24, column:16, mismatched input ';' expecting ':'
+line:25, column:16, mismatched input ';' expecting ':'
+line:26, column:16, mismatched input ';' expecting ':'
+line:27, column:16, mismatched input ';' expecting ':'
+

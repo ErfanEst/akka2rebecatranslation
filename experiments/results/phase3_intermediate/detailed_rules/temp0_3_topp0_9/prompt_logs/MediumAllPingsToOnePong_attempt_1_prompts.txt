@@ -1,0 +1,123 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/detailed_rules/temp0_3_topp0_9
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T13:45:06.986965
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+
+KEY TRANSLATION RULES:
+1. Akka Actor → Rebeca reactiveclass
+2. Actor messages → msgsrv methods
+3. Actor state → statevars section
+4. Actor references → knownrebecs section
+5. Message send (!) → method call
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumAllPingsToOnePong
+
+import akka.actor._
+
+class PingActor(pong: ActorRef, id: Int) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      pong ! s"ping-$id"
+
+    case msg: String =>
+      pong ! s"ping-$id"
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case msg: String =>
+      sender() ! s"pong-for-$msg"
+  }
+}
+
+object AllPingsToOnePongApp extends App {
+  val system = ActorSystem("AllToOneSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+
+  (1 to 10).foreach { i =>
+    val ping = system.actorOf(Props(new PingActor(pong, i)), s"ping$i")
+    ping ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor {
+    knownrebecs { 
+        PongActor pong;
+    }
+    statevars {
+        int id;
+    }
+
+    PingActor(PongActor pongRef, int identifier) {
+        pong = pongRef;
+        id = identifier;
+    }
+
+    msgsrv start() {
+        pong.ping(id);
+    }
+
+    msgsrv msg(String m) {
+        pong.ping(id);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs { }
+
+    PongActor() { }
+
+    msgsrv ping(int id) {
+        self.pongFor(id);
+    }
+
+    msgsrv pongFor(int id) {
+        // response handling (no sender reference in Rebeca)
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping1(pong, 1);
+    PingActor ping2(pong, 2);
+    PingActor ping3(pong, 3);
+    PingActor ping4(pong, 4);
+    PingActor ping5(pong, 5);
+    PingActor ping6(pong, 6);
+    PingActor ping7(pong, 7);
+    PingActor ping8(pong, 8);
+    PingActor ping9(pong, 9);
+    PingActor ping10(pong, 10);
+
+    {
+        ping1.start();
+        ping2.start();
+        ping3.start();
+        ping4.start();
+        ping5.start();
+        ping6.start();
+        ping7.start();
+        ping8.start();
+        ping9.start();
+        ping10.start();
+    }
+}
+
+================================================================================

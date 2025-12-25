@@ -1,0 +1,44 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:51, column:6, The method pong() is undefined for the type PingActor
+line:53, column:6, The method pong() is undefined for the type PingActor
+line:55, column:6, The method pong() is undefined for the type PingActor
+line:57, column:6, The method pong() is undefined for the type PingActor
+line:59, column:6, The method pong() is undefined for the type PingActor
+line:61, column:6, The method pong() is undefined for the type PingActor
+line:63, column:6, The method pong() is undefined for the type PingActor
+line:65, column:6, The method pong() is undefined for the type PingActor
+line:67, column:6, The method pong() is undefined for the type PingActor
+line:69, column:7, The method pong() is undefined for the type PingActor
+line:102, column:6, extraneous input '.' expecting IDENTIFIER
+line:102, column:7, Unknown type ping1
+line:102, column:14, mismatched input ';' expecting ':'
+line:103, column:6, extraneous input '.' expecting IDENTIFIER
+line:103, column:7, Unknown type ping2
+line:103, column:14, mismatched input ';' expecting ':'
+line:104, column:6, extraneous input '.' expecting IDENTIFIER
+line:104, column:7, Unknown type ping3
+line:104, column:14, mismatched input ';' expecting ':'
+line:105, column:6, extraneous input '.' expecting IDENTIFIER
+line:105, column:7, Unknown type ping4
+line:105, column:14, mismatched input ';' expecting ':'
+line:106, column:6, extraneous input '.' expecting IDENTIFIER
+line:106, column:7, Unknown type ping5
+line:106, column:14, mismatched input ';' expecting ':'
+line:107, column:6, extraneous input '.' expecting IDENTIFIER
+line:107, column:7, Unknown type ping6
+line:107, column:14, mismatched input ';' expecting ':'
+line:108, column:6, extraneous input '.' expecting IDENTIFIER
+line:108, column:7, Unknown type ping7
+line:108, column:14, mismatched input ';' expecting ':'
+line:109, column:6, extraneous input '.' expecting IDENTIFIER
+line:109, column:7, Unknown type ping8
+line:109, column:14, mismatched input ';' expecting ':'
+line:110, column:6, extraneous input '.' expecting IDENTIFIER
+line:110, column:7, Unknown type ping9
+line:110, column:14, mismatched input ';' expecting ':'
+line:111, column:7, extraneous input '.' expecting IDENTIFIER
+line:111, column:8, Unknown type ping10
+line:111, column:15, mismatched input ';' expecting ':'
+

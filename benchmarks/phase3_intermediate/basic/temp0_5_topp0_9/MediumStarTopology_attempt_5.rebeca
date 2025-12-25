@@ -1,0 +1,81 @@
+reactiveclass Client(hubType) {
+	knownrebecs {
+		hubType hub;
+	}
+	msgsrv initial() {
+		start();
+	}
+	msgsrv start() {
+		hub.Ping();
+	}
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(c1Type, c2Type, c3Type, c4Type, c5Type) {
+	knownrebecs {
+		c1Type c1;
+		c2Type c2;
+		c3Type c3;
+		c4Type c4;
+		c5Type c5;
+	}
+	statevars {
+		boolean registered1;
+		boolean registered2;
+		boolean registered3;
+		boolean registered4;
+		boolean registered5;
+	}
+	msgsrv initial() {
+		registered1 = false;
+		registered2 = false;
+		registered3 = false;
+		registered4 = false;
+		registered5 = false;
+	}
+	msgsrv Register(c1Type ref1, c2Type ref2, c3Type ref3, c4Type ref4, c5Type ref5) {
+		if (ref1 == c1) {
+			registered1 = true;
+		}
+		if (ref2 == c2) {
+			registered2 = true;
+		}
+		if (ref3 == c3) {
+			registered3 = true;
+		}
+		if (ref4 == c4) {
+			registered4 = true;
+		}
+		if (ref5 == c5) {
+			registered5 = true;
+		}
+	}
+	msgsrv Ping() {
+		self.Pong(sender);
+	}
+	msgsrv Pong(c1Type ref1) {
+		ref1.Pong();
+	}
+}
+
+main {
+	Hub(hubClient1, hubClient2, hubClient3, hubClient4, hubClient5) h(c1, c2, c3, c4, c5):();
+	Client(hubType) c1(h):();
+	Client(hubType) c2(h):();
+	Client(hubType) c3(h):();
+	Client(hubType) c4(h):();
+	Client(hubType) c5(h):();
+
+	h.Register(c1, null, null, null, null);
+	c1.start();
+	h.Register(null, c2, null, null, null);
+	c2.start();
+	h.Register(null, null, c3, null, null);
+	c3.start();
+	h.Register(null, null, null, c4, null);
+	c4.start();
+	h.Register(null, null, null, null, c5);
+	c5.start();
+}

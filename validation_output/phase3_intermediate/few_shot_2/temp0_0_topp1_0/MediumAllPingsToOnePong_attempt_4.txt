@@ -1,0 +1,46 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:10, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:44, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:45, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:46, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:47, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:48, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:49, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:50, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:51, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:52, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:53, column:4, A constant variable cannot be in the left-hand side of an assignment
+line:96, column:12, The method PongActor() is undefined for the type PongActor
+line:98, column:4, extraneous input '.' expecting IDENTIFIER
+line:98, column:5, Unknown type p1
+line:98, column:12, mismatched input ';' expecting ':'
+line:99, column:4, extraneous input '.' expecting IDENTIFIER
+line:99, column:5, Unknown type p2
+line:99, column:12, mismatched input ';' expecting ':'
+line:100, column:4, extraneous input '.' expecting IDENTIFIER
+line:100, column:5, Unknown type p3
+line:100, column:12, mismatched input ';' expecting ':'
+line:101, column:4, extraneous input '.' expecting IDENTIFIER
+line:101, column:5, Unknown type p4
+line:101, column:12, mismatched input ';' expecting ':'
+line:102, column:4, extraneous input '.' expecting IDENTIFIER
+line:102, column:5, Unknown type p5
+line:102, column:12, mismatched input ';' expecting ':'
+line:103, column:4, extraneous input '.' expecting IDENTIFIER
+line:103, column:5, Unknown type p6
+line:103, column:12, mismatched input ';' expecting ':'
+line:104, column:4, extraneous input '.' expecting IDENTIFIER
+line:104, column:5, Unknown type p7
+line:104, column:12, mismatched input ';' expecting ':'
+line:105, column:4, extraneous input '.' expecting IDENTIFIER
+line:105, column:5, Unknown type p8
+line:105, column:12, mismatched input ';' expecting ':'
+line:106, column:4, extraneous input '.' expecting IDENTIFIER
+line:106, column:5, Unknown type p9
+line:106, column:12, mismatched input ';' expecting ':'
+line:107, column:5, extraneous input '.' expecting IDENTIFIER
+line:107, column:6, Unknown type p10
+line:107, column:13, mismatched input ';' expecting ':'
+

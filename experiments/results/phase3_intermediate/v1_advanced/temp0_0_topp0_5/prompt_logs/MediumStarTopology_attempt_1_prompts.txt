@@ -1,0 +1,134 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/v1_advanced/temp0_0_topp0_5
+File: MediumStarTopology
+Timestamp: 2025-12-25T14:09:57.319824
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate this given Akka program into fully valid Rebeca code that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Follow these rules:
+1) Actor → Reactiveclass mapping
+2) Message mapping & sender usage
+3) Timed constructs (after, delay)
+4) No return in msgsrv
+5) Initialization / main block rules
+6) Circular dependencies handled statically
+7) Randomness → nondeterministic expressions
+8) Remove println / I/O
+9) Correct timed Rebeca validation
+10) Final checks (no return, correct sender, main bindings)
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumStarTopology
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case class Register(ref: ActorRef)
+
+class Client(hub: ActorRef) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      hub ! Ping
+    case Pong =>
+      hub ! Ping
+  }
+}
+
+class Hub extends Actor {
+  var clients: List[ActorRef] = Nil
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients ::= ref
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object StarApp extends App {
+  val system = ActorSystem("StarSystem")
+  val hub = system.actorOf(Props[Hub], "hub")
+
+  (1 to 5).foreach { i =>
+    val c = system.actorOf(Props(new Client(hub)), s"c$i")
+    hub ! Register(c)
+    c ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+timedRebeca {
+
+	reactiveclass Client {
+		knownrebecs { Hub hub; }
+		statevars { }
+
+		msgsrv start() {
+			hub.Ping();
+		}
+
+		msgsrv Pong() {
+			hub.Ping();
+		}
+	}
+
+	reactiveclass Hub {
+		knownrebecs { }
+		statevars {
+			Client c1;
+			Client c2;
+			Client c3;
+			Client c4;
+			Client c5;
+		}
+
+		msgsrv initial() {
+			self.Register(c1);
+			self.Register(c2);
+			self.Register(c3);
+			self.Register(c4);
+			self.Register(c5);
+
+			c1.start();
+			c2.start();
+			c3.start();
+			c4.start();
+			c5.start();
+		}
+
+		msgsrv Register(Client ref) {
+			/* registration logic omitted; list not modeled explicitly */
+		}
+
+		msgsrv Ping() {
+			sender.Pong();
+		}
+	}
+
+	main {
+		Hub hub(c1, c2, c3, c4, c5);
+		Client c1(hub);
+		Client c2(hub);
+		Client c3(hub);
+		Client c4(hub);
+		Client c5(hub);
+	}
+}
+
+================================================================================

@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv onString() {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\n\tstatevars { }\n\n\tPongActor() {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping(int id) {\n\t\t// In Rebeca there is no sender meta-variable; direct callback removed\n\t}\n\n\tmsgsrv pong(int id) {\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping1(pong):(1);\n\tPingActor ping2(pong):(2);\n\tPingActor ping3(pong):(3);\n\tPingActor ping4(pong):(4);\n\tPingActor ping5(pong):(5);\n\tPingActor ping6(pong):(6);\n\tPingActor ping7(pong):(7);\n\tPingActor ping8(pong):(8);\n\tPingActor ping9(pong):(9);\n\tPingActor ping10(pong):(10);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv onString() {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\n\tstatevars { }\n\n\tPongActor() {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping(int id) {\n\t\tsender.pong(id);\n\t}\n\n\tmsgsrv pong(int id) {\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping1(pong):(1);\n\tPingActor ping2(pong):(2);\n\tPingActor ping3(pong):(3);\n\tPingActor ping4(pong):(4);\n\tPingActor ping5(pong):(5);\n\tPingActor ping6(pong):(6);\n\tPingActor ping7(pong):(7);\n\tPingActor ping8(pong):(8);\n\tPingActor ping9(pong):(9);\n\tPingActor ping10(pong):(10);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:34, column:9, There is no meta data for type ReactiveClass",
+      "timestamp": "2025-12-25T15:48:19.924003",
+      "code_length": 740
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv onString() {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\n\tstatevars { }\n\n\tPongActor() {\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv ping(int id) {\n\t\t// In Rebeca there is no sender meta-variable; direct callback removed\n\t}\n\n\tmsgsrv pong(int id) {\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping1(pong):(1);\n\tPingActor ping2(pong):(2);\n\tPingActor ping3(pong):(3);\n\tPingActor ping4(pong):(4);\n\tPingActor ping5(pong):(5);\n\tPingActor ping6(pong):(6);\n\tPingActor ping7(pong):(7);\n\tPingActor ping8(pong):(8);\n\tPingActor ping9(pong):(9);\n\tPingActor ping10(pong):(10);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:48:24.605647",
+      "code_length": 794
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 10.091448783874512,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_5_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:48:24.605759"
+}

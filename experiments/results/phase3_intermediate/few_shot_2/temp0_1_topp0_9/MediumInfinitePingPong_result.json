@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tPingActor(PongActor pong) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tPongActor(PingActor ping) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tping.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.Start();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tsender.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:23, column:9, There is no meta data for type ReactiveClass\nline:31, column:5, extraneous input '.' expecting IDENTIFIER\nline:31, column:6, Unknown type ping\nline:31, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:39:11.424662",
+      "code_length": 373
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tping.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:28, column:11, The PongActor knownrebecs type binding of (PingActor) is not applicable for the arguments ()\nline:31, column:5, extraneous input '.' expecting IDENTIFIER\nline:31, column:6, Unknown type ping\nline:31, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:39:15.034900",
+      "code_length": 387
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tPingActor(PongActor pong) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tPongActor(PingActor ping) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tping.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:36, column:11, The method PingActor() is undefined for the type PingActor\nline:37, column:11, The method PongActor() is undefined for the type PongActor\nline:39, column:5, extraneous input '.' expecting IDENTIFIER\nline:39, column:6, Unknown type ping\nline:39, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:39:19.324096",
+      "code_length": 493
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tPingActor(PongActor pong) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tPongActor(PingActor ping) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tping.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:36, column:11, The PongActor knownrebecs type binding of (PingActor) is not applicable for the arguments ()\nline:36, column:11, The method PongActor() is undefined for the type PongActor\nline:37, column:11, The method PingActor() is undefined for the type PingActor\nline:39, column:5, extraneous input '.' expecting IDENTIFIER\nline:39, column:6, Unknown type ping\nline:39, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:39:23.372642",
+      "code_length": 489
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { }\n\n\tPingActor(PongActor pong) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Start() {\n\t\tpong.Ping();\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping();\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping; }\n\tstatevars { }\n\n\tPongActor(PingActor ping) {\n\t\tself.initial();\n\t}\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tping.Pong();\n\t}\n}\n\nmain {\n\tPingActor ping(pong):();\n\tPongActor pong(ping):();\n\n\tping.Start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:36, column:11, The method PingActor() is undefined for the type PingActor\nline:37, column:11, The method PongActor() is undefined for the type PongActor\nline:39, column:5, extraneous input '.' expecting IDENTIFIER\nline:39, column:6, Unknown type ping\nline:39, column:13, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:39:27.118246",
+      "code_length": 493
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 19.568808555603027,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_1_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:39:27.118308"
+}

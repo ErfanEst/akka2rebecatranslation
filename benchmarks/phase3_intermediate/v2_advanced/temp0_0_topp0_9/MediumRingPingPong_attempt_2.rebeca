@@ -1,0 +1,33 @@
+timedreactiveclass RingActor {
+	statevars {
+		RingActor next;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv SetNext(RingActor ref) {
+		next = ref;
+	}
+
+	msgsrv Ping() {
+		next.Ping() after(0);
+	}
+}
+
+main {
+	RingActor a1() : ();
+	RingActor a2() : ();
+	RingActor a3() : ();
+	RingActor a4() : ();
+	RingActor a5() : ();
+
+	a1.SetNext(a2) after(0);
+	a2.SetNext(a3) after(0);
+	a3.SetNext(a4) after(0);
+	a4.SetNext(a5) after(0);
+	a5.SetNext(a1) after(0);
+
+	a1.Ping() after(0);
+}

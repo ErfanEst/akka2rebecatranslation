@@ -1,0 +1,28 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:34, column:3, extraneous input '.' expecting IDENTIFIER
+line:34, column:4, Unknown type a1
+line:34, column:11, extraneous input ':' expecting '('
+line:34, column:14, mismatched input ';' expecting ':'
+line:35, column:3, extraneous input '.' expecting IDENTIFIER
+line:35, column:4, Unknown type a2
+line:35, column:11, extraneous input ':' expecting '('
+line:35, column:14, mismatched input ';' expecting ':'
+line:36, column:3, extraneous input '.' expecting IDENTIFIER
+line:36, column:4, Unknown type a3
+line:36, column:11, extraneous input ':' expecting '('
+line:36, column:14, mismatched input ';' expecting ':'
+line:37, column:3, extraneous input '.' expecting IDENTIFIER
+line:37, column:4, Unknown type a4
+line:37, column:11, extraneous input ':' expecting '('
+line:37, column:14, mismatched input ';' expecting ':'
+line:38, column:3, extraneous input '.' expecting IDENTIFIER
+line:38, column:4, Unknown type a5
+line:38, column:11, extraneous input ':' expecting '('
+line:38, column:14, mismatched input ';' expecting ':'
+line:40, column:3, extraneous input '.' expecting IDENTIFIER
+line:40, column:4, Unknown type a1
+line:40, column:8, extraneous input ':' expecting '('
+line:40, column:11, mismatched input ';' expecting ':'
+

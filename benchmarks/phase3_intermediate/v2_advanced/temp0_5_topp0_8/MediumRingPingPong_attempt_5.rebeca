@@ -1,0 +1,48 @@
+timed reactiveclass ActorA {
+    knownrebecs {
+        ActorB b;
+    }
+    statevars {
+        int counter;
+    }
+
+    ActorA() {
+        counter = 0;
+        self.start();
+    }
+
+    msgsrv start() {
+        // initial behavior, e.g., send a message to B
+        b.process(counter) after(1);
+    }
+
+    msgsrv reply(int value) {
+        counter = value;
+        // continue behavior or terminate
+    }
+}
+
+timed reactiveclass ActorB {
+    knownrebecs {
+        ActorA a;
+    }
+    statevars {
+        int internal;
+    }
+
+    ActorB() {
+        internal = 0;
+    }
+
+    msgsrv process(int v) {
+        internal = v + 1;
+        a.reply(internal) after(1);
+    }
+}
+
+timed main {
+    ActorA a(1);
+    ActorB b(a);
+
+    a(b);
+}

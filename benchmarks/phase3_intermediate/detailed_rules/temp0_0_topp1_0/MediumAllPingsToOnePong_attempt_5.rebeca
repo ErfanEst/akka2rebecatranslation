@@ -1,0 +1,66 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pongRef;
+	}
+	statevars {
+		byte id;
+	}
+
+	PingActor(PongActor pongRef) {
+		self.pongRef = pongRef;
+	}
+
+	msgsrv start(byte _id) {
+		id = _id;
+		pongRef.ping(id);
+	}
+
+	msgsrv anyString() {
+		pongRef.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	PongActor() {
+	}
+
+	msgsrv ping(byte pingId) {
+		self.reply(pingId);
+	}
+
+	msgsrv reply(byte pingId) {
+		// corresponds to: sender() ! s"pong-for-$msg"
+		// there is no dynamic sender() in Rebeca, so this is left as a placeholder
+	}
+}
+
+main {
+	PongActor pong():();
+
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+	PingActor ping10(pong):();
+
+	ping1.start(1);
+	ping2.start(2);
+	ping3.start(3);
+	ping4.start(4);
+	ping5.start(5);
+	ping6.start(6);
+	ping7.start(7);
+	ping8.start(8);
+	ping9.start(9);
+	ping10.start(10);
+}

@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass RingActor(1) {\n\tstatevars {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tnext = ref;\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1();\n\tRingActor a2();\n\tRingActor a3();\n\tRingActor a4();\n\tRingActor a5();\n\n\ta1.SetNext(a2);\n\ta2.SetNext(a3);\n\ta3.SetNext(a4);\n\ta4.SetNext(a5);\n\ta5.SetNext(a1);\n\n\ta1.Ping();\n}\n\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:19, column:15, mismatched input ';' expecting ':'\nline:20, column:15, mismatched input ';' expecting ':'\nline:21, column:15, mismatched input ';' expecting ':'\nline:22, column:15, mismatched input ';' expecting ':'\nline:23, column:15, mismatched input ';' expecting ':'\nline:25, column:3, extraneous input '.' expecting IDENTIFIER\nline:25, column:4, Unknown type a1\nline:25, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:26, column:3, extraneous input '.' expecting IDENTIFIER\nline:26, column:4, Unknown type a2\nline:26, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:27, column:3, extraneous input '.' expecting IDENTIFIER\nline:27, column:4, Unknown type a3\nline:27, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:28, column:3, extraneous input '.' expecting IDENTIFIER\nline:28, column:4, Unknown type a4\nline:28, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:29, column:3, extraneous input '.' expecting IDENTIFIER\nline:29, column:4, Unknown type a5\nline:29, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:31, column:3, extraneous input '.' expecting IDENTIFIER\nline:31, column:4, Unknown type a1\nline:31, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:04:07.342858",
+      "code_length": 372
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass RingActor(1) {\n\tstatevars {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tnext = ref;\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:20, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:21, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:22, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:23, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:25, column:3, extraneous input '.' expecting IDENTIFIER\nline:25, column:4, Unknown type a1\nline:25, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:04:11.204931",
+      "code_length": 308
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:15, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:16, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:17, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:18, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1\nline:21, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:04:14.314495",
+      "code_length": 256
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass RingActor (RingActor next) {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:25, mismatched input 'RingActor' expecting INTLITERAL\nline:15, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:16, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:17, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:18, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1\nline:21, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:04:17.144473",
+      "code_length": 273
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:15, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:16, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:17, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:18, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1\nline:21, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:04:20.098308",
+      "code_length": 256
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 16.65056586265564,
+  "config": {
+    "experiment_name": "phase3_intermediate/v2_advanced/temp0_5_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:04:20.098386"
+}

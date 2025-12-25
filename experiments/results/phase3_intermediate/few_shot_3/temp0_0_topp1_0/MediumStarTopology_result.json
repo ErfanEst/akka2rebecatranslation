@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Client(3) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() { }\n\n  msgsrv initial() {\n    // no-op\n  }\n\n  msgsrv start() {\n    hub.Ping(self);\n  }\n\n  msgsrv Pong() {\n    hub.Ping(self);\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int registeredCount; }\n\n  Hub() {\n    registeredCount = 0;\n  }\n\n  msgsrv initial() {\n    self.RegisterDone();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv RegisterDone() {\n    registeredCount = registeredCount + 1;\n  }\n\n  msgsrv Ping(Client senderRef) {\n    senderRef.Pong();\n  }\n}\n\nmain {\n  Client c1(hub):();\n  Client c2(hub):();\n  Client c3(hub):();\n  Client c4(hub):();\n  Client c5(hub):();\n  Hub hub(c1, c2, c3, c4, c5):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(3) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() { }\n\n  msgsrv initial() {\n    // no-op\n  }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int registeredCount; }\n\n  Hub() {\n    registeredCount = 0;\n  }\n\n  msgsrv initial() {\n    self.RegisterDone();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv RegisterDone() {\n    registeredCount = registeredCount + 1;\n  }\n\n  msgsrv Ping() {\n    sender.Pong();\n  }\n}\n\nmain {\n  Hub hub(c1, c2, c3, c4, c5):();\n  Client c1(hub):();\n  Client c2(hub):();\n  Client c3(hub):();\n  Client c4(hub):();\n  Client c5(hub):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:42, column:11, There is no meta data for type ReactiveClass",
+      "timestamp": "2025-12-25T15:57:51.116037",
+      "code_length": 776
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(3) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() { }\n\n  msgsrv initial() {\n    // no-op\n  }\n\n  msgsrv start() {\n    hub.Ping(self);\n  }\n\n  msgsrv Pong() {\n    hub.Ping(self);\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { int registeredCount; }\n\n  Hub() {\n    registeredCount = 0;\n  }\n\n  msgsrv initial() {\n    self.RegisterDone();\n    c1.start();\n    c2.start();\n    c3.start();\n    c4.start();\n    c5.start();\n  }\n\n  msgsrv RegisterDone() {\n    registeredCount = registeredCount + 1;\n  }\n\n  msgsrv Ping(Client senderRef) {\n    senderRef.Pong();\n  }\n}\n\nmain {\n  Client c1(hub):();\n  Client c2(hub):();\n  Client c3(hub):();\n  Client c4(hub):();\n  Client c5(hub):();\n  Hub hub(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:57:56.934962",
+      "code_length": 803
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 14.027408361434937,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_0_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:57:56.935006"
+}

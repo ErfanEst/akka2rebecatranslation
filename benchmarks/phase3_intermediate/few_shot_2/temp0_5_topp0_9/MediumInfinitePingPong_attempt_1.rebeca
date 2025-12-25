@@ -1,0 +1,35 @@
+reactiveclass PingActor(3) {
+	knownrebecs { PongActor pong; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor(3) {
+	knownrebecs { }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Ping() {
+		// sender() ! Pong  -->  ping.Pong()
+		// In Rebeca, we need an explicit knownrebec for the sender.
+		// This will be wired in main via knownrebecs of PingActor and PongActor.
+	}
+}
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):();
+
+	// Wiring back-reference so PongActor can reply to PingActor
+	// We need a variant of PongActor that knows PingActor as knownrebec.
+}

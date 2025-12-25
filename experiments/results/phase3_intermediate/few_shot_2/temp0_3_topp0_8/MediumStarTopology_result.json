@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Client(5) {\n    knownrebecs {\n        Hub hub;\n    }\n    statevars {\n    }\n\n    Client() {\n    }\n\n    msgsrv initial() {\n        self.start();\n    }\n\n    msgsrv start() {\n        hub.ping(self);\n    }\n\n    msgsrv pong() {\n        hub.ping(self);\n    }\n}\n\nreactiveclass Hub(10) {\n    knownrebecs {\n        Client c1;\n        Client c2;\n        Client c3;\n        Client c4;\n        Client c5;\n    }\n    statevars {\n        int clientCount;\n    }\n\n    Hub() {\n        clientCount = 0;\n        self.register(c1);\n        self.register(c2);\n        self.register(c3);\n        self.register(c4);\n        self.register(c5);\n    }\n\n    msgsrv initial() {\n        c1.start();\n        c2.start();\n        c3.start();\n        c4.start();\n        c5.start();\n    }\n\n    msgsrv register(Client ref) {\n        clientCount = clientCount + 1;\n    }\n\n    msgsrv ping(Client senderRef) {\n        senderRef.pong();\n    }\n}\n\nmain {\n    Client c1(hub):();\n    Client c2(hub):();\n    Client c3(hub):();\n    Client c4(hub):();\n    Client c5(hub):();\n    Hub hub(c1, c2, c3, c4, c5):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(5) {\n    knownrebecs {\n        Hub hub;\n    }\n    statevars {\n    }\n\n    Client() {\n    }\n\n    msgsrv initial() {\n        self.start();\n    }\n\n    msgsrv start() {\n        hub.ping();\n    }\n\n    msgsrv pong() {\n        hub.ping();\n    }\n}\n\nreactiveclass Hub(10) {\n    knownrebecs {\n        Client c1;\n        Client c2;\n        Client c3;\n        Client c4;\n        Client c5;\n    }\n    statevars {\n        int clientCount;\n    }\n\n    Hub() {\n        clientCount = 0;\n        self.register(c1);\n        self.register(c2);\n        self.register(c3);\n        self.register(c4);\n        self.register(c5);\n        c1.start();\n        c2.start();\n        c3.start();\n        c4.start();\n        c5.start();\n    }\n\n    msgsrv initial() {\n    }\n\n    msgsrv register(Client ref) {\n        clientCount = clientCount + 1;\n    }\n\n    msgsrv ping() {\n        sender.pong();\n    }\n}\n\nmain {\n    Hub hub(c1, c2, c3, c4, c5):();\n    Client c1(hub):();\n    Client c2(hub):();\n    Client c3(hub):();\n    Client c4(hub):();\n    Client c5(hub):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:43, column:8, Direct sending to \"self\" is allowed in constructors\nline:44, column:8, Direct sending to \"self\" is allowed in constructors\nline:45, column:8, Direct sending to \"self\" is allowed in constructors\nline:46, column:8, Direct sending to \"self\" is allowed in constructors\nline:47, column:8, Direct sending to \"self\" is allowed in constructors\nline:58, column:15, There is no meta data for type ReactiveClass",
+      "timestamp": "2025-12-25T15:44:24.664743",
+      "code_length": 1052
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(5) {\n    knownrebecs {\n        Hub hub;\n    }\n    statevars {\n    }\n\n    Client() {\n    }\n\n    msgsrv initial() {\n        self.start();\n    }\n\n    msgsrv start() {\n        hub.ping(self);\n    }\n\n    msgsrv pong() {\n        hub.ping(self);\n    }\n}\n\nreactiveclass Hub(10) {\n    knownrebecs {\n        Client c1;\n        Client c2;\n        Client c3;\n        Client c4;\n        Client c5;\n    }\n    statevars {\n        int clientCount;\n    }\n\n    Hub() {\n        clientCount = 0;\n        self.register(c1);\n        self.register(c2);\n        self.register(c3);\n        self.register(c4);\n        self.register(c5);\n    }\n\n    msgsrv initial() {\n        c1.start();\n        c2.start();\n        c3.start();\n        c4.start();\n        c5.start();\n    }\n\n    msgsrv register(Client ref) {\n        clientCount = clientCount + 1;\n    }\n\n    msgsrv ping(Client senderRef) {\n        senderRef.pong();\n    }\n}\n\nmain {\n    Client c1(hub):();\n    Client c2(hub):();\n    Client c3(hub):();\n    Client c4(hub):();\n    Client c5(hub):();\n    Hub hub(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:44:30.226122",
+      "code_length": 1079
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 10.769104480743408,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_3_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:44:30.226190"
+}

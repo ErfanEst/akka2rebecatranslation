@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pongId' expecting INTLITERAL
+line:24, column:24, mismatched input 'myId' expecting INTLITERAL
+line:48, column:16, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:48, column:54, mismatched input ')' expecting {'[', '<', IDENTIFIER}
+

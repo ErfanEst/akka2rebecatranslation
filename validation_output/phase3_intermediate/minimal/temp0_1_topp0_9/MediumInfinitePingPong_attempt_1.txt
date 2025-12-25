@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pong' expecting INTLITERAL
+line:19, column:14, Reactiveclass PongActor should be defined as abstract
+line:19, column:53, mismatched input '{' expecting {'(', ','}
+line:38, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)
+line:38, column:21, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:39, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:39, column:21, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:41, column:5, extraneous input '.' expecting IDENTIFIER
+line:41, column:6, Unknown type ping
+line:41, column:13, mismatched input ';' expecting ':'
+

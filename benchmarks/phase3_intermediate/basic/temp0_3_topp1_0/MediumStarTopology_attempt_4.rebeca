@@ -1,0 +1,41 @@
+reactiveclass Client(hubInterface hub) {
+	knownrebecs {
+		Hub hub;
+	}
+	msgsrv initial() {
+		hub.Ping();
+	}
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(c1Interface c1, c1Interface c2, c1Interface c3, c1Interface c4, c1Interface c5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+interface hubInterface {
+	msgrsv Ping();
+}
+
+interface c1Interface {
+	msgrsv Pong();
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

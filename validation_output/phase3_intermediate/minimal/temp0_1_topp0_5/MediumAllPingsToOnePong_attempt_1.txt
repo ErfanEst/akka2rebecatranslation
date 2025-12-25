@@ -1,0 +1,58 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pongId' expecting INTLITERAL
+line:23, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:38, column:24, missing ')' at ':'
+line:38, column:26, missing '(' at 'pings'
+line:40, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:40, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:40, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:41, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:41, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:41, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:42, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:42, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:42, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:43, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:43, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:43, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:44, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:44, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:44, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:45, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:45, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:45, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:46, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:46, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:46, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:47, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:47, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:47, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:48, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:48, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:48, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:49, column:19, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:49, column:30, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:49, column:37, mismatched input ':' expecting {'[', '<', IDENTIFIER}
+line:52, column:12, extraneous input '.' expecting IDENTIFIER
+line:52, column:20, mismatched input ';' expecting ':'
+line:53, column:12, extraneous input '.' expecting IDENTIFIER
+line:53, column:20, mismatched input ';' expecting ':'
+line:54, column:12, extraneous input '.' expecting IDENTIFIER
+line:54, column:20, mismatched input ';' expecting ':'
+line:55, column:12, extraneous input '.' expecting IDENTIFIER
+line:55, column:20, mismatched input ';' expecting ':'
+line:56, column:12, extraneous input '.' expecting IDENTIFIER
+line:56, column:20, mismatched input ';' expecting ':'
+line:57, column:12, extraneous input '.' expecting IDENTIFIER
+line:57, column:20, mismatched input ';' expecting ':'
+line:58, column:12, extraneous input '.' expecting IDENTIFIER
+line:58, column:20, mismatched input ';' expecting ':'
+line:59, column:12, extraneous input '.' expecting IDENTIFIER
+line:59, column:20, mismatched input ';' expecting ':'
+line:60, column:12, extraneous input '.' expecting IDENTIFIER
+line:60, column:20, mismatched input ';' expecting ':'
+line:61, column:12, extraneous input '.' expecting IDENTIFIER
+line:61, column:20, mismatched input ';' expecting ':'
+

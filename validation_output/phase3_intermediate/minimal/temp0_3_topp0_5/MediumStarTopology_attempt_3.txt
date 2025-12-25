@@ -1,0 +1,32 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hub' expecting INTLITERAL
+line:13, column:18, mismatched input 'c1' expecting INTLITERAL
+line:26, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:27, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:28, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:29, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:30, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:31, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:33, column:4, extraneous input '.' expecting IDENTIFIER
+line:33, column:5, Unknown type hub
+line:34, column:4, extraneous input '.' expecting IDENTIFIER
+line:34, column:5, Unknown type hub
+line:35, column:4, extraneous input '.' expecting IDENTIFIER
+line:35, column:5, Unknown type hub
+line:36, column:4, extraneous input '.' expecting IDENTIFIER
+line:36, column:5, Unknown type hub
+line:37, column:4, extraneous input '.' expecting IDENTIFIER
+line:37, column:5, Unknown type hub
+line:39, column:3, extraneous input '.' expecting IDENTIFIER
+line:39, column:4, Unknown type c1
+line:40, column:3, extraneous input '.' expecting IDENTIFIER
+line:40, column:4, Unknown type c2
+line:41, column:3, extraneous input '.' expecting IDENTIFIER
+line:41, column:4, Unknown type c3
+line:42, column:3, extraneous input '.' expecting IDENTIFIER
+line:42, column:4, Unknown type c4
+line:43, column:3, extraneous input '.' expecting IDENTIFIER
+line:43, column:4, Unknown type c5
+

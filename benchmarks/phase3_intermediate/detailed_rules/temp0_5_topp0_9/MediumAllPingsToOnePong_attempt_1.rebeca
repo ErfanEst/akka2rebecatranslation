@@ -1,0 +1,68 @@
+reactiveclass PingActor {
+    knownrebecs {
+        PongActor pong;
+    }
+    statevars {
+        int id;
+    }
+
+    PingActor(PongActor pongRef, int identifier) {
+        pong = pongRef;
+        id = identifier;
+    }
+
+    msgsrv start() {
+        pong.ping(id);
+    }
+
+    msgsrv msg(String message) {
+        pong.ping(id);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs {
+    }
+    statevars {
+    }
+
+    PongActor() {
+    }
+
+    msgsrv ping(int pingId) {
+        self.reply(pingId);
+    }
+
+    msgsrv reply(int pingId) {
+        // In Akka: sender() ! s"pong-for-ping-$id"
+        // In Rebeca, this would be handled by the sender's msgsrv,
+        // which is not explicitly modeled here.
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping1(pong, 1);
+    PingActor ping2(pong, 2);
+    PingActor ping3(pong, 3);
+    PingActor ping4(pong, 4);
+    PingActor ping5(pong, 5);
+    PingActor ping6(pong, 6);
+    PingActor ping7(pong, 7);
+    PingActor ping8(pong, 8);
+    PingActor ping9(pong, 9);
+    PingActor ping10(pong, 10);
+
+    {
+        ping1.start();
+        ping2.start();
+        ping3.start();
+        ping4.start();
+        ping5.start();
+        ping6.start();
+        ping7.start();
+        ping8.start();
+        ping9.start();
+        ping10.start();
+    }
+}

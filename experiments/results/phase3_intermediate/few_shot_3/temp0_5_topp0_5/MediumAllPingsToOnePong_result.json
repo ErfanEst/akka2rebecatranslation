@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv pingBack(int dummy) {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }\n\n\tmsgsrv ping(int pid) {\n\t\tif (pid == 1) {\n\t\t\tp1.pingBack(0);\n\t\t} else if (pid == 2) {\n\t\t\tp2.pingBack(0);\n\t\t} else if (pid == 3) {\n\t\t\tp3.pingBack(0);\n\t\t} else if (pid == 4) {\n\t\t\tp4.pingBack(0);\n\t\t} else if (pid == 5) {\n\t\t\tp5.pingBack(0);\n\t\t} else if (pid == 6) {\n\t\t\tp6.pingBack(0);\n\t\t} else if (pid == 7) {\n\t\t\tp7.pingBack(0);\n\t\t} else if (pid == 8) {\n\t\t\tp8.pingBack(0);\n\t\t} else if (pid == 9) {\n\t\t\tp9.pingBack(0);\n\t\t} else if (pid == 10) {\n\t\t\tp10.pingBack(0);\n\t\t}\n\t}\n}\n\nmain {\n\tPongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();\n\tPingActor p1(pong):(1);\n\tPingActor p2(pong):(2);\n\tPingActor p3(pong):(3);\n\tPingActor p4(pong):(4);\n\tPingActor p5(pong):(5);\n\tPingActor p6(pong):(6);\n\tPingActor p7(pong):(7);\n\tPingActor p8(pong):(8);\n\tPingActor p9(pong):(9);\n\tPingActor p10(pong):(10);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; }\n\tstatevars { int id; }\n\n\tPingActor(int _id) {\n\t\tid = _id;\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\tpong.ping(id);\n\t}\n\n\tmsgsrv pingBack(int dummy) {\n\t\tpong.ping(id);\n\t}\n}\n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }\n\n\tmsgsrv ping(int pid) {\n\t\tif (pid == 1) {\n\t\t\tp1.pingBack(0);\n\t\t} else if (pid == 2) {\n\t\t\tp2.pingBack(0);\n\t\t} else if (pid == 3) {\n\t\t\tp3.pingBack(0);\n\t\t} else if (pid == 4) {\n\t\t\tp4.pingBack(0);\n\t\t} else if (pid == 5) {\n\t\t\tp5.pingBack(0);\n\t\t} else if (pid == 6) {\n\t\t\tp6.pingBack(0);\n\t\t} else if (pid == 7) {\n\t\t\tp7.pingBack(0);\n\t\t} else if (pid == 8) {\n\t\t\tp8.pingBack(0);\n\t\t} else if (pid == 9) {\n\t\t\tp9.pingBack(0);\n\t\t} else if (pid == 10) {\n\t\t\tp10.pingBack(0);\n\t\t}\n\t}\n}\n\nmain {\n\tPongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();\n\tPingActor p1(pong):(1);\n\tPingActor p2(pong):(2);\n\tPingActor p3(pong):(3);\n\tPingActor p4(pong):(4);\n\tPingActor p5(pong):(5);\n\tPingActor p6(pong):(6);\n\tPingActor p7(pong):(7);\n\tPingActor p8(pong):(8);\n\tPingActor p9(pong):(9);\n\tPingActor p10(pong):(10);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T16:05:29.635089",
+      "code_length": 1210
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 18.010719299316406,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_5_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T16:05:29.635132"
+}

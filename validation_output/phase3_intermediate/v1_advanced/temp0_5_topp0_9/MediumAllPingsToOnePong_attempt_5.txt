@@ -1,0 +1,47 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:26, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:41, column:17, mismatched input ';' expecting ':'
+line:43, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:43, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:43, column:25, "self" undeclared
+line:43, column:38, "self" undeclared
+line:44, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:44, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:44, column:25, "self" undeclared
+line:44, column:38, "self" undeclared
+line:45, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:45, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:45, column:25, "self" undeclared
+line:45, column:38, "self" undeclared
+line:46, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:46, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:46, column:25, "self" undeclared
+line:46, column:38, "self" undeclared
+line:47, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:47, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:47, column:25, "self" undeclared
+line:47, column:38, "self" undeclared
+line:48, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:48, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:48, column:25, "self" undeclared
+line:48, column:38, "self" undeclared
+line:49, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:49, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:49, column:25, "self" undeclared
+line:49, column:38, "self" undeclared
+line:50, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:50, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:50, column:25, "self" undeclared
+line:50, column:38, "self" undeclared
+line:51, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:51, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:51, column:25, "self" undeclared
+line:51, column:38, "self" undeclared
+line:52, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:52, column:11, The method PingActor(unknown, unknown) is undefined for the type PingActor
+line:52, column:27, "self" undeclared
+line:52, column:42, "self" undeclared
+

@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:17, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:51, column:8, The method Client(Hub) is undefined for the type Client
+line:52, column:8, The method Client(Hub) is undefined for the type Client
+line:53, column:8, The method Client(Hub) is undefined for the type Client
+line:54, column:8, The method Client(Hub) is undefined for the type Client
+line:55, column:8, The method Client(Hub) is undefined for the type Client
+line:56, column:5, The method Hub(Client, Client, Client, Client, Client) is undefined for the type Hub
+

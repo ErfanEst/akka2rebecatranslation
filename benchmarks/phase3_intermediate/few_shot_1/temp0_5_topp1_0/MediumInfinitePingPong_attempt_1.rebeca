@@ -1,0 +1,50 @@
+reactiveclass PingActor(5) {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		// No automatic start; Start will be sent from main
+	}
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Ping() {
+		// In Akka: sender() ! Pong
+		// Here, always reply to the single PingActor in the system.
+		// We model this by having the main wire PongActor to a single PingActor.
+		// Since PongActor has no knownrebecs in its constructor, we use environment rebec binding in main.
+		pingRef.Pong();
+	}
+}
+
+env rebec PingActor pingRef;
+
+main {
+	PongActor pong():();
+	PingActor ping(pong):();
+
+	// Wire environment reference used by PongActor to the actual ping instance
+	pingRef = ping;
+
+	// Start the interaction
+	ping.Start();
+}

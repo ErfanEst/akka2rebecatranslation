@@ -1,0 +1,265 @@
+================================================================================
+ATTEMPT 5 - PROMPT LOG
+Experiment: phase3_intermediate/few_shot_3/temp0_1_topp0_5
+File: MediumStarTopology
+Timestamp: 2025-12-25T15:59:04.627425
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka (Scala) and Rebeca modeling.
+
+Translate Akka code into Rebeca preserving concurrency and timed semantics.
+
+Rules:
+
+1. Actor classes → reactiveclass
+2. receive patterns → msgsrv
+3. Member vars → statevars
+4. sender() → knownrebec
+5. context.become → state flags
+6. scheduleOnce / sleep → after(time) / delay()
+7. Random → ?(val1, val2, ...)
+8. Main block → instantiate all reactiveclasses
+9. Only asynchronous messages
+10. No println / I/O
+
+Examples:
+
+1) Communication
+reactiveclass Sender(5) { 
+  knownrebecs { Medium medium; Receiver rec; } 
+  statevars { boolean sendBit; boolean hasSucceeded; } 
+  msgsrv initial() { sendBit = false; medium.pass(sendBit); self.sendMsg(); } 
+  msgsrv sendMsg() { if(hasSucceeded) sendBit = !sendBit; medium.pass(sendBit); self.sendMsg(); } 
+} 
+
+2) Timed cyclic
+reactiveclass TrafficLight(3) { 
+  statevars { int color; } 
+  TrafficLight() { color = 0; self.change(); } 
+  msgsrv change() { if(color == 0) { color = 1; self.change() after(3); } else if(color == 1) { color = 2; self.change() after(5); } else { color = 0; self.change() after(2); } } 
+} 
+
+3) Master-Worker
+reactiveclass Master(10) { 
+  knownrebecs { Worker w1; Worker w2; } 
+  statevars { int[3] tasks; int idx, total, completed; int state; } 
+  Master() { tasks[0]=1; tasks[1]=2; tasks[2]=3; total=3; idx=0; completed=0; state=0; } 
+  msgsrv Ready(int id) { if(idx<total) { if(id==1) w1.Task(tasks[idx]) after(1); else w2.Task(tasks[idx]) after(1); idx=idx+1; state=1; } } 
+  msgsrv Result(int data) { completed=completed+1; if(completed==total) { w1.Shutdown(); w2.Shutdown(); state=2; } } 
+  msgsrv Shutdown() { state=2; } 
+} 
+
+reactiveclass Worker(10) { 
+  knownrebecs { Master m; } 
+  statevars { int id; } 
+  Worker(int myId) { id=myId; self.sendReady(); } 
+  msgsrv sendReady() { m.Ready(id); } 
+  msgsrv Task(int data) { delay(5); m.Result(data); self.sendReady(); } 
+  msgsrv Shutdown() {} 
+} 
+
+main { 
+  Master m(w1, w2):(); 
+  Worker w1(m):(1); 
+  Worker w2(m):(2); 
+}
+
+Translate the following Akka code to Rebeca following these patterns. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+Previous code:
+    reactiveclass Client(5) {
+  knownrebecs { Hub hub; }
+  statevars { }
+
+  Client() { }
+
+  msgsrv initial() { }
+
+  msgsrv start() {
+    hub.Ping();
+  }
+
+  msgsrv Pong() {
+    hub.Ping();
+  }
+}
+
+reactiveclass Hub(10) {
+  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+  statevars { int[5] clients; int count; }
+
+  Hub() {
+    count = 0;
+  }
+
+  msgsrv initial() { }
+
+  msgsrv Register(int id) {
+    if (count < 5) {
+      clients[count] = id;
+      count = count + 1;
+    }
+  }
+
+  msgsrv Ping() {
+    int i;
+    i = 0;
+    while (i < count) {
+      if (clients[i] == 1) {
+        c1.Pong();
+      } else if (clients[i] == 2) {
+        c2.Pong();
+      } else if (clients[i] == 3) {
+        c3.Pong();
+      } else if (clients[i] == 4) {
+        c4.Pong();
+      } else if (clients[i] == 5) {
+        c5.Pong();
+      }
+      i = i + 1;
+    }
+  }
+}
+
+main {
+  Client c1(hub):();
+  Client c2(hub):();
+  Client c3(hub):();
+  Client c4(hub):();
+  Client c5(hub):();
+  Hub hub(c1, c2, c3, c4, c5):();
+
+  hub.Register(1);
+  hub.Register(2);
+  hub.Register(3);
+  hub.Register(4);
+  hub.Register(5);
+
+  c1.start();
+  c2.start();
+  c3.start();
+  c4.start();
+  c5.start();
+}
+
+    Errors:
+    File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:63, column:5, extraneous input '.' expecting IDENTIFIER
+line:63, column:6, Unknown type hub
+line:63, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:64, column:5, extraneous input '.' expecting IDENTIFIER
+line:64, column:6, Unknown type hub
+line:64, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:65, column:5, extraneous input '.' expecting IDENTIFIER
+line:65, column:6, Unknown type hub
+line:65, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:5, extraneous input '.' expecting IDENTIFIER
+line:66, column:6, Unknown type hub
+line:66, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:67, column:5, extraneous input '.' expecting IDENTIFIER
+line:67, column:6, Unknown type hub
+line:67, column:17, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:69, column:4, extraneous input '.' expecting IDENTIFIER
+line:69, column:5, Unknown type c1
+line:69, column:12, mismatched input ';' expecting ':'
+line:70, column:4, extraneous input '.' expecting IDENTIFIER
+line:70, column:5, Unknown type c2
+line:70, column:12, mismatched input ';' expecting ':'
+line:71, column:4, extraneous input '.' expecting IDENTIFIER
+line:71, column:5, Unknown type c3
+line:71, column:12, mismatched input ';' expecting ':'
+line:72, column:4, extraneous input '.' expecting IDENTIFIER
+line:72, column:5, Unknown type c4
+line:72, column:12, mismatched input ';' expecting ':'
+line:73, column:4, extraneous input '.' expecting IDENTIFIER
+line:73, column:5, Unknown type c5
+line:73, column:12, mismatched input ';' expecting ':'
+
+    Provide corrected Rebeca code.
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client(5) {
+  knownrebecs { Hub hub; }
+  statevars { }
+
+  Client() { }
+
+  msgsrv initial() { }
+
+  msgsrv start() {
+    hub.Ping();
+  }
+
+  msgsrv Pong() {
+    hub.Ping();
+  }
+}
+
+reactiveclass Hub(10) {
+  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+  statevars { int[5] clients; int count; }
+
+  Hub() {
+    count = 0;
+  }
+
+  msgsrv initial() { }
+
+  msgsrv Register(int id) {
+    if (count < 5) {
+      clients[count] = id;
+      count = count + 1;
+    }
+  }
+
+  msgsrv Ping() {
+    int i;
+    i = 0;
+    while (i < count) {
+      if (clients[i] == 1) {
+        c1.Pong();
+      } else if (clients[i] == 2) {
+        c2.Pong();
+      } else if (clients[i] == 3) {
+        c3.Pong();
+      } else if (clients[i] == 4) {
+        c4.Pong();
+      } else if (clients[i] == 5) {
+        c5.Pong();
+      }
+      i = i + 1;
+    }
+  }
+}
+
+main {
+  Client c1(hub):();
+  Client c2(hub):();
+  Client c3(hub):();
+  Client c4(hub):();
+  Client c5(hub):();
+  Hub hub(c1, c2, c3, c4, c5):();
+
+  hub.Register(1):();
+  hub.Register(2):();
+  hub.Register(3):();
+  hub.Register(4):();
+  hub.Register(5):();
+
+  c1.start():();
+  c2.start():();
+  c3.start():();
+  c4.start():();
+  c5.start():();
+}
+
+================================================================================

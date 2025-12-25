@@ -1,0 +1,42 @@
+reactiveclass PingActor(pong: PingPongInterface) {
+	knownrebecs {
+		PingPongInterface pong;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor implements PingPongInterface {
+	knownrebecs {
+		PingActor ping;
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+
+	msgsrv Ping() {
+		ping.Pong();
+	}
+}
+
+interface PingPongInterface {
+	msgsrv Ping();
+}
+
+main {
+	PongActor pong(ping);
+	PingActor ping(pong);
+
+	ping.Start();
+}

@@ -1,0 +1,78 @@
+reactiveclass PingActor(pongActor pong, byte i) {
+	messages {
+		void start();
+		void msg(string m);
+	}
+
+	knownrebecs {
+		pongActor pong;
+	}
+
+	statevars {
+		byte id;
+		string tmp;
+	}
+
+	constructor(pongActor p, byte i) {
+		pong = p;
+		id = i;
+	}
+
+	msghandler start() {
+		tmp = "ping-";
+		tmp = tmp + id;
+		pong.msg(tmp);
+	}
+
+	msghandler msg(string m) {
+		tmp = "ping-";
+		tmp = tmp + id;
+		pong.msg(tmp);
+	}
+}
+
+reactiveclass pongActor() {
+	messages {
+		void msg(string m);
+	}
+
+	knownrebecs {
+	}
+
+	statevars {
+		string tmp;
+	}
+
+	constructor() {
+	}
+
+	msghandler msg(string m) {
+		tmp = "pong-for-";
+		tmp = tmp + m;
+	}
+}
+
+main {
+	pongActor pong():();
+	PingActor ping1(pong, 1):(pong, 1);
+	PingActor ping2(pong, 2):(pong, 2);
+	PingActor ping3(pong, 3):(pong, 3);
+	PingActor ping4(pong, 4):(pong, 4);
+	PingActor ping5(pong, 5):(pong, 5);
+	PingActor ping6(pong, 6):(pong, 6);
+	PingActor ping7(pong, 7):(pong, 7);
+	PingActor ping8(pong, 8):(pong, 8);
+	PingActor ping9(pong, 9):(pong, 9);
+	PingActor ping10(pong, 10):(pong, 10);
+
+	ping1.start();
+	ping2.start();
+	ping3.start();
+	ping4.start();
+	ping5.start();
+	ping6.start();
+	ping7.start();
+	ping8.start();
+	ping9.start();
+	ping10.start();
+}

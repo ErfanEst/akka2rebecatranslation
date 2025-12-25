@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tRingActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tnext = ref;\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:8, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:23, column:3, extraneous input '.' expecting IDENTIFIER\nline:23, column:4, Unknown type a1\nline:23, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:54:56.424750",
+      "code_length": 321
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tRingActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1\nline:21, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:54:59.693720",
+      "code_length": 288
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tRingActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1",
+      "timestamp": "2025-12-25T15:55:03.608521",
+      "code_length": 291
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tRingActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1\nline:21, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:55:07.090192",
+      "code_length": 288
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { }\n\n\tRingActor() { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:21, column:3, extraneous input '.' expecting IDENTIFIER\nline:21, column:4, Unknown type a1",
+      "timestamp": "2025-12-25T15:55:10.553811",
+      "code_length": 291
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 17.34917187690735,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_0_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:55:10.553867"
+}

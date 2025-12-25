@@ -1,0 +1,120 @@
+reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean c1Reg;
+		boolean c2Reg;
+		boolean c3Reg;
+		boolean c4Reg;
+		boolean c5Reg;
+	}
+
+	msgsrv initial() {
+		c1Reg = false;
+		c2Reg = false;
+		c3Reg = false;
+		c4Reg = false;
+		c5Reg = false;
+	}
+
+	msgsrv Register1() {
+		c1Reg = true;
+	}
+
+	msgsrv Register2() {
+		c2Reg = true;
+	}
+
+	msgsrv Register3() {
+		c3Reg = true;
+	}
+
+	msgsrv Register4() {
+		c4Reg = true;
+	}
+
+	msgsrv Register5() {
+		c5Reg = true;
+	}
+
+	msgsrv PingFrom1() {
+		c1.Pong();
+	}
+
+	msgsrv PingFrom2() {
+		c2.Pong();
+	}
+
+	msgsrv PingFrom3() {
+		c3.Pong();
+	}
+
+	msgsrv PingFrom4() {
+		c4.Pong();
+	}
+
+	msgsrv PingFrom5() {
+		c5.Pong();
+	}
+
+	msgsrv Ping() {
+		int s;
+		s = ?(1,2,3,4,5);
+		if (s == 1 && c1Reg) {
+			self.PingFrom1();
+		} else if (s == 2 && c2Reg) {
+			self.PingFrom2();
+		} else if (s == 3 && c3Reg) {
+			self.PingFrom3();
+		} else if (s == 4 && c4Reg) {
+			self.PingFrom4();
+		} else if (s == 5 && c5Reg) {
+			self.PingFrom5();
+		}
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5):();
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

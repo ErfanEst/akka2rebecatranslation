@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:35, column:2, "pingRef" undeclared
+line:35, column:10, There is no meta data for type unknown
+line:39, column:0, extraneous input 'env' expecting {'reactiveclass', 'interface', 'abstract', 'main', '@'}
+line:46, column:9, extraneous input '=' expecting IDENTIFIER
+line:46, column:11, Multiple definition for the actor ping
+line:46, column:15, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:49, column:5, extraneous input '.' expecting IDENTIFIER
+line:49, column:6, Unknown type ping
+line:49, column:13, mismatched input ';' expecting ':'
+

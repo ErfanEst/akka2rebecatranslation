@@ -1,0 +1,47 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	Client() { }
+
+	msgsrv initial() { hub.Register(self); self.start(); }
+
+	msgsrv start() { hub.Ping(); }
+
+	msgsrv Pong() { hub.Ping(); }
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { Client[5] clients; int count; }
+
+	Hub() {
+		count = 0;
+	}
+
+	msgsrv Register(Client ref) {
+		if (count < 5) {
+			clients[count] = ref;
+			count = count + 1;
+		}
+	}
+
+	msgsrv Ping() {
+		// sender() is not available in Rebeca core; use a known rebec or stored reference instead.
+		// Here we use a random registered client to respond.
+		int idx;
+		idx = ?(0,1,2,3,4);
+		if (idx < count) {
+			clients[idx].Pong();
+		}
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

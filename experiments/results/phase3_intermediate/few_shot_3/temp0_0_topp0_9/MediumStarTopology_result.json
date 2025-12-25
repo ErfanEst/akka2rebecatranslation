@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() {\n    self.start();\n  }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { }\n\n  Hub() {\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n  }\n\n  msgsrv Register1() {\n    // no-op\n  }\n\n  msgsrv Register2() {\n    // no-op\n  }\n\n  msgsrv Register3() {\n    // no-op\n  }\n\n  msgsrv Register4() {\n    // no-op\n  }\n\n  msgsrv Register5() {\n    // no-op\n  }\n\n  msgsrv Ping() {\n    // sender() cannot be modeled directly; choose a client nondeterministically\n    int which;\n    which = ?(1, 2, 3, 4, 5);\n    if (which == 1) {\n      c1.Pong();\n    } else {\n      if (which == 2) {\n        c2.Pong();\n      } else {\n        if (which == 3) {\n          c3.Pong();\n        } else {\n          if (which == 4) {\n            c4.Pong();\n          } else {\n            c5.Pong();\n          }\n        }\n      }\n    }\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() {\n    self.start();\n  }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { }\n\n  Hub() {\n    self.Register(c1);\n    self.Register(c2);\n    self.Register(c3);\n    self.Register(c4);\n    self.Register(c5);\n  }\n\n  msgsrv Register(Client ref) {\n    // no-op, registration ignored in this simplified model\n  }\n\n  msgsrv Ping() {\n    sender.Pong();\n  }\n}\n\nmain {\n  Hub h(c1, c2, c3, c4, c5):();\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:35, column:11, There is no meta data for type ReactiveClass",
+      "timestamp": "2025-12-25T15:57:05.862482",
+      "code_length": 706
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(5) {\n  knownrebecs { Hub hub; }\n  statevars { }\n\n  Client() {\n    self.start();\n  }\n\n  msgsrv start() {\n    hub.Ping();\n  }\n\n  msgsrv Pong() {\n    hub.Ping();\n  }\n}\n\nreactiveclass Hub(5) {\n  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n  statevars { }\n\n  Hub() {\n    self.Register1();\n    self.Register2();\n    self.Register3();\n    self.Register4();\n    self.Register5();\n  }\n\n  msgsrv Register1() {\n    // no-op\n  }\n\n  msgsrv Register2() {\n    // no-op\n  }\n\n  msgsrv Register3() {\n    // no-op\n  }\n\n  msgsrv Register4() {\n    // no-op\n  }\n\n  msgsrv Register5() {\n    // no-op\n  }\n\n  msgsrv Ping() {\n    // sender() cannot be modeled directly; choose a client nondeterministically\n    int which;\n    which = ?(1, 2, 3, 4, 5);\n    if (which == 1) {\n      c1.Pong();\n    } else {\n      if (which == 2) {\n        c2.Pong();\n      } else {\n        if (which == 3) {\n          c3.Pong();\n        } else {\n          if (which == 4) {\n            c4.Pong();\n          } else {\n            c5.Pong();\n          }\n        }\n      }\n    }\n  }\n}\n\nmain {\n  Client c1(h):();\n  Client c2(h):();\n  Client c3(h):();\n  Client c4(h):();\n  Client c5(h):();\n  Hub h(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:57:12.305575",
+      "code_length": 1219
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 13.12171459197998,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_0_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.0,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:57:12.305618"
+}

@@ -1,0 +1,40 @@
+reactiveclass PingActor(5) {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		// corresponds to sending Start in main
+		self.start();
+	}
+
+	msgsrv start() {
+		pong.ping();
+	}
+
+	msgsrv pong() {
+		pong.ping();
+	}
+}
+
+reactiveclass PongActor(5) {
+	knownrebecs {
+		PingActor ping;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv ping() {
+		ping.pong();
+	}
+}
+
+main {
+	PingActor ping(pong):();
+	PongActor pong(ping):();
+}

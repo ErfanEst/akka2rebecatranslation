@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "total_attempts": 3,
+  "final_code": "reactiveclass RingActor(5) {\n  knownrebecs { RingActor next; }\n  statevars { }\n\n  RingActor() { }\n\n  msgsrv initial() { }\n\n  msgsrv Ping() {\n    next.Ping();\n  }\n}\n\nmain {\n  RingActor a1(a2):();\n  RingActor a2(a3):();\n  RingActor a3(a4):();\n  RingActor a4(a5):();\n  RingActor a5(a1):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass RingActor(5) {\n  knownrebecs { RingActor next; }\n  statevars { }\n\n  RingActor() { }\n\n  msgsrv initial() { }\n\n  msgsrv SetNext(RingActor ref) {\n    next = ref;\n  }\n\n  msgsrv Ping() {\n    next.Ping();\n  }\n}\n\nmain {\n  RingActor a1(a2):();\n  RingActor a2(a3):();\n  RingActor a3(a4):();\n  RingActor a4(a5):();\n  RingActor a5(a1):();\n\n  a1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:10, column:4, A constant variable cannot be in the left-hand side of an assignment\nline:25, column:4, extraneous input '.' expecting IDENTIFIER\nline:25, column:5, Unknown type a1\nline:25, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T16:07:28.209425",
+      "code_length": 357
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass RingActor(5) {\n  knownrebecs { RingActor next; }\n  statevars { }\n\n  RingActor() { }\n\n  msgsrv initial() { }\n\n  msgsrv Ping() {\n    next.Ping();\n  }\n}\n\nmain {\n  RingActor a1(a2):();\n  RingActor a2(a3):();\n  RingActor a3(a4):();\n  RingActor a4(a5):();\n  RingActor a5(a1):();\n\n  a1.initial();\n  a2.initial();\n  a3.initial();\n  a4.initial();\n  a5.initial();\n\n  a1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:21, column:4, extraneous input '.' expecting IDENTIFIER\nline:21, column:5, Unknown type a1\nline:21, column:14, mismatched input ';' expecting ':'\nline:22, column:4, extraneous input '.' expecting IDENTIFIER\nline:22, column:5, Unknown type a2\nline:22, column:14, mismatched input ';' expecting ':'\nline:23, column:4, extraneous input '.' expecting IDENTIFIER\nline:23, column:5, Unknown type a3\nline:23, column:14, mismatched input ';' expecting ':'\nline:24, column:4, extraneous input '.' expecting IDENTIFIER\nline:24, column:5, Unknown type a4\nline:24, column:14, mismatched input ';' expecting ':'\nline:25, column:4, extraneous input '.' expecting IDENTIFIER\nline:25, column:5, Unknown type a5\nline:25, column:14, mismatched input ';' expecting ':'\nline:27, column:4, extraneous input '.' expecting IDENTIFIER\nline:27, column:5, Unknown type a1\nline:27, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T16:07:31.618979",
+      "code_length": 383
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass RingActor(5) {\n  knownrebecs { RingActor next; }\n  statevars { }\n\n  RingActor() { }\n\n  msgsrv initial() { }\n\n  msgsrv Ping() {\n    next.Ping();\n  }\n}\n\nmain {\n  RingActor a1(a2):();\n  RingActor a2(a3):();\n  RingActor a3(a4):();\n  RingActor a4(a5):();\n  RingActor a5(a1):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T16:07:35.690844",
+      "code_length": 288
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 10.951613187789917,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_5_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T16:07:35.691002"
+}

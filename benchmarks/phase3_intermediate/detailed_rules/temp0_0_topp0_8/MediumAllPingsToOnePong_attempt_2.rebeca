@@ -1,0 +1,64 @@
+reactiveclass PingActor {
+	knownrebecs { 
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	PingActor(int _id, PongActor _pong) {
+		id = _id;
+		pong = _pong;
+	}
+
+	msgsrv start() {
+		pong.ping(id);
+	}
+
+	msgsrv pingResponse(string msg) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs { }
+
+	statevars { }
+
+	PongActor() { }
+
+	msgsrv ping(int id) {
+		self.pongForPing(id);
+	}
+
+	msgsrv pongForPing(int id) {
+		// In Rebeca we cannot refer to sender directly as in Akka.
+		// The mapping assumes that PingActor will interpret this as a response.
+	}
+}
+
+main {
+	PongActor pong();
+
+	PingActor p1(pong):(1, pong);
+	PingActor p2(pong):(2, pong);
+	PingActor p3(pong):(3, pong);
+	PingActor p4(pong):(4, pong);
+	PingActor p5(pong):(5, pong);
+	PingActor p6(pong):(6, pong);
+	PingActor p7(pong):(7, pong);
+	PingActor p8(pong):(8, pong);
+	PingActor p9(pong):(9, pong);
+	PingActor p10(pong):(10, pong);
+
+	p1.start():();
+	p2.start():();
+	p3.start():();
+	p4.start():();
+	p5.start():();
+	p6.start():();
+	p7.start():();
+	p8.start():();
+	p9.start():();
+	p10.start():();
+}

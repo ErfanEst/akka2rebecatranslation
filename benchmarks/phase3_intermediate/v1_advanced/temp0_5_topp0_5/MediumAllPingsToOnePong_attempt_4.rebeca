@@ -1,0 +1,65 @@
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	PingActor() {
+		id = 0;
+	}
+
+	msgsrv start(int _id) {
+		id = _id;
+		pong.ping(id);
+	}
+
+	msgsrv pongResponse(int dummy) {
+		pong.ping(id);
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+	statevars {
+	}
+
+	PongActor() {
+	}
+
+	msgsrv ping(int id) {
+		self.pongResponse(id);
+	}
+
+	msgsrv pongResponse(int id) {
+		// no further action
+	}
+}
+
+main {
+	PongActor pong();
+
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+	PingActor ping10(pong):();
+
+	ping1.start(1);
+	ping2.start(2);
+	ping3.start(3);
+	ping4.start(4);
+	ping5.start(5);
+	ping6.start(6);
+	ping7.start(7);
+	ping8.start(8);
+	ping9.start(9);
+	ping10.start(10);
+}

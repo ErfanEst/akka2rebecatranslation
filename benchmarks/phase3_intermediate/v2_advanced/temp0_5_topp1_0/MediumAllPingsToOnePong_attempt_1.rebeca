@@ -1,0 +1,71 @@
+reactiveclass PongActor(50) {
+		statevars {
+			int dummy;
+		}
+
+		msgsrv initial() {
+		}
+
+		msgsrv handleString(int msgId, int pingId) {
+			// emulate: sender() ! s"pong-for-$msg"
+			// Here msg is "ping-<pingId>", we answer with "pong-for-ping-<pingId>"
+			self.pingRefs[pingId].handlePong(msgId, pingId) after(0);
+		}
+	}
+
+	reactiveclass PingActor(50) {
+		statevars {
+			PongActor pong;
+			int id;
+		}
+
+		msgsrv initial(PongActor p, int myId) {
+			pong = p;
+			id = myId;
+		}
+
+		msgsrv start() {
+			// corresponds to: pong ! s"ping-$id"
+			// We encode the string by sending the id
+			pong.handleString(0, id) after(0);
+		}
+
+		msgsrv handleString(int msgId, int ignored) {
+			// corresponds to generic String case: pong ! s"ping-$id"
+			pong.handleString(msgId, id) after(0);
+		}
+
+		msgsrv handlePong(int msgId, int pingId) {
+			// response from PongActor, no further action
+		}
+	}
+
+	main {
+		PongActor pong();
+		PingActor ping[10](pong, 1);
+
+		// Initialize each PingActor with its own id
+		ping[0](pong, 1);
+		ping[1](pong, 2);
+		ping[2](pong, 3);
+		ping[3](pong, 4);
+		ping[4](pong, 5);
+		ping[5](pong, 6);
+		ping[6](pong, 7);
+		ping[7](pong, 8);
+		ping[8](pong, 9);
+		ping[9](pong, 10);
+
+		// send "start" to each ping
+		ping[0].start() after(0);
+		ping[1].start() after(0);
+		ping[2].start() after(0);
+		ping[3].start() after(0);
+		ping[4].start() after(0);
+		ping[5].start() after(0);
+		ping[6].start() after(0);
+		ping[7].start() after(0);
+		ping[8].start() after(0);
+		ping[9].start() after(0);
+	}
+}

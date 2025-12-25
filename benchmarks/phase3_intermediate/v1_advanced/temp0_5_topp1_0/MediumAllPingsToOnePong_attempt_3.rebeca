@@ -1,0 +1,122 @@
+reactiveclass PingActor(pongRef):base {
+	knownrebecs { PongActor pongRef; }
+	statevars { int id; }
+
+	PingActor(PongActor pongRef) {
+		this.pongRef = pongRef;
+	}
+
+	msgsrv setId(int myId) {
+		id = myId;
+	}
+
+	msgsrv start() {
+		pongRef.ping(id);
+	}
+
+	msgsrv pong_reply(int pingId) {
+		// no-op
+	}
+}
+
+reactiveclass PongActor(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):base {
+	knownrebecs {
+		PingActor p1;
+		PingActor p2;
+		PingActor p3;
+		PingActor p4;
+		PingActor p5;
+		PingActor p6;
+		PingActor p7;
+		PingActor p8;
+		PingActor p9;
+		PingActor p10;
+	}
+
+	PongActor(
+		PingActor p1,
+		PingActor p2,
+		PingActor p3,
+		PingActor p4,
+		PingActor p5,
+		PingActor p6,
+		PingActor p7,
+		PingActor p8,
+		PingActor p9,
+		PingActor p10
+	) {
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p3 = p3;
+		this.p4 = p4;
+		this.p5 = p5;
+		this.p6 = p6;
+		this.p7 = p7;
+		this.p8 = p8;
+		this.p9 = p9;
+		this.p10 = p10;
+	}
+
+	msgsrv ping(int pingId) {
+		if (pingId == 1) {
+			p1.pong_reply(pingId);
+		} else if (pingId == 2) {
+			p2.pong_reply(pingId);
+		} else if (pingId == 3) {
+			p3.pong_reply(pingId);
+		} else if (pingId == 4) {
+			p4.pong_reply(pingId);
+		} else if (pingId == 5) {
+			p5.pong_reply(pingId);
+		} else if (pingId == 6) {
+			p6.pong_reply(pingId);
+		} else if (pingId == 7) {
+			p7.pong_reply(pingId);
+		} else if (pingId == 8) {
+			p8.pong_reply(pingId);
+		} else if (pingId == 9) {
+			p9.pong_reply(pingId);
+		} else if (pingId == 10) {
+			p10.pong_reply(pingId);
+		}
+	}
+}
+
+main {
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+	PingActor ping10(pong):();
+
+	PongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10):();
+
+	{
+		ping1.setId(1);
+		ping2.setId(2);
+		ping3.setId(3);
+		ping4.setId(4);
+		ping5.setId(5);
+		ping6.setId(6);
+		ping7.setId(7);
+		ping8.setId(8);
+		ping9.setId(9);
+		ping10.setId(10);
+
+		ping1.start();
+		ping2.start();
+		ping3.start();
+		ping4.start();
+		ping5.start();
+		ping6.start();
+		ping7.start();
+		ping8.start();
+		ping9.start();
+		ping10.start();
+	}
+}

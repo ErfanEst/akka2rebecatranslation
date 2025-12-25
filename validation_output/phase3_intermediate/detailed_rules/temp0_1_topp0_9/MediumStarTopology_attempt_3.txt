@@ -1,0 +1,28 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:20, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:99, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:100, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:101, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:102, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:103, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:104, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:104, column:5, The method Hub(Client, Client, Client, Client, Client) is undefined for the type Hub
+line:106, column:4, extraneous input '.' expecting IDENTIFIER
+line:106, column:5, Unknown type hub
+line:106, column:16, mismatched input ';' expecting ':'
+line:107, column:4, extraneous input '.' expecting IDENTIFIER
+line:107, column:5, Unknown type hub
+line:107, column:16, mismatched input ';' expecting ':'
+line:108, column:4, extraneous input '.' expecting IDENTIFIER
+line:108, column:5, Unknown type hub
+line:108, column:16, mismatched input ';' expecting ':'
+line:109, column:4, extraneous input '.' expecting IDENTIFIER
+line:109, column:5, Unknown type hub
+line:109, column:16, mismatched input ';' expecting ':'
+line:110, column:4, extraneous input '.' expecting IDENTIFIER
+line:110, column:5, Unknown type hub
+line:110, column:16, mismatched input ';' expecting ':'
+

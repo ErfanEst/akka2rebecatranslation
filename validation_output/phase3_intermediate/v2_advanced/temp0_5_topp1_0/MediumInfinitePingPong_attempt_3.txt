@@ -1,0 +1,7 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:25, missing INTLITERAL at ')'
+line:19, column:25, missing INTLITERAL at ')'
+line:34, column:11, The PongActor knownrebecs type binding of (PingActor) is not applicable for the arguments ()
+

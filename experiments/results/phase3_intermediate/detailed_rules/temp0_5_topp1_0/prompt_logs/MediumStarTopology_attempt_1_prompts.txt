@@ -1,0 +1,137 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/detailed_rules/temp0_5_topp1_0
+File: MediumStarTopology
+Timestamp: 2025-12-25T13:54:16.775850
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+
+KEY TRANSLATION RULES:
+1. Akka Actor → Rebeca reactiveclass
+2. Actor messages → msgsrv methods
+3. Actor state → statevars section
+4. Actor references → knownrebecs section
+5. Message send (!) → method call
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumStarTopology
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case class Register(ref: ActorRef)
+
+class Client(hub: ActorRef) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      hub ! Ping
+    case Pong =>
+      hub ! Ping
+  }
+}
+
+class Hub extends Actor {
+  var clients: List[ActorRef] = Nil
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients ::= ref
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object StarApp extends App {
+  val system = ActorSystem("StarSystem")
+  val hub = system.actorOf(Props[Hub], "hub")
+
+  (1 to 5).foreach { i =>
+    val c = system.actorOf(Props(new Client(hub)), s"c$i")
+    hub ! Register(c)
+    c ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass Client {
+    knownrebecs { 
+        Hub hub;
+    }
+    statevars {
+    }
+
+    msgsrv start() {
+        hub.Ping();
+    }
+
+    msgsrv Pong() {
+        hub.Ping();
+    }
+
+    msgsrv initial() {
+    }
+}
+
+reactiveclass Hub {
+    knownrebecs {
+        Client c1;
+        Client c2;
+        Client c3;
+        Client c4;
+        Client c5;
+    }
+    statevars {
+        Client clients[5];
+        int clientCount;
+    }
+
+    msgsrv initial() {
+        clientCount = 0;
+    }
+
+    msgsrv Register(Client ref) {
+        if (clientCount < 5) {
+            clients[clientCount] = ref;
+            clientCount = clientCount + 1;
+        }
+    }
+
+    msgsrv Ping() {
+        sender.Pong();
+    }
+}
+
+main {
+    Hub hub(c1, c2, c3, c4, c5);
+    Client c1(hub);
+    Client c2(hub);
+    Client c3(hub);
+    Client c4(hub);
+    Client c5(hub);
+
+    hub.Register(c1);
+    hub.Register(c2);
+    hub.Register(c3);
+    hub.Register(c4);
+    hub.Register(c5);
+
+    c1.start();
+    c2.start();
+    c3.start();
+    c4.start();
+    c5.start();
+}
+
+================================================================================

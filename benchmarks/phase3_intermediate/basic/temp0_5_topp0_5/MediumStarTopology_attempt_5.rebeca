@@ -1,0 +1,54 @@
+reactiveclass Client {
+	knownrebecs { 
+		Hub hubKnown;
+	}
+
+	msgsrv start() {
+		hubKnown.Ping();
+	}
+
+	msgsrv Pong() {
+		hubKnown.Ping();
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs { 
+		Client c1Known; 
+		Client c2Known; 
+		Client c3Known; 
+		Client c4Known; 
+		Client c5Known; 
+	}
+
+	msgsrv Ping() {
+		c1Known.Pong();
+		c2Known.Pong();
+		c3Known.Pong();
+		c4Known.Pong();
+		c5Known.Pong();
+	}
+
+	msgsrv initial() {
+		// no-op
+	}
+}
+
+main {
+	Client c1(hub);
+	Client c2(hub);
+	Client c3(hub);
+	Client c4(hub);
+	Client c5(hub);
+	Hub hub(c1, c2, c3, c4, c5);
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

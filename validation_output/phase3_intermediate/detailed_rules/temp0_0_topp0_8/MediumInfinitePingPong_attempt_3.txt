@@ -1,0 +1,10 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, missing INTLITERAL at ')'
+line:13, column:7, The method Ping() is undefined for the type PongActor
+line:17, column:7, The method Ping() is undefined for the type PongActor
+line:21, column:24, mismatched input 'PingActor' expecting INTLITERAL
+line:38, column:11, The PingActor knownrebecs type binding of (PongActor) is not applicable for the arguments ()
+line:39, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor)
+

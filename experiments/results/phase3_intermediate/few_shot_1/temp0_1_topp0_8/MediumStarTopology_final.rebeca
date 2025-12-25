@@ -1,0 +1,46 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { 
+		// start automatically on initialization if desired
+		hub.Ping();
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv Register(Client ref) {
+		// clients list is implicit via knownrebecs; no action needed
+	}
+
+	msgsrv Ping() {
+		// Approximate Akka sender() by broadcasting
+		c1.Pong();
+		c2.Pong();
+		c3.Pong();
+		c4.Pong();
+		c5.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

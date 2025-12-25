@@ -1,0 +1,94 @@
+reactiveclass Client {
+	knownrebecs { 
+		Hub hub;
+	}
+	statevars { 
+	}
+
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+
+	constructor(Hub h) {
+		hub = h;
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean registered1;
+		boolean registered2;
+		boolean registered3;
+		boolean registered4;
+		boolean registered5;
+	}
+
+	msgsrv Register1() {
+		registered1 = true;
+	}
+
+	msgsrv Register2() {
+		registered2 = true;
+	}
+
+	msgsrv Register3() {
+		registered3 = true;
+	}
+
+	msgsrv Register4() {
+		registered4 = true;
+	}
+
+	msgsrv Register5() {
+		registered5 = true;
+	}
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+
+	constructor(Client cl1, Client cl2, Client cl3, Client cl4, Client cl5) {
+		c1 = cl1;
+		c2 = cl2;
+		c3 = cl3;
+		c4 = cl4;
+		c5 = cl5;
+		registered1 = false;
+		registered2 = false;
+		registered3 = false;
+		registered4 = false;
+		registered5 = false;
+	}
+}
+
+main {
+	Hub hub(c1, c2, c3, c4, c5);
+	Client c1(hub);
+	Client c2(hub);
+	Client c3(hub);
+	Client c4(hub);
+	Client c5(hub);
+
+	hub.Register1();
+	hub.Register2();
+	hub.Register3();
+	hub.Register4();
+	hub.Register5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

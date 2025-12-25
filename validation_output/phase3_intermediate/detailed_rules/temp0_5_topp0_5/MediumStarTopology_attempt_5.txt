@@ -1,0 +1,33 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hubType' expecting INTLITERAL
+line:20, column:18, mismatched input 'clientType' expecting INTLITERAL
+line:70, column:13, Unknown type Client<?>
+line:70, column:16, "hub" undeclared
+line:71, column:13, Unknown type Client<?>
+line:72, column:13, Unknown type Client<?>
+line:73, column:13, Unknown type Client<?>
+line:74, column:13, Unknown type Client<?>
+line:75, column:13, Unknown type Hub<?>
+line:77, column:4, extraneous input '.' expecting IDENTIFIER
+line:77, column:5, Unknown type hub
+line:78, column:4, extraneous input '.' expecting IDENTIFIER
+line:78, column:5, Unknown type hub
+line:79, column:4, extraneous input '.' expecting IDENTIFIER
+line:79, column:5, Unknown type hub
+line:80, column:4, extraneous input '.' expecting IDENTIFIER
+line:80, column:5, Unknown type hub
+line:81, column:4, extraneous input '.' expecting IDENTIFIER
+line:81, column:5, Unknown type hub
+line:83, column:3, extraneous input '.' expecting IDENTIFIER
+line:83, column:4, Unknown type c1
+line:84, column:3, extraneous input '.' expecting IDENTIFIER
+line:84, column:4, Unknown type c2
+line:85, column:3, extraneous input '.' expecting IDENTIFIER
+line:85, column:4, Unknown type c3
+line:86, column:3, extraneous input '.' expecting IDENTIFIER
+line:86, column:4, Unknown type c4
+line:87, column:3, extraneous input '.' expecting IDENTIFIER
+line:87, column:4, Unknown type c5
+

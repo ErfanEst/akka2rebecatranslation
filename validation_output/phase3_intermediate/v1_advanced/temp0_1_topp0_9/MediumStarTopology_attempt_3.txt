@@ -1,0 +1,48 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:22, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:58, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:58, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:59, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:59, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:60, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:60, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:61, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:61, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:62, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:62, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:63, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:63, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:65, column:4, extraneous input '.' expecting IDENTIFIER
+line:65, column:5, Unknown type hub
+line:65, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:66, column:4, extraneous input '.' expecting IDENTIFIER
+line:66, column:5, Unknown type hub
+line:66, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:67, column:4, extraneous input '.' expecting IDENTIFIER
+line:67, column:5, Unknown type hub
+line:67, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:68, column:4, extraneous input '.' expecting IDENTIFIER
+line:68, column:5, Unknown type hub
+line:68, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:69, column:4, extraneous input '.' expecting IDENTIFIER
+line:69, column:5, Unknown type hub
+line:69, column:17, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:71, column:3, extraneous input '.' expecting IDENTIFIER
+line:71, column:4, Unknown type c1
+line:71, column:11, mismatched input ';' expecting ':'
+line:72, column:3, extraneous input '.' expecting IDENTIFIER
+line:72, column:4, Unknown type c2
+line:72, column:11, mismatched input ';' expecting ':'
+line:73, column:3, extraneous input '.' expecting IDENTIFIER
+line:73, column:4, Unknown type c3
+line:73, column:11, mismatched input ';' expecting ':'
+line:74, column:3, extraneous input '.' expecting IDENTIFIER
+line:74, column:4, Unknown type c4
+line:74, column:11, mismatched input ';' expecting ':'
+line:75, column:3, extraneous input '.' expecting IDENTIFIER
+line:75, column:4, Unknown type c5
+line:75, column:11, mismatched input ';' expecting ':'
+

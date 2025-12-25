@@ -1,0 +1,33 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:21, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:101, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:101, column:28, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:102, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:102, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:103, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:103, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:104, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:104, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:105, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:105, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:106, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:106, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:108, column:4, extraneous input '.' expecting IDENTIFIER
+line:108, column:5, Unknown type hub
+line:108, column:16, mismatched input ';' expecting ':'
+line:109, column:4, extraneous input '.' expecting IDENTIFIER
+line:109, column:5, Unknown type hub
+line:109, column:16, mismatched input ';' expecting ':'
+line:110, column:4, extraneous input '.' expecting IDENTIFIER
+line:110, column:5, Unknown type hub
+line:110, column:16, mismatched input ';' expecting ':'
+line:111, column:4, extraneous input '.' expecting IDENTIFIER
+line:111, column:5, Unknown type hub
+line:111, column:16, mismatched input ';' expecting ':'
+line:112, column:4, extraneous input '.' expecting IDENTIFIER
+line:112, column:5, Unknown type hub
+line:112, column:16, mismatched input ';' expecting ':'
+

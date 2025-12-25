@@ -1,0 +1,37 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:25, column:9, There is no meta data for type ReactiveClass
+line:30, column:16, extraneous input ':' expecting '('
+line:30, column:19, mismatched input ';' expecting ':'
+line:42, column:6, extraneous input '.' expecting IDENTIFIER
+line:42, column:7, Unknown type ping1
+line:42, column:14, mismatched input ';' expecting ':'
+line:43, column:6, extraneous input '.' expecting IDENTIFIER
+line:43, column:7, Unknown type ping2
+line:43, column:14, mismatched input ';' expecting ':'
+line:44, column:6, extraneous input '.' expecting IDENTIFIER
+line:44, column:7, Unknown type ping3
+line:44, column:14, mismatched input ';' expecting ':'
+line:45, column:6, extraneous input '.' expecting IDENTIFIER
+line:45, column:7, Unknown type ping4
+line:45, column:14, mismatched input ';' expecting ':'
+line:46, column:6, extraneous input '.' expecting IDENTIFIER
+line:46, column:7, Unknown type ping5
+line:46, column:14, mismatched input ';' expecting ':'
+line:47, column:6, extraneous input '.' expecting IDENTIFIER
+line:47, column:7, Unknown type ping6
+line:47, column:14, mismatched input ';' expecting ':'
+line:48, column:6, extraneous input '.' expecting IDENTIFIER
+line:48, column:7, Unknown type ping7
+line:48, column:14, mismatched input ';' expecting ':'
+line:49, column:6, extraneous input '.' expecting IDENTIFIER
+line:49, column:7, Unknown type ping8
+line:49, column:14, mismatched input ';' expecting ':'
+line:50, column:6, extraneous input '.' expecting IDENTIFIER
+line:50, column:7, Unknown type ping9
+line:50, column:14, mismatched input ';' expecting ':'
+line:51, column:7, extraneous input '.' expecting IDENTIFIER
+line:51, column:8, Unknown type ping10
+line:51, column:15, mismatched input ';' expecting ':'
+

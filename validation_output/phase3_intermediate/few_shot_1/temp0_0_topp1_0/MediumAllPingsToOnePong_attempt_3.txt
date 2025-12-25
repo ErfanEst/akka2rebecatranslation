@@ -1,0 +1,34 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:32, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:32, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:32, column:25, "int" undeclared
+line:33, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:33, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:33, column:25, "int" undeclared
+line:34, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:34, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:34, column:25, "int" undeclared
+line:35, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:35, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:35, column:25, "int" undeclared
+line:36, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:36, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:36, column:25, "int" undeclared
+line:37, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:37, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:37, column:25, "int" undeclared
+line:38, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:38, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:38, column:25, "int" undeclared
+line:39, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:39, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:39, column:25, "int" undeclared
+line:40, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:40, column:24, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:40, column:25, "int" undeclared
+line:41, column:11, The method PingActor(unknown) is undefined for the type PingActor
+line:41, column:25, extraneous input '<' expecting {INTLITERAL, FLOATLITERAL, DOUBLELITERAL, CHARLITERAL, STRINGLITERAL, 'new', 'true', 'false', 'null', '(', ')', '!', '~', '?', '++', '--', '+', '-', '@', IDENTIFIER}
+line:41, column:26, "int" undeclared
+

@@ -1,0 +1,75 @@
+reactiveclass Client {
+	knownrebecs {
+		Hub hub;
+	}
+	msgsrv initial() {
+		start();
+	}
+	msgsrv start() {
+		hub.Ping();
+	}
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean registered1;
+		boolean registered2;
+		boolean registered3;
+		boolean registered4;
+		boolean registered5;
+	}
+	msgsrv initial() {
+		registered1 = false;
+		registered2 = false;
+		registered3 = false;
+		registered4 = false;
+		registered5 = false;
+
+		self.Register(c1);
+		self.Register(c2);
+		self.Register(c3);
+		self.Register(c4);
+		self.Register(c5);
+
+		c1.start();
+		c2.start();
+		c3.start();
+		c4.start();
+		c5.start();
+	}
+	msgsrv Register(Client ref) {
+		if (ref == c1) {
+			registered1 = true;
+		} else if (ref == c2) {
+			registered2 = true;
+		} else if (ref == c3) {
+			registered3 = true;
+		} else if (ref == c4) {
+			registered4 = true;
+		} else if (ref == c5) {
+			registered5 = true;
+		}
+	}
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

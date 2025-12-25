@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass Client(5) {\n\tknownrebecs {\n\t\tHub hub;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\thub.pingFrom(self);\n\t}\n\n\tmsgsrv pong() {\n\t\thub.pingFrom(self);\n\t}\n}\n\nreactiveclass Hub(5) {\n\tknownrebecs {\n\t\tClient c1;\n\t\tClient c2;\n\t\tClient c3;\n\t\tClient c4;\n\t\tClient c5;\n\t}\n\tstatevars {\n\t\tClient lastSender;\n\t\tint clientsCount;\n\t\tClient client0;\n\t\tClient client1;\n\t\tClient client2;\n\t\tClient client3;\n\t\tClient client4;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientsCount = 0;\n\t\tself.register(c1);\n\t\tself.register(c2);\n\t\tself.register(c3);\n\t\tself.register(c4);\n\t\tself.register(c5);\n\t}\n\n\tmsgsrv register(Client ref) {\n\t\tif (clientsCount < 5) {\n\t\t\tif (clientsCount == 0) {\n\t\t\t\tclient0 = ref;\n\t\t\t} else {\n\t\t\t\tif (clientsCount == 1) {\n\t\t\t\t\tclient1 = ref;\n\t\t\t\t} else {\n\t\t\t\t\tif (clientsCount == 2) {\n\t\t\t\t\t\tclient2 = ref;\n\t\t\t\t\t} else {\n\t\t\t\t\t\tif (clientsCount == 3) {\n\t\t\t\t\t\t\tclient3 = ref;\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tif (clientsCount == 4) {\n\t\t\t\t\t\t\t\tclient4 = ref;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tclientsCount = clientsCount + 1;\n\t\t}\n\t}\n\n\tmsgsrv ping() {\n\t\tlastSender.pong();\n\t}\n\n\tmsgsrv pingFrom(Client ref) {\n\t\tlastSender = ref;\n\t\tself.ping();\n\t}\n}\n\nmain {\n\tHub hub(c1, c2, c3, c4, c5):();\n\tClient c1(hub):();\n\tClient c2(hub):();\n\tClient c3(hub):();\n\tClient c4(hub):();\n\tClient c5(hub):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs {\n\t\tHub hub;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(5) {\n\tknownrebecs {\n\t\tClient c1;\n\t\tClient c2;\n\t\tClient c3;\n\t\tClient c4;\n\t\tClient c5;\n\t}\n\tstatevars {\n\t\tClient lastSender;\n\t\tint clientsCount;\n\t\tClient clients[5];\n\t}\n\n\tmsgsrv initial() {\n\t\tclientsCount = 0;\n\t\tself.register(c1);\n\t\tself.register(c2);\n\t\tself.register(c3);\n\t\tself.register(c4);\n\t\tself.register(c5);\n\t}\n\n\tmsgsrv register(Client ref) {\n\t\tif (clientsCount < 5) {\n\t\t\tclients[clientsCount] = ref;\n\t\t\tclientsCount = clientsCount + 1;\n\t\t}\n\t}\n\n\tmsgsrv ping() {\n\t\t/* in Akka: sender() ! Pong */\n\t\tlastSender.pong();\n\t}\n\n\t/* Auxiliary message to set lastSender before calling ping, when needed */\n\tmsgsrv pingFrom(Client ref) {\n\t\tlastSender = ref;\n\t\tself.ping();\n\t}\n}\n\nmain {\n\tClient c1(hub):();\n\tClient c2(hub):();\n\tClient c3(hub):();\n\tClient c4(hub):();\n\tClient c5(hub):();\n\tHub hub(c1, c2, c3, c4, c5):();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:13, column:6, The method ping() is undefined for the type Hub\nline:17, column:6, The method ping() is undefined for the type Hub\nline:32, column:16, mismatched input '[' expecting {'[', '<', IDENTIFIER}",
+      "timestamp": "2025-12-25T15:16:42.154230",
+      "code_length": 1016
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs {\n\t\tHub hub;\n\t}\n\tstatevars {\n\t}\n\n\tmsgsrv initial() {\n\t\tself.start();\n\t}\n\n\tmsgsrv start() {\n\t\thub.pingFrom(self);\n\t}\n\n\tmsgsrv pong() {\n\t\thub.pingFrom(self);\n\t}\n}\n\nreactiveclass Hub(5) {\n\tknownrebecs {\n\t\tClient c1;\n\t\tClient c2;\n\t\tClient c3;\n\t\tClient c4;\n\t\tClient c5;\n\t}\n\tstatevars {\n\t\tClient lastSender;\n\t\tint clientsCount;\n\t\tClient client0;\n\t\tClient client1;\n\t\tClient client2;\n\t\tClient client3;\n\t\tClient client4;\n\t}\n\n\tmsgsrv initial() {\n\t\tclientsCount = 0;\n\t\tself.register(c1);\n\t\tself.register(c2);\n\t\tself.register(c3);\n\t\tself.register(c4);\n\t\tself.register(c5);\n\t}\n\n\tmsgsrv register(Client ref) {\n\t\tif (clientsCount < 5) {\n\t\t\tif (clientsCount == 0) {\n\t\t\t\tclient0 = ref;\n\t\t\t} else {\n\t\t\t\tif (clientsCount == 1) {\n\t\t\t\t\tclient1 = ref;\n\t\t\t\t} else {\n\t\t\t\t\tif (clientsCount == 2) {\n\t\t\t\t\t\tclient2 = ref;\n\t\t\t\t\t} else {\n\t\t\t\t\t\tif (clientsCount == 3) {\n\t\t\t\t\t\t\tclient3 = ref;\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tif (clientsCount == 4) {\n\t\t\t\t\t\t\t\tclient4 = ref;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tclientsCount = clientsCount + 1;\n\t\t}\n\t}\n\n\tmsgsrv ping() {\n\t\tlastSender.pong();\n\t}\n\n\tmsgsrv pingFrom(Client ref) {\n\t\tlastSender = ref;\n\t\tself.ping();\n\t}\n}\n\nmain {\n\tHub hub(c1, c2, c3, c4, c5):();\n\tClient c1(hub):();\n\tClient c2(hub):();\n\tClient c3(hub):();\n\tClient c4(hub):();\n\tClient c5(hub):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:16:48.588419",
+      "code_length": 1304
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 11.484648942947388,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_1/temp0_1_topp1_0",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:16:48.588470"
+}

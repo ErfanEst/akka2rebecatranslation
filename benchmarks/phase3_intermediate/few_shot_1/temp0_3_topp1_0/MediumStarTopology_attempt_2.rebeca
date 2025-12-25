@@ -1,0 +1,107 @@
+reactiveclass Client(5) {
+	knownrebecs {
+		Hub hub;
+	}
+	statevars {
+	}
+
+	msgsrv initial() {
+		// corresponds to Akka "start"
+		hub.ping();
+	}
+
+	msgsrv pong() {
+		hub.ping();
+	}
+
+	// helper to start after registration if needed
+	msgsrv start() {
+		hub.ping();
+	}
+}
+
+reactiveclass Hub(5) {
+	knownrebecs {
+		Client c1;
+		Client c2;
+		Client c3;
+		Client c4;
+		Client c5;
+	}
+	statevars {
+		boolean hasC1;
+		boolean hasC2;
+		boolean hasC3;
+		boolean hasC4;
+		boolean hasC5;
+	}
+
+	msgsrv initial() {
+		hasC1 = false;
+		hasC2 = false;
+		hasC3 = false;
+		hasC4 = false;
+		hasC5 = false;
+	}
+
+	// Register(ref) messages for each client
+	msgsrv registerC1() {
+		hasC1 = true;
+	}
+
+	msgsrv registerC2() {
+		hasC2 = true;
+	}
+
+	msgsrv registerC3() {
+		hasC3 = true;
+	}
+
+	msgsrv registerC4() {
+		hasC4 = true;
+	}
+
+	msgsrv registerC5() {
+		hasC5 = true;
+	}
+
+	// Ping: reply Pong to a nondeterministically chosen registered client
+	msgsrv ping() {
+		int choice;
+		choice = ?(1,2,3,4,5);
+		if (choice == 1 && hasC1) {
+			c1.pong();
+		} else if (choice == 2 && hasC2) {
+			c2.pong();
+		} else if (choice == 3 && hasC3) {
+			c3.pong();
+		} else if (choice == 4 && hasC4) {
+			c4.pong();
+		} else if (choice == 5 && hasC5) {
+			c5.pong();
+		}
+	}
+}
+
+main {
+	// create hub and 5 clients in a star topology
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+
+	// simulate registration and start as in StarApp
+	hub.registerC1();
+	hub.registerC2();
+	hub.registerC3();
+	hub.registerC4();
+	hub.registerC5();
+
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+	c5.start();
+}

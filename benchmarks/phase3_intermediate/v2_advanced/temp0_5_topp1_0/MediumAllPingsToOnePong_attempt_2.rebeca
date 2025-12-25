@@ -1,0 +1,76 @@
+reactiveclass PongActor(50) {
+	statevars {
+		int dummy;
+		PingActor pingRefs[10];
+	}
+
+	msgsrv initial(PingActor p0, PingActor p1, PingActor p2, PingActor p3, PingActor p4,
+	               PingActor p5, PingActor p6, PingActor p7, PingActor p8, PingActor p9) {
+		pingRefs[0] = p0;
+		pingRefs[1] = p1;
+		pingRefs[2] = p2;
+		pingRefs[3] = p3;
+		pingRefs[4] = p4;
+		pingRefs[5] = p5;
+		pingRefs[6] = p6;
+		pingRefs[7] = p7;
+		pingRefs[8] = p8;
+		pingRefs[9] = p9;
+	}
+
+	msgsrv handleString(int msgId, int pingId) {
+		pingRefs[pingId].handlePong(msgId, pingId) after(0);
+	}
+}
+
+reactiveclass PingActor(50) {
+	statevars {
+		PongActor pong;
+		int id;
+	}
+
+	msgsrv initial(PongActor p, int myId) {
+		pong = p;
+		id = myId;
+	}
+
+	msgsrv start() {
+		pong.handleString(0, id) after(0);
+	}
+
+	msgsrv handleString(int msgId, int ignored) {
+		pong.handleString(msgId, id) after(0);
+	}
+
+	msgsrv handlePong(int msgId, int pingId) {
+		// no further action
+	}
+}
+
+main {
+	PingActor ping[10]();
+	PongActor pong(ping[0], ping[1], ping[2], ping[3], ping[4],
+	               ping[5], ping[6], ping[7], ping[8], ping[9]);
+
+	ping[0](pong, 0);
+	ping[1](pong, 1);
+	ping[2](pong, 2);
+	ping[3](pong, 3);
+	ping[4](pong, 4);
+	ping[5](pong, 5);
+	ping[6](pong, 6);
+	ping[7](pong, 7);
+	ping[8](pong, 8);
+	ping[9](pong, 9);
+
+	ping[0].start() after(0);
+	ping[1].start() after(0);
+	ping[2].start() after(0);
+	ping[3].start() after(0);
+	ping[4].start() after(0);
+	ping[5].start() after(0);
+	ping[6].start() after(0);
+	ping[7].start() after(0);
+	ping[8].start() after(0);
+	ping[9].start() after(0);
+}

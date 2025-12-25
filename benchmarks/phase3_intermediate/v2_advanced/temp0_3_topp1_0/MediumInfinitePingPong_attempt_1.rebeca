@@ -1,0 +1,42 @@
+reactiveclass PingActor {
+	statevars {
+		int pong;
+	}
+
+	msghandler PingActor(int pongRef) {
+		pong = pongRef;
+	}
+
+	msghandler Start() {
+		Ping msg;
+		self.ping(pong, msg);
+	}
+
+	msghandler Pong() {
+		Ping msg;
+		self.ping(pong, msg);
+	}
+
+	private msghandler ping(int target, Ping msg) {
+		PingActor(target, msg);
+	}
+}
+
+reactiveclass PongActor {
+	msghandler Ping() {
+		Pong msg;
+		self.reply(msg);
+	}
+
+	private msghandler reply(Pong msg) {
+		PingActor(sender, msg);
+	}
+}
+
+main {
+	PingActor ping(1);
+	PongActor pong(1);
+
+	ping.PingActor(pong);
+	ping.Start();
+}

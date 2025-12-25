@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; }\n\n\tRingActor() {\n\t\tinitialized = false;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv SetNext(RingActor n) {\n\t\tnext = n;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; }\n\n\tRingActor() {\n\t\tinitialized = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tnext = ref;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.SetNext(a2):();\n\ta2.SetNext(a3):();\n\ta3.SetNext(a4):();\n\ta4.SetNext(a5):();\n\ta5.SetNext(a1):();\n\n\ta1.Ping():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:10, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:28, column:3, extraneous input '.' expecting IDENTIFIER\nline:28, column:4, Unknown type a1\nline:29, column:3, extraneous input '.' expecting IDENTIFIER\nline:29, column:4, Unknown type a2\nline:30, column:3, extraneous input '.' expecting IDENTIFIER\nline:30, column:4, Unknown type a3\nline:31, column:3, extraneous input '.' expecting IDENTIFIER\nline:31, column:4, Unknown type a4\nline:32, column:3, extraneous input '.' expecting IDENTIFIER\nline:32, column:4, Unknown type a5\nline:34, column:3, extraneous input '.' expecting IDENTIFIER\nline:34, column:4, Unknown type a1",
+      "timestamp": "2025-12-25T16:00:25.058276",
+      "code_length": 513
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; RingActor tempNext; }\n\n\tRingActor(RingActor n) {\n\t\tinitialized = false;\n\t\ttempNext = n;\n\t\tself.SetNext();\n\t}\n\n\tmsgsrv SetNext() {\n\t\tnext = tempNext;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:12, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:24, column:11, The method RingActor() is undefined for the type RingActor\nline:25, column:11, The method RingActor() is undefined for the type RingActor\nline:26, column:11, The method RingActor() is undefined for the type RingActor\nline:27, column:11, The method RingActor() is undefined for the type RingActor\nline:28, column:11, The method RingActor() is undefined for the type RingActor\nline:30, column:3, extraneous input '.' expecting IDENTIFIER\nline:30, column:4, Unknown type a1",
+      "timestamp": "2025-12-25T16:00:28.794335",
+      "code_length": 469
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; }\n\n\tmsgsrv initial() {\n\t\tinitialized = false;\n\t}\n\n\tmsgsrv SetNext(RingActor n) {\n\t\tnext = n;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:10, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:28, column:3, extraneous input '.' expecting IDENTIFIER\nline:28, column:4, Unknown type a1\nline:28, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T16:00:31.978088",
+      "code_length": 410
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; }\n\n\tRingActor() {\n\t\tinitialized = false;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv SetNext(RingActor n) {\n\t\tnext = n;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:13, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:31, column:3, extraneous input '.' expecting IDENTIFIER\nline:31, column:4, Unknown type a1\nline:31, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T16:00:35.642129",
+      "code_length": 429
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass RingActor(5) {\n\tknownrebecs { RingActor next; }\n\tstatevars { boolean initialized; }\n\n\tRingActor() {\n\t\tinitialized = false;\n\t}\n\n\tmsgsrv initial() {\n\t}\n\n\tmsgsrv SetNext(RingActor n) {\n\t\tnext = n;\n\t\tinitialized = true;\n\t}\n\n\tmsgsrv Ping() {\n\t\tif (initialized) {\n\t\t\tnext.Ping();\n\t\t}\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping():();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:13, column:2, A constant variable cannot be in the left-hand side of an assignment\nline:31, column:3, extraneous input '.' expecting IDENTIFIER\nline:31, column:4, Unknown type a1",
+      "timestamp": "2025-12-25T16:00:39.379813",
+      "code_length": 432
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 18.51678490638733,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_1_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.1,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T16:00:39.379879"
+}

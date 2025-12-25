@@ -1,0 +1,14 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hubInterface' expecting INTLITERAL
+line:13, column:18, mismatched input 'c1Interface' expecting INTLITERAL
+line:27, column:1, mismatched input 'msgrsv' expecting {'msgsrv', '}', '@'}
+line:31, column:1, mismatched input 'msgrsv' expecting {'msgsrv', '}', '@'}
+line:35, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:36, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:37, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:38, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:39, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:40, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+

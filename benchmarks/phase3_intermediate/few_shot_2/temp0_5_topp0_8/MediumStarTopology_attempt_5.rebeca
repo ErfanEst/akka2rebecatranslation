@@ -1,0 +1,61 @@
+reactiveclass Client(5) {
+	knownrebecs { Hub hub; }
+	statevars { }
+
+	msgsrv initial() { }
+
+	msgsrv start() {
+		hub.ping(self);
+	}
+
+	msgsrv pong() {
+		hub.ping(self);
+	}
+}
+
+reactiveclass Hub(10) {
+	knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+	statevars {
+		int clientsCount;
+		Client clients[5];
+	}
+
+	Hub() {
+		clientsCount = 0;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv register(Client ref) {
+		if (clientsCount < 5) {
+			clients[clientsCount] = ref;
+			clientsCount = clientsCount + 1;
+		}
+	}
+
+	msgsrv ping(Client senderRef) {
+		senderRef.pong();
+	}
+}
+
+main {
+	Client c1(h):();
+	Client c2(h):();
+	Client c3(h):();
+	Client c4(h):();
+	Client c5(h):();
+	Hub h(c1, c2, c3, c4, c5):();
+
+	h.register(c1):();
+	h.register(c2):();
+	h.register(c3):();
+	h.register(c4):();
+	h.register(c5):();
+
+	c1.start():();
+	c2.start():();
+	c3.start():();
+	c4.start():();
+	c5.start():();
+}

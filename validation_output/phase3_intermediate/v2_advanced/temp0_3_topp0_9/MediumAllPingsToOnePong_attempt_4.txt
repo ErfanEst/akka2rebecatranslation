@@ -1,0 +1,68 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'pongActorType' expecting INTLITERAL
+line:29, column:24, mismatched input 'pingActorType' expecting INTLITERAL
+line:92, column:11, The PongActor knownrebecs type binding of () is not applicable for the arguments (PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor, PingActor)
+line:92, column:86, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:93, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:93, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:94, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:94, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:95, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:95, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:96, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:96, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:97, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:97, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:98, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:98, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:99, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:99, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:100, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:100, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:101, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:101, column:22, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:102, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor)
+line:102, column:23, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}
+line:104, column:6, extraneous input '.' expecting IDENTIFIER
+line:104, column:7, Unknown type ping1
+line:105, column:6, extraneous input '.' expecting IDENTIFIER
+line:105, column:7, Unknown type ping2
+line:106, column:6, extraneous input '.' expecting IDENTIFIER
+line:106, column:7, Unknown type ping3
+line:107, column:6, extraneous input '.' expecting IDENTIFIER
+line:107, column:7, Unknown type ping4
+line:108, column:6, extraneous input '.' expecting IDENTIFIER
+line:108, column:7, Unknown type ping5
+line:109, column:6, extraneous input '.' expecting IDENTIFIER
+line:109, column:7, Unknown type ping6
+line:110, column:6, extraneous input '.' expecting IDENTIFIER
+line:110, column:7, Unknown type ping7
+line:111, column:6, extraneous input '.' expecting IDENTIFIER
+line:111, column:7, Unknown type ping8
+line:112, column:6, extraneous input '.' expecting IDENTIFIER
+line:112, column:7, Unknown type ping9
+line:113, column:7, extraneous input '.' expecting IDENTIFIER
+line:113, column:8, Unknown type ping10
+line:115, column:6, extraneous input '.' expecting IDENTIFIER
+line:115, column:7, Unknown type ping1
+line:116, column:6, extraneous input '.' expecting IDENTIFIER
+line:116, column:7, Unknown type ping2
+line:117, column:6, extraneous input '.' expecting IDENTIFIER
+line:117, column:7, Unknown type ping3
+line:118, column:6, extraneous input '.' expecting IDENTIFIER
+line:118, column:7, Unknown type ping4
+line:119, column:6, extraneous input '.' expecting IDENTIFIER
+line:119, column:7, Unknown type ping5
+line:120, column:6, extraneous input '.' expecting IDENTIFIER
+line:120, column:7, Unknown type ping6
+line:121, column:6, extraneous input '.' expecting IDENTIFIER
+line:121, column:7, Unknown type ping7
+line:122, column:6, extraneous input '.' expecting IDENTIFIER
+line:122, column:7, Unknown type ping8
+line:123, column:6, extraneous input '.' expecting IDENTIFIER
+line:123, column:7, Unknown type ping9
+line:124, column:7, extraneous input '.' expecting IDENTIFIER
+line:124, column:8, Unknown type ping10
+

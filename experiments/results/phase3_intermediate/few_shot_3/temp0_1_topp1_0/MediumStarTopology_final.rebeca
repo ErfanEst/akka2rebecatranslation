@@ -1,0 +1,88 @@
+reactiveclass Client(5) {
+  knownrebecs {
+    Hub hub;
+  }
+  statevars {
+  }
+
+  Client() {
+  }
+
+  msgsrv initial() {
+    // corresponds to receiving "start"
+    hub.Ping();
+  }
+
+  msgsrv Pong() {
+    hub.Ping();
+  }
+}
+
+reactiveclass Hub(5) {
+  knownrebecs {
+    Client c1;
+    Client c2;
+    Client c3;
+    Client c4;
+    Client c5;
+  }
+  statevars {
+  }
+
+  Hub() {
+  }
+
+  msgsrv Register1() {
+    c1.Pong();
+  }
+
+  msgsrv Register2() {
+    c2.Pong();
+  }
+
+  msgsrv Register3() {
+    c3.Pong();
+  }
+
+  msgsrv Register4() {
+    c4.Pong();
+  }
+
+  msgsrv Register5() {
+    c5.Pong();
+  }
+
+  msgsrv PingFromClient1() {
+    c1.Pong();
+  }
+
+  msgsrv PingFromClient2() {
+    c2.Pong();
+  }
+
+  msgsrv PingFromClient3() {
+    c3.Pong();
+  }
+
+  msgsrv PingFromClient4() {
+    c4.Pong();
+  }
+
+  msgsrv PingFromClient5() {
+    c5.Pong();
+  }
+
+  // Generic Ping handler if we abstract from individual senders
+  msgsrv Ping() {
+    // cannot access sender() in Rebeca; left intentionally empty
+  }
+}
+
+main {
+  Hub hub(c1, c2, c3, c4, c5):();
+  Client c1(hub):();
+  Client c2(hub):();
+  Client c3(hub):();
+  Client c4(hub):();
+  Client c5(hub):();
+}

@@ -1,0 +1,21 @@
+{
+  "experiment_name": "phase3_intermediate/few_shot_3/temp0_5_topp1_0",
+  "description": "Phase3 Intermediate: few_shot_3 - temp0_5_topp1_0",
+  "config": {
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 1.0,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "results": {
+    "total_files": 4,
+    "successful": 4,
+    "failed": 0,
+    "success_rate": 100.0,
+    "avg_attempts": 3.75,
+    "avg_time": 16.514176785945892
+  },
+  "timestamp": "2025-12-25T16:09:07.472249"
+}

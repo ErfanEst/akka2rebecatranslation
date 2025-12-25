@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:40, column:5, extraneous input '.' expecting IDENTIFIER
+line:40, column:6, Unknown type ping
+line:40, column:15, mismatched input ';' expecting ':'
+line:41, column:5, extraneous input '.' expecting IDENTIFIER
+line:41, column:6, Unknown type pong
+line:41, column:15, mismatched input ';' expecting ':'
+line:43, column:5, extraneous input '.' expecting IDENTIFIER
+line:43, column:6, Unknown type ping
+line:43, column:13, mismatched input ';' expecting ':'
+

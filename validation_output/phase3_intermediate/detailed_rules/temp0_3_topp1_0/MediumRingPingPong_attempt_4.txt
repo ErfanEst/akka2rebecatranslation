@@ -1,0 +1,28 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:25, mismatched input 'RingActor' expecting INTLITERAL
+line:23, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:24, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:25, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:26, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:27, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:29, column:3, extraneous input '.' expecting IDENTIFIER
+line:29, column:4, Unknown type a1
+line:29, column:13, mismatched input ';' expecting ':'
+line:30, column:3, extraneous input '.' expecting IDENTIFIER
+line:30, column:4, Unknown type a2
+line:30, column:13, mismatched input ';' expecting ':'
+line:31, column:3, extraneous input '.' expecting IDENTIFIER
+line:31, column:4, Unknown type a3
+line:31, column:13, mismatched input ';' expecting ':'
+line:32, column:3, extraneous input '.' expecting IDENTIFIER
+line:32, column:4, Unknown type a4
+line:32, column:13, mismatched input ';' expecting ':'
+line:33, column:3, extraneous input '.' expecting IDENTIFIER
+line:33, column:4, Unknown type a5
+line:33, column:13, mismatched input ';' expecting ':'
+line:35, column:3, extraneous input '.' expecting IDENTIFIER
+line:35, column:4, Unknown type a1
+line:35, column:10, mismatched input ';' expecting ':'
+

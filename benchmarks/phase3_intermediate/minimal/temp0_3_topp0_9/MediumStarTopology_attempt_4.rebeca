@@ -1,0 +1,28 @@
+reactiveclass Client(hub):Hub {
+	msgsrv start() {
+		hub.Ping();
+	}
+
+	msgsrv Pong() {
+		hub.Ping();
+	}
+}
+
+reactiveclass Hub(c1, c2, c3, c4, c5):Client {
+	msgsrv Register(Client ref) {
+		// registration is implicit via known rebecs in Rebeca
+	}
+
+	msgsrv Ping() {
+		sender.Pong();
+	}
+}
+
+main {
+	Client c1(hub):();
+	Client c2(hub):();
+	Client c3(hub):();
+	Client c4(hub):();
+	Client c5(hub):();
+	Hub hub(c1, c2, c3, c4, c5):();
+}

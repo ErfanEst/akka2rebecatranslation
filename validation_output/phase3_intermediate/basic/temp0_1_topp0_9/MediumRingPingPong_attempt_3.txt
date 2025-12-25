@@ -1,0 +1,6 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:20, column:1, mismatched input 'knownrebecs' expecting {'}', '@', IDENTIFIER}
+

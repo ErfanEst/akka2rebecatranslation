@@ -1,0 +1,57 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:19, mismatched input 'knownrebecs' expecting INTLITERAL
+line:15, column:19, mismatched input 'knownrebecs' expecting INTLITERAL
+line:30, column:15, mismatched input ';' expecting ':'
+line:32, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:32, column:9, The method Ping(byte) is undefined for the type Ping
+line:33, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:33, column:9, The method Ping(byte) is undefined for the type Ping
+line:34, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:34, column:9, The method Ping(byte) is undefined for the type Ping
+line:35, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:35, column:9, The method Ping(byte) is undefined for the type Ping
+line:36, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:36, column:9, The method Ping(byte) is undefined for the type Ping
+line:37, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:37, column:9, The method Ping(byte) is undefined for the type Ping
+line:38, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:38, column:9, The method Ping(byte) is undefined for the type Ping
+line:39, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:39, column:9, The method Ping(byte) is undefined for the type Ping
+line:40, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:40, column:9, The method Ping(byte) is undefined for the type Ping
+line:41, column:9, The Ping knownrebecs type binding of () is not applicable for the arguments (Pong)
+line:41, column:9, The method Ping(byte) is undefined for the type Ping
+line:43, column:9, extraneous input '.' expecting IDENTIFIER
+line:43, column:10, Unknown type ping1
+line:43, column:17, mismatched input ';' expecting ':'
+line:44, column:9, extraneous input '.' expecting IDENTIFIER
+line:44, column:10, Unknown type ping2
+line:44, column:17, mismatched input ';' expecting ':'
+line:45, column:9, extraneous input '.' expecting IDENTIFIER
+line:45, column:10, Unknown type ping3
+line:45, column:17, mismatched input ';' expecting ':'
+line:46, column:9, extraneous input '.' expecting IDENTIFIER
+line:46, column:10, Unknown type ping4
+line:46, column:17, mismatched input ';' expecting ':'
+line:47, column:9, extraneous input '.' expecting IDENTIFIER
+line:47, column:10, Unknown type ping5
+line:47, column:17, mismatched input ';' expecting ':'
+line:48, column:9, extraneous input '.' expecting IDENTIFIER
+line:48, column:10, Unknown type ping6
+line:48, column:17, mismatched input ';' expecting ':'
+line:49, column:9, extraneous input '.' expecting IDENTIFIER
+line:49, column:10, Unknown type ping7
+line:49, column:17, mismatched input ';' expecting ':'
+line:50, column:9, extraneous input '.' expecting IDENTIFIER
+line:50, column:10, Unknown type ping8
+line:50, column:17, mismatched input ';' expecting ':'
+line:51, column:9, extraneous input '.' expecting IDENTIFIER
+line:51, column:10, Unknown type ping9
+line:51, column:17, mismatched input ';' expecting ':'
+line:52, column:10, extraneous input '.' expecting IDENTIFIER
+line:52, column:11, Unknown type ping10
+line:52, column:18, mismatched input ';' expecting ':'
+

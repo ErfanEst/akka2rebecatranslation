@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "timed reactiveclass ActorA {\n    knownrebecs {\n        ActorB b;\n    }\n    statevars {\n        int counter;\n    }\n\n    ActorA() {\n        counter = 0;\n        self.start();\n    }\n\n    msgsrv start() {\n        // initial behavior, e.g., send a message to B\n        b.process(counter) after(1);\n    }\n\n    msgsrv reply(int value) {\n        counter = value;\n        // continue behavior or terminate\n    }\n}\n\ntimed reactiveclass ActorB {\n    knownrebecs {\n        ActorA a;\n    }\n    statevars {\n        int internal;\n    }\n\n    ActorB() {\n        internal = 0;\n    }\n\n    msgsrv process(int v) {\n        internal = v + 1;\n        a.reply(internal) after(1);\n    }\n}\n\ntimed main {\n    ActorA a(1);\n    ActorB b(a);\n\n    a(b);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:27.553867",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:29.027501",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:30.565747",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:32.006630",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "timed reactiveclass ActorA {\n    knownrebecs {\n        ActorB b;\n    }\n    statevars {\n        int counter;\n    }\n\n    ActorA() {\n        counter = 0;\n        self.start();\n    }\n\n    msgsrv start() {\n        // initial behavior, e.g., send a message to B\n        b.process(counter) after(1);\n    }\n\n    msgsrv reply(int value) {\n        counter = value;\n        // continue behavior or terminate\n    }\n}\n\ntimed reactiveclass ActorB {\n    knownrebecs {\n        ActorA a;\n    }\n    statevars {\n        int internal;\n    }\n\n    ActorB() {\n        internal = 0;\n    }\n\n    msgsrv process(int v) {\n        internal = v + 1;\n        a.reply(internal) after(1);\n    }\n}\n\ntimed main {\n    ActorA a(1);\n    ActorB b(a);\n\n    a(b);\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:0, extraneous input 'timed' expecting {'import', 'package', 'record', 'env', 'featurevar', 'reactiveclass', 'interface', 'abstract', '@'}\nline:1, column:27, mismatched input '{' expecting {'extends', 'implements', '('}\nline:25, column:27, mismatched input '{' expecting {'extends', 'implements', '('}\nline:44, column:11, The ActorA knownrebecs type binding of () is not applicable for the arguments (byte)\nline:44, column:15, mismatched input ';' expecting {'instanceof', ')', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:45, column:11, The ActorB knownrebecs type binding of () is not applicable for the arguments (ActorA)\nline:45, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:47, column:5, extraneous input '(' expecting IDENTIFIER\nline:47, column:6, Multiple definition for the actor b\nline:47, column:7, missing '(' at ')'\nline:47, column:8, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}",
+      "timestamp": "2025-12-25T15:00:47.438330",
+      "code_length": 724
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 21.33717632293701,
+  "config": {
+    "experiment_name": "phase3_intermediate/v2_advanced/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:00:47.438415"
+}

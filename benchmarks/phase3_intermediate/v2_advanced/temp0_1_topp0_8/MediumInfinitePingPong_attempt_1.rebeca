@@ -1,0 +1,39 @@
+reactiveclass PingActor(pong: PingPongInterface) {
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Start() {
+		pong.Ping();
+	}
+
+	msgsrv Pong() {
+		pong.Ping();
+	}
+}
+
+reactiveclass PongActor() implements PingPongInterface {
+	statevars {
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv Ping() {
+		self.getSender().Pong();
+	}
+}
+
+interface PingPongInterface {
+	msgsrv Ping();
+	msgsrv Pong();
+}
+
+main {
+	PongActor pong();
+	PingActor ping(pong);
+
+	ping.Start();
+}

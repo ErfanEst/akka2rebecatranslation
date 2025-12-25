@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "total_attempts": 2,
+  "final_code": "reactiveclass PingActor(1) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t\t// no state variables\n\t}\n\n\tmsgsrv initial() {\n\t\t// automatic start\n\t\tself.Start();\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping(self);\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping(self);\n\t}\n}\n\nreactiveclass PongActor(1) {\n\tknownrebecs {\n\t\t// no known rebecs\n\t}\n\tstatevars {\n\t\t// no state variables\n\t}\n\n\tmsgsrv initial() {\n\t\t// no automatic behavior\n\t}\n\n\tmsgsrv Ping(PingActor sender) {\n\t\tsender.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(1) {\n    knownrebecs {\n        PongActor pong;\n    }\n    statevars {\n        // no state variables\n    }\n\n    msgsrv initial() {\n        // no automatic behavior\n    }\n\n    msgsrv Start() {\n        pong.Ping();\n    }\n\n    msgsrv Pong() {\n        pong.Ping();\n    }\n}\n\nreactiveclass PongActor(1) {\n    knownrebecs {\n        // no known rebecs\n    }\n    statevars {\n        // no state variables\n    }\n\n    msgsrv initial() {\n        // no automatic behavior\n    }\n\n    msgsrv Ping() {\n        sender().Pong();\n    }\n}\n\nmain {\n    PingActor ping(pong):();\n    PongActor pong():();\n\n    ping.Start();\n}\n\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:35, column:8, The method sender() is undefined\nline:35, column:17, There is no meta data for type unknown\nline:43, column:8, extraneous input '.' expecting IDENTIFIER\nline:43, column:9, Unknown type ping\nline:43, column:16, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T14:55:52.498410",
+      "code_length": 626
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass PingActor(1) {\n\tknownrebecs {\n\t\tPongActor pong;\n\t}\n\tstatevars {\n\t\t// no state variables\n\t}\n\n\tmsgsrv initial() {\n\t\t// automatic start\n\t\tself.Start();\n\t}\n\n\tmsgsrv Start() {\n\t\tpong.Ping(self);\n\t}\n\n\tmsgsrv Pong() {\n\t\tpong.Ping(self);\n\t}\n}\n\nreactiveclass PongActor(1) {\n\tknownrebecs {\n\t\t// no known rebecs\n\t}\n\tstatevars {\n\t\t// no state variables\n\t}\n\n\tmsgsrv initial() {\n\t\t// no automatic behavior\n\t}\n\n\tmsgsrv Ping(PingActor sender) {\n\t\tsender.Pong();\n\t}\n}\n\nmain {\n\tPongActor pong():();\n\tPingActor ping(pong):();\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T14:55:56.893540",
+      "code_length": 522
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 8.867762088775635,
+  "config": {
+    "experiment_name": "phase3_intermediate/v2_advanced/temp0_3_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T14:55:56.893591"
+}

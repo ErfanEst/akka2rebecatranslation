@@ -1,0 +1,87 @@
+reactiveclass Client(5) {
+  knownrebecs { Hub hub; }
+  statevars { int id; }
+
+  Client(int myId) {
+    id = myId;
+  }
+
+  msgsrv initial() { }
+
+  msgsrv start() {
+    hub.Ping(id);
+  }
+
+  msgsrv Pong() {
+    hub.Ping(id);
+  }
+}
+
+reactiveclass Hub(5) {
+  knownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }
+  statevars { int[5] clients; int clientCount; }
+
+  Hub() {
+    clientCount = 0;
+  }
+
+  msgsrv initial() { }
+
+  msgsrv Register1() {
+    if (clientCount < 5) {
+      clients[clientCount] = 1;
+      clientCount = clientCount + 1;
+    }
+  }
+
+  msgsrv Register2() {
+    if (clientCount < 5) {
+      clients[clientCount] = 2;
+      clientCount = clientCount + 1;
+    }
+  }
+
+  msgsrv Register3() {
+    if (clientCount < 5) {
+      clients[clientCount] = 3;
+      clientCount = clientCount + 1;
+    }
+  }
+
+  msgsrv Register4() {
+    if (clientCount < 5) {
+      clients[clientCount] = 4;
+      clientCount = clientCount + 1;
+    }
+  }
+
+  msgsrv Register5() {
+    if (clientCount < 5) {
+      clients[clientCount] = 5;
+      clientCount = clientCount + 1;
+    }
+  }
+
+  msgsrv Ping(int fromId) {
+    if (fromId == 1) {
+      c1.Pong();
+    } else if (fromId == 2) {
+      c2.Pong();
+    } else if (fromId == 3) {
+      c3.Pong();
+    } else if (fromId == 4) {
+      c4.Pong();
+    } else if (fromId == 5) {
+      c5.Pong();
+    }
+  }
+}
+
+main {
+  Hub hub(c1, c2, c3, c4, c5):();
+  Client c1(hub):(1);
+  Client c2(hub):(2);
+  Client c3(hub):(3);
+  Client c4(hub):(4);
+  Client c5(hub):(5);
+}

@@ -1,0 +1,55 @@
+reactiveclass PingActor(pong: PongActor, id: int) {
+    knownrebecs { pong: PongActor; }
+
+    msgsrv start() {
+        ping();
+    }
+
+    msgsrv msg(String m) {
+        ping();
+    }
+
+    private msgsrv ping() {
+        String s;
+        s = "ping-" + id;
+        pong.ping(s);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs { }
+
+    msgsrv ping(String msg) {
+        String s;
+        s = "pong-for-" + msg;
+        // In Rebeca, there is no direct 'sender' reference as in Akka.
+        // To model a reply, the sender must be passed explicitly.
+        // Here we only construct the string to reflect behavior.
+    }
+}
+
+main {
+    PongActor pong();
+
+    PingActor p1(pong, 1);
+    PingActor p2(pong, 2);
+    PingActor p3(pong, 3);
+    PingActor p4(pong, 4);
+    PingActor p5(pong, 5);
+    PingActor p6(pong, 6);
+    PingActor p7(pong, 7);
+    PingActor p8(pong, 8);
+    PingActor p9(pong, 9);
+    PingActor p10(pong, 10);
+
+    p1.start();
+    p2.start();
+    p3.start();
+    p4.start();
+    p5.start();
+    p6.start();
+    p7.start();
+    p8.start();
+    p9.start();
+    p10.start();
+}

@@ -1,0 +1,109 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/minimal/temp0_0_topp0_8
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T12:12:53.329577
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+Translate this Akka code to Rebeca equivalent code. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumAllPingsToOnePong
+
+import akka.actor._
+
+class PingActor(pong: ActorRef, id: Int) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      pong ! s"ping-$id"
+
+    case msg: String =>
+      pong ! s"ping-$id"
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case msg: String =>
+      sender() ! s"pong-for-$msg"
+  }
+}
+
+object AllPingsToOnePongApp extends App {
+  val system = ActorSystem("AllToOneSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+
+  (1 to 10).foreach { i =>
+    val ping = system.actorOf(Props(new PingActor(pong, i)), s"ping$i")
+    ping ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(pongId: int, id: int) {
+    knownrebecs {
+        PongActor pong[pongId];
+    }
+
+    msgsrv initial() {
+        // no automatic start
+    }
+
+    msgsrv start() {
+        ping();
+    }
+
+    msgsrv ping() {
+        pong.pingFrom(id);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs {
+    }
+
+    msgsrv initial() {
+    }
+
+    msgsrv pingFrom(int pingId) {
+        self.pongFor(pingId);
+    }
+
+    msgsrv pongFor(int pingId) {
+        // response to ping-pingId
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping1(pong, 1);
+    PingActor ping2(pong, 2);
+    PingActor ping3(pong, 3);
+    PingActor ping4(pong, 4);
+    PingActor ping5(pong, 5);
+    PingActor ping6(pong, 6);
+    PingActor ping7(pong, 7);
+    PingActor ping8(pong, 8);
+    PingActor ping9(pong, 9);
+    PingActor ping10(pong, 10);
+
+    ping1.start();
+    ping2.start();
+    ping3.start();
+    ping4.start();
+    ping5.start();
+    ping6.start();
+    ping7.start();
+    ping8.start();
+    ping9.start();
+    ping10.start();
+}
+
+================================================================================

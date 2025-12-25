@@ -1,0 +1,33 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input 'aid' expecting INTLITERAL
+line:16, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:16, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:17, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:17, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:18, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:18, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:19, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:19, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:20, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:20, column:11, The method RingActor(RingActor) is undefined for the type RingActor
+line:22, column:3, extraneous input '.' expecting IDENTIFIER
+line:22, column:4, Unknown type a1
+line:22, column:13, mismatched input ';' expecting ':'
+line:23, column:3, extraneous input '.' expecting IDENTIFIER
+line:23, column:4, Unknown type a2
+line:23, column:13, mismatched input ';' expecting ':'
+line:24, column:3, extraneous input '.' expecting IDENTIFIER
+line:24, column:4, Unknown type a3
+line:24, column:13, mismatched input ';' expecting ':'
+line:25, column:3, extraneous input '.' expecting IDENTIFIER
+line:25, column:4, Unknown type a4
+line:25, column:13, mismatched input ';' expecting ':'
+line:26, column:3, extraneous input '.' expecting IDENTIFIER
+line:26, column:4, Unknown type a5
+line:26, column:13, mismatched input ';' expecting ':'
+line:28, column:3, extraneous input '.' expecting IDENTIFIER
+line:28, column:4, Unknown type a1
+line:28, column:10, mismatched input ';' expecting ':'
+

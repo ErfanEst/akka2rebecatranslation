@@ -1,0 +1,88 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/basic/temp0_0_topp0_8
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T12:48:19.739215
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(50) {
+    knownrebecs { PongActor pong; }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv Start() {
+        pong.Ping();
+    }
+
+    msgsrv Pong() {
+        pong.Ping();
+    }
+}
+
+reactiveclass PongActor(50) {
+    knownrebecs { }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv Ping() {
+        sender.Pong();
+    }
+}
+
+main {
+    PongActor pong();
+    PingActor ping(pong);
+
+    ping.Start();
+}
+
+================================================================================

@@ -1,0 +1,74 @@
+reactiveclass PingActor(5) {
+  knownrebecs { PongActor pong; } 
+  statevars { int id; }
+
+  PingActor(int _id) {
+    id = _id;
+  }
+
+  msgsrv initial() {
+    // no automatic start
+  }
+
+  msgsrv start() {
+    pong.ping(id);
+  }
+
+  msgsrv msg(int dummy) {
+    pong.ping(id);
+  }
+
+  msgsrv pong() {
+    // response handler, no further action
+  }
+}
+
+reactiveclass PongActor(5) {
+  knownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5; PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }
+  statevars { }
+
+  PongActor() {
+  }
+
+  msgsrv ping(int id) {
+    if (id == 1) {
+      p1.pong();
+    } else if (id == 2) {
+      p2.pong();
+    } else if (id == 3) {
+      p3.pong();
+    } else if (id == 4) {
+      p4.pong();
+    } else if (id == 5) {
+      p5.pong();
+    } else if (id == 6) {
+      p6.pong();
+    } else if (id == 7) {
+      p7.pong();
+    } else if (id == 8) {
+      p8.pong();
+    } else if (id == 9) {
+      p9.pong();
+    } else if (id == 10) {
+      p10.pong();
+    }
+  }
+}
+
+main {
+  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();
+
+  PingActor p1(pong):(1);
+  PingActor p2(pong):(2);
+  PingActor p3(pong):(3);
+  PingActor p4(pong):(4);
+  PingActor p5(pong):(5);
+  PingActor p6(pong):(6);
+  PingActor p7(pong):(7);
+  PingActor p8(pong):(8);
+  PingActor p9(pong):(9);
+  PingActor p10(pong):(10);
+
+  // initial messages are not allowed here in standard Rebeca; they must be
+  // sent from within an msgsrv (typically initial). So these lines are removed.
+}

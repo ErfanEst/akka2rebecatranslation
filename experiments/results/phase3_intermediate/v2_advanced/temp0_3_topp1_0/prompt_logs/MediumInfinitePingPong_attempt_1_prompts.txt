@@ -1,0 +1,112 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/v2_advanced/temp0_3_topp1_0
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T14:57:13.554123
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+You are an expert in Akka (Scala) and Rebeca modeling.
+Translate the given Akka code into Rebeca that:
+- Compiles under RMC/Afra
+- Preserves actor semantics and message flow
+- Starts automatically and uses correct Timed Rebeca syntax when timing is present
+
+Strict rules:
+1. Actors → Reactive Classes
+2. Message Handlers → Message Servers
+3. System Initialization → main block
+4. State and Variables
+5. Sender References
+6. Behavior Changes (context.become)
+7. Timing → after() or delay()
+8. Randomness / Nondeterminism → ?(...)
+9. Communication: asynchronous only
+10. Output format: reactiveclass definitions + main
+11. Timed Rebeca: timing constructs modeled correctly
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor {
+	statevars {
+		int pong;
+	}
+
+	msghandler PingActor(int pongRef) {
+		pong = pongRef;
+	}
+
+	msghandler Start() {
+		Ping msg;
+		self.ping(pong, msg);
+	}
+
+	msghandler Pong() {
+		Ping msg;
+		self.ping(pong, msg);
+	}
+
+	private msghandler ping(int target, Ping msg) {
+		PingActor(target, msg);
+	}
+}
+
+reactiveclass PongActor {
+	msghandler Ping() {
+		Pong msg;
+		self.reply(msg);
+	}
+
+	private msghandler reply(Pong msg) {
+		PingActor(sender, msg);
+	}
+}
+
+main {
+	PingActor ping(1);
+	PongActor pong(1);
+
+	ping.PingActor(pong);
+	ping.Start();
+}
+
+================================================================================

@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:25, mismatched input 'RingActor' expecting INTLITERAL
+line:12, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:13, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:14, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:15, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:16, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)
+line:18, column:3, extraneous input '.' expecting IDENTIFIER
+line:18, column:4, Unknown type a1
+line:18, column:10, mismatched input ';' expecting ':'
+

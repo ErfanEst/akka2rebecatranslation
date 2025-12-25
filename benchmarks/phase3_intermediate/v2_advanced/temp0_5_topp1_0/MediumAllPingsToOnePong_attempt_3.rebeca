@@ -1,0 +1,80 @@
+reactiveclass PongActor {
+	knownrebecs {
+		PingActor pingRefs[10];
+	}
+	statevars {
+		int dummy;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv handleString(int msgId, int pingId) {
+		pingRefs[pingId].handlePong(msgId, pingId) after(0);
+	}
+}
+
+reactiveclass PingActor {
+	knownrebecs {
+		PongActor pong;
+	}
+	statevars {
+		int id;
+	}
+
+	msgsrv initial() {
+		// nothing
+	}
+
+	msgsrv start() {
+		pong.handleString(0, id) after(0);
+	}
+
+	msgsrv handleString(int msgId, int ignored) {
+		pong.handleString(msgId, id) after(0);
+	}
+
+	msgsrv handlePong(int msgId, int pingId) {
+		// no further action
+	}
+}
+
+main {
+	PingActor ping0(pong):();
+	PingActor ping1(pong):();
+	PingActor ping2(pong):();
+	PingActor ping3(pong):();
+	PingActor ping4(pong):();
+	PingActor ping5(pong):();
+	PingActor ping6(pong):();
+	PingActor ping7(pong):();
+	PingActor ping8(pong):();
+	PingActor ping9(pong):();
+
+	PongActor pong(ping0, ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9):();
+
+	// initialize ping ids
+	ping0.id = 0;
+	ping1.id = 1;
+	ping2.id = 2;
+	ping3.id = 3;
+	ping4.id = 4;
+	ping5.id = 5;
+	ping6.id = 6;
+	ping7.id = 7;
+	ping8.id = 8;
+	ping9.id = 9;
+
+	// start protocol
+	ping0.start() after(0);
+	ping1.start() after(0);
+	ping2.start() after(0);
+	ping3.start() after(0);
+	ping4.start() after(0);
+	ping5.start() after(0);
+	ping6.start() after(0);
+	ping7.start() after(0);
+	ping8.start() after(0);
+	ping9.start() after(0);
+}

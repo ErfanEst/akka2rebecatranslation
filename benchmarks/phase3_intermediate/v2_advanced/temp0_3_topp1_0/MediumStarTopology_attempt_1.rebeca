@@ -1,0 +1,74 @@
+timedreactiveclass Client(hubID) {
+    knownrebecs {
+        Hub hub;
+    }
+    statevars {
+        int id;
+    }
+    Client(int _id) {
+        id = _id;
+    }
+
+    msgsrv initial() {
+        // no automatic start; main will send start()
+    }
+
+    msgsrv start() {
+        hub.ping() after(0);
+    }
+
+    msgsrv pong() {
+        hub.ping() after(0);
+    }
+}
+
+timedreactiveclass Hub {
+    knownrebecs {
+    }
+    statevars {
+        Client clients[5];
+        int clientCount;
+    }
+
+    Hub() {
+        clientCount = 0;
+    }
+
+    msgsrv initial() {
+        // nothing
+    }
+
+    msgsrv register(Client c) {
+        if (clientCount < 5) {
+            clients[clientCount] = c;
+            clientCount = clientCount + 1;
+        }
+    }
+
+    msgsrv ping() {
+        sender.pong() after(0);
+    }
+}
+
+timedmain {
+    Hub hub();
+    Client c1(hub): (1);
+    Client c2(hub): (2);
+    Client c3(hub): (3);
+    Client c4(hub): (4);
+    Client c5(hub): (5);
+
+    {
+        hub.register(c1) after(0);
+        hub.register(c2) after(0);
+        hub.register(c3) after(0);
+        hub.register(c4) after(0);
+        hub.register(c5) after(0);
+
+        c1.start() after(0);
+        c2.start() after(0);
+        c3.start() after(0);
+        c4.start() after(0);
+        c5.start() after(0);
+    }
+}

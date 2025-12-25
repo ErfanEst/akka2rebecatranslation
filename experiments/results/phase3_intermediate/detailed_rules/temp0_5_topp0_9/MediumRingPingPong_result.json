@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:27, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:28, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:29, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:30, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:31, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:33, column:3, extraneous input '.' expecting IDENTIFIER\nline:33, column:4, Unknown type a1\nline:33, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T13:52:21.610818",
+      "code_length": 412
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass RingActor() {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1():();\n\tRingActor a2():();\n\tRingActor a3():();\n\tRingActor a4():();\n\tRingActor a5():();\n\n\ta1.SetNext(a2);\n\ta2.SetNext(a3);\n\ta3.SetNext(a4);\n\ta4.SetNext(a5);\n\ta5.SetNext(a1);\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, missing INTLITERAL at ')'\nline:16, column:3, A constant variable cannot be in the left-hand side of an assignment\nline:27, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()\nline:28, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()\nline:29, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()\nline:30, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()\nline:31, column:11, The RingActor knownrebecs type binding of (RingActor) is not applicable for the arguments ()\nline:33, column:3, extraneous input '.' expecting IDENTIFIER\nline:33, column:4, Unknown type a1\nline:33, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:34, column:3, extraneous input '.' expecting IDENTIFIER\nline:34, column:4, Unknown type a2\nline:34, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:35, column:3, extraneous input '.' expecting IDENTIFIER\nline:35, column:4, Unknown type a3\nline:35, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:36, column:3, extraneous input '.' expecting IDENTIFIER\nline:36, column:4, Unknown type a4\nline:36, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:37, column:3, extraneous input '.' expecting IDENTIFIER\nline:37, column:4, Unknown type a5\nline:37, column:15, mismatched input ';' expecting {'instanceof', '(', ')', '[', ',', '.', '=', '?', '==', '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%', '+=', '-=', '*=', '/=', '&=', '|=', '^=', '~=', '%=', '!=', '>', '<', '<<=', '>>='}\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type a1\nline:39, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T13:52:24.963969",
+      "code_length": 490
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:27, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:28, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:29, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:30, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:31, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:33, column:3, extraneous input '.' expecting IDENTIFIER\nline:33, column:4, Unknown type a1\nline:33, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T13:52:28.960906",
+      "code_length": 412
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass RingActor() {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, missing INTLITERAL at ')'\nline:16, column:3, A constant variable cannot be in the left-hand side of an assignment\nline:33, column:3, extraneous input '.' expecting IDENTIFIER\nline:33, column:4, Unknown type a1\nline:33, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T13:52:33.207579",
+      "code_length": 414
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass RingActor {\n\tknownrebecs {\n\t\tRingActor next;\n\t}\n\n\tstatevars {\n\t\tboolean isNextSet;\n\t}\n\n\tmsgsrv initial() {\n\t\tisNextSet = false;\n\t}\n\n\tmsgsrv SetNext(RingActor ref) {\n\t\tif (!isNextSet) {\n\t\t\tnext = ref;\n\t\t\tisNextSet = true;\n\t\t}\n\t}\n\n\tmsgsrv Ping() {\n\t\tnext.Ping();\n\t}\n}\n\nmain {\n\tRingActor a1(a2):();\n\tRingActor a2(a3):();\n\tRingActor a3(a4):();\n\tRingActor a4(a5):();\n\tRingActor a5(a1):();\n\n\ta1.Ping();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}\nline:27, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:28, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:29, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:30, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:31, column:11, The RingActor knownrebecs type binding of () is not applicable for the arguments (RingActor)\nline:33, column:3, extraneous input '.' expecting IDENTIFIER\nline:33, column:4, Unknown type a1\nline:33, column:10, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T13:52:36.605687",
+      "code_length": 412
+    }
+  ],
+  "file_name": "MediumRingPingPong.txt",
+  "file_id": "MediumRingPingPong",
+  "elapsed_time": 18.496652126312256,
+  "config": {
+    "experiment_name": "phase3_intermediate/detailed_rules/temp0_5_topp0_9",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T13:52:36.605748"
+}

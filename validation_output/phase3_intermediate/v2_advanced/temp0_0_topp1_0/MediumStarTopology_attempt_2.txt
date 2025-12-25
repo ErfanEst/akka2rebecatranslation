@@ -1,0 +1,47 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:22, mismatched input 'knownrebecs' expecting INTLITERAL
+line:17, column:19, mismatched input 'knownrebecs' expecting INTLITERAL
+line:38, column:10, mismatched input ';' expecting ':'
+line:39, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:39, column:8, The method Client(Hub) is undefined for the type Client
+line:39, column:14, missing ')' at ':'
+line:39, column:16, missing '(' at 'hub'
+line:40, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:40, column:8, The method Client(Hub) is undefined for the type Client
+line:40, column:14, missing ')' at ':'
+line:40, column:16, missing '(' at 'hub'
+line:41, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:41, column:8, The method Client(Hub) is undefined for the type Client
+line:41, column:14, missing ')' at ':'
+line:41, column:16, missing '(' at 'hub'
+line:42, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:42, column:8, The method Client(Hub) is undefined for the type Client
+line:42, column:14, missing ')' at ':'
+line:42, column:16, missing '(' at 'hub'
+line:43, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:43, column:8, The method Client(Hub) is undefined for the type Client
+line:43, column:14, missing ')' at ':'
+line:43, column:16, missing '(' at 'hub'
+line:45, column:4, extraneous input '.' expecting IDENTIFIER
+line:45, column:5, Unknown type hub
+line:46, column:3, extraneous input '.' expecting IDENTIFIER
+line:46, column:4, Unknown type c1
+line:48, column:4, extraneous input '.' expecting IDENTIFIER
+line:48, column:5, Unknown type hub
+line:49, column:3, extraneous input '.' expecting IDENTIFIER
+line:49, column:4, Unknown type c2
+line:51, column:4, extraneous input '.' expecting IDENTIFIER
+line:51, column:5, Unknown type hub
+line:52, column:3, extraneous input '.' expecting IDENTIFIER
+line:52, column:4, Unknown type c3
+line:54, column:4, extraneous input '.' expecting IDENTIFIER
+line:54, column:5, Unknown type hub
+line:55, column:3, extraneous input '.' expecting IDENTIFIER
+line:55, column:4, Unknown type c4
+line:57, column:4, extraneous input '.' expecting IDENTIFIER
+line:57, column:5, Unknown type hub
+line:58, column:3, extraneous input '.' expecting IDENTIFIER
+line:58, column:4, Unknown type c5
+

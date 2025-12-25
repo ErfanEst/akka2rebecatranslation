@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\t// Callback to appropriate client should be modeled explicitly if needed\n\t}\n}\n\nmain {\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\tHub h(c1, c2, c3, c4, c5):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\tsender.pong();\n\t}\n}\n\nmain {\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\tHub h(c1, c2, c3, c4, c5):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:27, column:9, There is no meta data for type ReactiveClass\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type c1\nline:39, column:11, mismatched input ';' expecting ':'\nline:40, column:3, extraneous input '.' expecting IDENTIFIER\nline:40, column:4, Unknown type c2\nline:40, column:11, mismatched input ';' expecting ':'\nline:41, column:3, extraneous input '.' expecting IDENTIFIER\nline:41, column:4, Unknown type c3\nline:41, column:11, mismatched input ';' expecting ':'\nline:42, column:3, extraneous input '.' expecting IDENTIFIER\nline:42, column:4, Unknown type c4\nline:42, column:11, mismatched input ';' expecting ':'\nline:43, column:3, extraneous input '.' expecting IDENTIFIER\nline:43, column:4, Unknown type c5\nline:43, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:49:08.680159",
+      "code_length": 617
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\t// sender.pong();  // 'sender' is not supported in Rebeca; direct callback not possible\n\t}\n}\n\nmain {\n\tHub h(c1, c2, c3, c4, c5):();\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type c1\nline:39, column:11, mismatched input ';' expecting ':'\nline:40, column:3, extraneous input '.' expecting IDENTIFIER\nline:40, column:4, Unknown type c2\nline:40, column:11, mismatched input ';' expecting ':'\nline:41, column:3, extraneous input '.' expecting IDENTIFIER\nline:41, column:4, Unknown type c3\nline:41, column:11, mismatched input ';' expecting ':'\nline:42, column:3, extraneous input '.' expecting IDENTIFIER\nline:42, column:4, Unknown type c4\nline:42, column:11, mismatched input ';' expecting ':'\nline:43, column:3, extraneous input '.' expecting IDENTIFIER\nline:43, column:4, Unknown type c5\nline:43, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:49:13.138974",
+      "code_length": 690
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\t// Callback to appropriate client should be modeled explicitly if needed\n\t}\n}\n\nmain {\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\tHub h(c1, c2, c3, c4, c5):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type c1\nline:39, column:11, mismatched input ';' expecting ':'\nline:40, column:3, extraneous input '.' expecting IDENTIFIER\nline:40, column:4, Unknown type c2\nline:40, column:11, mismatched input ';' expecting ':'\nline:41, column:3, extraneous input '.' expecting IDENTIFIER\nline:41, column:4, Unknown type c3\nline:41, column:11, mismatched input ';' expecting ':'\nline:42, column:3, extraneous input '.' expecting IDENTIFIER\nline:42, column:4, Unknown type c4\nline:42, column:11, mismatched input ';' expecting ':'\nline:43, column:3, extraneous input '.' expecting IDENTIFIER\nline:43, column:4, Unknown type c5\nline:43, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:49:17.701304",
+      "code_length": 675
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\t// Callback to appropriate client should be modeled explicitly if needed\n\t}\n}\n\nmain {\n\tHub h(c1, c2, c3, c4, c5):();\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type c1\nline:39, column:11, mismatched input ';' expecting ':'\nline:40, column:3, extraneous input '.' expecting IDENTIFIER\nline:40, column:4, Unknown type c2\nline:40, column:11, mismatched input ';' expecting ':'\nline:41, column:3, extraneous input '.' expecting IDENTIFIER\nline:41, column:4, Unknown type c3\nline:41, column:11, mismatched input ';' expecting ':'\nline:42, column:3, extraneous input '.' expecting IDENTIFIER\nline:42, column:4, Unknown type c4\nline:42, column:11, mismatched input ';' expecting ':'\nline:43, column:3, extraneous input '.' expecting IDENTIFIER\nline:43, column:4, Unknown type c5\nline:43, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:49:21.969912",
+      "code_length": 675
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "reactiveclass Client(5) {\n\tknownrebecs { Hub hub; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv start() {\n\t\thub.ping();\n\t}\n\n\tmsgsrv pong() {\n\t\thub.ping();\n\t}\n}\n\nreactiveclass Hub(10) {\n\tknownrebecs { Client c1; Client c2; Client c3; Client c4; Client c5; }\n\tstatevars { }\n\n\tmsgsrv initial() { }\n\n\tmsgsrv register() {\n\t\t// Registration logic omitted due to static knownrebecs\n\t}\n\n\tmsgsrv ping() {\n\t\t// Callback to appropriate client should be modeled explicitly if needed\n\t}\n}\n\nmain {\n\tClient c1(h):();\n\tClient c2(h):();\n\tClient c3(h):();\n\tClient c4(h):();\n\tClient c5(h):();\n\tHub h(c1, c2, c3, c4, c5):();\n\n\tc1.start();\n\tc2.start();\n\tc3.start();\n\tc4.start();\n\tc5.start();\n}",
+      "validation_success": false,
+      "error": "File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca\nErrors:\n================================================================================\nline:39, column:3, extraneous input '.' expecting IDENTIFIER\nline:39, column:4, Unknown type c1\nline:39, column:11, mismatched input ';' expecting ':'\nline:40, column:3, extraneous input '.' expecting IDENTIFIER\nline:40, column:4, Unknown type c2\nline:40, column:11, mismatched input ';' expecting ':'\nline:41, column:3, extraneous input '.' expecting IDENTIFIER\nline:41, column:4, Unknown type c3\nline:41, column:11, mismatched input ';' expecting ':'\nline:42, column:3, extraneous input '.' expecting IDENTIFIER\nline:42, column:4, Unknown type c4\nline:42, column:11, mismatched input ';' expecting ':'\nline:43, column:3, extraneous input '.' expecting IDENTIFIER\nline:43, column:4, Unknown type c5\nline:43, column:11, mismatched input ';' expecting ':'",
+      "timestamp": "2025-12-25T15:49:26.524591",
+      "code_length": 675
+    }
+  ],
+  "file_name": "MediumStarTopology.txt",
+  "file_id": "MediumStarTopology",
+  "elapsed_time": 22.407145261764526,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_5_topp0_5",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.5,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:49:26.524672"
+}

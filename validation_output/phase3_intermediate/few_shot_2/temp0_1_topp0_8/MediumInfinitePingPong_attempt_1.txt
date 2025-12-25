@@ -1,0 +1,8 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:27, column:11, There is no meta data for type ReactiveClass
+line:35, column:6, extraneous input '.' expecting IDENTIFIER
+line:35, column:7, Unknown type ping
+line:35, column:14, mismatched input ';' expecting ':'
+

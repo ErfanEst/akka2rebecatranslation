@@ -1,0 +1,104 @@
+reactiveclass PingActor(3) {
+  knownrebecs { PongActor pong; }
+  statevars { int id; }
+
+  PingActor(int _id) {
+    id = _id;
+  }
+
+  msgsrv initial() {
+  }
+
+  msgsrv start() {
+    pong.ping(id);
+  }
+
+  msgsrv onString() {
+    pong.ping(id);
+  }
+}
+
+reactiveclass PongActor(3) {
+  knownrebecs {
+    PingActor ping1;
+    PingActor ping2;
+    PingActor ping3;
+    PingActor ping4;
+    PingActor ping5;
+    PingActor ping6;
+    PingActor ping7;
+    PingActor ping8;
+    PingActor ping9;
+    PingActor ping10;
+  }
+
+  statevars {
+  }
+
+  PongActor(PingActor _ping1, PingActor _ping2, PingActor _ping3, PingActor _ping4,
+            PingActor _ping5, PingActor _ping6, PingActor _ping7, PingActor _ping8,
+            PingActor _ping9, PingActor _ping10) {
+    ping1 = _ping1;
+    ping2 = _ping2;
+    ping3 = _ping3;
+    ping4 = _ping4;
+    ping5 = _ping5;
+    ping6 = _ping6;
+    ping7 = _ping7;
+    ping8 = _ping8;
+    ping9 = _ping9;
+    ping10 = _ping10;
+  }
+
+  msgsrv initial() {
+  }
+
+  msgsrv ping(int fromId) {
+    if (fromId == 1) {
+      ping1.onString();
+    } else if (fromId == 2) {
+      ping2.onString();
+    } else if (fromId == 3) {
+      ping3.onString();
+    } else if (fromId == 4) {
+      ping4.onString();
+    } else if (fromId == 5) {
+      ping5.onString();
+    } else if (fromId == 6) {
+      ping6.onString();
+    } else if (fromId == 7) {
+      ping7.onString();
+    } else if (fromId == 8) {
+      ping8.onString();
+    } else if (fromId == 9) {
+      ping9.onString();
+    } else if (fromId == 10) {
+      ping10.onString();
+    }
+  }
+}
+
+main {
+  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();
+  PingActor p1(pong):(1);
+  PingActor p2(pong):(2);
+  PingActor p3(pong):(3);
+  PingActor p4(pong):(4);
+  PingActor p5(pong):(5);
+  PingActor p6(pong):(6);
+  PingActor p7(pong):(7);
+  PingActor p8(pong):(8);
+  PingActor p9(pong):(9);
+  PingActor p10(pong):(10);
+
+  p1.start();
+  p2.start();
+  p3.start();
+  p4.start();
+  p5.start();
+  p6.start();
+  p7.start();
+  p8.start();
+  p9.start();
+  p10.start();
+}

@@ -1,0 +1,34 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:110, column:4, extraneous input '.' expecting IDENTIFIER
+line:110, column:5, Unknown type hub
+line:110, column:16, mismatched input ';' expecting ':'
+line:111, column:4, extraneous input '.' expecting IDENTIFIER
+line:111, column:5, Unknown type hub
+line:111, column:16, mismatched input ';' expecting ':'
+line:112, column:4, extraneous input '.' expecting IDENTIFIER
+line:112, column:5, Unknown type hub
+line:112, column:16, mismatched input ';' expecting ':'
+line:113, column:4, extraneous input '.' expecting IDENTIFIER
+line:113, column:5, Unknown type hub
+line:113, column:16, mismatched input ';' expecting ':'
+line:114, column:4, extraneous input '.' expecting IDENTIFIER
+line:114, column:5, Unknown type hub
+line:114, column:16, mismatched input ';' expecting ':'
+line:116, column:3, extraneous input '.' expecting IDENTIFIER
+line:116, column:4, Unknown type c1
+line:116, column:11, mismatched input ';' expecting ':'
+line:117, column:3, extraneous input '.' expecting IDENTIFIER
+line:117, column:4, Unknown type c2
+line:117, column:11, mismatched input ';' expecting ':'
+line:118, column:3, extraneous input '.' expecting IDENTIFIER
+line:118, column:4, Unknown type c3
+line:118, column:11, mismatched input ';' expecting ':'
+line:119, column:3, extraneous input '.' expecting IDENTIFIER
+line:119, column:4, Unknown type c4
+line:119, column:11, mismatched input ';' expecting ':'
+line:120, column:3, extraneous input '.' expecting IDENTIFIER
+line:120, column:4, Unknown type c5
+line:120, column:11, mismatched input ';' expecting ':'
+

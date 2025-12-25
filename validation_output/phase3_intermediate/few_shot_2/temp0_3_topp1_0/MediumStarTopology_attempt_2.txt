@@ -1,0 +1,11 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:6, column:2, Direct sending to "self" is allowed in constructors
+line:28, column:2, Direct sending to "self" is allowed in constructors
+line:29, column:2, Direct sending to "self" is allowed in constructors
+line:30, column:2, Direct sending to "self" is allowed in constructors
+line:31, column:2, Direct sending to "self" is allowed in constructors
+line:32, column:2, Direct sending to "self" is allowed in constructors
+line:42, column:9, There is no meta data for type ReactiveClass
+

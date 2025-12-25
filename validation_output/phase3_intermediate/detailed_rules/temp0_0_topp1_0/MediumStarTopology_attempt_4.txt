@@ -1,0 +1,18 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hubInterface' expecting INTLITERAL
+line:22, column:18, mismatched input 'c1Interface' expecting INTLITERAL
+line:98, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:102, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:107, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:112, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:117, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:122, column:1, mismatched input 'msgrv' expecting {'msgsrv', '}', '@'}
+line:127, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:128, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:129, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:130, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:131, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:132, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+

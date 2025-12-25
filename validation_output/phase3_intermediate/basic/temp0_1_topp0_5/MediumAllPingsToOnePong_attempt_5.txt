@@ -1,0 +1,36 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:24, column:24, mismatched input '{' expecting {'extends', 'implements', '('}
+line:45, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:46, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:47, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:48, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:49, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:50, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:51, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:52, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:53, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:54, column:11, The PingActor knownrebecs type binding of () is not applicable for the arguments (PongActor, byte)
+line:56, column:3, extraneous input '.' expecting IDENTIFIER
+line:56, column:4, Unknown type p1
+line:57, column:3, extraneous input '.' expecting IDENTIFIER
+line:57, column:4, Unknown type p2
+line:58, column:3, extraneous input '.' expecting IDENTIFIER
+line:58, column:4, Unknown type p3
+line:59, column:3, extraneous input '.' expecting IDENTIFIER
+line:59, column:4, Unknown type p4
+line:60, column:3, extraneous input '.' expecting IDENTIFIER
+line:60, column:4, Unknown type p5
+line:61, column:3, extraneous input '.' expecting IDENTIFIER
+line:61, column:4, Unknown type p6
+line:62, column:3, extraneous input '.' expecting IDENTIFIER
+line:62, column:4, Unknown type p7
+line:63, column:3, extraneous input '.' expecting IDENTIFIER
+line:63, column:4, Unknown type p8
+line:64, column:3, extraneous input '.' expecting IDENTIFIER
+line:64, column:4, Unknown type p9
+line:65, column:4, extraneous input '.' expecting IDENTIFIER
+line:65, column:5, Unknown type p10
+

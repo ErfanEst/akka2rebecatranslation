@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "total_attempts": 5,
+  "final_code": "",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:19.726594",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 2,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:21.204311",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 3,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:22.783987",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 4,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:24.634758",
+      "code_length": 0
+    },
+    {
+      "attempt_number": 5,
+      "rebeca_code": "",
+      "validation_success": false,
+      "error": "LLM Error: Connection error.",
+      "timestamp": "2025-12-25T15:00:26.099850",
+      "code_length": 0
+    }
+  ],
+  "file_name": "MediumInfinitePingPong.txt",
+  "file_id": "MediumInfinitePingPong",
+  "elapsed_time": 7.963307619094849,
+  "config": {
+    "experiment_name": "phase3_intermediate/v2_advanced/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:00:26.100054"
+}

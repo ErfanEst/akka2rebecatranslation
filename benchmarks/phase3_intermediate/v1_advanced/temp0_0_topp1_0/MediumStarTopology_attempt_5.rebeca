@@ -1,0 +1,59 @@
+reactiveclass Client(hubRef) {
+	knownrebecs { 
+		Hub hubRef; 
+	}
+	statevars {
+		// no state
+	}
+
+	msgsrv initial() {
+		start();
+	}
+
+	msgsrv start() {
+		hubRef.ping();
+	}
+
+	msgsrv pong() {
+		hubRef.ping();
+	}
+}
+
+reactiveclass Hub(c1Ref, c2Ref, c3Ref, c4Ref, c5Ref) {
+	knownrebecs {
+		Client c1Ref;
+		Client c2Ref;
+		Client c3Ref;
+		Client c4Ref;
+		Client c5Ref;
+	}
+	statevars {
+		int nClients;
+	}
+
+	msgsrv initial() {
+		nClients = 5;
+		c1Ref.start();
+		c2Ref.start();
+		c3Ref.start();
+		c4Ref.start();
+		c5Ref.start();
+	}
+
+	msgsrv register(Client ref) {
+		nClients = nClients;
+	}
+
+	msgsrv ping() {
+		sender.pong();
+	}
+}
+
+main {
+	Hub h(c1, c2, c3, c4, c5);
+	Client c1(h);
+	Client c2(h);
+	Client c3(h);
+	Client c4(h);
+	Client c5(h);
+}

@@ -1,0 +1,132 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/basic/temp0_3_topp1_0
+File: MediumAllPingsToOnePong
+Timestamp: 2025-12-25T13:03:12.501309
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumAllPingsToOnePong
+
+import akka.actor._
+
+class PingActor(pong: ActorRef, id: Int) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      pong ! s"ping-$id"
+
+    case msg: String =>
+      pong ! s"ping-$id"
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case msg: String =>
+      sender() ! s"pong-for-$msg"
+  }
+}
+
+object AllPingsToOnePongApp extends App {
+  val system = ActorSystem("AllToOneSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+
+  (1 to 10).foreach { i =>
+    val ping = system.actorOf(Props(new PingActor(pong, i)), s"ping$i")
+    ping ! "start"
+  }
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor(pong: PingActorRef) {
+    knownrebecs {
+        PongActor pong;
+    }
+    statevars {
+        int id;
+    }
+
+    PingActor(int i) {
+        id = i;
+        self.start();
+    }
+
+    msgsrv start() {
+        pong.ping(id);
+    }
+
+    msgsrv pongFor(int pingId) {
+        pong.ping(pingId);
+    }
+}
+
+reactiveclass PongActor {
+    knownrebecs {
+        PingActor ping1;
+        PingActor ping2;
+        PingActor ping3;
+        PingActor ping4;
+        PingActor ping5;
+        PingActor ping6;
+        PingActor ping7;
+        PingActor ping8;
+        PingActor ping9;
+        PingActor ping10;
+    }
+    statevars {
+    }
+
+    PongActor() {
+    }
+
+    msgsrv ping(int id) {
+        if (id == 1) {
+            ping1.pongFor(id);
+        } else if (id == 2) {
+            ping2.pongFor(id);
+        } else if (id == 3) {
+            ping3.pongFor(id);
+        } else if (id == 4) {
+            ping4.pongFor(id);
+        } else if (id == 5) {
+            ping5.pongFor(id);
+        } else if (id == 6) {
+            ping6.pongFor(id);
+        } else if (id == 7) {
+            ping7.pongFor(id);
+        } else if (id == 8) {
+            ping8.pongFor(id);
+        } else if (id == 9) {
+            ping9.pongFor(id);
+        } else if (id == 10) {
+            ping10.pongFor(id);
+        }
+    }
+}
+
+main {
+    PingActor p1(pong, 1);
+    PingActor p2(pong, 2);
+    PingActor p3(pong, 3);
+    PingActor p4(pong, 4);
+    PingActor p5(pong, 5);
+    PingActor p6(pong, 6);
+    PingActor p7(pong, 7);
+    PingActor p8(pong, 8);
+    PingActor p9(pong, 9);
+    PingActor p10(pong, 10);
+    PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+}
+
+================================================================================

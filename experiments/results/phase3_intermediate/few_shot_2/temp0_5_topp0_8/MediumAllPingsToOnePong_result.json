@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; } \n\tstatevars { int id; } \n\n\tPingActor(int _id) { \n\t\tid = _id; \n\t\tself.start(); \n\t} \n\n\tmsgsrv start() { \n\t\tpong.ping(id); \n\t} \n\n\tmsgsrv pongResponse(int dummy) { \n\t\tpong.ping(id); \n\t} \n} \n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping1; PingActor ping2; PingActor ping3; PingActor ping4; PingActor ping5; PingActor ping6; PingActor ping7; PingActor ping8; PingActor ping9; PingActor ping10; } \n\tstatevars { } \n\n\tPongActor() { } \n\n\tmsgsrv ping(int pingId) { \n\t\tif (pingId == 1) { \n\t\t\tping1.pongResponse(0); \n\t\t} else if (pingId == 2) { \n\t\t\tping2.pongResponse(0); \n\t\t} else if (pingId == 3) { \n\t\t\tping3.pongResponse(0); \n\t\t} else if (pingId == 4) { \n\t\t\tping4.pongResponse(0); \n\t\t} else if (pingId == 5) { \n\t\t\tping5.pongResponse(0); \n\t\t} else if (pingId == 6) { \n\t\t\tping6.pongResponse(0); \n\t\t} else if (pingId == 7) { \n\t\t\tping7.pongResponse(0); \n\t\t} else if (pingId == 8) { \n\t\t\tping8.pongResponse(0); \n\t\t} else if (pingId == 9) { \n\t\t\tping9.pongResponse(0); \n\t\t} else if (pingId == 10) { \n\t\t\tping10.pongResponse(0); \n\t\t} \n\t} \n} \n\nmain { \n\tPingActor ping1(pong): (1); \n\tPingActor ping2(pong): (2); \n\tPingActor ping3(pong): (3); \n\tPingActor ping4(pong): (4); \n\tPingActor ping5(pong): (5); \n\tPingActor ping6(pong): (6); \n\tPingActor ping7(pong): (7); \n\tPingActor ping8(pong): (8); \n\tPingActor ping9(pong): (9); \n\tPingActor ping10(pong): (10); \n\tPongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10): (); \n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n\tknownrebecs { PongActor pong; } \n\tstatevars { int id; } \n\n\tPingActor(int _id) { \n\t\tid = _id; \n\t\tself.start(); \n\t} \n\n\tmsgsrv start() { \n\t\tpong.ping(id); \n\t} \n\n\tmsgsrv pongResponse(int dummy) { \n\t\tpong.ping(id); \n\t} \n} \n\nreactiveclass PongActor(5) {\n\tknownrebecs { PingActor ping1; PingActor ping2; PingActor ping3; PingActor ping4; PingActor ping5; PingActor ping6; PingActor ping7; PingActor ping8; PingActor ping9; PingActor ping10; } \n\tstatevars { } \n\n\tPongActor() { } \n\n\tmsgsrv ping(int pingId) { \n\t\tif (pingId == 1) { \n\t\t\tping1.pongResponse(0); \n\t\t} else if (pingId == 2) { \n\t\t\tping2.pongResponse(0); \n\t\t} else if (pingId == 3) { \n\t\t\tping3.pongResponse(0); \n\t\t} else if (pingId == 4) { \n\t\t\tping4.pongResponse(0); \n\t\t} else if (pingId == 5) { \n\t\t\tping5.pongResponse(0); \n\t\t} else if (pingId == 6) { \n\t\t\tping6.pongResponse(0); \n\t\t} else if (pingId == 7) { \n\t\t\tping7.pongResponse(0); \n\t\t} else if (pingId == 8) { \n\t\t\tping8.pongResponse(0); \n\t\t} else if (pingId == 9) { \n\t\t\tping9.pongResponse(0); \n\t\t} else if (pingId == 10) { \n\t\t\tping10.pongResponse(0); \n\t\t} \n\t} \n} \n\nmain { \n\tPingActor ping1(pong): (1); \n\tPingActor ping2(pong): (2); \n\tPingActor ping3(pong): (3); \n\tPingActor ping4(pong): (4); \n\tPingActor ping5(pong): (5); \n\tPingActor ping6(pong): (6); \n\tPingActor ping7(pong): (7); \n\tPingActor ping8(pong): (8); \n\tPingActor ping9(pong): (9); \n\tPingActor ping10(pong): (10); \n\tPongActor pong(ping1, ping2, ping3, ping4, ping5, ping6, ping7, ping8, ping9, ping10): (); \n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T15:49:36.903465",
+      "code_length": 1503
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 10.377472639083862,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_2/temp0_5_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.5,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T15:49:36.903511"
+}

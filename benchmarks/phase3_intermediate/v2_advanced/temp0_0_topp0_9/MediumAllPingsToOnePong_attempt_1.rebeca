@@ -1,0 +1,60 @@
+timed reactiveclass PingActor(pongId: int, id: int) {
+    knownrebecs {
+        PongActor pong;
+    }
+
+    statevars {
+        int myId;
+    }
+
+    PingActor(PongActor p, int pid, int _id) {
+        pong = p;
+        pongId = pid;
+        myId = _id;
+    }
+
+    msgsrv start() {
+        ping();
+    }
+
+    msgsrv ping() {
+        pong.pingMsg(myId) after(0);
+    }
+}
+
+timed reactiveclass PongActor(int myId) {
+    knownrebecs {
+        PingActor pings[10];
+    }
+
+    statevars {
+        int id;
+    }
+
+    PongActor(int _id) {
+        id = _id;
+    }
+
+    msgsrv pingMsg(int pingId) {
+        pings[pingId - 1].pongMsg(pingId, id) after(0);
+    }
+
+    msgsrv pongMsg(int pingId, int pongId) {
+        // This models receiving "pong-for-ping-X" at ping actor.
+        // No further action required as in original code.
+    }
+}
+
+timed main {
+    PingActor pings[10](pong, i, i);
+    PongActor pong(0): (pings);
+
+    {
+        int i;
+        i = 0;
+        while (i < 10) {
+            pings[i].start() after(0);
+            i = i + 1;
+        }
+    }
+}

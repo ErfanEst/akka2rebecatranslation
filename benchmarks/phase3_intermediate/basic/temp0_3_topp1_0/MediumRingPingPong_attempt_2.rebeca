@@ -1,0 +1,31 @@
+reactiveclass RingActor {
+	knownrebecs { RingActor next; }
+
+	// No constructor parameters in core Rebeca; next will be set in main
+	msgsrv setNext(RingActor r) {
+		next = r;
+	}
+
+	msgsrv Ping() {
+		next.Ping();
+	}
+}
+
+main {
+	// Declarations
+	RingActor a1();
+	RingActor a2();
+	RingActor a3();
+	RingActor a4();
+	RingActor a5();
+
+	// Initialization of known rebecs
+	a1.setNext(a2);
+	a2.setNext(a3);
+	a3.setNext(a4);
+	a4.setNext(a5);
+	a5.setNext(a1);
+
+	// Start the ring
+	a1.Ping();
+}

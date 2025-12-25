@@ -1,0 +1,41 @@
+reactiveclass RingActor(5) {
+	knownrebecs {
+		RingActor next;
+	}
+	statevars {
+		boolean isNextSet;
+	}
+
+	RingActor() {
+		isNextSet = false;
+	}
+
+	msgsrv initial() {
+	}
+
+	msgsrv SetNext() {
+		isNextSet = true;
+	}
+
+	msgsrv Ping() {
+		if (isNextSet) {
+			next.Ping();
+		}
+	}
+}
+
+main {
+	RingActor a1(a2):();
+	RingActor a2(a3):();
+	RingActor a3(a4):();
+	RingActor a4(a5):();
+	RingActor a5(a1):();
+
+	a1.SetNext:();
+	a2.SetNext:();
+	a3.SetNext:();
+	a4.SetNext:();
+	a5.SetNext:();
+
+	a1.Ping:();
+}

@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "total_attempts": 1,
+  "final_code": "reactiveclass PingActor(5) {\n  knownrebecs { PongActor pong; }\n  statevars { int id; }\n\n  PingActor(int _id) {\n    id = _id;\n    self.start();\n  }\n\n  msgsrv start() {\n    pong.ping(id);\n  }\n\n  msgsrv msg(String m) {\n    pong.ping(id);\n  }\n}\n\nreactiveclass PongActor(5) {\n  knownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5;\n                PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }\n\n  msgsrv ping(int pid) {\n    if (pid == 1) {\n      p1.msg(\"pong\");\n    } else if (pid == 2) {\n      p2.msg(\"pong\");\n    } else if (pid == 3) {\n      p3.msg(\"pong\");\n    } else if (pid == 4) {\n      p4.msg(\"pong\");\n    } else if (pid == 5) {\n      p5.msg(\"pong\");\n    } else if (pid == 6) {\n      p6.msg(\"pong\");\n    } else if (pid == 7) {\n      p7.msg(\"pong\");\n    } else if (pid == 8) {\n      p8.msg(\"pong\");\n    } else if (pid == 9) {\n      p9.msg(\"pong\");\n    } else if (pid == 10) {\n      p10.msg(\"pong\");\n    }\n  }\n}\n\nmain {\n  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();\n  PingActor p1(pong):(1);\n  PingActor p2(pong):(2);\n  PingActor p3(pong):(3);\n  PingActor p4(pong):(4);\n  PingActor p5(pong):(5);\n  PingActor p6(pong):(6);\n  PingActor p7(pong):(7);\n  PingActor p8(pong):(8);\n  PingActor p9(pong):(9);\n  PingActor p10(pong):(10);\n}",
+  "attempts": [
+    {
+      "attempt_number": 1,
+      "rebeca_code": "reactiveclass PingActor(5) {\n  knownrebecs { PongActor pong; }\n  statevars { int id; }\n\n  PingActor(int _id) {\n    id = _id;\n    self.start();\n  }\n\n  msgsrv start() {\n    pong.ping(id);\n  }\n\n  msgsrv msg(String m) {\n    pong.ping(id);\n  }\n}\n\nreactiveclass PongActor(5) {\n  knownrebecs { PingActor p1; PingActor p2; PingActor p3; PingActor p4; PingActor p5;\n                PingActor p6; PingActor p7; PingActor p8; PingActor p9; PingActor p10; }\n\n  msgsrv ping(int pid) {\n    if (pid == 1) {\n      p1.msg(\"pong\");\n    } else if (pid == 2) {\n      p2.msg(\"pong\");\n    } else if (pid == 3) {\n      p3.msg(\"pong\");\n    } else if (pid == 4) {\n      p4.msg(\"pong\");\n    } else if (pid == 5) {\n      p5.msg(\"pong\");\n    } else if (pid == 6) {\n      p6.msg(\"pong\");\n    } else if (pid == 7) {\n      p7.msg(\"pong\");\n    } else if (pid == 8) {\n      p8.msg(\"pong\");\n    } else if (pid == 9) {\n      p9.msg(\"pong\");\n    } else if (pid == 10) {\n      p10.msg(\"pong\");\n    }\n  }\n}\n\nmain {\n  PongActor pong(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):();\n  PingActor p1(pong):(1);\n  PingActor p2(pong):(2);\n  PingActor p3(pong):(3);\n  PingActor p4(pong):(4);\n  PingActor p5(pong):(5);\n  PingActor p6(pong):(6);\n  PingActor p7(pong):(7);\n  PingActor p8(pong):(8);\n  PingActor p9(pong):(9);\n  PingActor p10(pong):(10);\n}",
+      "validation_success": true,
+      "error": null,
+      "timestamp": "2025-12-25T16:02:23.181457",
+      "code_length": 1302
+    }
+  ],
+  "file_name": "MediumAllPingsToOnePong.txt",
+  "file_id": "MediumAllPingsToOnePong",
+  "elapsed_time": 6.500294208526611,
+  "config": {
+    "experiment_name": "phase3_intermediate/few_shot_3/temp0_3_topp0_8",
+    "model": "gpt-5.1-2025-11-13",
+    "temperature": 0.3,
+    "top_p": 0.8,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "max_retries": 5
+  },
+  "timestamp": "2025-12-25T16:02:23.181522"
+}

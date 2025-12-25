@@ -1,0 +1,13 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:6, column:2, A constant variable cannot be in the left-hand side of an assignment
+line:12, column:6, The method Ping(Client) is undefined for the type Hub
+line:16, column:6, The method Ping(Client) is undefined for the type Hub
+line:22, column:44, mismatched input '[' expecting {'[', '<', IDENTIFIER}
+line:60, column:8, The method Client() is undefined for the type Client
+line:61, column:8, The method Client() is undefined for the type Client
+line:62, column:8, The method Client() is undefined for the type Client
+line:63, column:8, The method Client() is undefined for the type Client
+line:64, column:8, The method Client() is undefined for the type Client
+

@@ -1,0 +1,106 @@
+================================================================================
+ATTEMPT 1 - PROMPT LOG
+Experiment: phase3_intermediate/detailed_rules/temp0_0_topp1_0
+File: MediumInfinitePingPong
+Timestamp: 2025-12-25T13:34:24.056384
+================================================================================
+
+SYSTEM PROMPT:
+--------------------------------------------------------------------------------
+
+You are an expert in Akka and Rebeca programming languages.
+Translate accurately this Akka code to Rebeca equivalent code.
+
+KEY TRANSLATION RULES:
+1. Akka Actor → Rebeca reactiveclass
+2. Actor messages → msgsrv methods
+3. Actor state → statevars section
+4. Actor references → knownrebecs section
+5. Message send (!) → method call
+
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS.
+
+
+USER PROMPT:
+--------------------------------------------------------------------------------
+package MediumInfinitePingPong
+
+import akka.actor._
+
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case Start =>
+      pong ! Ping
+    case Pong =>
+      pong ! Ping
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      sender() ! Pong
+  }
+}
+
+object InfiniteApp extends App {
+  val system = ActorSystem("InfiniteSystem")
+  val pong = system.actorOf(Props[PongActor], "pong")
+  val ping = system.actorOf(Props(new PingActor(pong)), "ping")
+
+  ping ! Start
+}
+
+
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+reactiveclass PingActor {
+	knownrebecs { 
+		PongActor pong;
+	}
+
+	statevars {
+	}
+
+	msgrpc Start() {
+		pong.Ping();
+	}
+
+	msgrpc Pong() {
+		pong.Ping();
+	}
+
+	msgsrv initial() {
+	}
+}
+
+reactiveclass PongActor {
+	knownrebecs {
+	}
+
+	statevars {
+	}
+
+	msgrpc Ping() {
+		self.Pong();
+	}
+
+	msgsrv Pong() {
+	}
+
+	msgsrv initial() {
+	}
+}
+
+main {
+	PongActor pong();
+	PingActor ping(pong);
+
+	_ping.Start();
+}
+
+================================================================================

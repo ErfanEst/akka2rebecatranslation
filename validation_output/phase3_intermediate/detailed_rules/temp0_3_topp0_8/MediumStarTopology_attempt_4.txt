@@ -1,0 +1,43 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hubType' expecting INTLITERAL
+line:24, column:18, mismatched input 'c1Type' expecting INTLITERAL
+line:73, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:73, column:11, "hubType" undeclared
+line:74, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:74, column:11, "hubType" undeclared
+line:75, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:75, column:11, "hubType" undeclared
+line:76, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:76, column:11, "hubType" undeclared
+line:77, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (unknown)
+line:77, column:11, "hubType" undeclared
+line:78, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (unknown, unknown, unknown, unknown, unknown)
+line:78, column:5, The method Hub(Client, Client, Client, Client, Client) is undefined for the type Hub
+line:78, column:7, "c1Type" undeclared
+line:78, column:15, "c2Type" undeclared
+line:78, column:23, "c3Type" undeclared
+line:78, column:31, "c4Type" undeclared
+line:78, column:39, "c5Type" undeclared
+line:80, column:3, extraneous input '(' expecting IDENTIFIER
+line:80, column:4, Multiple definition for the actor h
+line:80, column:5, missing '(' at ')'
+line:80, column:6, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:81, column:3, extraneous input '(' expecting IDENTIFIER
+line:81, column:4, Multiple definition for the actor h
+line:81, column:5, missing '(' at ')'
+line:81, column:6, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:82, column:3, extraneous input '(' expecting IDENTIFIER
+line:82, column:4, Multiple definition for the actor h
+line:82, column:5, missing '(' at ')'
+line:82, column:6, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:83, column:3, extraneous input '(' expecting IDENTIFIER
+line:83, column:4, Multiple definition for the actor h
+line:83, column:5, missing '(' at ')'
+line:83, column:6, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+line:84, column:3, extraneous input '(' expecting IDENTIFIER
+line:84, column:4, Multiple definition for the actor h
+line:84, column:5, missing '(' at ')'
+line:84, column:6, mismatched input ';' expecting {'[', '<', IDENTIFIER}
+

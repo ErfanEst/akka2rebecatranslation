@@ -1,0 +1,12 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input 'hub' expecting INTLITERAL
+line:19, column:18, mismatched input 'c1' expecting INTLITERAL
+line:51, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:52, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:53, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:54, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:55, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:56, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+

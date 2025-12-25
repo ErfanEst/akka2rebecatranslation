@@ -1,0 +1,42 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:1, column:21, mismatched input '{' expecting {'extends', 'implements', '('}
+line:17, column:18, mismatched input '{' expecting {'extends', 'implements', '('}
+line:67, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:68, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:69, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:70, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:71, column:8, The Client knownrebecs type binding of () is not applicable for the arguments (Hub)
+line:72, column:5, The Hub knownrebecs type binding of () is not applicable for the arguments (Client, Client, Client, Client, Client)
+line:74, column:4, extraneous input '.' expecting IDENTIFIER
+line:74, column:5, Unknown type hub
+line:74, column:16, mismatched input ';' expecting ':'
+line:75, column:4, extraneous input '.' expecting IDENTIFIER
+line:75, column:5, Unknown type hub
+line:75, column:16, mismatched input ';' expecting ':'
+line:76, column:4, extraneous input '.' expecting IDENTIFIER
+line:76, column:5, Unknown type hub
+line:76, column:16, mismatched input ';' expecting ':'
+line:77, column:4, extraneous input '.' expecting IDENTIFIER
+line:77, column:5, Unknown type hub
+line:77, column:16, mismatched input ';' expecting ':'
+line:78, column:4, extraneous input '.' expecting IDENTIFIER
+line:78, column:5, Unknown type hub
+line:78, column:16, mismatched input ';' expecting ':'
+line:80, column:3, extraneous input '.' expecting IDENTIFIER
+line:80, column:4, Unknown type c1
+line:80, column:11, mismatched input ';' expecting ':'
+line:81, column:3, extraneous input '.' expecting IDENTIFIER
+line:81, column:4, Unknown type c2
+line:81, column:11, mismatched input ';' expecting ':'
+line:82, column:3, extraneous input '.' expecting IDENTIFIER
+line:82, column:4, Unknown type c3
+line:82, column:11, mismatched input ';' expecting ':'
+line:83, column:3, extraneous input '.' expecting IDENTIFIER
+line:83, column:4, Unknown type c4
+line:83, column:11, mismatched input ';' expecting ':'
+line:84, column:3, extraneous input '.' expecting IDENTIFIER
+line:84, column:4, Unknown type c5
+line:84, column:11, mismatched input ';' expecting ':'
+

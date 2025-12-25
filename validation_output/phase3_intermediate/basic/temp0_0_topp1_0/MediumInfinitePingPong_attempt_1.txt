@@ -1,0 +1,7 @@
+File: /home/erfan/Python Projects/akka2rebecatranslation/benchmarks/temp.rebeca
+Errors:
+================================================================================
+line:2, column:18, Unknown type PongActor
+line:5, column:13, There is no meta data for type PongActor
+line:12, column:4, extraneous input 'main' expecting {'abstract', 'msgsrv', 'statevars', 'knownrebecs', '}', '@', IDENTIFIER}
+

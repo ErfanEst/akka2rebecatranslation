@@ -1,0 +1,69 @@
+reactiveclass Client {
+		knownrebecs { Hub hub; }
+		statevars { }
+
+		msgsrv start() {
+			hub.Ping();
+		}
+
+		msgsrv Pong() {
+			hub.Ping();
+		}
+	}
+
+	reactiveclass Hub {
+		knownrebecs { }
+		statevars {
+			Client c1;
+			Client c2;
+			Client c3;
+			Client c4;
+			Client c5;
+		}
+
+		msgsrv setClient1(Client r) {
+			c1 = r;
+		}
+
+		msgsrv setClient2(Client r) {
+			c2 = r;
+		}
+
+		msgsrv setClient3(Client r) {
+			c3 = r;
+		}
+
+		msgsrv setClient4(Client r) {
+			c4 = r;
+		}
+
+		msgsrv setClient5(Client r) {
+			c5 = r;
+		}
+
+		msgsrv Ping() {
+			sender.Pong();
+		}
+	}
+
+	main {
+		Hub hub();
+		Client c1(hub);
+		Client c2(hub);
+		Client c3(hub);
+		Client c4(hub);
+		Client c5(hub);
+
+		hub.setClient1(c1);
+		hub.setClient2(c2);
+		hub.setClient3(c3);
+		hub.setClient4(c4);
+		hub.setClient5(c5);
+
+		c1.start();
+		c2.start();
+		c3.start();
+		c4.start();
+		c5.start();
+	}
+}
