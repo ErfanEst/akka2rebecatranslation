@@ -34,14 +34,6 @@ OPENAI_API_KEY=your-key-here
 \`\`\`bash
 python main.py
 \`\`\`
-
-## Project Structure
-- `src/agents/` - Individual workflow nodes
-- `src/graphs/` - Workflow definitions
-- `src/state/` - State management
-- `config/` - Configuration files
-- `tests/` - Unit tests
-
 ## Adding New Nodes
 1. Create function in `src/agents/`
 2. Add to workflow in `src/graphs/main_workflow.py`
