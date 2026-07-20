@@ -1,0 +1,14 @@
+{
+  "model": "/home/erfan/Thesis/rmc-tests/simple_ping_pong_syntax_error/simple_ping_pong_syntax_error.rebeca",
+  "example": "simple_ping_pong",
+  "syntax": {
+    "passed": false,
+    "details": "File: /tmp/semantic_validation_wcf5wpo7/syntax_validation/benchmarks/simple_ping_pong_syntax_error.rebeca\nErrors:\n================================================================================\nline:47, column:6, extraneous input '.' expecting IDENTIFIER\nline:47, column:7, Unknown type ping\nline:47, column:21, mismatched input ';' expecting ':'"
+  },
+  "semantic": {
+    "executed": false,
+    "passed": false,
+    "reason": "Semantic validation skipped because syntax validation failed."
+  },
+  "final_pass": false
+}

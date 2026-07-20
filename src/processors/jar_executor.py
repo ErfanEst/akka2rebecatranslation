@@ -21,7 +21,7 @@ def execute_validator_jar(
         jar_path = settings.VALIDATOR_JAR_PATH
 
     try:
-        # Ensure directories exist
+        # Ensure directories exist‍‍‍
         os.makedirs(benchmark_dir, exist_ok=True)
         os.makedirs("validation_output", exist_ok=True)
 

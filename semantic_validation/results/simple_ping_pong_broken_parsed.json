@@ -1,0 +1,39 @@
+{
+  "system_info": {
+    "total-spent-time": 0,
+    "reached-states": 1,
+    "reached-transitions": 1,
+    "consumed-mem": 48
+  },
+  "checked_property": {
+    "type": "LTL",
+    "name": "System default property",
+    "result": "deadlock",
+    "options": [
+      "Safe mode is enabled",
+      "Nested DFS"
+    ]
+  },
+  "states": [
+    {
+      "id": 0,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 0,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    }
+  ],
+  "transitions": []
+}

@@ -1,0 +1,20 @@
+{
+  "model": "/home/erfan/Thesis/rmc-tests/simple_ping_pong_broken/simple_ping_pong_broken.rebeca",
+  "example": "simple_ping_pong",
+  "syntax": {
+    "passed": true,
+    "details": "Compilation successful"
+  },
+  "semantic": {
+    "executed": true,
+    "passed": false,
+    "summary": {
+      "passed": 1,
+      "failed": 17,
+      "total": 18,
+      "semantic_pass": false
+    },
+    "result_file": "/home/erfan/Python Projects/akka2rebecatranslation/semantic_validation/results/simple_ping_pong_broken_semantic_result.json"
+  },
+  "final_pass": false
+}

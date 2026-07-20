@@ -1,0 +1,101 @@
+{
+  "example_id": "simple_ping_pong",
+  "semantic_tests": [
+    {
+      "test_id": "PING-A1",
+      "passed": false,
+      "details": "Expected PingMessage after StartMessage was not observed."
+    },
+    {
+      "test_id": "PING-A2",
+      "passed": false,
+      "details": "Continuation behavior before threshold failed."
+    },
+    {
+      "test_id": "PING-A3",
+      "passed": false,
+      "details": "Boundary continuation behavior failed."
+    },
+    {
+      "test_id": "PING-A4",
+      "passed": false,
+      "details": "Termination threshold behavior failed."
+    },
+    {
+      "test_id": "PING-A5",
+      "passed": false,
+      "details": "Unexpected Ping.active value: 1"
+    },
+    {
+      "test_id": "PONG-A1",
+      "passed": false,
+      "details": "Expected PongMessage response was not observed."
+    },
+    {
+      "test_id": "PONG-A2",
+      "passed": false,
+      "details": "Observed 0 valid responses for 0 PingMessages."
+    },
+    {
+      "test_id": "PONG-A3",
+      "passed": false,
+      "details": "Pong stop behavior did not match the expected semantics."
+    },
+    {
+      "test_id": "PP-I1",
+      "passed": false,
+      "details": "Unexpected initial sequence: []"
+    },
+    {
+      "test_id": "PP-I2",
+      "passed": false,
+      "details": "Protocol alternation differs from expected sequence."
+    },
+    {
+      "test_id": "PP-I3",
+      "passed": false,
+      "details": "Expected 10 PongMessage executions, observed 0."
+    },
+    {
+      "test_id": "PP-I4",
+      "passed": false,
+      "details": "Final transition is not StopMessage."
+    },
+    {
+      "test_id": "PP-I5",
+      "passed": false,
+      "details": "Final actor states: Ping.active=1, Pong.active=1"
+    },
+    {
+      "test_id": "PP-SYS1",
+      "passed": true,
+      "details": "Exactly one Ping and one Pong actor are created."
+    },
+    {
+      "test_id": "PP-SYS2",
+      "passed": false,
+      "details": "Ping did not deliver PingMessage to Pong; actor wiring may be incorrect."
+    },
+    {
+      "test_id": "PP-SYS3",
+      "passed": false,
+      "details": "No initial StartMessage found."
+    },
+    {
+      "test_id": "PP-SYS4",
+      "passed": false,
+      "details": "Automatic startup was not observed."
+    },
+    {
+      "test_id": "PP-SYS5",
+      "passed": false,
+      "details": "Expected terminal system state was not reached."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 17,
+    "total": 18,
+    "semantic_pass": false
+  }
+}

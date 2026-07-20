@@ -1,0 +1,101 @@
+{
+  "example_id": "simple_ping_pong",
+  "semantic_tests": [
+    {
+      "test_id": "PING-A1",
+      "passed": true,
+      "details": "StartMessage causes PingMessage to be sent to Pong."
+    },
+    {
+      "test_id": "PING-A2",
+      "passed": true,
+      "details": "PongMessage before threshold increments count and continues with PingMessage."
+    },
+    {
+      "test_id": "PING-A3",
+      "passed": true,
+      "details": "9th PongMessage remains in continuation branch."
+    },
+    {
+      "test_id": "PING-A4",
+      "passed": true,
+      "details": "10th PongMessage causes StopMessage."
+    },
+    {
+      "test_id": "PING-A5",
+      "passed": true,
+      "details": "Ping reaches inactive terminal state."
+    },
+    {
+      "test_id": "PONG-A1",
+      "passed": true,
+      "details": "PingMessage causes Pong to send PongMessage back to Ping."
+    },
+    {
+      "test_id": "PONG-A2",
+      "passed": true,
+      "details": "Pong correctly replies to all 10 PingMessages."
+    },
+    {
+      "test_id": "PONG-A3",
+      "passed": true,
+      "details": "StopMessage makes Pong inactive without producing another message."
+    },
+    {
+      "test_id": "PP-I1",
+      "passed": true,
+      "details": "Initial Ping-Pong interaction sequence is correct."
+    },
+    {
+      "test_id": "PP-I2",
+      "passed": true,
+      "details": "PingMessage and PongMessage alternate correctly."
+    },
+    {
+      "test_id": "PP-I3",
+      "passed": true,
+      "details": "Exactly 10 PongMessage executions observed."
+    },
+    {
+      "test_id": "PP-I4",
+      "passed": true,
+      "details": "Protocol ends with StopMessage."
+    },
+    {
+      "test_id": "PP-I5",
+      "passed": true,
+      "details": "Both Ping and Pong reach inactive terminal state."
+    },
+    {
+      "test_id": "PP-SYS1",
+      "passed": true,
+      "details": "Exactly one Ping and one Pong actor are created."
+    },
+    {
+      "test_id": "PP-SYS2",
+      "passed": true,
+      "details": "Ping is effectively wired to Pong."
+    },
+    {
+      "test_id": "PP-SYS3",
+      "passed": true,
+      "details": "Startup trigger exists in Ping initial queue."
+    },
+    {
+      "test_id": "PP-SYS4",
+      "passed": true,
+      "details": "System begins automatically with StartMessage."
+    },
+    {
+      "test_id": "PP-SYS5",
+      "passed": true,
+      "details": "Complete execution reaches expected terminal quiescence."
+    }
+  ],
+  "summary": {
+    "passed": 18,
+    "failed": 0,
+    "total": 18,
+    "semantic_pass": true
+  }
+}

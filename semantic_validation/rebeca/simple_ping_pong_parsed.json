@@ -1,0 +1,722 @@
+{
+  "system_info": {
+    "total-spent-time": 0,
+    "reached-states": 23,
+    "reached-transitions": 23,
+    "consumed-mem": 1104
+  },
+  "checked_property": {
+    "type": "LTL",
+    "name": "System default property",
+    "result": "deadlock",
+    "options": [
+      "Safe mode is enabled",
+      "Nested DFS"
+    ]
+  },
+  "states": [
+    {
+      "id": 0,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 0,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "StartMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 1,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 0,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 0,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 3,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 1,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 1,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 5,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 2,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 6,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 2,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 7,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 3,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 8,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 3,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 9,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 4,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 4,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 11,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 5,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 5,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 13,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 6,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 14,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 6,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 15,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 7,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 16,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 7,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 17,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 8,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 18,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 8,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 19,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 9,
+            "Ping.active": 1
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "PingMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 20,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 9,
+            "Ping.active": 1
+          },
+          "queue": [
+            {
+              "sender": "pong",
+              "message": "PongMessage()"
+            }
+          ]
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 21,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 10,
+            "Ping.active": 0
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 1
+          },
+          "queue": [
+            {
+              "sender": "ping",
+              "message": "StopMessage()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 22,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping": {
+          "state_variables": {
+            "Ping.count": 10,
+            "Ping.active": 0
+          },
+          "queue": []
+        },
+        "pong": {
+          "state_variables": {
+            "Pong.active": 0
+          },
+          "queue": []
+        }
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "source": 0,
+      "destination": 1,
+      "sender": "ping",
+      "owner": "ping",
+      "message_server": "STARTMESSAGE"
+    },
+    {
+      "source": 1,
+      "destination": 2,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 2,
+      "destination": 3,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 3,
+      "destination": 4,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 4,
+      "destination": 5,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 5,
+      "destination": 6,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 6,
+      "destination": 7,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 7,
+      "destination": 8,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 8,
+      "destination": 9,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 9,
+      "destination": 10,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 10,
+      "destination": 11,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 11,
+      "destination": 12,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 12,
+      "destination": 13,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 13,
+      "destination": 14,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 14,
+      "destination": 15,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 15,
+      "destination": 16,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 16,
+      "destination": 17,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 17,
+      "destination": 18,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 18,
+      "destination": 19,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 19,
+      "destination": 20,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "PINGMESSAGE"
+    },
+    {
+      "source": 20,
+      "destination": 21,
+      "sender": "pong",
+      "owner": "ping",
+      "message_server": "PONGMESSAGE"
+    },
+    {
+      "source": 21,
+      "destination": 22,
+      "sender": "ping",
+      "owner": "pong",
+      "message_server": "STOPMESSAGE"
+    }
+  ]
+}

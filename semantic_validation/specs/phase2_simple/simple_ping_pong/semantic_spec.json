@@ -1,0 +1,327 @@
+{
+  "example_id": "simple_ping_pong",
+  "phase": "phase2_simple",
+  "description": "Semantic specification for the Simple Ping-Pong actor system.",
+
+  "actors": [
+    "Ping",
+    "Pong"
+  ],
+
+  "levels": {
+
+    "actor": {
+
+      "tests": [
+
+        {
+          "test_id": "PING-A1",
+          "actor": "Ping",
+          "property": "initial_message_behavior",
+          "description": "Ping sends PingMessage to Pong after receiving StartMessage.",
+          "precondition": {
+            "count": 0,
+            "pong_reference_available": true
+          },
+          "input": {
+            "message": "StartMessage"
+          },
+          "expected": {
+            "messages": [
+              {
+                "sender": "Ping",
+                "receiver": "Pong",
+                "message": "PingMessage"
+              }
+            ],
+            "actor_alive": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PING-A2",
+          "actor": "Ping",
+          "property": "continue_before_threshold",
+          "description": "Ping continues the protocol after receiving PongMessage before reaching the termination threshold.",
+          "precondition": {
+            "count_less_than": 9
+          },
+          "input": {
+            "message": "PongMessage"
+          },
+          "expected": {
+            "state_change": {
+              "count_increment": 1
+            },
+            "messages": [
+              {
+                "sender": "Ping",
+                "receiver": "Pong",
+                "message": "PingMessage"
+              }
+            ],
+            "actor_alive": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PING-A3",
+          "actor": "Ping",
+          "property": "boundary_continue_behavior",
+          "description": "Ping remains in the continuation branch through the 9th PongMessage.",
+          "precondition": {
+            "count": 8
+          },
+          "input": {
+            "message": "PongMessage"
+          },
+          "expected": {
+            "state": {
+              "count": 9
+            },
+            "messages": [
+              {
+                "sender": "Ping",
+                "receiver": "Pong",
+                "message": "PingMessage"
+              }
+            ],
+            "actor_alive": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PING-A4",
+          "actor": "Ping",
+          "property": "termination_threshold",
+          "description": "Ping sends StopMessage when processing the 10th PongMessage.",
+          "precondition": {
+            "count": 9
+          },
+          "input": {
+            "message": "PongMessage"
+          },
+          "expected": {
+            "state": {
+              "count": 10
+            },
+            "messages": [
+              {
+                "sender": "Ping",
+                "receiver": "Pong",
+                "message": "StopMessage"
+              }
+            ]
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PING-A5",
+          "actor": "Ping",
+          "property": "actor_termination",
+          "description": "Ping terminates after sending StopMessage.",
+          "precondition": {
+            "count": 9
+          },
+          "input": {
+            "message": "PongMessage"
+          },
+          "expected": {
+            "actor_alive": false
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PONG-A1",
+          "actor": "Pong",
+          "property": "reply_to_sender",
+          "description": "Pong replies with PongMessage to the sender of PingMessage.",
+          "input": {
+            "message": "PingMessage"
+          },
+          "expected": {
+            "messages": [
+              {
+                "sender": "Pong",
+                "receiver": "message_sender",
+                "message": "PongMessage"
+              }
+            ],
+            "actor_alive": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PONG-A2",
+          "actor": "Pong",
+          "property": "repeated_message_handling",
+          "description": "Pong replies correctly to every repeated PingMessage.",
+          "input": {
+            "message": "PingMessage",
+            "repeat": 10
+          },
+          "expected": {
+            "message": "PongMessage",
+            "response_count": 10,
+            "actor_alive": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PONG-A3",
+          "actor": "Pong",
+          "property": "stop_behavior",
+          "description": "Pong terminates after receiving StopMessage and sends no further response.",
+          "input": {
+            "message": "StopMessage"
+          },
+          "expected": {
+            "outgoing_message_count": 0,
+            "actor_alive": false
+          },
+          "mandatory": true
+        }
+      ]
+    },
+
+    "interaction": {
+
+      "tests": [
+
+        {
+          "test_id": "PP-I1",
+          "property": "initial_interaction",
+          "description": "The protocol begins with PingMessage from Ping to Pong and PongMessage from Pong to Ping.",
+          "expected_trace": [
+            {
+              "sender": "Ping",
+              "receiver": "Pong",
+              "message": "PingMessage"
+            },
+            {
+              "sender": "Pong",
+              "receiver": "Ping",
+              "message": "PongMessage"
+            }
+          ],
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-I2",
+          "property": "protocol_sequence",
+          "description": "PingMessage and PongMessage alternate correctly during the protocol.",
+          "expected_pattern": [
+            "Ping->Pong:PingMessage",
+            "Pong->Ping:PongMessage"
+          ],
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-I3",
+          "property": "round_count",
+          "description": "The protocol reaches the termination branch after the 10th PongMessage.",
+          "expected": {
+            "pong_messages_processed_before_stop": 10
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-I4",
+          "property": "protocol_stop",
+          "description": "Ping sends StopMessage to Pong after processing the 10th PongMessage.",
+          "expected": {
+            "sender": "Ping",
+            "receiver": "Pong",
+            "message": "StopMessage"
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-I5",
+          "property": "interaction_termination",
+          "description": "The completed protocol results in termination of both Ping and Pong.",
+          "expected": {
+            "ping_alive": false,
+            "pong_alive": false
+          },
+          "mandatory": true
+        }
+      ]
+    },
+
+    "system": {
+
+      "tests": [
+
+        {
+          "test_id": "PP-SYS1",
+          "property": "actor_creation",
+          "description": "The system creates one Ping actor and one Pong actor.",
+          "expected": {
+            "actors": {
+              "Ping": 1,
+              "Pong": 1
+            }
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-SYS2",
+          "property": "actor_wiring",
+          "description": "Ping is initialized with a valid reference to Pong.",
+          "expected": {
+            "source_actor": "Ping",
+            "known_actor": "Pong"
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-SYS3",
+          "property": "startup_trigger",
+          "description": "StartMessage is delivered to Ping after actor initialization.",
+          "expected": {
+            "receiver": "Ping",
+            "message": "StartMessage"
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-SYS4",
+          "property": "automatic_execution",
+          "description": "The protocol starts without external intervention from the semantic test harness.",
+          "expected": {
+            "automatic_start": true
+          },
+          "mandatory": true
+        },
+
+        {
+          "test_id": "PP-SYS5",
+          "property": "complete_execution",
+          "description": "The complete Ping-Pong scenario executes from initialization through termination.",
+          "expected": {
+            "protocol_started": true,
+            "termination_reached": true,
+            "ping_alive": false,
+            "pong_alive": false
+          },
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

@@ -3,10 +3,10 @@
 System prompt variations for experiments.
 """
 
-MINIMAL = "Translate this Akka code to Rebeca equivalent code."
+MINIMAL = "Translate this Akka code to Rebeca equivalent code. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN."
 
 BASIC = """You are an expert in Akka and Rebeca programming languages.
-Translate accurately this Akka code to Rebeca equivalent code. Output only Rebeca code with no explanations."""
+Translate accurately this Akka code to Rebeca equivalent code. OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN."""
 
 DETAILED_RULES = """You are an expert in Akka and Rebeca programming languages.
 Translate accurately this Akka code to Rebeca equivalent code.
@@ -282,7 +282,7 @@ main {
 }
 
 Translate the following Akka code to Rebeca following this pattern.
-OUTPUT ONLY REBECA CODE. NO EXPLANATIONS."""
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN."""
 
 FEW_SHOT_2 = """You are an expert in Akka (Scala) and Rebeca modeling.
 
@@ -431,7 +431,7 @@ main {
 }
 
 Translate the following Akka code to Rebeca following these patterns.
-OUTPUT ONLY REBECA CODE. NO EXPLANATIONS."""
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN."""
 
 FEW_SHOT_3 = """You are an expert in Akka (Scala) and Rebeca modeling.
 
@@ -626,6 +626,4 @@ main {
 }
 
 Translate the following Akka code to Rebeca following these patterns.
-OUTPUT ONLY REBECA CODE. NO EXPLANATIONS."""
-
-# Will create HANDBOOK version on Day 3
+OUTPUT ONLY REBECA CODE. NO EXPLANATIONS. NO MARKDOWN."""
