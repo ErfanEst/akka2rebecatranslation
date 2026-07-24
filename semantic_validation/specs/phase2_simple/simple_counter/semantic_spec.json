@@ -1,0 +1,506 @@
+{
+  "example_id": "simple_counter",
+  "source_language": "Akka",
+  "target_language": "Rebeca",
+  "benchmark_package": "s1_simpleExample",
+  "benchmark_class": "CounterApp",
+  "description": "Semantic specification for validating the translation of the SimpleCounter Akka benchmark into Rebeca.",
+
+  "levels": {
+    "actor": [
+      {
+        "test_id": "COUNTER-A1",
+        "actor": "Counter",
+        "property": "initial_value",
+        "description": "The initial counter value must be zero.",
+        "input": [
+          {
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "response": {
+            "type": "ValueResponse",
+            "value": 0
+          },
+          "final_state": {
+            "count": 0
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A2",
+        "actor": "Counter",
+        "property": "single_increment",
+        "description": "One Increment message must increase the counter from 0 to 1.",
+        "input": [
+          {
+            "message": "Increment"
+          }
+        ],
+        "expected": {
+          "response": {
+            "type": "ValueResponse",
+            "value": 1
+          },
+          "final_state": {
+            "count": 1
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A3",
+        "actor": "Counter",
+        "property": "consecutive_increments",
+        "description": "Two consecutive Increment messages must preserve state and produce values 1 and 2.",
+        "input": [
+          {
+            "message": "Increment"
+          },
+          {
+            "message": "Increment"
+          }
+        ],
+        "expected": {
+          "responses": [
+            {
+              "type": "ValueResponse",
+              "value": 1
+            },
+            {
+              "type": "ValueResponse",
+              "value": 2
+            }
+          ],
+          "final_state": {
+            "count": 2
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A4",
+        "actor": "Counter",
+        "property": "single_decrement",
+        "description": "One Decrement message must decrease the counter from 0 to -1.",
+        "input": [
+          {
+            "message": "Decrement"
+          }
+        ],
+        "expected": {
+          "response": {
+            "type": "ValueResponse",
+            "value": -1
+          },
+          "final_state": {
+            "count": -1
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A5",
+        "actor": "Counter",
+        "property": "increment_then_decrement",
+        "description": "An Increment followed by a Decrement must return the counter to zero.",
+        "input": [
+          {
+            "message": "Increment"
+          },
+          {
+            "message": "Decrement"
+          },
+          {
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "responses": [
+            {
+              "type": "ValueResponse",
+              "value": 1
+            },
+            {
+              "type": "ValueResponse",
+              "value": 0
+            },
+            {
+              "type": "ValueResponse",
+              "value": 0
+            }
+          ],
+          "final_state": {
+            "count": 0
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A6",
+        "actor": "Counter",
+        "property": "repeated_increments",
+        "description": "Five Increment messages must produce cumulative values from 1 through 5.",
+        "input": [
+          {
+            "message": "Increment",
+            "repeat": 5
+          },
+          {
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "responses": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            5
+          ],
+          "final_state": {
+            "count": 5
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A7",
+        "actor": "Counter",
+        "property": "repeated_decrements",
+        "description": "Five Decrement messages must produce cumulative values from -1 through -5.",
+        "input": [
+          {
+            "message": "Decrement",
+            "repeat": 5
+          },
+          {
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "responses": [
+            -1,
+            -2,
+            -3,
+            -4,
+            -5,
+            -5
+          ],
+          "final_state": {
+            "count": -5
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-A8",
+        "actor": "Counter",
+        "property": "response_to_actual_sender",
+        "description": "Each ValueResponse must be sent to the sender of the corresponding request.",
+        "input": [
+          {
+            "sender": "client1",
+            "message": "Increment"
+          },
+          {
+            "sender": "client2",
+            "message": "Increment"
+          }
+        ],
+        "expected": {
+          "routing": [
+            {
+              "request_sender": "client1",
+              "response_receiver": "client1",
+              "value": 1
+            },
+            {
+              "request_sender": "client2",
+              "response_receiver": "client2",
+              "value": 2
+            }
+          ]
+        }
+      }
+    ],
+
+    "interaction": [
+      {
+        "test_id": "COUNTER-I1",
+        "property": "client1_increment_response",
+        "description": "An Increment sent by client1 must produce ValueResponse(1) for client1.",
+        "input": [
+          {
+            "sender": "client1",
+            "receiver": "counter",
+            "message": "Increment"
+          }
+        ],
+        "expected": {
+          "receiver": "client1",
+          "response": {
+            "type": "ValueResponse",
+            "value": 1
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-I2",
+        "property": "shared_counter_state",
+        "description": "Requests from different clients must operate on the same Counter state.",
+        "input": [
+          {
+            "sender": "client1",
+            "receiver": "counter",
+            "message": "Increment"
+          },
+          {
+            "sender": "client2",
+            "receiver": "counter",
+            "message": "Increment"
+          }
+        ],
+        "expected": {
+          "responses": [
+            {
+              "receiver": "client1",
+              "value": 1
+            },
+            {
+              "receiver": "client2",
+              "value": 2
+            }
+          ],
+          "final_state": {
+            "count": 2
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-I3",
+        "property": "get_value_is_read_only",
+        "description": "GetValue must return the current value without modifying Counter state.",
+        "input": [
+          {
+            "sender": "client1",
+            "message": "Increment"
+          },
+          {
+            "sender": "client2",
+            "message": "Increment"
+          },
+          {
+            "sender": "client1",
+            "message": "GetValue"
+          },
+          {
+            "sender": "client2",
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "get_value_responses": [
+            {
+              "receiver": "client1",
+              "value": 2
+            },
+            {
+              "receiver": "client2",
+              "value": 2
+            }
+          ],
+          "final_state": {
+            "count": 2
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-I4",
+        "property": "controlled_state_evolution",
+        "description": "Under a controlled sequence, Counter state must evolve as 0, 1, 2, 2.",
+        "input": [
+          {
+            "message": "GetValue"
+          },
+          {
+            "message": "Increment"
+          },
+          {
+            "message": "Increment"
+          },
+          {
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "observed_values": [
+            0,
+            1,
+            2,
+            2
+          ]
+        }
+      },
+      {
+        "test_id": "COUNTER-I5",
+        "property": "response_routing",
+        "description": "Every response must be routed to the client that sent the corresponding request.",
+        "input": [
+          {
+            "sender": "client1",
+            "message": "Increment"
+          },
+          {
+            "sender": "client2",
+            "message": "Increment"
+          },
+          {
+            "sender": "client1",
+            "message": "GetValue"
+          },
+          {
+            "sender": "client2",
+            "message": "GetValue"
+          }
+        ],
+        "expected": {
+          "routing": [
+            {
+              "receiver": "client1",
+              "value": 1
+            },
+            {
+              "receiver": "client2",
+              "value": 2
+            },
+            {
+              "receiver": "client1",
+              "value": 2
+            },
+            {
+              "receiver": "client2",
+              "value": 2
+            }
+          ]
+        }
+      }
+    ],
+
+    "system": [
+      {
+        "test_id": "COUNTER-SYS1",
+        "property": "actor_creation",
+        "description": "The system must contain one Counter actor and two Client actors.",
+        "expected": {
+          "actors": [
+            {
+              "name": "counter",
+              "type": "Counter",
+              "count": 1
+            },
+            {
+              "name": "client1",
+              "type": "Client",
+              "count": 1
+            },
+            {
+              "name": "client2",
+              "type": "Client",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "test_id": "COUNTER-SYS2",
+        "property": "actor_topology",
+        "description": "The complete CounterApp actor topology must be instantiated correctly.",
+        "expected": {
+          "counter": "counter",
+          "clients": [
+            "client1",
+            "client2"
+          ]
+        }
+      },
+      {
+        "test_id": "COUNTER-SYS3",
+        "property": "startup_operations",
+        "description": "The translated system must preserve all startup operations defined by CounterApp.",
+        "expected": {
+          "startup_messages": [
+            {
+              "sender": "client1",
+              "receiver": "counter",
+              "message": "Increment"
+            },
+            {
+              "sender": "client2",
+              "receiver": "counter",
+              "message": "Increment"
+            },
+            {
+              "sender": "client1",
+              "receiver": "counter",
+              "message": "GetValue"
+            },
+            {
+              "sender": "client2",
+              "receiver": "counter",
+              "message": "GetValue"
+            }
+          ]
+        }
+      },
+      {
+        "test_id": "COUNTER-SYS4",
+        "property": "startup_progress",
+        "description": "The system must progress from the initial Counter state after startup operations are executed.",
+        "expected": {
+          "initial_state": {
+            "count": 0
+          },
+          "reached_state": {
+            "count": 2
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-SYS5",
+        "property": "final_counter_state",
+        "description": "After completion of the benchmark startup scenario, Counter must have value 2.",
+        "expected": {
+          "final_state": {
+            "count": 2
+          }
+        }
+      },
+      {
+        "test_id": "COUNTER-SYS6",
+        "property": "complete_benchmark_scenario",
+        "description": "The full benchmark scenario must execute successfully with two Increment operations followed by two GetValue operations.",
+        "expected": {
+          "operation_sequence": [
+            "Increment",
+            "Increment",
+            "GetValue",
+            "GetValue"
+          ],
+          "response_values": [
+            1,
+            2,
+            2,
+            2
+          ],
+          "final_state": {
+            "count": 2
+          }
+        }
+      }
+    ]
+  },
+
+  "summary": {
+    "actor_tests": 8,
+    "interaction_tests": 5,
+    "system_tests": 6,
+    "total_tests": 19
+  }
+}

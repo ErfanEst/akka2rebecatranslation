@@ -7,3 +7,22 @@ input_akka_codes/*.txt
 benchmark/*.rebec
 validation_output/*.txt
 *.jar
+# Semantic validation generated outputs
+semantic_validation/batch_results/
+semantic_validation/results/
+semantic_validation/rebeca/*_parsed.json
+
+# Generated RMC artifacts
+**/rmc-output/
+**/model_checker
+**/result.xml
+
+# Logs and temporary backups
+**/logs/
+*.backup
+*.pre_refactor
+*.pre_json_refactor
+
+# Python cache
+__pycache__/
+*.pyc
