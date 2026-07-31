@@ -47,3 +47,19 @@ validator.
 
 `candidate_result.json` is the canonical report. It includes metadata, all
 attempts, syntax details, semantic details, artifact paths, and final status.
+
+## Parameter-grid orchestration
+
+`run_grid.py` is a thin orchestration layer around the same callable pipeline
+used by `run_pipeline.py`. It does not implement a second translation or
+validation path. For every selected prompt strategy, temperature, and top_p it:
+
+1. creates a new model/prompt/parameter-scoped workspace;
+2. executes the normal candidate or recursive batch pipeline;
+3. writes `setting_result.json` beside that setting's candidates;
+4. updates the top-level `grid_result.json` aggregate.
+
+The default experiment contains all eight prompt strategies and all sixteen
+sampling combinations from `experiments/parameter_grid.py`, for 128 isolated
+settings per candidate. `grid_manifest.json` records the plan before the first
+model call. `--dry-run` prints the same plan without creating artifacts.

@@ -167,75 +167,97 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
     )
 
 
-def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
-    try:
-        pipeline = build_candidate_pipeline(args)
-        input_path = args.input.expanduser().resolve()
-        run_metadata = {
-            "model": args.model,
-            "prompt_strategy": args.prompt_strategy,
-            "temperature": args.temperature,
-            "top_p": args.top_p,
-            "frequency_penalty": args.frequency_penalty,
-            "presence_penalty": args.presence_penalty,
-            "rmc_jar": str(args.rmc_jar.expanduser().resolve()),
-            "rmc_extension": args.rmc_extension,
-        }
-        if input_path.is_file():
-            results = [
-                pipeline.run(
-                    input_path,
-                    candidate_id=args.candidate_id,
-                    benchmark=args.benchmark,
-                    metadata=run_metadata,
-                )
-            ]
-        elif input_path.is_dir():
-            if args.candidate_id:
-                raise ValueError("--candidate-id is valid only for a single file.")
-            batch = BatchPipeline(pipeline)
-            sources = batch.discover(input_path)
-            if not sources:
-                raise ValueError(f"No .txt or .scala files found under {input_path}")
-            results = batch.run(
-                sources,
+def run_pipeline(
+    args: argparse.Namespace,
+    *,
+    extra_metadata: dict[str, object] | None = None,
+) -> tuple[list, list[dict[str, str]]]:
+    """Execute one pipeline setting without printing or exiting.
+
+    Keeping this orchestration callable lets the grid runner reuse precisely the
+    same candidate and batch behavior as the single-setting CLI.
+    """
+    pipeline = build_candidate_pipeline(args)
+    input_path = args.input.expanduser().resolve()
+    run_metadata = {
+        "model": args.model,
+        "prompt_strategy": args.prompt_strategy,
+        "temperature": args.temperature,
+        "top_p": args.top_p,
+        "frequency_penalty": args.frequency_penalty,
+        "presence_penalty": args.presence_penalty,
+        "rmc_jar": str(args.rmc_jar.expanduser().resolve()),
+        "rmc_extension": args.rmc_extension,
+    }
+    run_metadata.update(extra_metadata or {})
+
+    batch_errors: list[dict[str, str]] = []
+    if input_path.is_file():
+        results = [
+            pipeline.run(
+                input_path,
+                candidate_id=args.candidate_id,
                 benchmark=args.benchmark,
-                relative_to=input_path,
                 metadata=run_metadata,
             )
-            batch_errors = batch.errors
-        else:
-            raise FileNotFoundError(f"Input path not found: {input_path}")
+        ]
+    elif input_path.is_dir():
+        if args.candidate_id:
+            raise ValueError("--candidate-id is valid only for a single file.")
+        batch = BatchPipeline(pipeline)
+        sources = batch.discover(input_path)
+        if not sources:
+            raise ValueError(f"No .txt or .scala files found under {input_path}")
+        results = batch.run(
+            sources,
+            benchmark=args.benchmark,
+            relative_to=input_path,
+            metadata=run_metadata,
+        )
+        batch_errors = batch.errors
+    else:
+        raise FileNotFoundError(f"Input path not found: {input_path}")
+    return results, batch_errors
 
-        output = [
+
+def result_summary(results: list, batch_errors: list[dict[str, str]]) -> dict:
+    return {
+        "candidates": [
             {
                 "candidate_id": result.candidate_id,
                 "status": result.overall_status.value,
                 "report": str(Path(result.workspace_path) / "candidate_result.json"),
             }
             for result in results
-        ]
-        batch_errors = locals().get("batch_errors", [])
+        ],
+        "infrastructure_errors": batch_errors,
+    }
+
+
+def result_exit_code(results: list, batch_errors: list[dict[str, str]]) -> int:
+    successful = {PipelineStatus.SYNTAX_PASS, PipelineStatus.SEMANTIC_PASS}
+    has_infra_error = bool(batch_errors) or any(
+        result.overall_status == PipelineStatus.INFRA_ERROR for result in results
+    )
+    if has_infra_error:
+        return 1
+    if results and all(result.overall_status in successful for result in results):
+        return 0
+    return 2
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    try:
+        results, batch_errors = run_pipeline(args)
         print(
             json.dumps(
-                {
-                    "candidates": output,
-                    "infrastructure_errors": batch_errors,
-                },
+                result_summary(results, batch_errors),
                 indent=2,
                 ensure_ascii=False,
             )
         )
-        successful = {PipelineStatus.SYNTAX_PASS, PipelineStatus.SEMANTIC_PASS}
-        has_infra_error = bool(batch_errors) or any(
-            result.overall_status == PipelineStatus.INFRA_ERROR for result in results
-        )
-        if has_infra_error:
-            return 1
-        if results and all(result.overall_status in successful for result in results):
-            return 0
-        return 2
+        return result_exit_code(results, batch_errors)
     except Exception as exc:
         print(f"Pipeline error: {exc}", file=sys.stderr)
         return 1

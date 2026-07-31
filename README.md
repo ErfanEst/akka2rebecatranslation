@@ -50,6 +50,48 @@ python run_pipeline.py data/input_akka_codes/simple_examples \
   --benchmark simple_counter
 ```
 
+## Run the complete prompt/parameter grid
+
+`run_grid.py` runs all eight built-in prompt strategies over the Cartesian
+product of the shared parameter grid:
+
+```text
+8 prompts × 4 temperatures × 4 top_p values = 128 settings per input file
+```
+
+Preview all settings and paths without calling the model or creating files:
+
+```bash
+python run_grid.py \
+  data/input_akka_codes/simple_examples/simplePingPong.txt \
+  --candidate-id simplePingPong \
+  --benchmark simple_ping_pong \
+  --dry-run
+```
+
+Run the complete syntax and semantic grid:
+
+```bash
+python run_grid.py \
+  data/input_akka_codes/simple_examples/simplePingPong.txt \
+  --candidate-id simplePingPong \
+  --benchmark simple_ping_pong \
+  --model gpt-5.1-2025-11-13 \
+  --max-attempts 5 \
+  --workspace-root workspace/simple_ping_pong_grid
+```
+
+The default axes come from `experiments/parameter_grid.py`:
+
+```text
+temperature = 0.0, 0.1, 0.3, 0.5
+top_p       = 0.5, 0.8, 0.9, 1.0
+```
+
+Use `--prompt-strategies`, `--temperatures`, and `--top-p-values` to run a
+smaller subset. A directory can be processed recursively with `--syntax-only`;
+use semantic mode only when every selected input belongs to the same benchmark.
+
 Defaults:
 
 ```text
@@ -79,6 +121,31 @@ workspace/<run>/<candidate>/
     ├── generated_cpp/
     └── semantic/
 ```
+
+Grid artifacts add explicit model, prompt, and sampling-configuration levels:
+
+```text
+workspace/<grid-run>/
+├── grid_manifest.json
+├── grid_result.json
+└── model_<model>/
+    └── <prompt_strategy>/
+        └── temp<temperature>_topp<top_p>/
+            ├── setting_result.json
+            └── <candidate>/
+                ├── candidate_result.json
+                ├── final_candidate.rebeca
+                └── attempt_N/
+                    ├── prompt.json
+                    ├── llm_response.txt
+                    ├── candidate.rebeca
+                    ├── rmc_stdout.log
+                    └── rmc_stderr.log
+```
+
+`grid_result.json` is updated after every setting, so completed results remain
+indexed even during a long-running grid. Every candidate report repeats the
+model, prompt strategy, temperature, top_p, and `grid_setting_id` in metadata.
 
 ## Tests
 
