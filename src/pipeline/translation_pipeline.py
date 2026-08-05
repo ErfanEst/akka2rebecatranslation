@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from pathlib import Path
 
 from src.artifacts.report_writer import ReportWriter
 from src.artifacts.result_models import AttemptResult, LLMResult, SyntaxResult
@@ -18,6 +19,13 @@ from .retry_manager import RetryManager
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _read_artifact(path: str | None) -> str | None:
+    if not path:
+        return None
+    artifact = Path(path)
+    return WorkspaceManager.read_text(artifact) if artifact.is_file() else None
 
 
 @dataclass(frozen=True)
@@ -46,7 +54,11 @@ class TranslationPipeline:
         self.report_writer = report_writer or ReportWriter()
 
     def run(
-        self, akka_code: str, candidate_workspace: CandidateWorkspace
+        self,
+        akka_code: str,
+        candidate_workspace: CandidateWorkspace,
+        *,
+        benchmark: str | None = None,
     ) -> TranslationResult:
         def execute_attempt(
             attempt_number: int, previous: AttemptResult | None
@@ -55,22 +67,39 @@ class TranslationPipeline:
             workspace = candidate_workspace.attempt(attempt_number)
             previous_code = None
             previous_error = None
+            error_categories = None
+            rmc_stdout = None
+            rmc_stderr = None
             if previous:
-                if previous.generated_code_path:
-                    previous_code = WorkspaceManager.read_text(
-                        previous.generated_code_path
-                    )
+                previous_code = _read_artifact(previous.generated_code_path)
                 previous_error = (
                     previous.syntax.error_message
                     or previous.llm.error_message
                     or "Previous attempt failed."
                 )
+                categories = list(
+                    dict.fromkeys(
+                        category
+                        for category in (
+                            previous.syntax.error_category,
+                            previous.llm.error_category,
+                        )
+                        if category
+                    )
+                )
+                error_categories = ", ".join(categories) or "UNKNOWN"
+                rmc_stdout = _read_artifact(previous.syntax.stdout_path)
+                rmc_stderr = _read_artifact(previous.syntax.stderr_path)
 
             prompt = self.prompt_builder.build(
                 attempt_number=attempt_number,
                 akka_code=akka_code,
+                benchmark=benchmark,
                 previous_code=previous_code,
                 compiler_error=previous_error,
+                error_categories=error_categories,
+                rmc_stdout=rmc_stdout,
+                rmc_stderr=rmc_stderr,
             )
             WorkspaceManager.write_json(workspace.prompt_path, prompt.to_dict())
 
