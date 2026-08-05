@@ -171,8 +171,6 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
                 args.prompt_strategy, "v1"
             ),
             rmc_extension=args.rmc_extension,
-            semantic_contracts=researched_prompts.SEMANTIC_CONTRACTS,
-            default_semantic_contract=researched_prompts.DEFAULT_SEMANTIC_CONTRACT,
         ),
         output_cleaner=OutputCleaner(),
         syntax_validator=syntax_validator,
