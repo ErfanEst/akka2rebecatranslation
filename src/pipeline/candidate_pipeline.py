@@ -77,7 +77,7 @@ class CandidatePipeline:
         workspace = self.workspace_manager.create_candidate(
             candidate_id or source.stem
         )
-        translation = self.translation_pipeline.run(\n            akka_code, workspace, benchmark=benchmark\n        )
+        translation = self.translation_pipeline.run(akka_code, workspace)
         successful = translation.successful_attempt
 
         if successful and successful.generated_code_path:
