@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Mapping
 
 
 DEFAULT_SYSTEM_PROMPT = (
@@ -11,6 +12,9 @@ DEFAULT_SYSTEM_PROMPT = (
 )
 DEFAULT_INITIAL_TEMPLATE = """Translate this Akka program to Rebeca:\n\n{akka_code}"""
 DEFAULT_RETRY_TEMPLATE = """The previous Rebeca candidate did not compile.
+
+Original Akka source:
+{akka_code}
 
 Previous candidate:
 {previous_code}
@@ -46,28 +50,57 @@ class PromptBuilder:
         retry_template: str = DEFAULT_RETRY_TEMPLATE,
         strategy: str = "default",
         version: str = "v1",
+        rmc_extension: str = "CORE_REBECA",
+        mailbox_policy: str = "Use explicit finite mailbox bounds; use 10 unless the benchmark contract requires another bound.",
+        semantic_contracts: Mapping[str, str] | None = None,
+        default_semantic_contract: str = "Preserve the observable actor protocol of the Akka source.",
     ) -> None:
         self.system_prompt = system_prompt
         self.initial_template = initial_template
         self.retry_template = retry_template
         self.strategy = strategy
         self.version = version
+        self.rmc_extension = rmc_extension
+        self.mailbox_policy = mailbox_policy
+        self.semantic_contracts = dict(semantic_contracts or {})
+        self.default_semantic_contract = default_semantic_contract
+
+    def _semantic_contract(self, benchmark: str | None) -> str:
+        return self.semantic_contracts.get(
+            benchmark or "", self.default_semantic_contract
+        )
 
     def build(
         self,
         *,
         attempt_number: int,
         akka_code: str,
+        benchmark: str | None = None,
         previous_code: str | None = None,
         compiler_error: str | None = None,
+        error_categories: str | None = None,
+        rmc_stdout: str | None = None,
+        rmc_stderr: str | None = None,
     ) -> BuiltPrompt:
+        common = {
+            "akka_code": akka_code,
+            "benchmark": benchmark or "unspecified",
+            "semantic_contract": self._semantic_contract(benchmark),
+            "rmc_extension": self.rmc_extension,
+            "mailbox_policy": self.mailbox_policy,
+        }
         if attempt_number == 1:
-            user = self.initial_template.format(akka_code=akka_code)
+            user = self.initial_template.format(**common)
         else:
+            compiler_error = compiler_error or "Unknown previous-attempt error"
             user = self.retry_template.format(
+                **common,
                 previous_code=previous_code or "<no candidate was produced>",
-                compiler_error=compiler_error or "Unknown previous-attempt error",
-                errors=compiler_error or "Unknown previous-attempt error",
+                compiler_error=compiler_error,
+                errors=compiler_error,
+                error_categories=error_categories or "UNKNOWN",
+                rmc_stdout=rmc_stdout or "<empty>",
+                rmc_stderr=rmc_stderr or "<empty>",
             )
         return BuiltPrompt(
             system=self.system_prompt,
@@ -75,3 +108,4 @@ class PromptBuilder:
             strategy=self.strategy,
             version=self.version,
         )
+
