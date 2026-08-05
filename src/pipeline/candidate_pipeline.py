@@ -9,7 +9,11 @@ from pathlib import Path
 from typing import Any
 
 from src.artifacts.report_writer import ReportWriter
-from src.artifacts.result_models import CandidateResult, PipelineStatus, SemanticResult
+from src.artifacts.result_models import (
+    CandidateResult,
+    PipelineStatus,
+    SemanticResult,
+)
 from src.artifacts.workspace import WorkspaceManager
 from src.semantic.semantic_validator import SemanticValidator
 
@@ -34,10 +38,17 @@ class CandidatePipeline:
 
     @staticmethod
     def _overall_status(
-        *, syntax_pass: bool, semantic: SemanticResult, all_attempts_were_compiler_rejections: bool
+        *,
+        syntax_pass: bool,
+        semantic: SemanticResult,
+        all_attempts_were_compiler_rejections: bool,
     ) -> PipelineStatus:
         if not syntax_pass:
-            return PipelineStatus.SYNTAX_FAIL if all_attempts_were_compiler_rejections else PipelineStatus.INFRA_ERROR
+            return (
+                PipelineStatus.SYNTAX_FAIL
+                if all_attempts_were_compiler_rejections
+                else PipelineStatus.INFRA_ERROR
+            )
         mapping = {
             "NOT_RUN": PipelineStatus.SYNTAX_PASS,
             "SEMANTIC_PASS": PipelineStatus.SEMANTIC_PASS,
@@ -63,10 +74,10 @@ class CandidatePipeline:
 
         akka_code = source.read_text(encoding="utf-8")
         source_hash = hashlib.sha256(akka_code.encode("utf-8")).hexdigest()
-        workspace = self.workspace_manager.create_candidate(candidate_id or source.stem)
-        translation = self.translation_pipeline.run(
-            akka_code, workspace, benchmark=benchmark
+        workspace = self.workspace_manager.create_candidate(
+            candidate_id or source.stem
         )
+        translation = self.translation_pipeline.run(\n            akka_code, workspace, benchmark=benchmark\n        )
         successful = translation.successful_attempt
 
         if successful and successful.generated_code_path:
@@ -125,7 +136,9 @@ class CandidatePipeline:
             overall_status=self._overall_status(
                 syntax_pass=syntax_pass,
                 semantic=semantic,
-                all_attempts_were_compiler_rejections=all_attempts_were_compiler_rejections,
+                all_attempts_were_compiler_rejections=(
+                    all_attempts_were_compiler_rejections
+                ),
             ),
             metadata=metadata or {},
         )
