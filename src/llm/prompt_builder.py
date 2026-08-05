@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping
-
 
 DEFAULT_SYSTEM_PROMPT = (
     "You are an expert in Akka and Rebeca. Translate the supplied Akka program "
@@ -51,9 +49,7 @@ class PromptBuilder:
         strategy: str = "default",
         version: str = "v1",
         rmc_extension: str = "CORE_REBECA",
-        mailbox_policy: str = "Use explicit finite mailbox bounds; use 10 unless the benchmark contract requires another bound.",
-        semantic_contracts: Mapping[str, str] | None = None,
-        default_semantic_contract: str = "Preserve the observable actor protocol of the Akka source.",
+        mailbox_policy: str = "Choose explicit finite mailbox bounds from the source behavior; if no tight safe bound can be inferred, use a conservative finite bound.",
     ) -> None:
         self.system_prompt = system_prompt
         self.initial_template = initial_template
@@ -62,20 +58,11 @@ class PromptBuilder:
         self.version = version
         self.rmc_extension = rmc_extension
         self.mailbox_policy = mailbox_policy
-        self.semantic_contracts = dict(semantic_contracts or {})
-        self.default_semantic_contract = default_semantic_contract
-
-    def _semantic_contract(self, benchmark: str | None) -> str:
-        return self.semantic_contracts.get(
-            benchmark or "", self.default_semantic_contract
-        )
-
     def build(
         self,
         *,
         attempt_number: int,
         akka_code: str,
-        benchmark: str | None = None,
         previous_code: str | None = None,
         compiler_error: str | None = None,
         error_categories: str | None = None,
@@ -84,8 +71,6 @@ class PromptBuilder:
     ) -> BuiltPrompt:
         common = {
             "akka_code": akka_code,
-            "benchmark": benchmark or "unspecified",
-            "semantic_contract": self._semantic_contract(benchmark),
             "rmc_extension": self.rmc_extension,
             "mailbox_policy": self.mailbox_policy,
         }
