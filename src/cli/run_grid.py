@@ -34,6 +34,7 @@ from experiments.parameter_grid import (  # noqa: E402
 from semantic_validation.core.evaluator_registry import available_benchmarks  # noqa: E402
 from src.artifacts.workspace import WorkspaceManager, safe_identifier  # noqa: E402
 from src.cli.run_pipeline import (  # noqa: E402
+    DEFAULT_GRID_PROMPT_STRATEGIES,
     PROMPT_STRATEGIES,
     result_exit_code,
     result_summary,
@@ -132,7 +133,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--prompt-strategies",
         nargs="+",
         choices=sorted(PROMPT_STRATEGIES),
-        default=list(PROMPT_STRATEGIES),
+        default=list(DEFAULT_GRID_PROMPT_STRATEGIES),
         help="Prompts to run; defaults to all available strategies.",
     )
     parser.add_argument(
