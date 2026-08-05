@@ -52,6 +52,20 @@ PROMPT_STRATEGIES = {
     "handbook_zero_shot_v1": researched_prompts.HANDBOOK_ZERO_SHOT_V1,
 }
 
+# Keep the historical default grid stable at 8 x 4 x 4 = 128 settings.
+# New strategies are opt-in through --prompt-strategies so old experiments and
+# their tests remain exactly reproducible.
+DEFAULT_GRID_PROMPT_STRATEGIES = (
+    "minimal",
+    "basic",
+    "detailed_rules",
+    "v1_advanced",
+    "v2_advanced",
+    "few_shot_1",
+    "few_shot_2",
+    "few_shot_3",
+)
+
 
 def default_workspace() -> Path:
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
