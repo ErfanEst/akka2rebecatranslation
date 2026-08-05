@@ -57,8 +57,6 @@ class TranslationPipeline:
         self,
         akka_code: str,
         candidate_workspace: CandidateWorkspace,
-        *,
-        benchmark: str | None = None,
     ) -> TranslationResult:
         def execute_attempt(
             attempt_number: int, previous: AttemptResult | None
@@ -94,7 +92,6 @@ class TranslationPipeline:
             prompt = self.prompt_builder.build(
                 attempt_number=attempt_number,
                 akka_code=akka_code,
-                benchmark=benchmark,
                 previous_code=previous_code,
                 compiler_error=previous_error,
                 error_categories=error_categories,
