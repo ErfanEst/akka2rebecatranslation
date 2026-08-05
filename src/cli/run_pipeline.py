@@ -22,7 +22,7 @@ try:
 except ImportError:
     pass
 
-from prompts import phase2_prompts, retry_prompts
+from prompts import phase2_prompts, researched_prompts
 from semantic_validation.core.evaluator_registry import available_benchmarks
 from src.artifacts.report_writer import ReportWriter
 from src.artifacts.result_models import PipelineStatus
@@ -48,6 +48,8 @@ PROMPT_STRATEGIES = {
     "few_shot_1": phase2_prompts.FEW_SHOT_1,
     "few_shot_2": phase2_prompts.FEW_SHOT_2,
     "few_shot_3": phase2_prompts.FEW_SHOT_3,
+    "minimal_v2": researched_prompts.MINIMAL_V2,
+    "handbook_zero_shot_v1": researched_prompts.HANDBOOK_ZERO_SHOT_V1,
 }
 
 
@@ -58,6 +60,12 @@ def default_workspace() -> Path:
 
 def read_optional(path: Path | None, fallback: str) -> str:
     return path.read_text(encoding="utf-8") if path else fallback
+
+
+def initial_template_for(strategy: str) -> str:
+    if strategy in researched_prompts.CONTEXT_AWARE_STRATEGIES:
+        return researched_prompts.INITIAL_WITH_CONTEXT_V1
+    return "{akka_code}"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -114,8 +122,12 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
     system_prompt = read_optional(
         args.system_prompt_file, PROMPT_STRATEGIES[args.prompt_strategy]
     )
-    initial_template = read_optional(args.initial_prompt_file, "{akka_code}")
-    retry_template = read_optional(args.retry_prompt_file, retry_prompts.DETAILED)
+    initial_template = read_optional(
+        args.initial_prompt_file, initial_template_for(args.prompt_strategy)
+    )
+    retry_template = read_optional(
+        args.retry_prompt_file, researched_prompts.SYNTAX_REPAIR_V1
+    )
 
     llm_client = OpenAILangChainClient(
         model=args.model,
@@ -141,6 +153,12 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
             initial_template=initial_template,
             retry_template=retry_template,
             strategy=args.prompt_strategy,
+            version=researched_prompts.PROMPT_VERSIONS.get(
+                args.prompt_strategy, "v1"
+            ),
+            rmc_extension=args.rmc_extension,
+            semantic_contracts=researched_prompts.SEMANTIC_CONTRACTS,
+            default_semantic_contract=researched_prompts.DEFAULT_SEMANTIC_CONTRACT,
         ),
         output_cleaner=OutputCleaner(),
         syntax_validator=syntax_validator,
@@ -172,16 +190,15 @@ def run_pipeline(
     *,
     extra_metadata: dict[str, object] | None = None,
 ) -> tuple[list, list[dict[str, str]]]:
-    """Execute one pipeline setting without printing or exiting.
-
-    Keeping this orchestration callable lets the grid runner reuse precisely the
-    same candidate and batch behavior as the single-setting CLI.
-    """
     pipeline = build_candidate_pipeline(args)
     input_path = args.input.expanduser().resolve()
     run_metadata = {
         "model": args.model,
         "prompt_strategy": args.prompt_strategy,
+        "prompt_version": researched_prompts.PROMPT_VERSIONS.get(
+            args.prompt_strategy, "v1"
+        ),
+        "retry_prompt": "syntax_repair_v1",
         "temperature": args.temperature,
         "top_p": args.top_p,
         "frequency_penalty": args.frequency_penalty,
@@ -252,9 +269,7 @@ def main(argv: list[str] | None = None) -> int:
         results, batch_errors = run_pipeline(args)
         print(
             json.dumps(
-                result_summary(results, batch_errors),
-                indent=2,
-                ensure_ascii=False,
+                result_summary(results, batch_errors), indent=2, ensure_ascii=False
             )
         )
         return result_exit_code(results, batch_errors)
