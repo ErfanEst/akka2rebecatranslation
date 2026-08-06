@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://akka2rebeca.local/retrieval_corpus.schema.json",
+  "title": "Leakage-safe verified Akka-to-Rebeca retrieval corpus",
+  "type": "object",
+  "required": ["examples"],
+  "properties": {
+    "examples": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/example" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "example": {
+      "type": "object",
+      "required": [
+        "example_id",
+        "benchmark_family",
+        "akka_source",
+        "rebeca_source",
+        "compiler",
+        "extension",
+        "syntax_verified",
+        "semantic_verified"
+      ],
+      "properties": {
+        "example_id": { "type": "string", "minLength": 1 },
+        "benchmark": { "type": "string" },
+        "benchmark_family": { "type": "string", "minLength": 1 },
+        "leakage_groups": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "features": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "akka_source": { "type": "string", "minLength": 1 },
+        "rebeca_source": { "type": "string", "minLength": 1 },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "compiler": { "const": "RMC 2.14" },
+        "extension": { "const": "CORE_REBECA" },
+        "syntax_verified": { "const": true },
+        "semantic_verified": { "const": true }
+      },
+      "additionalProperties": false
+    }
+  }
+}
