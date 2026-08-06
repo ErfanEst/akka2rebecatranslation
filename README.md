@@ -27,12 +27,21 @@ Create `.env` or export the API key:
 OPENAI_API_KEY=your-key-here
 ```
 
+Other adapters use `DEEPSEEK_API_KEY`, `ANTHROPIC_API_KEY`, or the generic
+`LLM_API_KEY` plus `LLM_BASE_URL`. Provider clients are created lazily, so unit
+tests do not require credentials.
+
 ## Run
 
 Syntax plus semantic validation:
 
 ```bash
 python run_pipeline.py data/input_akka_codes/simple_examples/simpleCounter.txt \
+  --provider openai \
+  --model gpt-5.6-sol \
+  --temperature auto \
+  --top-p auto \
+  --reasoning-effort medium \
   --benchmark simple_counter \
   --prompt-strategy basic
 ```
@@ -52,11 +61,12 @@ python run_pipeline.py data/input_akka_codes/simple_examples \
 
 ## Run the complete prompt/parameter grid
 
-`run_grid.py` runs all eight built-in prompt strategies over the Cartesian
-product of the shared parameter grid:
+`run_grid.py` supports a Cartesian product of providers, models, prompts,
+sampling parameters, and reasoning effort. The safe default omits sampling
+parameters and uses provider defaults:
 
 ```text
-8 prompts × 4 temperatures × 4 top_p values = 128 settings per input file
+8 prompts × 1 temperature(auto) × 1 top_p(auto) = 8 settings per model
 ```
 
 Preview all settings and paths without calling the model or creating files:
@@ -69,28 +79,68 @@ python run_grid.py \
   --dry-run
 ```
 
-Run the complete syntax and semantic grid:
+Run GPT-5.6 with two researched prompts and provider-default sampling:
 
 ```bash
 python run_grid.py \
   data/input_akka_codes/simple_examples/simplePingPong.txt \
   --candidate-id simplePingPong \
   --benchmark simple_ping_pong \
-  --model gpt-5.1-2025-11-13 \
+  --provider openai \
+  --model gpt-5.6-sol \
+  --prompt-strategies minimal_v2 handbook_zero_shot_v1 \
+  --temperatures auto \
+  --top-p-values auto \
+  --reasoning-efforts medium \
   --max-attempts 5 \
   --workspace-root workspace/simple_ping_pong_grid
 ```
 
-The default axes come from `experiments/parameter_grid.py`:
+GPT-5.6 accepts only default sampling values. `auto` means the parameter is not
+sent. To reproduce the historical 128-setting grid on a model that supports
+custom sampling, pass the axes explicitly:
 
-```text
-temperature = 0.0, 0.1, 0.3, 0.5
-top_p       = 0.5, 0.8, 0.9, 1.0
+```bash
+--temperatures 0.0 0.1 0.3 0.5 \
+--top-p-values 0.5 0.8 0.9 1.0
 ```
 
-Use `--prompt-strategies`, `--temperatures`, and `--top-p-values` to run a
-smaller subset. A directory can be processed recursively with `--syntax-only`;
-use semantic mode only when every selected input belongs to the same benchmark.
+Run several providers/models in one experiment. Model IDs are supplied by the
+caller so future GPT, DeepSeek, Claude, and compatible models do not require
+pipeline changes:
+
+```bash
+python run_grid.py \
+  data/input_akka_codes/simple_examples/simplePingPong.txt \
+  --candidate-id simplePingPong \
+  --benchmark simple_ping_pong \
+  --model-targets \
+    openai:gpt-5.6-sol \
+    openai:gpt-5.4 \
+    openai:gpt-5.1-2025-11-13 \
+    deepseek:deepseek-reasoner \
+    anthropic:claude-sonnet-4-5 \
+  --prompt-strategies minimal_v2 handbook_zero_shot_v1 \
+  --temperatures auto \
+  --top-p-values auto \
+  --reasoning-efforts auto \
+  --max-attempts 1 \
+  --workspace-root workspace/ping_pong_multi_model
+```
+
+For another OpenAI-compatible service:
+
+```bash
+export LLM_API_KEY="..."
+export LLM_BASE_URL="https://provider.example/v1"
+python run_pipeline.py input.scala \
+  --provider openai_compatible \
+  --model provider-model-id \
+  --syntax-only
+```
+
+A directory can be processed recursively with `--syntax-only`; use semantic
+mode only when every selected input belongs to the same benchmark.
 
 Defaults:
 
@@ -122,30 +172,46 @@ workspace/<run>/<candidate>/
     └── semantic/
 ```
 
-Grid artifacts add explicit model, prompt, and sampling-configuration levels:
+Grid artifacts add explicit provider, model, prompt, and parameter levels:
 
 ```text
 workspace/<grid-run>/
 ├── grid_manifest.json
 ├── grid_result.json
-└── model_<model>/
-    └── <prompt_strategy>/
-        └── temp<temperature>_topp<top_p>/
-            ├── setting_result.json
-            └── <candidate>/
-                ├── candidate_result.json
-                ├── final_candidate.rebeca
-                └── attempt_N/
-                    ├── prompt.json
-                    ├── llm_response.txt
-                    ├── candidate.rebeca
-                    ├── rmc_stdout.log
-                    └── rmc_stderr.log
+└── provider_<provider>/
+    └── model_<model>/
+        └── <prompt_strategy>/
+            └── temp<temperature>_topp<top_p>[_reasoning<effort>]/
+                ├── setting_result.json
+                └── <candidate>/
+                    ├── candidate_result.json
+                    ├── final_candidate.rebeca
+                    └── attempt_N/
+                        ├── prompt.json
+                        ├── llm_response.txt
+                        ├── candidate.rebeca
+                        ├── rmc_stdout.log
+                        └── rmc_stderr.log
 ```
 
 `grid_result.json` is updated after every setting, so completed results remain
-indexed even during a long-running grid. Every candidate report repeats the
-model, prompt strategy, temperature, top_p, and `grid_setting_id` in metadata.
+indexed even during a long-running grid. Every report records provider, model,
+prompt, requested parameters, effective parameters, and `grid_setting_id`.
+
+## Failed-code retention
+
+Incorrect generated Rebeca is never discarded. It remains in
+`attempt_N/candidate.rebeca` and is embedded directly in
+`candidate_result.json`. List all failed generations with:
+
+```bash
+jq -r '.failed_candidates[] | "attempt=\(.attempt_number)\n\(.code)\n"' \
+  workspace/.../candidate_result.json
+```
+
+Permanent API failures such as unsupported parameters are categorized as
+`UNSUPPORTED_PARAMETER` and fail fast after one attempt. Transient rate-limit,
+timeout, network, and server failures remain retryable.
 
 ## Tests
 

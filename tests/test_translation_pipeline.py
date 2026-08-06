@@ -75,6 +75,39 @@ class TranslationPipelineTests(unittest.TestCase):
             self.assertTrue(
                 (workspace.root / "attempt_2" / "candidate.rebeca").is_file()
             )
+            self.assertIn("reactiveclass Broken", result.attempts[0].generated_code)
+            self.assertIsNotNone(result.attempts[0].generated_code_sha256)
+
+    def test_non_retryable_api_error_stops_after_one_attempt(self) -> None:
+        class PermanentFailureLLM:
+            model_name = "gpt-5.6-sol"
+            provider_name = "openai"
+            requested_parameters = {"temperature": 0.0}
+            effective_parameters = {"temperature": 0.0}
+
+            def generate(self, system_prompt: str, user_prompt: str) -> LLMResult:
+                raise RuntimeError(
+                    "Error code: 400 invalid_request_error unsupported value "
+                    "for param temperature"
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = WorkspaceManager(directory).create_candidate("failure")
+            pipeline = TranslationPipeline(
+                llm_client=PermanentFailureLLM(),
+                prompt_builder=PromptBuilder(),
+                output_cleaner=OutputCleaner(),
+                syntax_validator=FakeSyntaxValidator(),
+                retry_manager=RetryManager(5),
+            )
+            result = pipeline.run("class Counter extends Actor", workspace)
+
+            self.assertEqual(len(result.attempts), 1)
+            self.assertTrue(result.terminated_early)
+            self.assertEqual(result.stop_reason, "UNSUPPORTED_PARAMETER")
+            self.assertEqual(
+                result.attempts[0].llm.error_category, "UNSUPPORTED_PARAMETER"
+            )
 
 
 if __name__ == "__main__":

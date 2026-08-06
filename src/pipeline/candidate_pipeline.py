@@ -207,6 +207,11 @@ class CandidatePipeline:
             for attempt in translation.attempts
         )
         result_metadata = dict(metadata or {})
+        result_metadata["translation_retry"] = {
+            "terminated_early": translation.terminated_early,
+            "stop_reason": translation.stop_reason,
+            "exhausted": translation.exhausted,
+        }
         first_pass_status = (
             semantic_history[0]["status"] if semantic_history else "NOT_RUN"
         )

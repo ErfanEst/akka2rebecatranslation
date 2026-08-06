@@ -27,7 +27,13 @@ from semantic_validation.core.evaluator_registry import available_benchmarks
 from src.artifacts.report_writer import ReportWriter
 from src.artifacts.result_models import PipelineStatus
 from src.artifacts.workspace import WorkspaceManager
-from src.llm.llm_client import OpenAILangChainClient
+from src.llm.llm_client import create_llm_client
+from src.llm.model_config import (
+    GenerationConfig,
+    parse_optional_float,
+    parse_optional_int,
+    parse_reasoning_effort,
+)
 from src.llm.example_retriever import VerifiedExampleRetriever
 from src.llm.output_cleaner import OutputCleaner
 from src.llm.prompt_builder import PromptBuilder
@@ -100,6 +106,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--model", default=os.getenv("OPENAI_MODEL", "gpt-5.1-2025-11-13")
     )
     parser.add_argument(
+        "--provider",
+        choices=("auto", "openai", "deepseek", "anthropic", "openai_compatible"),
+        default=os.getenv("LLM_PROVIDER", "auto"),
+        help="LLM provider. 'auto' infers it from the model name.",
+    )
+    parser.add_argument(
+        "--api-base-url",
+        help="Optional provider endpoint override (required for openai_compatible).",
+    )
+    parser.add_argument(
         "--max-attempts",
         type=int,
         default=5,
@@ -108,10 +124,39 @@ def build_parser() -> argparse.ArgumentParser:
             "each enabled semantic-repair cycle."
         ),
     )
-    parser.add_argument("--temperature", type=float, default=0.1)
-    parser.add_argument("--top-p", type=float, default=1.0)
-    parser.add_argument("--frequency-penalty", type=float, default=0.0)
-    parser.add_argument("--presence-penalty", type=float, default=0.0)
+    parser.add_argument(
+        "--temperature",
+        type=parse_optional_float,
+        default=None,
+        metavar="FLOAT|auto",
+    )
+    parser.add_argument(
+        "--top-p", type=parse_optional_float, default=None, metavar="FLOAT|auto"
+    )
+    parser.add_argument(
+        "--frequency-penalty",
+        type=parse_optional_float,
+        default=None,
+        metavar="FLOAT|auto",
+    )
+    parser.add_argument(
+        "--presence-penalty",
+        type=parse_optional_float,
+        default=None,
+        metavar="FLOAT|auto",
+    )
+    parser.add_argument(
+        "--max-output-tokens",
+        type=parse_optional_int,
+        default=None,
+        metavar="INT|auto",
+    )
+    parser.add_argument(
+        "--reasoning-effort",
+        type=parse_reasoning_effort,
+        default=None,
+        metavar="auto|none|low|medium|high|xhigh|max",
+    )
     parser.add_argument(
         "--prompt-strategy", choices=sorted(PROMPT_STRATEGIES), default="basic"
     )
@@ -205,13 +250,19 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
             near_duplicate_threshold=near_duplicate_threshold,
         )
 
-    llm_client = OpenAILangChainClient(
+    generation_config = GenerationConfig(
+        temperature=getattr(args, "temperature", None),
+        top_p=getattr(args, "top_p", None),
+        frequency_penalty=getattr(args, "frequency_penalty", None),
+        presence_penalty=getattr(args, "presence_penalty", None),
+        max_tokens=getattr(args, "max_output_tokens", None),
+        reasoning_effort=getattr(args, "reasoning_effort", None),
+    )
+    llm_client = create_llm_client(
+        provider=getattr(args, "provider", "auto"),
         model=args.model,
-        api_key=os.getenv("OPENAI_API_KEY", ""),
-        temperature=args.temperature,
-        top_p=args.top_p,
-        frequency_penalty=args.frequency_penalty,
-        presence_penalty=args.presence_penalty,
+        config=generation_config,
+        base_url=getattr(args, "api_base_url", None),
     )
     compiler = RmcCompiler(
         jar_path=args.rmc_jar,
@@ -269,10 +320,13 @@ def run_pipeline(
     extra_metadata: dict[str, object] | None = None,
 ) -> tuple[list, list[dict[str, str]]]:
     pipeline = build_candidate_pipeline(args)
+    llm_client = pipeline.translation_pipeline.llm_client
     input_path = args.input.expanduser().resolve()
     retrieval_corpus = getattr(args, "retrieval_corpus", None)
     run_metadata = {
+        "provider": llm_client.provider_name,
         "model": args.model,
+        "model_target": f"{llm_client.provider_name}:{args.model}",
         "prompt_strategy": args.prompt_strategy,
         "prompt_version": researched_prompts.PROMPT_VERSIONS.get(
             args.prompt_strategy, "v1"
@@ -284,10 +338,14 @@ def run_pipeline(
             "initial_generation_and_syntax": args.max_attempts,
             "per_semantic_repair_cycle": args.max_attempts,
         },
-        "temperature": args.temperature,
-        "top_p": args.top_p,
-        "frequency_penalty": args.frequency_penalty,
-        "presence_penalty": args.presence_penalty,
+        "requested_parameters": dict(llm_client.requested_parameters),
+        "effective_parameters": dict(llm_client.effective_parameters),
+        "temperature": getattr(args, "temperature", None),
+        "top_p": getattr(args, "top_p", None),
+        "frequency_penalty": getattr(args, "frequency_penalty", None),
+        "presence_penalty": getattr(args, "presence_penalty", None),
+        "max_output_tokens": getattr(args, "max_output_tokens", None),
+        "reasoning_effort": getattr(args, "reasoning_effort", None),
         "rmc_jar": str(args.rmc_jar.expanduser().resolve()),
         "rmc_extension": args.rmc_extension,
         "retrieval": {
@@ -338,10 +396,10 @@ def result_summary(results: list, batch_errors: list[dict[str, str]]) -> dict:
             {
                 "candidate_id": result.candidate_id,
                 "status": result.overall_status.value,
-                "first_pass_semantic_status": result.metadata.get(
+                "first_pass_semantic_status": getattr(result, "metadata", {}).get(
                     "semantic_evaluation", {}
                 ).get("first_pass_status", "NOT_RUN"),
-                "repair_assisted_semantic_pass": result.metadata.get(
+                "repair_assisted_semantic_pass": getattr(result, "metadata", {}).get(
                     "semantic_evaluation", {}
                 ).get("repair_assisted_semantic_pass", False),
                 "report": str(Path(result.workspace_path) / "candidate_result.json"),

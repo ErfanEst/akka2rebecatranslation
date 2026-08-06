@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from src.artifacts.result_models import PipelineStatus
+from src.llm.model_config import parse_model_target
 from src.cli.run_grid import (
     build_settings,
     main,
@@ -79,7 +80,9 @@ class GridPipelineTests(unittest.TestCase):
 
             payload = json.loads(stdout.getvalue())
             self.assertEqual(exit_code, 0)
-            self.assertEqual(payload["total_settings"], 128)
+            # Provider defaults are the safe cross-model baseline. The legacy
+            # 128-setting sampling grid remains available when axes are explicit.
+            self.assertEqual(payload["total_settings"], 8)
             self.assertFalse(root.exists())
 
     def test_each_setting_gets_an_isolated_report(self) -> None:
@@ -143,16 +146,58 @@ class GridPipelineTests(unittest.TestCase):
             self.assertEqual(
                 {entry[1]["grid_setting_id"] for entry in observed_metadata},
                 {
-                    "minimal/temp0_0_topp0_5",
-                    "minimal/temp0_1_topp0_5",
-                    "basic/temp0_0_topp0_5",
-                    "basic/temp0_1_topp0_5",
+                    "openai/test/model/minimal/temp0_0_topp0_5",
+                    "openai/test/model/minimal/temp0_1_topp0_5",
+                    "openai/test/model/basic/temp0_0_topp0_5",
+                    "openai/test/model/basic/temp0_1_topp0_5",
                 },
             )
             for report_path in setting_reports:
                 report = json.loads(report_path.read_text())
                 self.assertEqual(report["model"], "test/model")
                 self.assertEqual(len(report["candidates"]), 1)
+
+    def test_multi_model_settings_are_separated_by_provider_and_model(self) -> None:
+        targets = [
+            parse_model_target("openai:gpt-5.6-sol"),
+            parse_model_target("deepseek:deepseek-reasoner"),
+            parse_model_target("anthropic:claude-sonnet-4-5"),
+        ]
+        settings = build_settings(
+            ["minimal_v2"],
+            [None],
+            [None],
+            model_targets=targets,
+        )
+        root = Path("workspace/grid").resolve()
+
+        self.assertEqual(len(settings), 3)
+        paths = [setting_workspace(root, setting.model, setting) for setting in settings]
+        self.assertEqual(len(set(paths)), 3)
+        self.assertIn("provider_openai", paths[0].parts)
+        self.assertIn("model_gpt-5.6-sol", paths[0].parts)
+        self.assertEqual(
+            settings[0].setting_id,
+            "openai/gpt-5.6-sol/minimal_v2/tempauto_toppauto",
+        )
+
+    def test_dry_run_rejects_gpt_5_6_non_default_temperature(self) -> None:
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            exit_code = main(
+                [
+                    "missing.scala",
+                    "--model-targets",
+                    "openai:gpt-5.6-sol",
+                    "--temperatures",
+                    "0.0",
+                    "--top-p-values",
+                    "auto",
+                    "--dry-run",
+                ]
+            )
+        self.assertEqual(exit_code, 1)
+        self.assertIn("only supports the default temperature=1.0", stderr.getvalue())
 
 
 if __name__ == "__main__":

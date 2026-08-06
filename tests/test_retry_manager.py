@@ -17,6 +17,13 @@ def attempt(number: int, passed: bool) -> AttemptResult:
     )
 
 
+def permanent_failure(number: int) -> AttemptResult:
+    result = attempt(number, passed=False)
+    result.llm.error_category = "UNSUPPORTED_PARAMETER"
+    result.llm.retryable = False
+    return result
+
+
 class RetryManagerTests(unittest.TestCase):
     def test_stops_at_first_syntax_success(self) -> None:
         manager = RetryManager(max_attempts=5)
@@ -34,6 +41,15 @@ class RetryManagerTests(unittest.TestCase):
         self.assertEqual(len(outcome.attempts), 2)
         self.assertIsNone(outcome.successful_attempt)
         self.assertTrue(outcome.exhausted)
+
+    def test_fails_fast_for_permanent_llm_error(self) -> None:
+        outcome = RetryManager(5).run(
+            lambda number, previous: permanent_failure(number)
+        )
+        self.assertEqual(len(outcome.attempts), 1)
+        self.assertFalse(outcome.exhausted)
+        self.assertTrue(outcome.terminated_early)
+        self.assertEqual(outcome.stop_reason, "UNSUPPORTED_PARAMETER")
 
 
 if __name__ == "__main__":

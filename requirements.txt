@@ -1,5 +1,6 @@
 # Core LLM
 langchain-openai==0.2.9
+langchain-anthropic==0.2.4
 langchain-core==0.3.21
 
 # Utilities

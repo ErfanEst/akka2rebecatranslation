@@ -13,6 +13,8 @@ class RetryOutcome:
     attempts: list[AttemptResult]
     successful_attempt: AttemptResult | None
     exhausted: bool
+    terminated_early: bool = False
+    stop_reason: str | None = None
 
 
 class RetryManager:
@@ -35,6 +37,14 @@ class RetryManager:
                     attempts=attempts,
                     successful_attempt=current,
                     exhausted=False,
+                )
+            if current.llm.error_category and current.llm.retryable is False:
+                return RetryOutcome(
+                    attempts=attempts,
+                    successful_attempt=None,
+                    exhausted=False,
+                    terminated_early=True,
+                    stop_reason=current.llm.error_category,
                 )
             previous = current
         return RetryOutcome(

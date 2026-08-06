@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,7 +10,11 @@ from pathlib import Path
 from src.artifacts.report_writer import ReportWriter
 from src.artifacts.result_models import AttemptResult, LLMResult, SyntaxResult
 from src.artifacts.workspace import CandidateWorkspace, WorkspaceManager
-from src.llm.llm_client import LLMClient, categorize_llm_error
+from src.llm.llm_client import (
+    LLMClient,
+    categorize_llm_error,
+    is_retryable_llm_error,
+)
 from src.llm.example_retriever import VerifiedExampleRetriever
 from src.llm.output_cleaner import OutputCleaner
 from src.llm.prompt_builder import PromptBuilder
@@ -34,6 +39,8 @@ class TranslationResult:
     attempts: list[AttemptResult]
     successful_attempt: AttemptResult | None
     exhausted: bool
+    terminated_early: bool = False
+    stop_reason: str | None = None
 
 
 class TranslationPipeline:
@@ -67,34 +74,56 @@ class TranslationPipeline:
         workspace = candidate_workspace.attempt(attempt_number)
         WorkspaceManager.write_json(workspace.prompt_path, prompt.to_dict())
 
+        candidate: str | None = None
+        candidate_sha256: str | None = None
+        stage = "llm"
         try:
             llm_result = self.llm_client.generate(prompt.system, prompt.user)
             WorkspaceManager.write_text(workspace.raw_response_path, llm_result.response)
+            stage = "clean"
             candidate = self.output_cleaner.clean(llm_result.response)
             if not candidate:
                 raise ValueError("LLM response contained no Rebeca candidate.")
             WorkspaceManager.write_text(workspace.candidate_path, candidate)
+            candidate_sha256 = hashlib.sha256(
+                candidate.encode("utf-8")
+            ).hexdigest()
+            stage = "syntax"
             syntax = self.syntax_validator.validate(
                 workspace.candidate_path, workspace.root
             )
             generated_code_path: str | None = str(workspace.candidate_path)
             raw_response_path: str | None = str(workspace.raw_response_path)
         except Exception as exc:
-            if "llm_result" not in locals():
+            if stage == "llm":
+                category = categorize_llm_error(exc)
                 llm_result = LLMResult(
+                    provider=self.llm_client.provider_name,
                     model=self.llm_client.model_name,
-                    error_category=categorize_llm_error(exc),
+                    error_category=category,
                     error_message=str(exc),
+                    retryable=is_retryable_llm_error(category),
+                    requested_parameters=dict(
+                        getattr(self.llm_client, "requested_parameters", {})
+                    ),
+                    effective_parameters=dict(
+                        getattr(self.llm_client, "effective_parameters", {})
+                    ),
                 )
-            else:
+                syntax_category = category
+            elif stage == "clean":
                 llm_result.error_category = "MALFORMED_OUTPUT"
                 llm_result.error_message = str(exc)
+                llm_result.retryable = True
+                syntax_category = "MALFORMED_OUTPUT"
+            else:
+                syntax_category = "VALIDATOR_ERROR"
             syntax = SyntaxResult(
                 executed=False,
                 execution_success=False,
                 passed=False,
-                error_category=(llm_result.error_category or "LLM_ERROR"),
-                error_message=llm_result.error_message,
+                error_category=syntax_category,
+                error_message=str(exc),
             )
             generated_code_path = (
                 str(workspace.candidate_path)
@@ -116,6 +145,8 @@ class TranslationPipeline:
             generated_code_path=generated_code_path,
             raw_response_path=raw_response_path,
             syntax=syntax,
+            generated_code=candidate,
+            generated_code_sha256=candidate_sha256,
         )
         self.report_writer.write_attempt(attempt, workspace.result_path)
         return attempt
@@ -214,6 +245,8 @@ class TranslationPipeline:
             attempts=outcome.attempts,
             successful_attempt=outcome.successful_attempt,
             exhausted=outcome.exhausted,
+            terminated_early=outcome.terminated_early,
+            stop_reason=outcome.stop_reason,
         )
 
     def repair_semantic(
@@ -275,4 +308,6 @@ class TranslationPipeline:
             attempts=outcome.attempts,
             successful_attempt=outcome.successful_attempt,
             exhausted=outcome.exhausted,
+            terminated_early=outcome.terminated_early,
+            stop_reason=outcome.stop_reason,
         )
