@@ -28,6 +28,7 @@ from src.artifacts.report_writer import ReportWriter
 from src.artifacts.result_models import PipelineStatus
 from src.artifacts.workspace import WorkspaceManager
 from src.llm.llm_client import OpenAILangChainClient
+from src.llm.example_retriever import VerifiedExampleRetriever
 from src.llm.output_cleaner import OutputCleaner
 from src.llm.prompt_builder import PromptBuilder
 from src.pipeline.batch_pipeline import BatchPipeline
@@ -50,6 +51,7 @@ PROMPT_STRATEGIES = {
     "few_shot_3": phase2_prompts.FEW_SHOT_3,
     "minimal_v2": researched_prompts.MINIMAL_V2,
     "handbook_zero_shot_v1": researched_prompts.HANDBOOK_ZERO_SHOT_V1,
+    "retrieved_few_shot_v1": researched_prompts.RETRIEVED_FEW_SHOT_V1,
 }
 
 # Keep the historical default grid stable at 8 x 4 x 4 = 128 settings.
@@ -77,6 +79,8 @@ def read_optional(path: Path | None, fallback: str) -> str:
 
 
 def initial_template_for(strategy: str) -> str:
+    if strategy == "retrieved_few_shot_v1":
+        return researched_prompts.RETRIEVED_FEW_SHOT_INITIAL_V1
     if strategy in researched_prompts.CONTEXT_AWARE_STRATEGIES:
         return researched_prompts.INITIAL_WITH_CONTEXT_V1
     return "{akka_code}"
@@ -95,7 +99,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--model", default=os.getenv("OPENAI_MODEL", "gpt-5.1-2025-11-13")
     )
-    parser.add_argument("--max-attempts", type=int, default=5)
+    parser.add_argument(
+        "--max-attempts",
+        type=int,
+        default=5,
+        help=(
+            "Maximum compiler-feedback attempts for initial generation and for "
+            "each enabled semantic-repair cycle."
+        ),
+    )
     parser.add_argument("--temperature", type=float, default=0.1)
     parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--frequency-penalty", type=float, default=0.0)
@@ -106,6 +118,28 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--system-prompt-file", type=Path)
     parser.add_argument("--initial-prompt-file", type=Path)
     parser.add_argument("--retry-prompt-file", type=Path)
+    parser.add_argument("--semantic-retry-prompt-file", type=Path)
+    parser.add_argument(
+        "--max-semantic-repairs",
+        type=int,
+        default=0,
+        help=(
+            "Maximum oracle-assisted semantic repairs after a first-pass semantic "
+            "failure. Default 0 preserves unbiased baseline runs."
+        ),
+    )
+    parser.add_argument(
+        "--retrieval-corpus",
+        type=Path,
+        help="JSON file or directory of verified, metadata-labelled few-shot examples.",
+    )
+    parser.add_argument("--retrieval-top-k", type=int, default=3)
+    parser.add_argument(
+        "--near-duplicate-threshold",
+        type=float,
+        default=0.9,
+        help="Lexical Jaccard threshold used as an additional leakage guard.",
+    )
     parser.add_argument(
         "--rmc-jar",
         type=Path,
@@ -133,6 +167,22 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
+    max_semantic_repairs = getattr(args, "max_semantic_repairs", 0)
+    retrieval_corpus = getattr(args, "retrieval_corpus", None)
+    retrieval_top_k = getattr(args, "retrieval_top_k", 3)
+    near_duplicate_threshold = getattr(args, "near_duplicate_threshold", 0.9)
+    semantic_retry_prompt_file = getattr(args, "semantic_retry_prompt_file", None)
+    if max_semantic_repairs < 0:
+        raise ValueError("--max-semantic-repairs cannot be negative")
+    if max_semantic_repairs and not args.benchmark:
+        raise ValueError("--max-semantic-repairs requires --benchmark")
+    if args.prompt_strategy == "retrieved_few_shot_v1" and not retrieval_corpus:
+        raise ValueError(
+            "retrieved_few_shot_v1 requires --retrieval-corpus with verified examples"
+        )
+    if not 0.0 <= near_duplicate_threshold <= 1.0:
+        raise ValueError("--near-duplicate-threshold must be between 0 and 1")
+
     system_prompt = read_optional(
         args.system_prompt_file, PROMPT_STRATEGIES[args.prompt_strategy]
     )
@@ -142,6 +192,18 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
     retry_template = read_optional(
         args.retry_prompt_file, researched_prompts.SYNTAX_REPAIR_V1
     )
+    semantic_retry_template = read_optional(
+        semantic_retry_prompt_file, researched_prompts.SEMANTIC_REPAIR_V1
+    )
+
+    example_retriever = None
+    if args.prompt_strategy == "retrieved_few_shot_v1":
+        example_retriever = VerifiedExampleRetriever.from_path(
+            retrieval_corpus,
+            top_k=retrieval_top_k,
+            extension=args.rmc_extension,
+            near_duplicate_threshold=near_duplicate_threshold,
+        )
 
     llm_client = OpenAILangChainClient(
         model=args.model,
@@ -166,15 +228,18 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
             system_prompt=system_prompt,
             initial_template=initial_template,
             retry_template=retry_template,
+            semantic_retry_template=semantic_retry_template,
             strategy=args.prompt_strategy,
             version=researched_prompts.PROMPT_VERSIONS.get(
                 args.prompt_strategy, "v1"
             ),
             rmc_extension=args.rmc_extension,
+            default_semantic_contract=researched_prompts.DEFAULT_SEMANTIC_CONTRACT,
         ),
         output_cleaner=OutputCleaner(),
         syntax_validator=syntax_validator,
         retry_manager=RetryManager(args.max_attempts),
+        example_retriever=example_retriever,
         report_writer=report_writer,
     )
     semantic = None
@@ -192,6 +257,7 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
         translation_pipeline=translation,
         workspace_manager=WorkspaceManager(args.workspace_root),
         max_attempts=args.max_attempts,
+        max_semantic_repairs=max_semantic_repairs,
         semantic_validator=semantic,
         report_writer=report_writer,
     )
@@ -204,6 +270,7 @@ def run_pipeline(
 ) -> tuple[list, list[dict[str, str]]]:
     pipeline = build_candidate_pipeline(args)
     input_path = args.input.expanduser().resolve()
+    retrieval_corpus = getattr(args, "retrieval_corpus", None)
     run_metadata = {
         "model": args.model,
         "prompt_strategy": args.prompt_strategy,
@@ -211,12 +278,28 @@ def run_pipeline(
             args.prompt_strategy, "v1"
         ),
         "retry_prompt": "syntax_repair_v1",
+        "semantic_retry_prompt": "semantic_repair_v1",
+        "max_semantic_repairs": getattr(args, "max_semantic_repairs", 0),
+        "retry_budget": {
+            "initial_generation_and_syntax": args.max_attempts,
+            "per_semantic_repair_cycle": args.max_attempts,
+        },
         "temperature": args.temperature,
         "top_p": args.top_p,
         "frequency_penalty": args.frequency_penalty,
         "presence_penalty": args.presence_penalty,
         "rmc_jar": str(args.rmc_jar.expanduser().resolve()),
         "rmc_extension": args.rmc_extension,
+        "retrieval": {
+            "enabled": args.prompt_strategy == "retrieved_few_shot_v1",
+            "corpus": str(retrieval_corpus.resolve())
+            if retrieval_corpus
+            else None,
+            "top_k": getattr(args, "retrieval_top_k", 3),
+            "near_duplicate_threshold": getattr(
+                args, "near_duplicate_threshold", 0.9
+            ),
+        },
     }
     run_metadata.update(extra_metadata or {})
 
@@ -255,6 +338,12 @@ def result_summary(results: list, batch_errors: list[dict[str, str]]) -> dict:
             {
                 "candidate_id": result.candidate_id,
                 "status": result.overall_status.value,
+                "first_pass_semantic_status": result.metadata.get(
+                    "semantic_evaluation", {}
+                ).get("first_pass_status", "NOT_RUN"),
+                "repair_assisted_semantic_pass": result.metadata.get(
+                    "semantic_evaluation", {}
+                ).get("repair_assisted_semantic_pass", False),
                 "report": str(Path(result.workspace_path) / "candidate_result.json"),
             }
             for result in results
