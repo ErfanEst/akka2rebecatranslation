@@ -7,7 +7,7 @@ experiment behavior. New development goes through the components under `src/`:
 
 | Area | Responsibility |
 |---|---|
-| `src/llm` | Provider call, prompt construction, output extraction |
+| `src/llm` | Provider adapters, model configuration, prompt construction, output extraction |
 | `src/syntax` | RMC 2.14 invocation and syntax result |
 | `src/pipeline` | Retry, candidate orchestration, batch isolation |
 | `src/semantic` | C++ compile, model checking, existing parser/evaluator adapter |
@@ -24,7 +24,31 @@ successfully and emits at least one C++ source file.
 2. RMC validates the cleaned candidate.
 3. On failure, the next prompt receives the previous candidate and RMC error.
 4. Processing stops at the first syntax-valid attempt or after `max_attempts`.
-5. LLM/infrastructure failures are retained as attempt records and can be retried.
+5. Transient LLM failures (`RATE_LIMIT`, `TIMEOUT`, `NETWORK`, server errors) may retry.
+6. Permanent request failures (`UNSUPPORTED_PARAMETER`, authentication, invalid model/request) fail fast after one attempt.
+
+Every cleaned candidate is stored twice: as `attempt_N/candidate.rebeca` and as
+the complete `attempts[N].generated_code` value in `candidate_result.json`.
+Top-level `generated_candidates` and `failed_candidates` indexes include the
+code, SHA-256, compiler diagnostics, and path. Incorrect programs are therefore
+preserved for later error analysis.
+
+## Provider boundary
+
+Pipelines depend only on the `LLMClient` protocol. `create_llm_client` selects
+one provider adapter:
+
+| Provider | Adapter | Credential |
+|---|---|---|
+| `openai` | `ChatOpenAI` | `OPENAI_API_KEY` |
+| `deepseek` | OpenAI-compatible endpoint | `DEEPSEEK_API_KEY` |
+| `anthropic` | `ChatAnthropic` | `ANTHROPIC_API_KEY` |
+| `openai_compatible` | Configurable OpenAI-compatible endpoint | `LLM_API_KEY` + `LLM_BASE_URL` |
+
+`GenerationConfig` represents omitted parameters as `None` (`auto` in the
+CLI). Adapters send only explicit, supported values. Requested and effective
+parameters are both recorded. Known GPT-5.6 restrictions are checked before a
+grid makes an API call, preventing repeated HTTP 400 requests.
 
 ## Semantic reuse
 
@@ -52,14 +76,17 @@ attempts, syntax details, semantic details, artifact paths, and final status.
 
 `run_grid.py` is a thin orchestration layer around the same callable pipeline
 used by `run_pipeline.py`. It does not implement a second translation or
-validation path. For every selected prompt strategy, temperature, and top_p it:
+validation path. For every selected provider/model target, prompt strategy,
+temperature, top_p, and reasoning effort it:
 
-1. creates a new model/prompt/parameter-scoped workspace;
+1. creates a new provider/model/prompt/parameter-scoped workspace;
 2. executes the normal candidate or recursive batch pipeline;
 3. writes `setting_result.json` beside that setting's candidates;
 4. updates the top-level `grid_result.json` aggregate.
 
-The default experiment contains all eight prompt strategies and all sixteen
-sampling combinations from `experiments/parameter_grid.py`, for 128 isolated
-settings per candidate. `grid_manifest.json` records the plan before the first
-model call. `--dry-run` prints the same plan without creating artifacts.
+The safe default uses provider defaults (`temperature=auto`, `top_p=auto`) for
+all eight prompt strategies. The historical 128-setting experiment remains
+available by explicitly passing the four temperatures and four top-p values.
+`--model-targets` adds a multi-provider/model axis. `grid_manifest.json`
+records the complete plan before the first model call; `--dry-run` prints the
+same plan without creating artifacts.

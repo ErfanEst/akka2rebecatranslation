@@ -86,6 +86,45 @@ class CandidatePipelineTests(unittest.TestCase):
                 (root / "workspace" / "actor" / "final_candidate.rebeca").is_file()
             )
 
+    def test_failed_code_is_embedded_in_candidate_report(self) -> None:
+        class RejectingSyntaxValidator:
+            def validate(self, candidate_path: Path, attempt_root: Path) -> SyntaxResult:
+                return SyntaxResult(
+                    executed=True,
+                    execution_success=True,
+                    passed=False,
+                    error_category="COMPILER_REJECTED",
+                    error_message="bad syntax",
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "actor.scala"
+            source.write_text("class A extends Actor", encoding="utf-8")
+            pipeline = CandidatePipeline(
+                translation_pipeline=TranslationPipeline(
+                    llm_client=OneResponseLLM(),
+                    prompt_builder=PromptBuilder(),
+                    output_cleaner=OutputCleaner(),
+                    syntax_validator=RejectingSyntaxValidator(),
+                    retry_manager=RetryManager(1),
+                ),
+                workspace_manager=WorkspaceManager(root / "workspace"),
+                max_attempts=1,
+            )
+
+            pipeline.run(source, candidate_id="actor")
+            report = json.loads(
+                (root / "workspace" / "actor" / "candidate_result.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(len(report["failed_candidates"]), 1)
+            self.assertIn("reactiveclass A", report["failed_candidates"][0]["code"])
+            self.assertIn(
+                "reactiveclass A", report["attempts"][0]["generated_code"]
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

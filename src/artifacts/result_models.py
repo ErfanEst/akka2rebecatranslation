@@ -37,6 +37,7 @@ class SerializableResult:
 @dataclass
 class LLMResult(SerializableResult):
     model: str
+    provider: str = "unknown"
     response: str = ""
     latency_seconds: float = 0.0
     input_tokens: int | None = None
@@ -45,6 +46,9 @@ class LLMResult(SerializableResult):
     response_id: str | None = None
     error_category: str | None = None
     error_message: str | None = None
+    retryable: bool | None = None
+    requested_parameters: dict[str, Any] = field(default_factory=dict)
+    effective_parameters: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -94,6 +98,11 @@ class AttemptResult(SerializableResult):
     generated_code_path: str | None
     raw_response_path: str | None
     syntax: SyntaxResult
+    # The code is intentionally embedded in JSON as well as stored on disk.
+    # This keeps failed generations available for later error analysis even if
+    # result files are copied away from their original workspace.
+    generated_code: str | None = None
+    generated_code_sha256: str | None = None
 
 
 @dataclass
@@ -141,4 +150,22 @@ class CandidateResult(SerializableResult):
         }
         result["attempts_used"] = self.attempts_used
         result["final_status"] = result["overall_status"]
+        result["generated_candidates"] = [
+            {
+                "attempt_number": attempt.attempt_number,
+                "code": attempt.generated_code,
+                "sha256": attempt.generated_code_sha256,
+                "path": attempt.generated_code_path,
+                "syntax_pass": attempt.syntax.passed,
+                "error_category": attempt.syntax.error_category,
+                "error_message": attempt.syntax.error_message,
+            }
+            for attempt in self.attempts
+            if attempt.generated_code is not None
+        ]
+        result["failed_candidates"] = [
+            candidate
+            for candidate in result["generated_candidates"]
+            if not candidate["syntax_pass"]
+        ]
         return result
