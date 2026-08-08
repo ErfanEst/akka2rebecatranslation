@@ -32,8 +32,11 @@ from src.llm.model_config import (
     GenerationConfig,
     parse_optional_float,
     parse_optional_int,
+    parse_prompt_cache_retention,
     parse_reasoning_effort,
 )
+from src.llm.pricing import DEFAULT_PRICING_PATH, PricingCatalog
+from src.usage_cost import combine_usage_cost_summaries, summarize_llm_results
 from src.llm.example_retriever import VerifiedExampleRetriever
 from src.llm.output_cleaner import OutputCleaner
 from src.llm.prompt_builder import PromptBuilder
@@ -44,7 +47,6 @@ from src.pipeline.translation_pipeline import TranslationPipeline
 from src.semantic.semantic_validator import SemanticValidator
 from src.syntax.rmc_compiler import RmcCompiler
 from src.syntax.syntax_validator import SyntaxValidator
-
 
 PROMPT_STRATEGIES = {
     "minimal": phase2_prompts.MINIMAL,
@@ -57,6 +59,7 @@ PROMPT_STRATEGIES = {
     "few_shot_3": phase2_prompts.FEW_SHOT_3,
     "minimal_v2": researched_prompts.MINIMAL_V2,
     "handbook_zero_shot_v1": researched_prompts.HANDBOOK_ZERO_SHOT_V1,
+    "handbook_zero_shot_v2": researched_prompts.HANDBOOK_ZERO_SHOT_V2,
     "retrieved_few_shot_v1": researched_prompts.RETRIEVED_FEW_SHOT_V1,
 }
 
@@ -116,12 +119,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional provider endpoint override (required for openai_compatible).",
     )
     parser.add_argument(
+        "--pricing-file",
+        type=Path,
+        default=DEFAULT_PRICING_PATH,
+        help=(
+            "Versioned JSON price snapshot used for per-request cost estimates. "
+            "Unknown models keep token usage but report PRICE_UNAVAILABLE."
+        ),
+    )
+    parser.add_argument(
         "--max-attempts",
         type=int,
         default=5,
         help=(
             "Maximum compiler-feedback attempts for initial generation and for "
-            "each enabled semantic-repair cycle."
+            "each enabled codegen- or semantic-repair cycle."
         ),
     )
     parser.add_argument(
@@ -158,12 +170,39 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="auto|none|low|medium|high|xhigh|max",
     )
     parser.add_argument(
+        "--prompt-cache-key",
+        help=(
+            "Stable OpenAI routing key for requests that share a prompt prefix. "
+            "The API still determines cache eligibility and reports actual hits."
+        ),
+    )
+    parser.add_argument(
+        "--prompt-cache-retention",
+        type=parse_prompt_cache_retention,
+        default=None,
+        metavar="auto|in_memory|24h",
+        help=(
+            "OpenAI pre-GPT-5.6 cache retention policy. GPT-5.1 supports 24h; "
+            "use auto for GPT-5.6 and other providers."
+        ),
+    )
+    parser.add_argument(
         "--prompt-strategy", choices=sorted(PROMPT_STRATEGIES), default="basic"
     )
     parser.add_argument("--system-prompt-file", type=Path)
     parser.add_argument("--initial-prompt-file", type=Path)
     parser.add_argument("--retry-prompt-file", type=Path)
+    parser.add_argument("--codegen-retry-prompt-file", type=Path)
     parser.add_argument("--semantic-retry-prompt-file", type=Path)
+    parser.add_argument(
+        "--max-codegen-repairs",
+        type=int,
+        default=0,
+        help=(
+            "Maximum oracle-free repairs after RMC succeeds but its generated "
+            "C++ backend does not compile. Default 0 preserves baseline runs."
+        ),
+    )
     parser.add_argument(
         "--max-semantic-repairs",
         type=int,
@@ -212,11 +251,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
+    max_codegen_repairs = getattr(args, "max_codegen_repairs", 0)
     max_semantic_repairs = getattr(args, "max_semantic_repairs", 0)
     retrieval_corpus = getattr(args, "retrieval_corpus", None)
     retrieval_top_k = getattr(args, "retrieval_top_k", 3)
     near_duplicate_threshold = getattr(args, "near_duplicate_threshold", 0.9)
     semantic_retry_prompt_file = getattr(args, "semantic_retry_prompt_file", None)
+    codegen_retry_prompt_file = getattr(args, "codegen_retry_prompt_file", None)
+    if max_codegen_repairs < 0:
+        raise ValueError("--max-codegen-repairs cannot be negative")
+    if max_codegen_repairs and not args.benchmark:
+        raise ValueError("--max-codegen-repairs requires --benchmark")
     if max_semantic_repairs < 0:
         raise ValueError("--max-semantic-repairs cannot be negative")
     if max_semantic_repairs and not args.benchmark:
@@ -236,6 +281,9 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
     )
     retry_template = read_optional(
         args.retry_prompt_file, researched_prompts.SYNTAX_REPAIR_V1
+    )
+    codegen_retry_template = read_optional(
+        codegen_retry_prompt_file, researched_prompts.CODEGEN_REPAIR_V1
     )
     semantic_retry_template = read_optional(
         semantic_retry_prompt_file, researched_prompts.SEMANTIC_REPAIR_V1
@@ -257,12 +305,18 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
         presence_penalty=getattr(args, "presence_penalty", None),
         max_tokens=getattr(args, "max_output_tokens", None),
         reasoning_effort=getattr(args, "reasoning_effort", None),
+        prompt_cache_key=getattr(args, "prompt_cache_key", None),
+        prompt_cache_retention=getattr(args, "prompt_cache_retention", None),
+    )
+    pricing_catalog = PricingCatalog.from_path(
+        getattr(args, "pricing_file", DEFAULT_PRICING_PATH)
     )
     llm_client = create_llm_client(
         provider=getattr(args, "provider", "auto"),
         model=args.model,
         config=generation_config,
         base_url=getattr(args, "api_base_url", None),
+        pricing_catalog=pricing_catalog,
     )
     compiler = RmcCompiler(
         jar_path=args.rmc_jar,
@@ -279,11 +333,10 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
             system_prompt=system_prompt,
             initial_template=initial_template,
             retry_template=retry_template,
+            codegen_retry_template=codegen_retry_template,
             semantic_retry_template=semantic_retry_template,
             strategy=args.prompt_strategy,
-            version=researched_prompts.PROMPT_VERSIONS.get(
-                args.prompt_strategy, "v1"
-            ),
+            version=researched_prompts.PROMPT_VERSIONS.get(args.prompt_strategy, "v1"),
             rmc_extension=args.rmc_extension,
             default_semantic_contract=researched_prompts.DEFAULT_SEMANTIC_CONTRACT,
         ),
@@ -308,6 +361,7 @@ def build_candidate_pipeline(args: argparse.Namespace) -> CandidatePipeline:
         translation_pipeline=translation,
         workspace_manager=WorkspaceManager(args.workspace_root),
         max_attempts=args.max_attempts,
+        max_codegen_repairs=max_codegen_repairs,
         max_semantic_repairs=max_semantic_repairs,
         semantic_validator=semantic,
         report_writer=report_writer,
@@ -332,31 +386,36 @@ def run_pipeline(
             args.prompt_strategy, "v1"
         ),
         "retry_prompt": "syntax_repair_v1",
+        "codegen_retry_prompt": "codegen_repair_v1",
         "semantic_retry_prompt": "semantic_repair_v1",
+        "max_codegen_repairs": getattr(args, "max_codegen_repairs", 0),
         "max_semantic_repairs": getattr(args, "max_semantic_repairs", 0),
         "retry_budget": {
             "initial_generation_and_syntax": args.max_attempts,
+            "per_codegen_repair_cycle": args.max_attempts,
             "per_semantic_repair_cycle": args.max_attempts,
         },
         "requested_parameters": dict(llm_client.requested_parameters),
         "effective_parameters": dict(llm_client.effective_parameters),
+        "pricing_snapshot": dict(llm_client.pricing_snapshot),
         "temperature": getattr(args, "temperature", None),
         "top_p": getattr(args, "top_p", None),
         "frequency_penalty": getattr(args, "frequency_penalty", None),
         "presence_penalty": getattr(args, "presence_penalty", None),
         "max_output_tokens": getattr(args, "max_output_tokens", None),
         "reasoning_effort": getattr(args, "reasoning_effort", None),
+        "prompt_cache": {
+            "key": getattr(args, "prompt_cache_key", None),
+            "retention": getattr(args, "prompt_cache_retention", None),
+            "measurement_source": "provider_reported_usage",
+        },
         "rmc_jar": str(args.rmc_jar.expanduser().resolve()),
         "rmc_extension": args.rmc_extension,
         "retrieval": {
             "enabled": args.prompt_strategy == "retrieved_few_shot_v1",
-            "corpus": str(retrieval_corpus.resolve())
-            if retrieval_corpus
-            else None,
+            "corpus": str(retrieval_corpus.resolve()) if retrieval_corpus else None,
             "top_k": getattr(args, "retrieval_top_k", 3),
-            "near_duplicate_threshold": getattr(
-                args, "near_duplicate_threshold", 0.9
-            ),
+            "near_duplicate_threshold": getattr(args, "near_duplicate_threshold", 0.9),
         },
     }
     run_metadata.update(extra_metadata or {})
@@ -391,22 +450,52 @@ def run_pipeline(
 
 
 def result_summary(results: list, batch_errors: list[dict[str, str]]) -> dict:
+    candidate_summaries = [
+        getattr(
+            result,
+            "usage_and_cost",
+            summarize_llm_results(
+                attempt.llm for attempt in getattr(result, "attempts", [])
+            ),
+        )
+        for result in results
+    ]
     return {
         "candidates": [
             {
                 "candidate_id": result.candidate_id,
                 "status": result.overall_status.value,
-                "first_pass_semantic_status": getattr(result, "metadata", {}).get(
-                    "semantic_evaluation", {}
-                ).get("first_pass_status", "NOT_RUN"),
-                "repair_assisted_semantic_pass": getattr(result, "metadata", {}).get(
-                    "semantic_evaluation", {}
-                ).get("repair_assisted_semantic_pass", False),
+                "attempts_used": getattr(result, "attempts_used", None),
+                "syntax_pass": getattr(result, "syntax_pass", None),
+                "syntax_valid_attempt": getattr(result, "syntax_valid_attempt", None),
+                "semantic_status": getattr(
+                    getattr(result, "semantic", None), "status", "NOT_RUN"
+                ),
+                "first_pass_semantic_status": getattr(result, "metadata", {})
+                .get("semantic_evaluation", {})
+                .get("first_pass_status", "NOT_RUN"),
+                "repair_assisted_semantic_pass": getattr(result, "metadata", {})
+                .get("semantic_evaluation", {})
+                .get("repair_assisted_semantic_pass", False),
+                "first_pass_codegen_status": getattr(result, "metadata", {})
+                .get("codegen_evaluation", {})
+                .get("first_pass_codegen_status", "NOT_RUN"),
+                "final_codegen_status": getattr(result, "metadata", {})
+                .get("codegen_evaluation", {})
+                .get("final_codegen_status", "NOT_RUN"),
+                "codegen_repair_attempted": getattr(result, "metadata", {})
+                .get("codegen_evaluation", {})
+                .get("repair_attempted", False),
+                "repair_assisted_codegen_pass": getattr(result, "metadata", {})
+                .get("codegen_evaluation", {})
+                .get("repair_assisted_codegen_pass", False),
                 "report": str(Path(result.workspace_path) / "candidate_result.json"),
+                "usage_and_cost": candidate_summaries[index],
             }
-            for result in results
+            for index, result in enumerate(results)
         ],
         "infrastructure_errors": batch_errors,
+        "usage_and_cost": combine_usage_cost_summaries(candidate_summaries),
     }
 
 

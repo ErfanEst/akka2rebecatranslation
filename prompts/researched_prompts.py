@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-
 MINIMAL_V2 = (
     "Translate the Akka Classic Scala program in the user message into one complete "
     "Core Rebeca model accepted by RMC 2.14 with the CORE_REBECA extension. "
@@ -68,6 +67,25 @@ Internally check all of the following before producing the answer:
 # Output contract
 Output only raw Rebeca source code. Do not output Markdown fences, explanations, headings, analysis, diagnostics, or a patch."""
 
+
+HANDBOOK_ZERO_SHOT_V2 = HANDBOOK_ZERO_SHOT_V1 + """
+
+# Mailbox-bound safety rules
+- A Rebeca mailbox bound must be large enough for the maximum number of messages that may coexist in that rebec's queue during model checking.
+- Do not choose a mailbox bound merely by counting the logical messages in the Akka scenario.
+- Account for messages introduced by the target encoding itself, including constructor-triggered startup messages and auxiliary self-messages.
+- Pay special attention to startup bursts. If a constructor enqueues a startup self-message and that startup message server enqueues multiple additional self-messages before returning, include the triggering startup message and all simultaneously pending messages when estimating peak mailbox occupancy.
+- For each rebec, silently reason about the worst-case queue occupancy induced by the complete translated model before choosing its finite mailbox bound.
+- When the exact peak occupancy is uncertain, choose a conservative finite bound rather than the smallest plausible value. A safe slightly larger bound is preferable to a bound that causes RMC queue overflow.
+- Mailbox sizing is part of correctness for formal verification: a model that preserves logical behavior but overflows a mailbox during the intended scenario is not an acceptable translation.
+
+# Additional silent validation for mailbox bounds
+Before answering, additionally verify:
+- constructor-triggered startup behavior cannot overflow any mailbox;
+- bursts of self-messages cannot overflow the sender's own mailbox;
+- messages already pending when a message server begins execution are included in the peak-occupancy estimate;
+- every chosen mailbox bound is sufficient for the complete startup and protocol scenario represented by the source.
+"""
 
 INITIAL_WITH_CONTEXT_V1 = """<target_profile>
 compiler: RMC 2.14
@@ -156,6 +174,40 @@ mailbox_policy: {mailbox_policy}
 Return only the complete corrected Rebeca source. No Markdown, explanation, diagnostic summary, or patch."""
 
 
+CODEGEN_REPAIR_V1 = """# Task
+Repair the RMC-accepted Rebeca model whose generated C++ backend did not compile. Preserve the behavior and actor protocol expressed by the original Akka source. Return the full corrected Rebeca model, not a diff.
+
+# Repair rules
+- The backend diagnostic is compiler evidence, not a semantic oracle and not source code.
+- Fix the Rebeca construct that caused invalid generated C++; never edit or reproduce generated C++.
+- Check especially for identifier collisions between known rebecs, constructor parameters, message parameters, state variables, and generated backend names.
+- A static ActorRef constructor dependency should normally be represented once as a known rebec, bound in the first parenthesized list in `main`; do not duplicate it as a constructor parameter unless the source truly requires two distinct references.
+- Keep known-rebec bindings and constructor arguments separate: `Class instance(knownBindings):(constructorArguments);`.
+- Preserve actors, messages, state updates, thresholds, startup behavior, reply targets, and termination behavior.
+- The repaired model must still be accepted by the exact RMC target profile.
+- Output one complete Rebeca model only.
+
+<target_profile>
+compiler: RMC 2.14
+extension: {rmc_extension}
+mailbox_policy: {mailbox_policy}
+</target_profile>
+
+<original_akka_source>
+{akka_code}
+</original_akka_source>
+
+<rmc_accepted_rebeca_candidate>
+{previous_code}
+</rmc_accepted_rebeca_candidate>
+
+<generated_backend_compiler_diagnostic>
+{codegen_diagnostic}
+</generated_backend_compiler_diagnostic>
+
+Return only the complete corrected Rebeca source. No Markdown, explanation, diagnostic summary, generated C++, or patch."""
+
+
 SEMANTIC_REPAIR_V1 = """# Task
 Repair the syntax-valid Rebeca model so that its observable behavior matches the original Akka source. Use the semantic diagnostic to locate the first behavioral divergence. Return the full corrected model, not a diff.
 
@@ -210,11 +262,13 @@ SEMANTIC_CONTRACTS = {"simple_ping_pong": SIMPLE_PING_PONG_CONTRACT}
 
 CONTEXT_AWARE_STRATEGIES = {
     "handbook_zero_shot_v1",
+    "handbook_zero_shot_v2",
     "retrieved_few_shot_v1",
 }
 PROMPT_VERSIONS = {
     "minimal_v2": "v2",
     "handbook_zero_shot_v1": "v1",
+    "handbook_zero_shot_v2": "v2",
     "retrieved_few_shot_v1": "v1",
     "syntax_repair_v1": "v1",
     "semantic_repair_v1": "v1",

@@ -1,0 +1,34 @@
+import akka.actor._
+
+case object PingMessage
+case object PongMessage
+case object StartMessage
+
+class Ping(pong: ActorRef) extends Actor {
+  def receive: Receive = {
+    case s1_simpleExample.StartMessage =>
+      println("Ping started the game!")
+      pong ! s1_simpleExample.PingMessage
+
+    case s1_simpleExample.PongMessage =>
+      println(s"Ping received pong from ${sender().path.name}")
+      sender() ! s1_simpleExample.PingMessage
+  }
+}
+
+class Pong extends Actor {
+  def receive: Receive = {
+    case s1_simpleExample.PingMessage =>
+      println(s"Pong received ping from ${sender().path.name}")
+      sender() ! s1_simpleExample.PongMessage
+  }
+}
+
+object PingPongInfinite extends App {
+  val system = ActorSystem("PingPongSystem")
+  val pong = system.actorOf(Props[Pong], name = "pong")
+  val ping = system.actorOf(Props(new Ping(pong)), name = "ping")
+
+  ping ! s1_simpleExample.StartMessage
+
+}

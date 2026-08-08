@@ -1,0 +1,64 @@
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+
+// Messages
+case object Ping
+case object Pong
+case object Start
+case class SetNeighbor(ref: ActorRef)
+
+// Ping Actor (odd)
+class PingActor(val nameStr: String) extends Actor {
+  var neighbor: ActorRef = _
+
+  def receive: Receive = {
+    case SetNeighbor(ref) =>
+      neighbor = ref
+
+    case Start =>
+      println(s"[$nameStr] starting -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+
+    case Pong =>
+      println(s"[$nameStr] received PONG from ${sender().path.name} -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+  }
+}
+
+// Pong Actor (even)
+class PongActor(val nameStr: String) extends Actor {
+  var neighbor: ActorRef = _
+
+  def receive: Receive = {
+    case SetNeighbor(ref) =>
+      neighbor = ref
+
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Pong to ${neighbor.path.name}")
+      neighbor ! Pong
+  }
+}
+
+// Main App
+object OddEvenRingApp extends App {
+  val system = ActorSystem("OddEvenRingSystem")
+
+  // Create 10 Ping actors (odd)
+  private val pings = (1 to 10).map(i => system.actorOf(Props(new PingActor(s"ping${2*i-1}")), s"ping${2*i-1}"))
+
+  // Create 10 Pong actors (even)
+  private val pongs = (1 to 10).map(i => system.actorOf(Props(new PongActor(s"pong${2*i}")), s"pong${2*i}"))
+
+  // Assign neighbors: ping1 -> pong2 -> ping3 -> pong4 ... -> ping19 -> pong20 -> ping1
+  private val total = pings.length
+  for (i <- pings.indices) {
+    pings(i) ! SetNeighbor(pongs(i))           // ping -> pong
+    pongs(i) ! SetNeighbor(if (i < total-1) pings(i+1) else pings(0)) // pong -> next ping
+  }
+
+  // Start the ring
+  pings.head ! Start
+}

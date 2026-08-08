@@ -1,0 +1,90 @@
+package StarTopologyUntimedBoundedExample
+
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import scala.util.Random
+
+// Messages
+case object Ping
+case object Pong
+case object Start
+case object PeriodicTick
+case class Register(ref: ActorRef)
+
+/**
+ * Verification-oriented bounded untimed abstraction.
+ *
+ * Semantic scope:
+ *   1. Wall-clock timing is removed.
+ *   2. Each client keeps the immediate Start Ping.
+ *   3. The unbounded periodic timer is represented by exactly one additional
+ *      untimed PeriodicTick opportunity.
+ *   4. Each client preserves the Pong -> Ping feedback rule for its first Pong.
+ *      Further Pong messages are consumed without another Ping, bounding the
+ *      otherwise amplifying feedback loop.
+ *   5. The hub still replies to the sender and also sends one Pong to a
+ *      nondeterministically/randomly selected distinct registered client.
+ *
+ * This is a scenario-bounded diagnostic abstraction, not a claim of full
+ * timing- or liveness-equivalence with the original infinite periodic system.
+ */
+class PingActor(val nameStr: String, val hub: ActorRef) extends Actor {
+  var periodicSent = false
+  var pongResponseSent = false
+
+  def receive: Receive = {
+    case Start =>
+      hub ! Ping
+      self ! PeriodicTick
+
+    case PeriodicTick =>
+      if (!periodicSent) {
+        periodicSent = true
+        hub ! Ping
+      }
+
+    case Pong =>
+      if (!pongResponseSent) {
+        pongResponseSent = true
+        hub ! Ping
+      }
+  }
+}
+
+class PongHub extends Actor {
+  var clients: Seq[ActorRef] = Seq.empty
+
+  def receive: Receive = {
+    case Register(ref) =>
+      clients :+= ref
+
+    case Ping =>
+      // Direct reply.
+      sender() ! Pong
+
+      // One additional Pong to a distinct registered client.
+      val others = clients.filterNot(_ == sender())
+      if (others.nonEmpty) {
+        val selected = others(Random.nextInt(others.size))
+        selected ! Pong
+      }
+  }
+}
+
+object StarPingPongUntimedBoundedApp extends App {
+  val system = ActorSystem("StarPingPongUntimedBoundedSystem")
+
+  val hub = system.actorOf(Props[PongHub], "pongHub")
+
+  val pings = (1 to 5).map { i =>
+    val ping =
+      system.actorOf(
+        Props(new PingActor(s"ping$i", hub)),
+        s"ping$i"
+      )
+
+    hub ! Register(ping)
+    ping
+  }
+
+  pings.foreach(_ ! Start)
+}

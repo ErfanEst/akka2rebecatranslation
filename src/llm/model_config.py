@@ -9,6 +9,7 @@ from typing import Any
 REASONING_EFFORTS = frozenset(
     {"none", "minimal", "low", "medium", "high", "xhigh", "max"}
 )
+PROMPT_CACHE_RETENTIONS = frozenset({"in_memory", "24h"})
 
 
 @dataclass(frozen=True)
@@ -36,6 +37,8 @@ class GenerationConfig:
     presence_penalty: float | None = None
     max_tokens: int | None = None
     reasoning_effort: str | None = None
+    prompt_cache_key: str | None = None
+    prompt_cache_retention: str | None = None
 
     def __post_init__(self) -> None:
         if self.temperature is not None and not 0.0 <= self.temperature <= 2.0:
@@ -56,6 +59,14 @@ class GenerationConfig:
         ):
             allowed = ", ".join(sorted(REASONING_EFFORTS))
             raise ValueError(f"reasoning_effort must be one of: {allowed}")
+        if self.prompt_cache_key is not None and not self.prompt_cache_key.strip():
+            raise ValueError("prompt_cache_key cannot be empty")
+        if (
+            self.prompt_cache_retention is not None
+            and self.prompt_cache_retention not in PROMPT_CACHE_RETENTIONS
+        ):
+            allowed = ", ".join(sorted(PROMPT_CACHE_RETENTIONS))
+            raise ValueError(f"prompt_cache_retention must be one of: {allowed}")
 
     def requested_parameters(self) -> dict[str, Any]:
         """Return the full experimental request, including omitted parameters."""
@@ -67,6 +78,8 @@ class GenerationConfig:
             "presence_penalty": self.presence_penalty,
             "max_tokens": self.max_tokens,
             "reasoning_effort": self.reasoning_effort,
+            "prompt_cache_key": self.prompt_cache_key,
+            "prompt_cache_retention": self.prompt_cache_retention,
         }
 
     def explicit_parameters(self) -> dict[str, Any]:
@@ -96,6 +109,16 @@ def parse_reasoning_effort(value: str) -> str | None:
     if normalized not in REASONING_EFFORTS:
         allowed = ", ".join(["auto", *sorted(REASONING_EFFORTS)])
         raise ValueError(f"reasoning effort must be one of: {allowed}")
+    return normalized
+
+
+def parse_prompt_cache_retention(value: str) -> str | None:
+    normalized = value.strip().lower()
+    if normalized in {"auto", "default"}:
+        return None
+    if normalized not in PROMPT_CACHE_RETENTIONS:
+        allowed = ", ".join(["auto", *sorted(PROMPT_CACHE_RETENTIONS)])
+        raise ValueError(f"prompt cache retention must be one of: {allowed}")
     return normalized
 
 

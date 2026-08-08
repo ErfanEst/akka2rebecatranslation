@@ -291,24 +291,82 @@ def evaluate_simple_ping_pong(
 
     # ---------------------------------------------------------
     # PING-A5
-    # Ping must become inactive
+    # After the 10th PongMessage, Ping must send StopMessage and
+    # produce no further observable protocol behavior.
     # ---------------------------------------------------------
 
     final_state = states[-1]
 
-    ping_active = get_rebec_state_var(
-        final_state,
-        "ping",
-        "Ping.active",
+    ping_termination_transition_index: int | None = None
+
+    for index, transition in enumerate(transitions):
+
+        if (
+            transition["message_server"] == "PONGMESSAGE"
+            and transition["owner"] == "ping"
+        ):
+
+            source_state = find_state_by_id(
+                states,
+                transition["source"],
+            )
+
+            destination_state = find_state_by_id(
+                states,
+                transition["destination"],
+            )
+
+            if not source_state or not destination_state:
+                continue
+
+            old_count = get_rebec_state_var(
+                source_state,
+                "ping",
+                "Ping.count",
+            )
+
+            new_count = get_rebec_state_var(
+                destination_state,
+                "ping",
+                "Ping.count",
+            )
+
+            pong_queue = get_rebec_queue(
+                destination_state,
+                "pong",
+            )
+
+            stop_message_sent = any(
+                message["message"] == "StopMessage()" and message["sender"] == "ping"
+                for message in pong_queue
+            )
+
+            if old_count == 9 and new_count == 10 and stop_message_sent:
+                ping_termination_transition_index = index
+                break
+
+    ping_has_no_later_transition = (
+        ping_termination_transition_index is not None
+        and all(
+            transition["owner"] != "ping"
+            for transition in transitions[ping_termination_transition_index + 1 :]
+        )
+    )
+
+    ping_a5_passed = (
+        ping_termination_transition_index is not None and ping_has_no_later_transition
     )
 
     evaluator.add_result(
         "PING-A5",
-        ping_active == 0,
+        ping_a5_passed,
         (
-            "Ping reaches inactive terminal state."
-            if ping_active == 0
-            else f"Unexpected Ping.active value: {ping_active}"
+            "After sending StopMessage, Ping produces no further protocol behavior."
+            if ping_a5_passed
+            else (
+                "Ping did not reach observable termination after the "
+                "10th PongMessage."
+            )
         ),
     )
 
@@ -410,12 +468,13 @@ def evaluate_simple_ping_pong(
 
     # ---------------------------------------------------------
     # PONG-A3
-    # StopMessage must make Pong inactive with no outgoing message
+    # StopMessage must leave Pong observably terminated:
+    # no outgoing messages, empty queues, and no later transition.
     # ---------------------------------------------------------
 
     pong_a3_passed = False
 
-    for transition in transitions:
+    for index, transition in enumerate(transitions):
 
         if (
             transition["message_server"] == "STOPMESSAGE"
@@ -429,12 +488,6 @@ def evaluate_simple_ping_pong(
 
             if destination_state:
 
-                pong_active_after_stop = get_rebec_state_var(
-                    destination_state,
-                    "pong",
-                    "Pong.active",
-                )
-
                 ping_queue_after_stop = get_rebec_queue(
                     destination_state,
                     "ping",
@@ -445,10 +498,12 @@ def evaluate_simple_ping_pong(
                     "pong",
                 )
 
+                no_later_transition = index == len(transitions) - 1
+
                 pong_a3_passed = (
-                    pong_active_after_stop == 0
-                    and len(ping_queue_after_stop) == 0
+                    len(ping_queue_after_stop) == 0
                     and len(pong_queue_after_stop) == 0
+                    and no_later_transition
                 )
 
             break
@@ -457,9 +512,9 @@ def evaluate_simple_ping_pong(
         "PONG-A3",
         pong_a3_passed,
         (
-            "StopMessage makes Pong inactive without producing another message."
+            "After StopMessage, Pong produces no further message or transition."
             if pong_a3_passed
-            else "Pong stop behavior did not match the expected semantics."
+            else "Pong stop behavior did not reach observable quiescence."
         ),
     )
 
@@ -568,27 +623,39 @@ def evaluate_simple_ping_pong(
 
     # ---------------------------------------------------------
     # PP-I5
-    # Both actors reach inactive terminal state
+    # The completed interaction must reach observable quiescence.
+    # This is representation-independent: no variable named
+    # active, inactive, or stopped is required.
     # ---------------------------------------------------------
 
-    pong_active = get_rebec_state_var(
+    ping_queue_final = get_rebec_queue(
         final_state,
-        "pong",
-        "Pong.active",
+        "ping",
     )
 
-    pp_i5_passed = ping_active == 0 and pong_active == 0
+    pong_queue_final = get_rebec_queue(
+        final_state,
+        "pong",
+    )
+
+    pp_i5_passed = (
+        ping_a5_passed
+        and pong_a3_passed
+        and len(ping_queue_final) == 0
+        and len(pong_queue_final) == 0
+        and len(sequence) > 0
+        and sequence[-1] == "STOPMESSAGE"
+    )
 
     evaluator.add_result(
         "PP-I5",
         pp_i5_passed,
         (
-            "Both Ping and Pong reach inactive terminal state."
+            "The completed interaction reaches terminal quiescence."
             if pp_i5_passed
             else (
-                f"Final actor states: "
-                f"Ping.active={ping_active}, "
-                f"Pong.active={pong_active}"
+                "The protocol did not reach representation-independent "
+                "terminal quiescence."
             )
         ),
     )
@@ -721,35 +788,32 @@ def evaluate_simple_ping_pong(
 
     # ---------------------------------------------------------
     # PP-SYS5
-    # Complete execution reaches expected terminal quiescence
+    # Complete execution must cover startup, ten Ping-Pong rounds,
+    # StopMessage, and a final quiescent state.
     # ---------------------------------------------------------
 
-    ping_queue_final = get_rebec_queue(
-        final_state,
-        "ping",
-    )
-
-    pong_queue_final = get_rebec_queue(
-        final_state,
-        "pong",
-    )
-
     pp_sys5_passed = (
-        ping_active == 0
-        and pong_active == 0
+        len(sequence) > 0
+        and sequence[0] == "STARTMESSAGE"
+        and sequence.count("PINGMESSAGE") == 10
+        and sequence.count("PONGMESSAGE") == 10
+        and sequence[-1] == "STOPMESSAGE"
+        and ping_a5_passed
+        and pong_a3_passed
         and len(ping_queue_final) == 0
         and len(pong_queue_final) == 0
-        and len(sequence) > 0
-        and sequence[-1] == "STOPMESSAGE"
     )
 
     evaluator.add_result(
         "PP-SYS5",
         pp_sys5_passed,
         (
-            "Complete execution reaches expected terminal quiescence."
+            "Complete execution reaches observable terminal quiescence."
             if pp_sys5_passed
-            else "Expected terminal system state was not reached."
+            else (
+                "The complete Ping-Pong execution did not reach the "
+                "expected quiescent terminal state."
+            )
         ),
     )
 

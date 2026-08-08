@@ -1,0 +1,53 @@
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import scala.concurrent.duration._
+
+// Messages
+case object Ping
+case object Pong
+case object Start
+
+class PingActor(val nameStr: String, val neighbors: Seq[ActorRef]) extends Actor {
+  import context.dispatcher
+
+  def receive: Receive = {
+    case Start =>
+      println(s"[$nameStr] starting -> sending Ping to all neighbors")
+      neighbors.foreach(_ ! Ping)
+      context.system.scheduler.scheduleAtFixedRate(2.seconds, 4.seconds, self, Ping)
+
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Ping to all neighbors")
+      neighbors.foreach(_ ! Ping)
+
+    case Pong =>
+      println(s"[$nameStr] received PONG from ${sender().path.name} -> forwarding Ping to all neighbors")
+      neighbors.foreach(_ ! Ping)
+  }
+}
+
+// Pong Actor
+class PongActor(val nameStr: String) extends Actor {
+  def receive: Receive = {
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Pong back")
+      sender() ! Pong
+  }
+}
+
+// Main Application
+object MeshPingPongApp extends App {
+  val system = ActorSystem("MeshPingPongSystem")
+
+  val pongs = (1 to 6).map(i => system.actorOf(Props(new PongActor(s"pong$i")), s"pong$i"))
+
+  val pings = Seq(
+    system.actorOf(Props(new PingActor("ping1", Seq(pongs(0), pongs(1)))), "ping1"),
+    system.actorOf(Props(new PingActor("ping2", Seq(pongs(1), pongs(2)))), "ping2"),
+    system.actorOf(Props(new PingActor("ping3", Seq(pongs(2), pongs(3)))), "ping3"),
+    system.actorOf(Props(new PingActor("ping4", Seq(pongs(3), pongs(4)))), "ping4"),
+    system.actorOf(Props(new PingActor("ping5", Seq(pongs(4), pongs(5)))), "ping5"),
+    system.actorOf(Props(new PingActor("ping6", Seq(pongs(5), pongs(0)))), "ping6")
+  )
+
+  pings.foreach(_ ! Start)
+}

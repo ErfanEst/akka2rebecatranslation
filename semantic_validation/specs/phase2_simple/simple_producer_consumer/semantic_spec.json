@@ -1,0 +1,128 @@
+{
+  "example_id": "simple_producer_consumer",
+  "phase": "phase2_simple",
+  "description": "Semantic specification for the simple Producer-Consumer Akka benchmark. The cross-language contract focuses on payload-preserving message transformation, FIFO order, exact delivery count, topology, and terminal quiescence.",
+  "evaluation_principle": "Evaluate the observable Produce(item) -> Consume(item) protocol on one connected RMC execution path. Logging/println is outside the cross-language contract. Payload identities may use a behavior-preserving symbolic encoding.",
+  "actors": [
+    "Producer",
+    "Consumer"
+  ],
+  "benchmark_startup": [
+    {
+      "receiver": "Producer",
+      "message": "Produce",
+      "payload": "item1"
+    },
+    {
+      "receiver": "Producer",
+      "message": "Produce",
+      "payload": "item2"
+    }
+  ],
+  "payload_encoding": {
+    "preferred": {
+      "item1": "item1",
+      "item2": "item2"
+    },
+    "accepted_symbolic_equivalents": {
+      "item1": [
+        "ITEM1",
+        "1"
+      ],
+      "item2": [
+        "ITEM2",
+        "2"
+      ]
+    },
+    "requirement": "Whatever target representation is used, the payload consumed by Produce must be exactly the payload forwarded in the corresponding Consume."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "PC-XA1",
+          "actor": "Producer",
+          "property": "item1_forwarding",
+          "description": "Produce(item1) consumes exactly one input and enqueues exactly one Consume(item1) for Consumer.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XA2",
+          "actor": "Producer",
+          "property": "item2_forwarding",
+          "description": "Produce(item2) consumes exactly one input and enqueues exactly one Consume(item2) for Consumer.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "PC-XI1",
+          "property": "complete_connected_forwarding",
+          "description": "One connected state-graph execution forwards both startup items without loss.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XI2",
+          "property": "payload_preservation",
+          "description": "For each benchmark message, the Consume payload is identical to the corresponding Produce payload.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XI3",
+          "property": "fifo_order",
+          "description": "The logical forwarding order is item1 followed by item2.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "PC-XSYS1",
+          "property": "topology",
+          "description": "Producer and Consumer rebecs exist; behavior-preserving auxiliary rebecs are allowed.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XSYS2",
+          "property": "startup_execution",
+          "description": "Both startup Produce requests execute on one connected path.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XSYS3",
+          "property": "complete_output_contract",
+          "description": "Startup produces exactly the logical Consume sequence [item1, item2], one output per Produce.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PC-XSYS4",
+          "property": "terminal_quiescence",
+          "description": "After exactly two Consumer Consume transitions, the system reaches a terminal state with all rebec queues empty.",
+          "mandatory": true
+        }
+      ]
+    }
+  },
+  "source_only_not_scored": [
+    {
+      "test_id": "PC-SRC-P1",
+      "description": "Arbitrary payload forwarding."
+    },
+    {
+      "test_id": "PC-SRC-P2",
+      "description": "Duplicate payloads remain independent."
+    },
+    {
+      "test_id": "PC-SRC-P3",
+      "description": "Five-item FIFO stress scenario."
+    }
+  ],
+  "out_of_scope": [
+    "println/log text",
+    "wall-clock timing",
+    "source-only stress scenarios without a target test harness"
+  ]
+}

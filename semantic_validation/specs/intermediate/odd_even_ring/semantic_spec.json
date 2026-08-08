@@ -1,0 +1,252 @@
+{
+  "example_id": "odd_even_ring",
+  "phase": "intermediate",
+  "version": "v1_statespace_initialized_recurrent_ring_contract",
+  "description": "Full-state-space semantic contract for the untimed Odd-Even actor ring: 10 logical Ping roles and 10 logical Pong roles form one directed alternating 20-node ring carrying one recurrent logical protocol token.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "reason": "The benchmark's defining behavior is positive recurrence after asynchronous neighbor initialization. Counterexample-only traces are insufficient; the evaluator must inspect reachable initialization states and a stable recurrent state-space component."
+  },
+  "semantic_scope": {
+    "equivalence": "scenario-bounded observational equivalence",
+    "main_scenario": "The 20 actors are configured into the OddEvenRingApp topology and only ping1 receives the initial Start. The evaluator checks behavior reachable from this scenario.",
+    "important_limitation": "The source PingActor also defines behavior for receiving Ping, but the intended initialized OddEvenRingApp protocol routes Pong messages to Ping actors and Ping messages to Pong actors. Therefore the PingActor-on-Ping branch is characterized by the Scala unit oracle but is not a mandatory state-space property when it is unreachable in the main scenario."
+  },
+  "participants": {
+    "logical_ping_count": 10,
+    "logical_pong_count": 10,
+    "total_protocol_roles": 20
+  },
+  "initialization": {
+    "source_mechanism": "SetNeighbor(ref)",
+    "asynchrony": "SetNeighbor messages are sent to different actors before Start, without a global initialization barrier.",
+    "evaluation_rule": "Do not require the first protocol round to close to the raw initial state. Separate setup/warm-up from the stable initialized recurrent component.",
+    "representation_policy": "A Rebeca translation may preserve SetNeighbor explicitly or compile the fixed final topology into static knownrebec bindings. Both are acceptable if the initialized observable ring is equivalent."
+  },
+  "topology": {
+    "shape": "directed alternating cycle",
+    "edges": [
+      [
+        "ping1",
+        "pong2"
+      ],
+      [
+        "pong2",
+        "ping3"
+      ],
+      [
+        "ping3",
+        "pong4"
+      ],
+      [
+        "pong4",
+        "ping5"
+      ],
+      [
+        "ping5",
+        "pong6"
+      ],
+      [
+        "pong6",
+        "ping7"
+      ],
+      [
+        "ping7",
+        "pong8"
+      ],
+      [
+        "pong8",
+        "ping9"
+      ],
+      [
+        "ping9",
+        "pong10"
+      ],
+      [
+        "pong10",
+        "ping11"
+      ],
+      [
+        "ping11",
+        "pong12"
+      ],
+      [
+        "pong12",
+        "ping13"
+      ],
+      [
+        "ping13",
+        "pong14"
+      ],
+      [
+        "pong14",
+        "ping15"
+      ],
+      [
+        "ping15",
+        "pong16"
+      ],
+      [
+        "pong16",
+        "ping17"
+      ],
+      [
+        "ping17",
+        "pong18"
+      ],
+      [
+        "pong18",
+        "ping19"
+      ],
+      [
+        "ping19",
+        "pong20"
+      ],
+      [
+        "pong20",
+        "ping1"
+      ]
+    ],
+    "invariants": [
+      "Each logical protocol role has exactly one protocol successor.",
+      "Each logical protocol role has exactly one protocol predecessor.",
+      "The 20 roles form one connected directed cycle.",
+      "Ping and Pong roles alternate around the cycle."
+    ]
+  },
+  "observable_protocol": {
+    "startup": "Exactly one logical Ping role initiates the protocol by sending the Ping-type message to its successor.",
+    "ping_role_behavior": "In the reachable main scenario, a logical Ping role consumes a Pong-type protocol message and emits exactly one Ping-type protocol message to its configured successor.",
+    "pong_role_behavior": "A logical Pong role consumes a Ping-type protocol message and emits exactly one Pong-type protocol message to its configured successor. This successor is the configured next Ping, not necessarily the incoming sender.",
+    "message_sequence": "Ping, Pong, Ping, Pong, ... around all 20 ring edges.",
+    "recurrence": "After setup/warm-up, the initialized protocol repeatedly traverses the same 20-role ring.",
+    "token_conservation": "In the stable recurrent component there is exactly one logical Ping/Pong protocol message in flight among the 20 logical roles."
+  },
+  "representation_policy": {
+    "names": "Target class, rebec, variable, and message-server names are not semantic identifiers.",
+    "class_sharing": "All Ping roles may share one reactive class and all Pong roles may share one reactive class.",
+    "message_encoding": "Ping/Pong may be renamed or structurally encoded, provided the evaluator can observe two alternating protocol message roles and the same routing/multiplicity.",
+    "auxiliary_rebecs": "Auxiliary bootstrap/setup rebecs are allowed.",
+    "target_topology": "Static knownrebec bindings are acceptable even though the Akka source uses SetNeighbor, because the main program assigns one fixed final ring topology."
+  },
+  "excluded_from_equivalence": [
+    "println output",
+    "exact actor path/name strings",
+    "exact SetNeighbor implementation when final initialized topology is preserved",
+    "unreachable external message scenarios outside OddEvenRingApp",
+    "global ordering among independent initialization messages before stable operation"
+  ],
+  "state_space_limit_policy": {
+    "principle": "A directly observed contradiction is FAIL. Missing positive recurrence evidence is NOT_OBSERVED when the exported graph is insufficient or truncated; it must not be silently converted into a model defect."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "OER-XA1",
+          "property": "single_startup_send",
+          "description": "The unique startup Ping role emits exactly one Ping-type protocol message to its ring successor.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XA2",
+          "property": "ping_role_pong_transform",
+          "description": "Each logical Ping role observed in steady operation consumes Pong-type input and emits exactly one Ping-type message to its successor.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XA3",
+          "property": "pong_role_ping_transform",
+          "description": "Each logical Pong role consumes Ping-type input and emits exactly one Pong-type message to its configured successor.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XA4",
+          "property": "single_protocol_successor_send",
+          "description": "No steady protocol transition duplicates or fans out the logical token.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "OER-XI1",
+          "property": "twenty_role_discovery",
+          "description": "Twenty logical protocol roles are observed: ten Ping roles and ten Pong roles.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XI2",
+          "property": "directed_ring_topology",
+          "description": "Every role has exactly one successor and predecessor and all 20 roles form one directed cycle.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XI3",
+          "property": "alternating_role_topology",
+          "description": "Ping and Pong logical roles alternate on every ring edge.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XI4",
+          "property": "alternating_message_roles",
+          "description": "Ping-role sends use one protocol message kind and Pong-role sends use the other kind.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XI5",
+          "property": "unique_startup_role",
+          "description": "Exactly one Ping role initiates protocol traffic without first consuming a recurrent Ping/Pong token.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XI6",
+          "property": "initialized_full_round",
+          "description": "Inside stable initialized operation, a connected witness traverses all 20 roles in ring order and returns to the same observable protocol-token projection.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "OER-XSYS1",
+          "property": "logical_participant_cardinality",
+          "description": "The initialized protocol exposes ten Ping and ten Pong roles; auxiliary setup rebecs are ignored.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XSYS2",
+          "property": "setup_reaches_operational_ring",
+          "description": "Initial execution reaches the stable recurrent ring after zero or more setup/warm-up transitions.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XSYS3",
+          "property": "recurrent_component",
+          "description": "A reachable cyclic SCC contains recurrent protocol progress for all 20 logical roles.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XSYS4",
+          "property": "single_token_conservation",
+          "description": "Every state in the selected stable recurrent component contains exactly one logical Ping/Pong protocol token among the 20 roles.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XSYS5",
+          "property": "no_terminal_quiescence",
+          "description": "The selected recurrent component contains no terminal protocol state.",
+          "mandatory": true
+        },
+        {
+          "test_id": "OER-XSYS6",
+          "property": "complete_initialized_ring_contract",
+          "description": "Cardinality, initialized topology, alternating routing, unique startup, full-round recurrence, and single-token conservation are all preserved.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

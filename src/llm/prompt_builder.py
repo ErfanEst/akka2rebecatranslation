@@ -52,10 +52,12 @@ class PromptBuilder:
         system_prompt: str = DEFAULT_SYSTEM_PROMPT,
         initial_template: str = DEFAULT_INITIAL_TEMPLATE,
         retry_template: str = DEFAULT_RETRY_TEMPLATE,
+        codegen_retry_template: str | None = None,
         semantic_retry_template: str | None = None,
         strategy: str = "default",
         version: str = "v1",
         syntax_repair_version: str = "v1",
+        codegen_repair_version: str = "v1",
         semantic_repair_version: str = "v1",
         rmc_extension: str = "CORE_REBECA",
         mailbox_policy: str = (
@@ -68,10 +70,12 @@ class PromptBuilder:
         self.system_prompt = system_prompt
         self.initial_template = initial_template
         self.retry_template = retry_template
+        self.codegen_retry_template = codegen_retry_template
         self.semantic_retry_template = semantic_retry_template
         self.strategy = strategy
         self.version = version
         self.syntax_repair_version = syntax_repair_version
+        self.codegen_repair_version = codegen_repair_version
         self.semantic_repair_version = semantic_repair_version
         self.rmc_extension = rmc_extension
         self.mailbox_policy = mailbox_policy
@@ -132,6 +136,37 @@ class PromptBuilder:
             metadata={
                 "benchmark_oracle_exposed": False,
                 **dict(retrieval_metadata or {}),
+            },
+        )
+
+    def build_codegen_repair(
+        self,
+        *,
+        akka_code: str,
+        previous_code: str,
+        codegen_diagnostic: str,
+        benchmark: str | None = None,
+        repair_number: int = 1,
+    ) -> BuiltPrompt:
+        if not self.codegen_retry_template:
+            raise ValueError("No codegen-repair prompt template was configured.")
+        user = self.codegen_retry_template.format(
+            akka_code=akka_code,
+            previous_code=previous_code,
+            codegen_diagnostic=codegen_diagnostic,
+            benchmark=benchmark or "unspecified",
+            rmc_extension=self.rmc_extension,
+            mailbox_policy=self.mailbox_policy,
+        )
+        return BuiltPrompt(
+            system=self.system_prompt,
+            user=user,
+            strategy=self.strategy,
+            version=self.codegen_repair_version,
+            phase="codegen_repair",
+            metadata={
+                "benchmark_oracle_exposed": False,
+                "codegen_repair_number": repair_number,
             },
         )
 

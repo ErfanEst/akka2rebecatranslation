@@ -311,3 +311,66 @@ class TranslationPipeline:
             terminated_early=outcome.terminated_early,
             stop_reason=outcome.stop_reason,
         )
+
+    def repair_codegen(
+        self,
+        akka_code: str,
+        candidate_workspace: CandidateWorkspace,
+        *,
+        benchmark: str | None,
+        previous_code: str,
+        codegen_diagnostic: str,
+        repair_number: int,
+        start_attempt_number: int,
+    ) -> TranslationResult:
+        """Run one backend repair followed by ordinary RMC syntax retries."""
+
+        def execute_attempt(
+            local_attempt_number: int, previous: AttemptResult | None
+        ) -> AttemptResult:
+            actual_attempt_number = start_attempt_number + local_attempt_number - 1
+            if local_attempt_number == 1:
+                prompt = self.prompt_builder.build_codegen_repair(
+                    akka_code=akka_code,
+                    previous_code=previous_code,
+                    codegen_diagnostic=codegen_diagnostic,
+                    benchmark=benchmark,
+                    repair_number=repair_number,
+                )
+            else:
+                (
+                    failed_code,
+                    compiler_error,
+                    error_categories,
+                    rmc_stdout,
+                    rmc_stderr,
+                ) = self._previous_feedback(previous)
+                prompt = self.prompt_builder.build(
+                    attempt_number=local_attempt_number,
+                    akka_code=akka_code,
+                    benchmark=benchmark,
+                    previous_code=failed_code,
+                    compiler_error=compiler_error,
+                    error_categories=error_categories,
+                    rmc_stdout=rmc_stdout,
+                    rmc_stderr=rmc_stderr,
+                    retrieval_metadata={
+                        "codegen_repair_number": repair_number,
+                        "repair_origin": "codegen_repair_syntax_failure",
+                        "benchmark_oracle_exposed": False,
+                    },
+                )
+            return self._execute_prompt(
+                prompt=prompt,
+                candidate_workspace=candidate_workspace,
+                attempt_number=actual_attempt_number,
+            )
+
+        outcome = self.retry_manager.run(execute_attempt)
+        return TranslationResult(
+            attempts=outcome.attempts,
+            successful_attempt=outcome.successful_attempt,
+            exhausted=outcome.exhausted,
+            terminated_early=outcome.terminated_early,
+            stop_reason=outcome.stop_reason,
+        )

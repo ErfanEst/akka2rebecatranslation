@@ -1,0 +1,183 @@
+{
+  "example_id": "ping_pong_periodic_untimed_finite",
+  "phase": "intermediate",
+  "version": "v1_statespace_untimed_finite_mod5_contract",
+  "description": "Scenario-bounded semantic contract for the verification-friendly finite modulo-five abstraction of PingPongPeriodicExample.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "reason": "The contract contains positive recurrence, multiple asynchronous interleavings, phase-dependent branching, and possible asymmetric progress. A counterexample-only trace cannot establish these properties."
+  },
+  "semantic_scope": {
+    "equivalence": "scenario-bounded observational equivalence",
+    "source_variant": "untimed finite modulo-five abstraction",
+    "timing_policy": {
+      "excluded": true,
+      "source_timed_operation": "scheduleOnce(500.millis, self, message)",
+      "untimed_abstraction": "immediate asynchronous self-message",
+      "claim": "The evaluator preserves control-flow and message-exchange structure, not wall-clock delay or timing-sensitive interleavings."
+    },
+    "counter_policy": {
+      "observable": "phase modulo 5",
+      "representation": "finite numeric phase in {0,1,2,3,4}",
+      "equivalence_to_original_untimed_source": "The source's absolute counter is projected modulo five because only divisibility by five affects protocol behavior; logging values are excluded."
+    }
+  },
+  "participants": {
+    "logical_role_count": 2,
+    "roles": [
+      {
+        "role": "ping_role",
+        "local_message_kind": "Ping-like",
+        "peer_message_kind": "Pong-like"
+      },
+      {
+        "role": "pong_role",
+        "local_message_kind": "Pong-like",
+        "peer_message_kind": "Ping-like"
+      }
+    ]
+  },
+  "protocol": {
+    "startup": "Both logical roles are independently started. Each startup seeds exactly one local message of that role's own kind.",
+    "local_step": {
+      "phase_update": "phase := (phase + 1) mod 5",
+      "phase_1_to_4": "Consume one local-kind message and emit exactly one same-kind self-message.",
+      "phase_0": "Consume one local-kind message and emit exactly one same-kind message to the peer, with no local self-continuation."
+    },
+    "peer_message": {
+      "at_phase_0": "Consume the peer-kind message without changing phase and emit exactly one same-kind message back to the peer.",
+      "off_phase_0": "Consume the peer-kind message without changing phase and emit no protocol message."
+    },
+    "multiplicity": "Each protocol transition emits at most one protocol message; the untimed abstraction must not introduce fan-out.",
+    "progress": "The source admits schedules where both roles continue recurrently and also schedules where one role remains at a modulo-five boundary while the other continues using boundary-gated responses. Therefore universal lockstep progress of both roles is not required."
+  },
+  "representation_policy": {
+    "target_names": "Actor, rebec, message-server, and state-variable names may differ.",
+    "phase_representation": "A persistent numeric phase equivalent modulo five is required; the expected source abstraction itself is finite-state.",
+    "bootstrap": "Auxiliary setup/start rebecs are allowed.",
+    "timing_constructs": "No Timed Rebeca constructs are required because this benchmark evaluates the explicitly untimed source abstraction."
+  },
+  "excluded_from_equivalence": [
+    "500 millisecond wall-clock delay",
+    "println output",
+    "absolute numeric count values 5, 10, 15, ...",
+    "actor path strings",
+    "exact names of target rebecs/messages/state variables",
+    "universal fairness or lockstep progress not guaranteed by the source"
+  ],
+  "state_space_limit_policy": {
+    "observed_contradiction": "FAIL",
+    "missing_positive_witness": "NOT_OBSERVED",
+    "incomplete_exploration": "If the finite target still fails to expose required positive evidence, classify missing evidence as NOT_OBSERVED; witnessed contradictions are FAIL."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "PPUF-XA1",
+          "property": "dual_startup_seed",
+          "description": "Each of the two logical roles has a startup transition that seeds exactly one same-role local protocol message.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XA2",
+          "property": "mod5_local_phase_progression",
+          "description": "Processing a local-kind message advances the role's logical phase by one modulo five.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XA3",
+          "property": "nonboundary_self_continuation",
+          "description": "After local phase updates to 1..4, exactly one same-kind self-message is emitted.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XA4",
+          "property": "boundary_cross_send",
+          "description": "After local phase updates to 0, exactly one same-kind message is emitted to the peer and no self-continuation is emitted.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XA5",
+          "property": "boundary_peer_echo",
+          "description": "At phase 0, consuming the peer-kind message preserves phase and emits exactly one same-kind message back to the peer.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XA6",
+          "property": "offboundary_peer_drop",
+          "description": "Away from phase 0, consuming the peer-kind message preserves phase and emits no protocol message.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "PPUF-XI1",
+          "property": "two_protocol_roles",
+          "description": "Exactly two logical protocol roles are discovered.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XI2",
+          "property": "distinct_local_message_kinds",
+          "description": "The two roles have distinct local protocol message kinds.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XI3",
+          "property": "reciprocal_peer_routing",
+          "description": "Boundary cross-sends from each role target the other logical role.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XI4",
+          "property": "cross_echo_kind_preservation",
+          "description": "A boundary response to a peer-kind message returns that same message kind to the peer.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XI5",
+          "property": "no_protocol_fanout",
+          "description": "No protocol transition emits more than one protocol message.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "PPUF-XSYS1",
+          "property": "both_roles_started",
+          "description": "The reachable startup behavior seeds both independent local loops.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XSYS2",
+          "property": "five_step_boundary_cycle",
+          "description": "For each role, a recurrent witness exists in which four non-boundary local continuations are followed by a fifth boundary cross-send.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XSYS3",
+          "property": "co_progress_recurrent_component",
+          "description": "At least one reachable cyclic SCC contains recurrent protocol progress by both logical roles.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XSYS4",
+          "property": "bounded_nonamplifying_protocol",
+          "description": "Within recurrent protocol behavior, transitions preserve the non-amplifying at-most-one-output rule.",
+          "mandatory": true
+        },
+        {
+          "test_id": "PPUF-XSYS5",
+          "property": "complete_untimed_mod5_contract",
+          "description": "Startup, modulo-five local progression, fifth-step peer sends, boundary-gated peer echo/drop behavior, reciprocal routing, non-amplification, and recurrent co-progress are all preserved.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

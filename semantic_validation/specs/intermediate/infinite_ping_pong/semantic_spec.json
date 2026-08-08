@@ -1,0 +1,138 @@
+{
+  "example_id": "infinite_ping_pong",
+  "phase": "intermediate",
+  "version": "v1_statespace_recurrent_contract",
+  "description": "Full-state-space semantic specification for the Infinite Ping-Pong actor system: one logical Ping and one logical Pong exchange a single protocol token forever.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "reason": "The defining property is positive recurrence. A counterexample-only trace cannot establish that the request/reply protocol returns to an equivalent operational state."
+  },
+  "source_note": {
+    "namespace_artifact": "The supplied source declares PingMessage, PongMessage, and StartMessage in InfiniteExample but references s1_simpleExample.* in handlers and startup. The semantic contract treats these as the logical Start, Ping, and Pong message roles and does not require the target to preserve the package qualifier."
+  },
+  "participants": {
+    "logical_ping_count": 1,
+    "logical_pong_count": 1
+  },
+  "observable_protocol": {
+    "startup": "The initialized system automatically triggers Ping, which emits exactly one initial request to Pong.",
+    "pong_behavior": "When Pong consumes a request from Ping, Pong emits exactly one reply to that same Ping.",
+    "ping_behavior": "When Ping consumes a reply from Pong, Ping emits exactly one next request to that same Pong.",
+    "recurrence": "After startup, the request/reply behavior repeats indefinitely without a protocol stop."
+  },
+  "representation_policy": {
+    "names": "Target rebec, class, message-server, and package names are not semantic identifiers.",
+    "message_encoding": "The source case objects may be represented by differently named typed Rebeca messages, provided direction, causality, multiplicity, and recurrence are preserved.",
+    "startup_encoding": "Because Core Rebeca main cannot send messages directly, startup may be encoded by a constructor-triggered self-message or an auxiliary bootstrap rebec.",
+    "auxiliary_rebecs": "Auxiliary startup/helper rebecs are allowed.",
+    "internal_steps": "Protocol-neutral internal transitions are allowed between observable Ping/Pong sends, but they must not duplicate, drop, or reroute the logical protocol token."
+  },
+  "excluded_from_equivalence": [
+    "println/log output",
+    "exact Akka actor path names",
+    "exact package qualification of message case objects",
+    "wall-clock performance",
+    "scheduler implementation details",
+    "fairness stronger than the observed recurrent protocol"
+  ],
+  "invariants": {
+    "one_to_one_topology": "One logical Ping communicates with one logical Pong.",
+    "reply_to_sender": "Pong's reply returns to the Ping that sent the consumed request.",
+    "single_successor_message": "A protocol handler produces exactly one next logical protocol message.",
+    "alternation": "Observable protocol direction alternates Ping->Pong, Pong->Ping, Ping->Pong, ...",
+    "token_conservation": "The recurrent protocol neither duplicates nor loses the single logical request/reply token.",
+    "nontermination": "The intended protocol is recurrent; terminal quiescence is not a valid completed behavior."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "IPP-XA1",
+          "property": "ping_startup_request",
+          "description": "From initialization, logical Ping autonomously emits exactly one first request to logical Pong.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XA2",
+          "property": "ping_reply_behavior",
+          "description": "When logical Ping consumes a reply from Pong, it emits exactly one next request to the same Pong.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XA3",
+          "property": "pong_request_behavior",
+          "description": "When logical Pong consumes a request from Ping, it emits exactly one reply to that same Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XA4",
+          "property": "no_protocol_duplication",
+          "description": "No Ping/Pong protocol step emits more than one next cross-actor protocol message.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "IPP-XI1",
+          "property": "one_to_one_topology",
+          "description": "The recurrent protocol is between exactly one logical Ping role and one logical Pong role.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XI2",
+          "property": "initial_round",
+          "description": "A connected execution from initialization contains initial Ping->Pong request followed by Pong->Ping reply.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XI3",
+          "property": "recurrent_alternation",
+          "description": "A connected execution contains Ping->Pong request, Pong->Ping reply, and the next Ping->Pong request.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XI4",
+          "property": "single_token_conservation",
+          "description": "Within the recurrent protocol, request/reply steps preserve one logical token: no duplication and no cross-role loss are observed.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "IPP-XSYS1",
+          "property": "logical_participant_cardinality",
+          "description": "The state-space exposes one logical Ping and one logical Pong protocol role; auxiliary rebecs are ignored.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XSYS2",
+          "property": "automatic_startup",
+          "description": "The protocol reaches its first Ping->Pong request from the generated model's initial state without semantic-test-harness intervention.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XSYS3",
+          "property": "closed_recurrent_component",
+          "description": "The reachable full state graph contains a cyclic strongly connected component with both Ping->Pong and Pong->Ping protocol progress.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XSYS4",
+          "property": "no_protocol_terminal_quiescence",
+          "description": "After the recurrent protocol is entered, no reachable state inside the recurrent component is terminal/quiescent.",
+          "mandatory": true
+        },
+        {
+          "test_id": "IPP-XSYS5",
+          "property": "complete_infinite_ping_pong_contract",
+          "description": "The complete scenario preserves automatic startup, one-to-one routing, one-request/one-reply alternation, token conservation, and recurrent nontermination.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

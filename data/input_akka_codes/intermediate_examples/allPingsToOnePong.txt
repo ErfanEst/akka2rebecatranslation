@@ -1,0 +1,39 @@
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+
+class PingActor(pong: ActorRef, id: Int) extends Actor {
+  def receive: Receive = {
+    case "start" =>
+      println("start")
+      pong ! s"ping from PingActor-$id"
+
+    case "ping" =>
+      pong ! s"ping from PingActor-$id"
+
+    case msg: String =>
+      println(s"PingActor-$id received: $msg")
+      self ! "ping"
+  }
+}
+
+class PongActor extends Actor {
+  def receive: Receive = {
+    case msg: String =>
+      println(s"PongActor received: $msg")
+      sender() ! s"pong reply to $msg"
+  }
+}
+
+object PingPongAllToOne extends App {
+  val system = ActorSystem("PingPongSystem")
+
+  val pong = system.actorOf(Props[PongActor], "PongActor")
+
+  val pingActors = (1 to 12).map { i =>
+    val ping = system.actorOf(
+      Props(new PingActor(pong, i)),
+      s"PingActor$i"
+    )
+    ping ! "start"
+    ping
+  }
+}

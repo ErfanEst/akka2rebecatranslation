@@ -3,8 +3,10 @@ from __future__ import annotations
 import json
 import sys
 
+from collections import defaultdict, deque
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -26,7 +28,6 @@ from semantic_validation.core.evaluator_models import (
 )
 
 from semantic_validation.core.trace_utils import (
-    find_transitions,
     get_queue,
     get_state_by_id,
     get_states,
@@ -35,10 +36,78 @@ from semantic_validation.core.trace_utils import (
     normalize_name,
     transition_message,
     transition_owner,
-    transition_sequence,
 )
 
 BENCHMARK_ID = "simple_counter"
+
+COUNTER_OPERATION_NAMES = {
+    normalize_name("Increment"),
+    normalize_name("GetValue"),
+    normalize_name("Decrement"),
+}
+
+
+@dataclass(frozen=True)
+class ExpectedCounterStep:
+    message_server: str
+    source_count: int
+    destination_count: int
+    response_receiver: str
+    response_value: int
+
+
+@dataclass
+class MatchedExecution:
+    transitions: list[dict[str, Any]]
+    matched_steps: list[dict[str, Any]]
+    final_state_id: Any
+    terminal_state_id: Any | None = None
+
+
+BENCHMARK_STEPS = [
+    ExpectedCounterStep(
+        message_server="Increment",
+        source_count=0,
+        destination_count=1,
+        response_receiver="client1",
+        response_value=1,
+    ),
+    ExpectedCounterStep(
+        message_server="Increment",
+        source_count=1,
+        destination_count=2,
+        response_receiver="client2",
+        response_value=2,
+    ),
+    ExpectedCounterStep(
+        message_server="Decrement",
+        source_count=2,
+        destination_count=1,
+        response_receiver="client1",
+        response_value=1,
+    ),
+    ExpectedCounterStep(
+        message_server="Decrement",
+        source_count=1,
+        destination_count=0,
+        response_receiver="client2",
+        response_value=0,
+    ),
+    ExpectedCounterStep(
+        message_server="GetValue",
+        source_count=0,
+        destination_count=0,
+        response_receiver="client1",
+        response_value=0,
+    ),
+    ExpectedCounterStep(
+        message_server="GetValue",
+        source_count=0,
+        destination_count=0,
+        response_receiver="client2",
+        response_value=0,
+    ),
+]
 
 
 def _state_id(
@@ -47,7 +116,10 @@ def _state_id(
     if not state:
         return None
 
-    return state.get("id") if state.get("id") is not None else state.get("state_id")
+    if state.get("id") is not None:
+        return state.get("id")
+
+    return state.get("state_id")
 
 
 def _transition_source(
@@ -62,15 +134,17 @@ def _transition_destination(
     return transition.get("destination")
 
 
-def _transition_sender(
-    transition: dict[str, Any],
-) -> str:
-    return normalize_name(transition.get("sender"))
-
-
 def _counter_value(
     state: dict[str, Any] | None,
 ) -> Any:
+    """
+    Read Counter's logical integer state without requiring one exact
+    generated state-variable spelling.
+
+    `count` is the source-visible name and remains the preferred match.
+    The aliases keep the evaluator tolerant of harmless target-side
+    representation choices.
+    """
     for variable_name in (
         "Counter.count",
         "count",
@@ -87,20 +161,6 @@ def _counter_value(
             return value
 
     return None
-
-
-def _all_counter_values(
-    parsed_result: dict[str, Any],
-) -> list[Any]:
-    values: list[Any] = []
-
-    for state in get_states(parsed_result):
-        value = _counter_value(state)
-
-        if value is not None:
-            values.append(value)
-
-    return values
 
 
 def _rebec_names(
@@ -130,6 +190,19 @@ def _rebec_names(
 def _message_name(
     message: dict[str, Any],
 ) -> str:
+    """
+    Return the logical message-server name without serialized arguments.
+
+    RMC queue entries may be represented as:
+        ValueResponse(1)
+        PingMessage()
+
+    while semantic checks compare logical names such as:
+        ValueResponse
+        PingMessage
+
+    Keep argument parsing separate in _message_value().
+    """
     value = (
         message.get("message")
         or message.get("name")
@@ -138,13 +211,12 @@ def _message_name(
         or ""
     )
 
-    return normalize_name(str(value))
+    raw = str(value).strip()
 
+    if "(" in raw:
+        raw = raw.split("(", 1)[0]
 
-def _message_sender(
-    message: dict[str, Any],
-) -> str:
-    return normalize_name(message.get("sender"))
+    return normalize_name(raw)
 
 
 def _message_parameters(
@@ -152,10 +224,7 @@ def _message_parameters(
 ) -> dict[str, Any]:
     parameters = message.get("parameters") or message.get("params") or {}
 
-    if isinstance(parameters, dict):
-        return parameters
-
-    return {}
+    return parameters if isinstance(parameters, dict) else {}
 
 
 def _message_value(
@@ -194,117 +263,52 @@ def _message_value(
     return None
 
 
-def _queue_contains_response(
+def _response_count(
     state: dict[str, Any] | None,
     receiver: str,
-    *,
-    value: Any | None = None,
-    sender: str | None = "counter",
-) -> bool:
-    for message in get_queue(
-        state,
-        receiver,
-    ):
-        if _message_name(message) != normalize_name("ValueResponse"):
-            continue
+    value: int,
+) -> int:
+    """
+    Count ValueResponse(value) messages queued for one receiver.
 
+    We intentionally do not require the generated transition's sender field
+    to equal the Akka explicit sender. Core Rebeca has no direct equivalent
+    of ActorRef.tell(message, explicitSender); a correct translation may
+    preserve the logical reply target using a message parameter or another
+    behavior-preserving encoding.
+    """
+    return sum(
+        1
+        for message in get_queue(
+            state,
+            receiver,
+        )
         if (
-            sender is not None
-            and _message_sender(message)
-            and _message_sender(message) != normalize_name(sender)
-        ):
-            continue
-
-        if value is not None and _message_value(message) != value:
-            continue
-
-        return True
-
-    return False
-
-
-def _transition_observations(
-    parsed_result: dict[str, Any],
-    message_server: str | None = None,
-) -> list[dict[str, Any]]:
-    transitions = (
-        find_transitions(
-            parsed_result,
-            owner="counter",
-            message_server=message_server,
-        )
-        if message_server is not None
-        else find_transitions(
-            parsed_result,
-            owner="counter",
+            _message_name(message) == normalize_name("ValueResponse")
+            and _message_value(message) == value
         )
     )
 
-    observations: list[dict[str, Any]] = []
 
-    for transition in transitions:
-        source_state = get_state_by_id(
-            parsed_result,
-            _transition_source(transition),
-        )
-
-        destination_state = get_state_by_id(
-            parsed_result,
-            _transition_destination(transition),
-        )
-
-        observations.append(
-            {
-                "transition": transition,
-                "source_state": source_state,
-                "destination_state": destination_state,
-                "source_count": _counter_value(source_state),
-                "destination_count": _counter_value(destination_state),
-                "sender": _transition_sender(transition),
-            }
-        )
-
-    return observations
-
-
-def _increment_observations(
-    parsed_result: dict[str, Any],
-) -> list[dict[str, Any]]:
-    return _transition_observations(
-        parsed_result,
-        "Increment",
+def _response_was_enqueued(
+    source_state: dict[str, Any] | None,
+    destination_state: dict[str, Any] | None,
+    receiver: str,
+    value: int,
+) -> bool:
+    """
+    Require a new matching response, rather than merely finding an older
+    response that was already waiting in the receiver queue.
+    """
+    return _response_count(
+        destination_state,
+        receiver,
+        value,
+    ) > _response_count(
+        source_state,
+        receiver,
+        value,
     )
-
-
-def _decrement_observations(
-    parsed_result: dict[str, Any],
-) -> list[dict[str, Any]]:
-    return _transition_observations(
-        parsed_result,
-        "Decrement",
-    )
-
-
-def _get_value_observations(
-    parsed_result: dict[str, Any],
-) -> list[dict[str, Any]]:
-    return _transition_observations(
-        parsed_result,
-        "GetValue",
-    )
-
-
-def _status_for_matches(
-    observations: list[Any],
-    matches: list[Any],
-) -> TestStatus:
-    if matches:
-        return TestStatus.PASS
-
-    if observations:
-        return TestStatus.FAIL
-
-    return TestStatus.NOT_OBSERVED
 
 
 def _test(
@@ -321,80 +325,406 @@ def _test(
     )
 
 
-def _path_exists(
-    observations: list[dict[str, Any]],
-    expected_values: list[Any],
+def _outgoing_transitions(
+    parsed_result: dict[str, Any],
+) -> dict[Any, list[dict[str, Any]]]:
+    outgoing: dict[
+        Any,
+        list[dict[str, Any]],
+    ] = defaultdict(list)
+
+    for transition in get_transitions(parsed_result):
+        outgoing[_transition_source(transition)].append(transition)
+
+    return outgoing
+
+
+def _initial_state_ids(
+    parsed_result: dict[str, Any],
+) -> list[Any]:
+    states = get_states(parsed_result)
+
+    state_ids = [_state_id(state) for state in states if _state_id(state) is not None]
+
+    if not state_ids:
+        return []
+
+    destination_ids = {
+        _transition_destination(transition)
+        for transition in get_transitions(parsed_result)
+    }
+
+    roots = [state_id for state_id in state_ids if state_id not in destination_ids]
+
+    if roots:
+        return roots
+
+    # RMC commonly numbers the initial state as zero.
+    if 0 in state_ids:
+        return [0]
+
+    return [state_ids[0]]
+
+
+def _is_counter_operation(
+    transition: dict[str, Any],
 ) -> bool:
-    if len(expected_values) < 2:
+    return (
+        transition_owner(transition) == normalize_name("counter")
+        and transition_message(transition) in COUNTER_OPERATION_NAMES
+    )
+
+
+def _step_matches(
+    parsed_result: dict[str, Any],
+    transition: dict[str, Any],
+    expected: ExpectedCounterStep,
+) -> tuple[bool, dict[str, Any]]:
+    if transition_owner(transition) != normalize_name("counter") or transition_message(
+        transition
+    ) != normalize_name(expected.message_server):
+        return False, {}
+
+    source_state = get_state_by_id(
+        parsed_result,
+        _transition_source(transition),
+    )
+
+    destination_state = get_state_by_id(
+        parsed_result,
+        _transition_destination(transition),
+    )
+
+    source_count = _counter_value(source_state)
+
+    destination_count = _counter_value(destination_state)
+
+    response_enqueued = _response_was_enqueued(
+        source_state,
+        destination_state,
+        expected.response_receiver,
+        expected.response_value,
+    )
+
+    evidence = {
+        "message_server": (transition.get("message_server")),
+        "source_state_id": (_transition_source(transition)),
+        "destination_state_id": (_transition_destination(transition)),
+        "source_count": source_count,
+        "destination_count": (destination_count),
+        "expected_response_receiver": (expected.response_receiver),
+        "expected_response_value": (expected.response_value),
+        "response_enqueued": (response_enqueued),
+    }
+
+    return (
+        source_count == expected.source_count
+        and destination_count == expected.destination_count
+        and response_enqueued,
+        evidence,
+    )
+
+
+def _find_benchmark_execution(
+    parsed_result: dict[str, Any],
+) -> MatchedExecution | None:
+    """
+    Find one *connected path* in the RMC state graph that realizes the
+    CounterApp benchmark scenario.
+
+    This replaces the old approach of collecting state-change edges from
+    unrelated branches and pretending they formed one execution path.
+
+    Non-Counter transitions, such as clients consuming ValueResponse, may
+    occur between Counter operations. An out-of-order Counter operation,
+    however, invalidates that branch for the benchmark scenario.
+    """
+    outgoing = _outgoing_transitions(parsed_result)
+
+    queue: deque[
+        tuple[
+            Any,
+            int,
+            list[dict[str, Any]],
+            list[dict[str, Any]],
+        ]
+    ] = deque()
+
+    for initial_state_id in _initial_state_ids(parsed_result):
+        queue.append(
+            (
+                initial_state_id,
+                0,
+                [],
+                [],
+            )
+        )
+
+    visited: set[tuple[Any, int]] = set()
+
+    while queue:
+        (
+            state_id,
+            step_index,
+            path,
+            matched_steps,
+        ) = queue.popleft()
+
+        visit_key = (
+            state_id,
+            step_index,
+        )
+
+        if visit_key in visited:
+            continue
+
+        visited.add(visit_key)
+
+        if step_index == len(BENCHMARK_STEPS):
+            return MatchedExecution(
+                transitions=path,
+                matched_steps=matched_steps,
+                final_state_id=state_id,
+            )
+
+        expected = BENCHMARK_STEPS[step_index]
+
+        for transition in outgoing.get(
+            state_id,
+            [],
+        ):
+            destination = _transition_destination(transition)
+
+            if _is_counter_operation(transition):
+                matches, evidence = _step_matches(
+                    parsed_result,
+                    transition,
+                    expected,
+                )
+
+                if not matches:
+                    # A Counter request was consumed, but not the request
+                    # required at this position in the source scenario.
+                    # This branch cannot later become the same execution.
+                    continue
+
+                queue.append(
+                    (
+                        destination,
+                        step_index + 1,
+                        path + [transition],
+                        matched_steps + [evidence],
+                    )
+                )
+
+            else:
+                queue.append(
+                    (
+                        destination,
+                        step_index,
+                        path + [transition],
+                        matched_steps,
+                    )
+                )
+
+    return None
+
+
+def _find_terminal_completion(
+    parsed_result: dict[str, Any],
+    start_state_id: Any,
+) -> tuple[Any | None, list[dict[str, Any]]]:
+    """
+    Starting after all six CounterApp requests have been processed, find a
+    reachable *quiescent* terminal state.
+
+    Client-side ValueResponse consumption is allowed. No additional Counter
+    Increment/Decrement/GetValue operation may execute after the benchmark
+    sequence. A dead-end with pending messages is not accepted as successful
+    terminal quiescence.
+    """
+    outgoing = _outgoing_transitions(parsed_result)
+
+    queue: deque[
+        tuple[
+            Any,
+            list[dict[str, Any]],
+        ]
+    ] = deque(
+        [
+            (
+                start_state_id,
+                [],
+            )
+        ]
+    )
+
+    visited: set[Any] = set()
+
+    while queue:
+        state_id, path = queue.popleft()
+
+        if state_id in visited:
+            continue
+
+        visited.add(state_id)
+
+        transitions = outgoing.get(
+            state_id,
+            [],
+        )
+
+        if not transitions:
+            state = get_state_by_id(
+                parsed_result,
+                state_id,
+            )
+
+            if state and all(
+                len(
+                    get_queue(
+                        state,
+                        rebec,
+                    )
+                )
+                == 0
+                for rebec in (
+                    "counter",
+                    "client1",
+                    "client2",
+                )
+            ):
+                return state_id, path
+
+            # Deadlock / terminal-looking state with pending messages:
+            # do not treat it as successful quiescence.
+            continue
+
+        for transition in transitions:
+            if _is_counter_operation(transition):
+                continue
+
+            queue.append(
+                (
+                    _transition_destination(transition),
+                    path + [transition],
+                )
+            )
+
+    return None, []
+
+
+def _queues_empty_for_required_rebecs(
+    parsed_result: dict[str, Any],
+    state_id: Any,
+) -> bool:
+    state = get_state_by_id(
+        parsed_result,
+        state_id,
+    )
+
+    if not state:
         return False
 
-    expected_edges = list(
-        zip(
-            expected_values,
-            expected_values[1:],
+    return all(
+        len(
+            get_queue(
+                state,
+                rebec,
+            )
+        )
+        == 0
+        for rebec in (
+            "counter",
+            "client1",
+            "client2",
         )
     )
 
-    observed_edges = {
-        (
-            observation["source_count"],
-            observation["destination_count"],
-        )
-        for observation in observations
-    }
 
-    return all(edge in observed_edges for edge in expected_edges)
+def _matched_step(
+    execution: MatchedExecution | None,
+    index: int,
+) -> dict[str, Any] | None:
+    if execution is None or index < 0 or index >= len(execution.matched_steps):
+        return None
+
+    return execution.matched_steps[index]
 
 
 class SimpleCounterEvaluator(BaseSemanticEvaluator):
 
+    benchmark_id = BENCHMARK_ID
+
     def __init__(
         self,
         parsed_result: dict[str, Any],
-        example_id: str = "simple_counter",
+        example_id: str = BENCHMARK_ID,
     ) -> None:
         super().__init__(
             parsed_result=parsed_result,
             example_id=example_id,
         )
 
-    benchmark_id = BENCHMARK_ID
-
     def evaluate(
         self,
         parsed_result: dict[str, Any],
     ) -> SemanticEvaluationResult:
         states = get_states(parsed_result)
+
         transitions = get_transitions(parsed_result)
+
+        execution = _find_benchmark_execution(parsed_result)
+
+        terminal_state_id: Any | None = None
+        terminal_path: list[dict[str, Any]] = []
+
+        if execution is not None:
+            (
+                terminal_state_id,
+                terminal_path,
+            ) = _find_terminal_completion(
+                parsed_result,
+                execution.final_state_id,
+            )
+
+            execution.terminal_state_id = terminal_state_id
 
         tests: list[SemanticTestResult] = []
 
-        if not states:
-            return SemanticEvaluationResult(
-                benchmark=self.benchmark_id,
-                semantic_tests=[],
-                detected_issues=[
-                    "NO_STATES",
-                ],
-                metadata={
-                    "state_count": 0,
-                    "transition_count": len(transitions),
-                },
+        tests.extend(
+            self._evaluate_actor_tests(
+                parsed_result,
+                execution,
             )
+        )
 
-        tests.extend(self._evaluate_actor_tests(parsed_result))
+        tests.extend(
+            self._evaluate_interaction_tests(
+                parsed_result,
+                execution,
+            )
+        )
 
-        tests.extend(self._evaluate_interaction_tests(parsed_result))
-
-        tests.extend(self._evaluate_system_tests(parsed_result))
+        tests.extend(
+            self._evaluate_system_tests(
+                parsed_result,
+                execution,
+                terminal_state_id,
+                terminal_path,
+            )
+        )
 
         issues: list[str] = []
 
         if not transitions:
             issues.append("NO_TRANSITIONS")
 
-        if any(test.status == TestStatus.NOT_OBSERVED for test in tests):
-            issues.append("INCOMPLETE_OBSERVABILITY")
+        if execution is None:
+            issues.append("BENCHMARK_PATH_NOT_FOUND")
+
+        if execution is not None and terminal_state_id is None:
+            issues.append("TERMINAL_QUIESCENCE_NOT_FOUND")
 
         return SemanticEvaluationResult(
             benchmark=self.benchmark_id,
@@ -403,297 +733,244 @@ class SimpleCounterEvaluator(BaseSemanticEvaluator):
             metadata={
                 "state_count": len(states),
                 "transition_count": len(transitions),
-                "counter_values": (_all_counter_values(parsed_result)),
+                "initial_state_ids": (_initial_state_ids(parsed_result)),
+                "benchmark_path_found": (execution is not None),
+                "matched_step_count": (
+                    len(execution.matched_steps) if execution is not None else 0
+                ),
+                "benchmark_path_transition_count": (
+                    len(execution.transitions) if execution is not None else 0
+                ),
+                "terminal_state_id": (terminal_state_id),
+                "expected_state_evolution": [
+                    0,
+                    1,
+                    2,
+                    1,
+                    0,
+                    0,
+                    0,
+                ],
+                "expected_client_responses": {
+                    "client1": [
+                        1,
+                        1,
+                        0,
+                    ],
+                    "client2": [
+                        2,
+                        0,
+                        0,
+                    ],
+                },
+                "source_only_not_scored": [
+                    "five repeated Increment operations",
+                    "five repeated Decrement operations",
+                ],
+                "evaluation_assumptions": {
+                    "failure_free": True,
+                    "logging_out_of_scope": True,
+                    "controlled_startup_order": [
+                        "Increment(client1)",
+                        "Increment(client2)",
+                        "Decrement(client1)",
+                        "Decrement(client2)",
+                        "GetValue(client1)",
+                        "GetValue(client2)",
+                    ],
+                    "no_test_only_messages_in_target": True,
+                    "explicit_sender_checked_via_reply_destination": True,
+                },
             },
         )
 
     def _evaluate_actor_tests(
         self,
         parsed_result: dict[str, Any],
+        execution: MatchedExecution | None,
     ) -> list[SemanticTestResult]:
         tests: list[SemanticTestResult] = []
 
-        states = get_states(parsed_result)
+        initial_state_ids = _initial_state_ids(parsed_result)
 
-        initial_count = _counter_value(states[0])
+        initial_values = [
+            _counter_value(
+                get_state_by_id(
+                    parsed_result,
+                    state_id,
+                )
+            )
+            for state_id in initial_state_ids
+        ]
+
+        xa1_status = (
+            TestStatus.PASS
+            if (initial_values and all(value == 0 for value in initial_values))
+            else (
+                TestStatus.NOT_OBSERVED
+                if (
+                    not initial_values or all(value is None for value in initial_values)
+                )
+                else TestStatus.FAIL
+            )
+        )
 
         tests.append(
             _test(
-                "COUNTER-A1",
-                (
-                    TestStatus.PASS
-                    if initial_count == 0
-                    else (
-                        TestStatus.NOT_OBSERVED
-                        if initial_count is None
-                        else TestStatus.FAIL
-                    )
-                ),
-                ("Counter must initially " "have value zero."),
+                "COUNTER-XA1",
+                xa1_status,
+                "Counter must begin with logical value 0.",
                 {
+                    "initial_state_ids": initial_state_ids,
+                    "observed_initial_values": initial_values,
                     "expected": 0,
-                    "observed": initial_count,
-                    "initial_state_id": (_state_id(states[0])),
                 },
             )
         )
 
-        increment_observations = _increment_observations(parsed_result)
-
-        valid_single_increment = [
-            observation
-            for observation in increment_observations
-            if (
-                observation["source_count"] == 0
-                and observation["destination_count"] == 1
-            )
+        descriptions = [
+            (
+                "COUNTER-XA2",
+                0,
+                "First Increment must change 0 -> 1 and enqueue ValueResponse(1) for client1.",
+            ),
+            (
+                "COUNTER-XA3",
+                1,
+                "Second Increment must change 1 -> 2 and enqueue ValueResponse(2) for client2.",
+            ),
+            (
+                "COUNTER-XA4",
+                2,
+                "First Decrement must change 2 -> 1 and enqueue ValueResponse(1) for client1.",
+            ),
+            (
+                "COUNTER-XA5",
+                3,
+                "Second Decrement must change 1 -> 0 and enqueue ValueResponse(0) for client2.",
+            ),
         ]
 
-        tests.append(
-            _test(
-                "COUNTER-A2",
-                _status_for_matches(
-                    increment_observations,
-                    valid_single_increment,
-                ),
-                ("One Increment must change " "Counter from 0 to 1."),
-                {
-                    "expected_edge": [0, 1],
-                    "increment_observations": (increment_observations),
-                },
+        for test_id, step_index, description in descriptions:
+            matched = _matched_step(
+                execution,
+                step_index,
             )
-        )
 
-        consecutive_increment_passed = _path_exists(
-            increment_observations,
-            [0, 1, 2],
-        )
-
-        tests.append(
-            _test(
-                "COUNTER-A3",
-                (
-                    TestStatus.PASS
-                    if consecutive_increment_passed
-                    else (
-                        TestStatus.FAIL
-                        if increment_observations
-                        else TestStatus.NOT_OBSERVED
-                    )
-                ),
-                ("Two Increment operations " "must evolve count as " "0, 1, 2."),
-                {
-                    "expected_values": [
-                        0,
-                        1,
-                        2,
-                    ],
-                    "increment_observations": (increment_observations),
-                },
-            )
-        )
-
-        decrement_observations = _decrement_observations(parsed_result)
-
-        valid_single_decrement = [
-            observation
-            for observation in decrement_observations
-            if (
-                observation["source_count"] == 0
-                and observation["destination_count"] == -1
-            )
-        ]
-
-        tests.append(
-            _test(
-                "COUNTER-A4",
-                _status_for_matches(
-                    decrement_observations,
-                    valid_single_decrement,
-                ),
-                ("One Decrement must change " "Counter from 0 to -1."),
-                {
-                    "expected_edge": [0, -1],
-                    "decrement_observations": (decrement_observations),
-                },
-            )
-        )
-
-        increment_then_decrement = _path_exists(
-            increment_observations,
-            [0, 1],
-        ) and _path_exists(
-            decrement_observations,
-            [1, 0],
-        )
-
-        actor_a5_observed = bool(increment_observations or decrement_observations)
-
-        tests.append(
-            _test(
-                "COUNTER-A5",
-                (
-                    TestStatus.PASS
-                    if increment_then_decrement
-                    else (
-                        TestStatus.FAIL
-                        if actor_a5_observed
-                        else TestStatus.NOT_OBSERVED
-                    )
-                ),
-                ("Increment followed by " "Decrement must restore " "count to zero."),
-                {
-                    "expected_values": [
-                        0,
-                        1,
-                        0,
-                    ],
-                    "increment_observations": (increment_observations),
-                    "decrement_observations": (decrement_observations),
-                },
-            )
-        )
-
-        repeated_increment_passed = _path_exists(
-            increment_observations,
-            [0, 1, 2, 3, 4, 5],
-        )
-
-        tests.append(
-            _test(
-                "COUNTER-A6",
-                (
-                    TestStatus.PASS
-                    if repeated_increment_passed
-                    else (
-                        TestStatus.FAIL
-                        if any(
-                            observation["source_count"]
-                            in {
-                                2,
-                                3,
-                                4,
-                            }
-                            for observation in increment_observations
+            tests.append(
+                _test(
+                    test_id,
+                    (
+                        TestStatus.PASS
+                        if matched is not None
+                        else (
+                            TestStatus.FAIL
+                            if get_transitions(parsed_result)
+                            else TestStatus.NOT_OBSERVED
                         )
-                        else TestStatus.NOT_OBSERVED
-                    )
-                ),
-                ("Five Increment operations " "must evolve count from " "0 through 5."),
-                {
-                    "expected_values": [
-                        0,
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                    ],
-                    "increment_observations": (increment_observations),
-                },
+                    ),
+                    description,
+                    {
+                        "matched_step": matched,
+                    },
+                )
             )
+
+        get_value_client1 = _matched_step(
+            execution,
+            4,
         )
 
-        repeated_decrement_passed = _path_exists(
-            decrement_observations,
-            [0, -1, -2, -3, -4, -5],
+        get_value_client2 = _matched_step(
+            execution,
+            5,
+        )
+
+        xa6_passed = (
+            get_value_client1 is not None
+            and get_value_client2 is not None
+            and get_value_client1["source_count"] == 0
+            and get_value_client1["destination_count"] == 0
+            and get_value_client2["source_count"] == 0
+            and get_value_client2["destination_count"] == 0
+            and get_value_client1["response_enqueued"]
+            and get_value_client2["response_enqueued"]
         )
 
         tests.append(
             _test(
-                "COUNTER-A7",
+                "COUNTER-XA6",
                 (
                     TestStatus.PASS
-                    if repeated_decrement_passed
+                    if xa6_passed
                     else (
                         TestStatus.FAIL
-                        if any(
-                            observation["source_count"]
-                            in {
-                                -2,
-                                -3,
-                                -4,
-                            }
-                            for observation in decrement_observations
-                        )
+                        if execution is not None
                         else TestStatus.NOT_OBSERVED
                     )
                 ),
                 (
-                    "Five Decrement operations "
-                    "must evolve count from "
-                    "0 through -5."
+                    "Both benchmark GetValue operations must preserve "
+                    "0 -> 0 and enqueue ValueResponse(0) for their "
+                    "intended clients."
                 ),
                 {
-                    "expected_values": [
-                        0,
-                        -1,
-                        -2,
-                        -3,
-                        -4,
-                        -5,
-                    ],
-                    "decrement_observations": (decrement_observations),
+                    "client1_get_value": get_value_client1,
+                    "client2_get_value": get_value_client2,
                 },
             )
         )
 
-        routed_responses: list[dict[str, Any]] = []
-
-        routing_failures: list[dict[str, Any]] = []
-
-        routing_observations = [
-            *increment_observations,
-            *decrement_observations,
-            *_get_value_observations(parsed_result),
+        expected_receivers = [
+            "client1",
+            "client2",
+            "client1",
+            "client2",
+            "client1",
+            "client2",
         ]
 
-        for observation in routing_observations:
-            sender = observation["sender"]
+        expected_values = [
+            1,
+            2,
+            1,
+            0,
+            0,
+            0,
+        ]
 
-            if not sender:
-                continue
-
-            destination_state = observation["destination_state"]
-
-            response_value = observation["destination_count"]
-
-            routed = _queue_contains_response(
-                destination_state,
-                sender,
-                value=response_value,
-            )
-
-            evidence = {
-                "sender": sender,
-                "response_value": (response_value),
-                "transition": (observation["transition"]),
-            }
-
-            if routed:
-                routed_responses.append(evidence)
-            else:
-                routing_failures.append(evidence)
-
-        if routed_responses:
-            a8_status = TestStatus.PASS if not routing_failures else TestStatus.FAIL
-        elif any(observation["sender"] for observation in routing_observations):
-            a8_status = TestStatus.FAIL
-        else:
-            a8_status = TestStatus.NOT_OBSERVED
+        xa7_passed = (
+            execution is not None
+            and len(execution.matched_steps) == 6
+            and [step["expected_response_receiver"] for step in execution.matched_steps]
+            == expected_receivers
+            and [step["expected_response_value"] for step in execution.matched_steps]
+            == expected_values
+            and all(step["response_enqueued"] for step in execution.matched_steps)
+        )
 
         tests.append(
             _test(
-                "COUNTER-A8",
-                a8_status,
+                "COUNTER-XA7",
                 (
-                    "Each ValueResponse must be "
-                    "routed to the sender of "
-                    "the corresponding request."
+                    TestStatus.PASS
+                    if xa7_passed
+                    else (
+                        TestStatus.FAIL
+                        if execution is not None
+                        else TestStatus.NOT_OBSERVED
+                    )
+                ),
+                (
+                    "All six benchmark responses must preserve the "
+                    "expected values and logical reply destinations."
                 ),
                 {
-                    "routed_responses": (routed_responses),
-                    "routing_failures": (routing_failures),
+                    "expected_receivers": expected_receivers,
+                    "expected_values": expected_values,
+                    "matched_steps": (
+                        execution.matched_steps if execution is not None else []
+                    ),
                 },
             )
         )
@@ -703,217 +980,110 @@ class SimpleCounterEvaluator(BaseSemanticEvaluator):
     def _evaluate_interaction_tests(
         self,
         parsed_result: dict[str, Any],
+        execution: MatchedExecution | None,
     ) -> list[SemanticTestResult]:
         tests: list[SemanticTestResult] = []
 
-        increments = _increment_observations(parsed_result)
+        path_found = execution is not None and len(execution.matched_steps) == 6
 
-        get_values = _get_value_observations(parsed_result)
+        tests.append(
+            _test(
+                "COUNTER-XI1",
+                (
+                    TestStatus.PASS
+                    if path_found
+                    else (
+                        TestStatus.FAIL
+                        if get_transitions(parsed_result)
+                        else TestStatus.NOT_OBSERVED
+                    )
+                ),
+                (
+                    "One connected RMC execution path must realize "
+                    "Increment, Increment, Decrement, Decrement, "
+                    "GetValue, GetValue with the expected responses."
+                ),
+                {
+                    "matched_steps": (
+                        execution.matched_steps if execution is not None else []
+                    ),
+                },
+            )
+        )
 
-        client1_increment = [
-            observation
-            for observation in increments
-            if (
-                observation["sender"] == normalize_name("client1")
-                and observation["source_count"] == 0
-                and observation["destination_count"] == 1
-                and _queue_contains_response(
-                    observation["destination_state"],
-                    "client1",
-                    value=1,
+        expected_edges = [
+            (0, 1),
+            (1, 2),
+            (2, 1),
+            (1, 0),
+            (0, 0),
+            (0, 0),
+        ]
+
+        observed_edges = (
+            [
+                (
+                    step["source_count"],
+                    step["destination_count"],
                 )
-            )
-        ]
-
-        relevant_client1 = [
-            observation
-            for observation in increments
-            if observation["sender"] == normalize_name("client1")
-        ]
-
-        tests.append(
-            _test(
-                "COUNTER-I1",
-                _status_for_matches(
-                    relevant_client1,
-                    client1_increment,
-                ),
-                (
-                    "Increment from client1 "
-                    "must produce "
-                    "ValueResponse(1) for "
-                    "client1."
-                ),
-                {
-                    "matching_observations": (client1_increment),
-                    "client1_observations": (relevant_client1),
-                },
-            )
-        )
-
-        shared_state_passed = _path_exists(
-            increments,
-            [0, 1, 2],
-        )
-
-        observed_senders = {
-            observation["sender"] for observation in increments if observation["sender"]
-        }
-
-        shared_state_observed = {
-            normalize_name("client1"),
-            normalize_name("client2"),
-        }.issubset(observed_senders)
-
-        tests.append(
-            _test(
-                "COUNTER-I2",
-                (
-                    TestStatus.PASS
-                    if (shared_state_passed and shared_state_observed)
-                    else (
-                        TestStatus.FAIL
-                        if shared_state_observed
-                        else TestStatus.NOT_OBSERVED
-                    )
-                ),
-                (
-                    "Requests from both clients "
-                    "must operate on the same "
-                    "Counter state."
-                ),
-                {
-                    "observed_senders": sorted(observed_senders),
-                    "increment_observations": (increments),
-                    "expected_values": [
-                        0,
-                        1,
-                        2,
-                    ],
-                },
-            )
-        )
-
-        valid_read_only = [
-            observation
-            for observation in get_values
-            if (
-                observation["source_count"] is not None
-                and observation["source_count"] == observation["destination_count"]
-            )
-        ]
-
-        tests.append(
-            _test(
-                "COUNTER-I3",
-                _status_for_matches(
-                    get_values,
-                    valid_read_only,
-                ),
-                (
-                    "GetValue must return the "
-                    "current value without "
-                    "modifying Counter state."
-                ),
-                {
-                    "get_value_observations": (get_values),
-                    "valid_read_only": (valid_read_only),
-                },
-            )
-        )
-
-        controlled_progress = _path_exists(
-            increments,
-            [0, 1, 2],
-        ) and any(
-            observation["source_count"] == 2 and observation["destination_count"] == 2
-            for observation in get_values
-        )
-
-        controlled_observed = bool(increments and get_values)
-
-        tests.append(
-            _test(
-                "COUNTER-I4",
-                (
-                    TestStatus.PASS
-                    if controlled_progress
-                    else (
-                        TestStatus.FAIL
-                        if controlled_observed
-                        else TestStatus.NOT_OBSERVED
-                    )
-                ),
-                ("Controlled execution must " "expose values " "0, 1, 2, 2."),
-                {
-                    "expected_values": [
-                        0,
-                        1,
-                        2,
-                        2,
-                    ],
-                    "increment_observations": (increments),
-                    "get_value_observations": (get_values),
-                },
-            )
-        )
-
-        routed = []
-        routing_failures = []
-
-        for observation in [
-            *increments,
-            *get_values,
-        ]:
-            sender = observation["sender"]
-
-            if not sender:
-                continue
-
-            value = observation["destination_count"]
-
-            response_found = _queue_contains_response(
-                observation["destination_state"],
-                sender,
-                value=value,
-            )
-
-            item = {
-                "sender": sender,
-                "value": value,
-                "transition": (observation["transition"]),
-            }
-
-            if response_found:
-                routed.append(item)
-            else:
-                routing_failures.append(item)
-
-        if routed:
-            i5_status = TestStatus.PASS if not routing_failures else TestStatus.FAIL
-        elif any(
-            observation["sender"]
-            for observation in [
-                *increments,
-                *get_values,
+                for step in execution.matched_steps
             ]
-        ):
-            i5_status = TestStatus.FAIL
-        else:
-            i5_status = TestStatus.NOT_OBSERVED
+            if execution is not None
+            else []
+        )
+
+        xi2_passed = path_found and observed_edges == expected_edges
 
         tests.append(
             _test(
-                "COUNTER-I5",
-                i5_status,
+                "COUNTER-XI2",
                 (
-                    "Every response must be "
-                    "routed to the client that "
-                    "sent its request."
+                    TestStatus.PASS
+                    if xi2_passed
+                    else (
+                        TestStatus.FAIL
+                        if execution is not None
+                        else TestStatus.NOT_OBSERVED
+                    )
+                ),
+                (
+                    "The connected benchmark path must preserve "
+                    "state evolution 0 -> 1 -> 2 -> 1 -> 0 -> 0 -> 0."
                 ),
                 {
-                    "routed_responses": routed,
-                    "routing_failures": (routing_failures),
+                    "expected_edges": expected_edges,
+                    "observed_edges": observed_edges,
+                },
+            )
+        )
+
+        xi3_passed = path_found and all(
+            step["source_count"] == 0
+            and step["destination_count"] == 0
+            and step["response_enqueued"]
+            for step in (execution.matched_steps[4:])
+        )
+
+        tests.append(
+            _test(
+                "COUNTER-XI3",
+                (
+                    TestStatus.PASS
+                    if xi3_passed
+                    else (
+                        TestStatus.FAIL
+                        if execution is not None
+                        else TestStatus.NOT_OBSERVED
+                    )
+                ),
+                (
+                    "Both benchmark GetValue operations must be "
+                    "read-only at final logical value 0."
+                ),
+                {
+                    "get_value_steps": (
+                        execution.matched_steps[4:] if execution is not None else []
+                    ),
                 },
             )
         )
@@ -923,12 +1093,11 @@ class SimpleCounterEvaluator(BaseSemanticEvaluator):
     def _evaluate_system_tests(
         self,
         parsed_result: dict[str, Any],
+        execution: MatchedExecution | None,
+        terminal_state_id: Any | None,
+        terminal_path: list[dict[str, Any]],
     ) -> list[SemanticTestResult]:
         tests: list[SemanticTestResult] = []
-
-        states = get_states(parsed_result)
-
-        transitions = get_transitions(parsed_result)
 
         rebecs = _rebec_names(parsed_result)
 
@@ -938,202 +1107,151 @@ class SimpleCounterEvaluator(BaseSemanticEvaluator):
             normalize_name("client2"),
         }
 
+        topology_passed = required.issubset(rebecs)
+
         tests.append(
             _test(
-                "COUNTER-SYS1",
-                (TestStatus.PASS if required.issubset(rebecs) else TestStatus.FAIL),
-                ("The model must contain " "one Counter and two " "Client rebecs."),
+                "COUNTER-XSYS1",
+                (TestStatus.PASS if topology_passed else TestStatus.FAIL),
+                (
+                    "The target model must contain Counter, "
+                    "client1, and client2. Behavior-preserving "
+                    "auxiliary rebecs are allowed."
+                ),
                 {
-                    "expected_rebecs": sorted(required),
+                    "required_rebecs": sorted(required),
                     "observed_rebecs": sorted(rebecs),
                     "missing_rebecs": sorted(required - rebecs),
                 },
             )
         )
 
-        topology_evidence = required.issubset(rebecs) and any(
-            transition_owner(transition) == normalize_name("counter")
-            and _transition_sender(transition)
-            in {
-                normalize_name("client1"),
-                normalize_name("client2"),
-            }
-            for transition in transitions
-        )
-
         tests.append(
             _test(
-                "COUNTER-SYS2",
+                "COUNTER-XSYS2",
                 (
                     TestStatus.PASS
-                    if topology_evidence
+                    if execution is not None
                     else (
                         TestStatus.FAIL
-                        if not required.issubset(rebecs)
+                        if get_transitions(parsed_result)
                         else TestStatus.NOT_OBSERVED
                     )
                 ),
                 (
-                    "Counter and both clients "
-                    "must participate in the "
-                    "expected actor topology."
+                    "The state graph must contain one connected "
+                    "execution of all six CounterApp requests; "
+                    "client-side response handling may interleave."
                 ),
                 {
-                    "observed_rebecs": sorted(rebecs),
-                    "counter_transitions": (
-                        find_transitions(
-                            parsed_result,
-                            owner="counter",
-                        )
+                    "benchmark_path_found": (execution is not None),
+                    "matched_step_count": (
+                        len(execution.matched_steps) if execution is not None else 0
+                    ),
+                    "path_transition_count": (
+                        len(execution.transitions) if execution is not None else 0
                     ),
                 },
             )
         )
 
-        sequence = [
-            normalize_name(message) for message in transition_sequence(parsed_result)
+        expected_contract = [
+            ("client1", 1),
+            ("client2", 2),
+            ("client1", 1),
+            ("client2", 0),
+            ("client1", 0),
+            ("client2", 0),
         ]
 
-        expected_startup = [
-            normalize_name("Increment"),
-            normalize_name("Increment"),
-            normalize_name("GetValue"),
-            normalize_name("GetValue"),
-        ]
+        observed_contract = (
+            [
+                (
+                    step["expected_response_receiver"],
+                    step["expected_response_value"],
+                )
+                for step in execution.matched_steps
+            ]
+            if execution is not None
+            else []
+        )
 
-        sequence_matches = False
-
-        for index in range(
-            0,
-            len(sequence) - len(expected_startup) + 1,
-        ):
-            if sequence[index : index + len(expected_startup)] == expected_startup:
-                sequence_matches = True
-                break
-
-        startup_messages_observed = any(item in sequence for item in expected_startup)
+        full_response_contract = (
+            execution is not None
+            and observed_contract == expected_contract
+            and all(step["response_enqueued"] for step in execution.matched_steps)
+        )
 
         tests.append(
             _test(
-                "COUNTER-SYS3",
+                "COUNTER-XSYS3",
                 (
                     TestStatus.PASS
-                    if sequence_matches
+                    if full_response_contract
                     else (
                         TestStatus.FAIL
-                        if startup_messages_observed
+                        if execution is not None
                         else TestStatus.NOT_OBSERVED
                     )
                 ),
                 (
-                    "Startup must execute two "
-                    "Increment operations "
-                    "followed by two GetValue "
-                    "operations."
+                    "The complete benchmark execution must preserve "
+                    "client1=[1,1,0] and client2=[2,0,0]."
                 ),
                 {
-                    "expected_sequence": (expected_startup),
-                    "observed_sequence": (sequence),
+                    "expected_contract": expected_contract,
+                    "observed_contract": observed_contract,
                 },
             )
         )
 
-        counter_values = _all_counter_values(parsed_result)
-
-        progressed = len(states) > 1 and len(set(counter_values)) > 1
-
-        tests.append(
-            _test(
-                "COUNTER-SYS4",
-                (
-                    TestStatus.PASS
-                    if progressed
-                    else (TestStatus.FAIL if transitions else TestStatus.NOT_OBSERVED)
-                ),
-                ("The system must progress " "from its initial Counter " "state."),
-                {
-                    "state_count": len(states),
-                    "transition_count": len(transitions),
-                    "counter_values": (counter_values),
-                },
-            )
-        )
-
-        final_count = _counter_value(states[-1])
-
-        tests.append(
-            _test(
-                "COUNTER-SYS5",
-                (
-                    TestStatus.PASS
-                    if final_count == 2
-                    else (
-                        TestStatus.NOT_OBSERVED
-                        if final_count is None
-                        else TestStatus.FAIL
-                    )
-                ),
-                (
-                    "The completed startup "
-                    "scenario must terminate "
-                    "with count equal to 2."
-                ),
-                {
-                    "expected": 2,
-                    "observed": final_count,
-                    "final_state_id": (_state_id(states[-1])),
-                },
-            )
-        )
-
-        increments = _increment_observations(parsed_result)
-
-        get_values = _get_value_observations(parsed_result)
-
-        complete_scenario = (
-            sequence_matches
-            and _path_exists(
-                increments,
-                [0, 1, 2],
-            )
-            and sum(
-                1
-                for observation in get_values
-                if (
-                    observation["source_count"] == 2
-                    and observation["destination_count"] == 2
+        terminal_count = (
+            _counter_value(
+                get_state_by_id(
+                    parsed_result,
+                    terminal_state_id,
                 )
             )
-            >= 2
-            and final_count == 2
+            if terminal_state_id is not None
+            else None
         )
 
-        scenario_observed = bool(startup_messages_observed or increments or get_values)
+        terminal_queues_empty = (
+            terminal_state_id is not None
+            and _queues_empty_for_required_rebecs(
+                parsed_result,
+                terminal_state_id,
+            )
+        )
+
+        xsys4_passed = (
+            terminal_state_id is not None
+            and terminal_count == 0
+            and terminal_queues_empty
+        )
 
         tests.append(
             _test(
-                "COUNTER-SYS6",
+                "COUNTER-XSYS4",
                 (
                     TestStatus.PASS
-                    if complete_scenario
+                    if xsys4_passed
                     else (
                         TestStatus.FAIL
-                        if scenario_observed
+                        if execution is not None
                         else TestStatus.NOT_OBSERVED
                     )
                 ),
                 (
-                    "The complete benchmark "
-                    "scenario must preserve "
-                    "operation order, responses "
-                    "and final state."
+                    "After all six benchmark requests and client "
+                    "response handling, the system must reach "
+                    "quiescence with Counter value 0."
                 ),
                 {
-                    "expected_sequence": (expected_startup),
-                    "observed_sequence": (sequence),
-                    "increment_observations": (increments),
-                    "get_value_observations": (get_values),
-                    "final_count": final_count,
+                    "terminal_state_id": (terminal_state_id),
+                    "terminal_count": (terminal_count),
+                    "required_queues_empty": (terminal_queues_empty),
+                    "terminal_completion_transition_count": (len(terminal_path)),
                 },
             )
         )
@@ -1146,8 +1264,9 @@ def evaluate_simple_counter(
 ) -> dict[str, Any]:
     evaluator = SimpleCounterEvaluator(
         parsed_result=parsed_result,
-        example_id="simple_counter",
+        example_id=BENCHMARK_ID,
     )
+
     return evaluator.evaluate(parsed_result).to_dict()
 
 
@@ -1165,8 +1284,11 @@ def load_json(
     ) as file:
         value = json.load(file)
 
-    if not isinstance(value, dict):
-        raise ValueError("Parsed RMC JSON must contain " "a JSON object.")
+    if not isinstance(
+        value,
+        dict,
+    ):
+        raise ValueError("Parsed RMC JSON must contain a JSON object.")
 
     return value
 
@@ -1175,7 +1297,7 @@ def main() -> int:
     import argparse
 
     parser = argparse.ArgumentParser(
-        description=("Evaluate the SimpleCounter " "benchmark from parsed RMC JSON.")
+        description=("Evaluate the Simple Counter benchmark " "from parsed RMC JSON.")
     )
 
     parser.add_argument(
@@ -1185,6 +1307,7 @@ def main() -> int:
 
     parser.add_argument(
         "--output",
+        "-o",
         help=("Optional output JSON path."),
     )
 
@@ -1213,6 +1336,7 @@ def main() -> int:
                 serialized + "\n",
                 encoding="utf-8",
             )
+
         else:
             print(serialized)
 

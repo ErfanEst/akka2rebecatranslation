@@ -10,6 +10,7 @@ from typing import Any, Protocol
 from src.artifacts.result_models import LLMResult
 
 from .model_config import GenerationConfig
+from .pricing import PricingCatalog, TokenUsage
 
 
 class LLMClient(Protocol):
@@ -17,6 +18,7 @@ class LLMClient(Protocol):
     provider_name: str
     requested_parameters: dict[str, Any]
     effective_parameters: dict[str, Any]
+    pricing_snapshot: dict[str, Any]
 
     def generate(self, system_prompt: str, user_prompt: str) -> LLMResult: ...
 
@@ -105,46 +107,112 @@ def _effective_parameters(
     parameters = config.explicit_parameters()
     normalized_model = model.lower()
 
-    # The GPT-5.6 API accepts only default sampling values. Omitting them is
-    # preferable because it records the provider default unambiguously and
-    # avoids the observed HTTP 400 for temperature=0.
-    if provider == "openai" and re.match(r"^gpt-5\.6(?:-|$)", normalized_model):
+    cache_parameters = {
+        name
+        for name in ("prompt_cache_key", "prompt_cache_retention")
+        if name in parameters
+    }
+    if provider != "openai" and cache_parameters:
+        raise ModelConfigurationError(
+            f"{provider} adapter does not expose OpenAI prompt-cache parameters: "
+            + ", ".join(sorted(cache_parameters))
+        )
+
+    # GPT-5.6 accepts only its default sampling values.
+    #
+    # Important compatibility note:
+    # langchain-openai 0.2.x injects temperature=0.7 when temperature is
+    # omitted. GPT-5.6 accepts only temperature=1.0, so we pass 1.0
+    # explicitly for GPT-5.6 while still rejecting non-default sampling
+    # requests.
+    if provider == "openai" and re.match(
+        r"^gpt-5\.6(?:-|$)",
+        normalized_model,
+    ):
+        requested_temperature = parameters.get("temperature")
+
+        if requested_temperature is not None and requested_temperature != 1.0:
+            raise ModelConfigurationError(
+                f"{model} only supports the default temperature=1.0; "
+                f"received {requested_temperature}. Use 'temperature=auto'."
+            )
+
+        # Keep this explicit so the pinned ChatOpenAI wrapper cannot
+        # silently inject temperature=0.7.
+        parameters["temperature"] = 1.0
+
         defaults = {
-            "temperature": 1.0,
             "top_p": 1.0,
             "frequency_penalty": 0.0,
             "presence_penalty": 0.0,
         }
+
         for name, default in defaults.items():
-            if name not in parameters:
-                continue
-            if parameters[name] != default:
+            if name in parameters and parameters[name] != default:
                 raise ModelConfigurationError(
                     f"{model} only supports the default {name}={default}; "
                     f"received {parameters[name]}. Use '{name}=auto'."
                 )
-            parameters.pop(name)
+
+            # These may safely remain omitted. Unlike temperature, the
+            # pinned ChatOpenAI wrapper does not require a compatibility
+            # override for them.
+            parameters.pop(name, None)
+
         if parameters.get("reasoning_effort") == "minimal":
             raise ModelConfigurationError(
                 f"{model} does not support reasoning_effort=minimal; "
                 "use none, low, medium, high, xhigh, max, or auto."
             )
 
+        if "prompt_cache_retention" in parameters:
+            raise ModelConfigurationError(
+                f"{model} uses the GPT-5.6 cache policy and does not accept "
+                "prompt_cache_retention. Use auto; prompt_cache_key remains "
+                "supported."
+            )
+
+    # GPT-5.1/5.2 expose sampling only in non-reasoning mode. Their
+    # provider default is reasoning_effort=none, so omitted/auto is valid
+    # as well.
+    if provider == "openai" and re.match(
+        r"^gpt-5\.[12](?:-|$)",
+        normalized_model,
+    ):
+        sampling = {name for name in ("temperature", "top_p") if name in parameters}
+        effort = parameters.get("reasoning_effort")
+
+        if sampling and effort not in {None, "none"}:
+            raise ModelConfigurationError(
+                f"{model} supports {', '.join(sorted(sampling))} only with "
+                "reasoning_effort=none "
+                "(or auto, whose model default is none)."
+            )
+
     if provider == "anthropic":
         unsupported = {
             name
-            for name in ("frequency_penalty", "presence_penalty", "reasoning_effort")
+            for name in (
+                "frequency_penalty",
+                "presence_penalty",
+                "reasoning_effort",
+            )
             if name in parameters
         }
+
         if unsupported:
             raise ModelConfigurationError(
                 "Anthropic adapter does not support: " + ", ".join(sorted(unsupported))
             )
 
-    if provider in {"deepseek", "openai_compatible"} and "reasoning_effort" in parameters:
+    if (
+        provider in {"deepseek", "openai_compatible"}
+        and "reasoning_effort" in parameters
+    ):
         raise ModelConfigurationError(
             f"{provider} adapter does not expose reasoning_effort; use auto."
         )
+
     return parameters
 
 
@@ -174,12 +242,20 @@ def _response_text(content: Any) -> str:
 class _LangChainChatClient:
     provider_name = "unknown"
 
-    def __init__(self, *, model: str, config: GenerationConfig) -> None:
+    def __init__(
+        self,
+        *,
+        model: str,
+        config: GenerationConfig,
+        pricing_catalog: PricingCatalog | None = None,
+    ) -> None:
         self.model_name = model
         self.requested_parameters = config.requested_parameters()
         self.effective_parameters = _effective_parameters(
             self.provider_name, model, config
         )
+        self.pricing_catalog = pricing_catalog or PricingCatalog.from_path()
+        self.pricing_snapshot = self.pricing_catalog.snapshot
 
     def _invoke(self, system_prompt: str, user_prompt: str):
         from langchain_core.messages import HumanMessage, SystemMessage
@@ -193,34 +269,47 @@ class _LangChainChatClient:
         response = self._invoke(system_prompt, user_prompt)
         latency = time.monotonic() - started
 
-        usage: dict[str, Any] = getattr(response, "usage_metadata", None) or {}
         response_metadata: dict[str, Any] = (
             getattr(response, "response_metadata", None) or {}
         )
-        token_usage = response_metadata.get("token_usage", {})
-
-        input_tokens = usage.get("input_tokens", token_usage.get("prompt_tokens"))
-        output_tokens = usage.get(
-            "output_tokens", token_usage.get("completion_tokens")
+        token_usage = TokenUsage.from_response(response, provider=self.provider_name)
+        estimate = self.pricing_catalog.estimate(
+            provider=self.provider_name,
+            model=self.model_name,
+            usage=token_usage,
         )
-        total_tokens = usage.get("total_tokens", token_usage.get("total_tokens"))
 
         return LLMResult(
             provider=self.provider_name,
             model=self.model_name,
             response=_response_text(response.content),
             latency_seconds=latency,
-            input_tokens=input_tokens,
-            output_tokens=output_tokens,
-            total_tokens=total_tokens,
+            input_tokens=token_usage.input_tokens,
+            output_tokens=token_usage.output_tokens,
+            total_tokens=token_usage.total_tokens,
+            uncached_input_tokens=token_usage.uncached_input_tokens,
+            cached_input_tokens=token_usage.cached_input_tokens,
+            cache_write_input_tokens=token_usage.cache_write_input_tokens,
+            cache_status=token_usage.cache_status,
+            cache_read_ratio=token_usage.cache_read_ratio,
+            reasoning_tokens=token_usage.reasoning_tokens,
+            cost_usd=estimate.get("total_cost_usd"),
+            cost_status=estimate["status"],
+            cost_details=estimate,
+            estimated_cache_savings_usd=estimate.get(
+                "estimated_cache_savings_usd", 0.0
+            ),
             response_id=getattr(response, "id", None),
             retryable=None,
             requested_parameters=dict(self.requested_parameters),
             effective_parameters=dict(self.effective_parameters),
             metadata={
-                key: value
-                for key, value in response_metadata.items()
-                if key != "token_usage"
+                **{
+                    key: value
+                    for key, value in response_metadata.items()
+                    if key not in {"token_usage", "usage"}
+                },
+                "token_usage_raw": token_usage.raw,
             },
         )
 
@@ -236,9 +325,14 @@ class OpenAILangChainClient(_LangChainChatClient):
         config: GenerationConfig | None = None,
         base_url: str | None = None,
         provider_name: str = "openai",
+        pricing_catalog: PricingCatalog | None = None,
     ) -> None:
         self.provider_name = provider_name
-        super().__init__(model=model, config=config or GenerationConfig())
+        super().__init__(
+            model=model,
+            config=config or GenerationConfig(),
+            pricing_catalog=pricing_catalog,
+        )
         if not api_key:
             raise ModelConfigurationError(
                 f"API key is required for provider {self.provider_name}."
@@ -258,16 +352,31 @@ class OpenAILangChainClient(_LangChainChatClient):
             "presence_penalty",
             "max_tokens",
         }
+        openai_extra_body_names = {
+            "reasoning_effort",
+            "prompt_cache_key",
+            "prompt_cache_retention",
+        }
         client_kwargs = {
             key: value
             for key, value in self.effective_parameters.items()
             if key in direct_names
         }
+        extra_body = {
+            key: value
+            for key, value in self.effective_parameters.items()
+            if self.provider_name == "openai" and key in openai_extra_body_names
+        }
         model_kwargs = {
             key: value
             for key, value in self.effective_parameters.items()
-            if key not in direct_names
+            if key not in direct_names and key not in extra_body
         }
+        # ``extra_body`` keeps new OpenAI request fields compatible with the
+        # pinned LangChain wrapper even when its typed surface predates a field.
+        # The official OpenAI client merges these values into the JSON body.
+        if extra_body:
+            client_kwargs["extra_body"] = extra_body
         if model_kwargs:
             client_kwargs["model_kwargs"] = model_kwargs
         if base_url:
@@ -289,8 +398,13 @@ class AnthropicLangChainClient(_LangChainChatClient):
         api_key: str,
         config: GenerationConfig | None = None,
         base_url: str | None = None,
+        pricing_catalog: PricingCatalog | None = None,
     ) -> None:
-        super().__init__(model=model, config=config or GenerationConfig())
+        super().__init__(
+            model=model,
+            config=config or GenerationConfig(),
+            pricing_catalog=pricing_catalog,
+        )
         if not api_key:
             raise ModelConfigurationError("ANTHROPIC_API_KEY is required.")
         try:
@@ -316,6 +430,7 @@ def create_llm_client(
     config: GenerationConfig | None = None,
     api_key: str | None = None,
     base_url: str | None = None,
+    pricing_catalog: PricingCatalog | None = None,
 ) -> LLMClient:
     """Build a provider adapter without leaking provider logic into pipelines."""
 
@@ -338,6 +453,7 @@ def create_llm_client(
             api_key=resolved_key,
             config=config,
             base_url=base_url or os.getenv("ANTHROPIC_BASE_URL") or None,
+            pricing_catalog=pricing_catalog,
         )
     default_base_urls = {
         "deepseek": "https://api.deepseek.com",
@@ -354,4 +470,5 @@ def create_llm_client(
         config=config,
         base_url=resolved_base_url,
         provider_name=resolved,
+        pricing_catalog=pricing_catalog,
     )

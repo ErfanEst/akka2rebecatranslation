@@ -1,19 +1,15 @@
 {
   "example_id": "simple_ping_pong",
   "phase": "phase2_simple",
-  "description": "Semantic specification for the Simple Ping-Pong actor system.",
-
+  "description": "Representation-independent semantic specification for the Simple Ping-Pong actor system.",
+  "evaluation_principle": "Evaluate observable protocol behavior and terminal quiescence. Do not require auxiliary state variables to use specific names such as active, inactive, or stopped.",
   "actors": [
     "Ping",
     "Pong"
   ],
-
   "levels": {
-
     "actor": {
-
       "tests": [
-
         {
           "test_id": "PING-A1",
           "actor": "Ping",
@@ -38,7 +34,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PING-A2",
           "actor": "Ping",
@@ -65,7 +60,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PING-A3",
           "actor": "Ping",
@@ -92,7 +86,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PING-A4",
           "actor": "Ping",
@@ -118,12 +111,11 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PING-A5",
           "actor": "Ping",
-          "property": "actor_termination",
-          "description": "Ping terminates after sending StopMessage.",
+          "property": "observable_termination",
+          "description": "After processing the 10th PongMessage and sending StopMessage, Ping produces no further observable protocol behavior.",
           "precondition": {
             "count": 9
           },
@@ -131,11 +123,12 @@
             "message": "PongMessage"
           },
           "expected": {
-            "actor_alive": false
+            "stop_message_sent": true,
+            "no_further_actor_transitions": true,
+            "no_further_outgoing_messages": true
           },
           "mandatory": true
         },
-
         {
           "test_id": "PONG-A1",
           "actor": "Pong",
@@ -156,7 +149,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PONG-A2",
           "actor": "Pong",
@@ -173,28 +165,25 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PONG-A3",
           "actor": "Pong",
-          "property": "stop_behavior",
-          "description": "Pong terminates after receiving StopMessage and sends no further response.",
+          "property": "observable_stop_behavior",
+          "description": "After receiving StopMessage, Pong produces no further messages or transitions and the protocol queues are empty.",
           "input": {
             "message": "StopMessage"
           },
           "expected": {
             "outgoing_message_count": 0,
-            "actor_alive": false
+            "queues_empty": true,
+            "no_further_actor_transitions": true
           },
           "mandatory": true
         }
       ]
     },
-
     "interaction": {
-
       "tests": [
-
         {
           "test_id": "PP-I1",
           "property": "initial_interaction",
@@ -213,7 +202,6 @@
           ],
           "mandatory": true
         },
-
         {
           "test_id": "PP-I2",
           "property": "protocol_sequence",
@@ -224,7 +212,6 @@
           ],
           "mandatory": true
         },
-
         {
           "test_id": "PP-I3",
           "property": "round_count",
@@ -234,7 +221,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-I4",
           "property": "protocol_stop",
@@ -246,24 +232,22 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-I5",
-          "property": "interaction_termination",
-          "description": "The completed protocol results in termination of both Ping and Pong.",
+          "property": "terminal_quiescence",
+          "description": "The completed protocol reaches a quiescent terminal state without requiring specific auxiliary state-variable names.",
           "expected": {
-            "ping_alive": false,
-            "pong_alive": false
+            "final_message": "StopMessage",
+            "queues_empty": true,
+            "ping_has_no_further_transitions": true,
+            "pong_has_no_further_transitions": true
           },
           "mandatory": true
         }
       ]
     },
-
     "system": {
-
       "tests": [
-
         {
           "test_id": "PP-SYS1",
           "property": "actor_creation",
@@ -276,7 +260,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-SYS2",
           "property": "actor_wiring",
@@ -287,7 +270,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-SYS3",
           "property": "startup_trigger",
@@ -298,7 +280,6 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-SYS4",
           "property": "automatic_execution",
@@ -308,16 +289,17 @@
           },
           "mandatory": true
         },
-
         {
           "test_id": "PP-SYS5",
           "property": "complete_execution",
-          "description": "The complete Ping-Pong scenario executes from initialization through termination.",
+          "description": "The complete Ping-Pong scenario executes from automatic startup through ten rounds and reaches observable terminal quiescence.",
           "expected": {
             "protocol_started": true,
-            "termination_reached": true,
-            "ping_alive": false,
-            "pong_alive": false
+            "ping_messages_processed": 10,
+            "pong_messages_processed": 10,
+            "final_message": "StopMessage",
+            "queues_empty": true,
+            "no_further_transitions": true
           },
           "mandatory": true
         }

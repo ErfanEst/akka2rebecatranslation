@@ -1,0 +1,100 @@
+import akka.actor._
+import scala.collection.mutable.Queue
+
+case class BufferedProduce(item: String)
+case object BufferedConsumeNext
+
+case class AddItem(item: String)
+case object GetItem
+
+case class BufferedConsume(item: String)
+
+class BufferedProducer(buffer: ActorRef) extends Actor {
+  def receive: Receive = {
+    case BufferedProduce(item) =>
+      println(s"Producer: producing $item")
+      buffer ! AddItem(item)
+
+    case BufferedConsumeNext =>
+      println("Producer: requesting next item")
+      buffer ! GetItem
+  }
+}
+
+class Buffer(consumer: ActorRef, capacity: Int) extends Actor {
+  private val items = Queue.empty[String]
+
+  def receive: Receive = {
+    case AddItem(item) =>
+      if (items.size < capacity) {
+        items.enqueue(item)
+        println(
+          s"Buffer: added $item | buffer = ${items.mkString("[", ", ", "]")}"
+        )
+      } else {
+        println(
+          s"Buffer: FULL | rejected $item | buffer = ${items.mkString("[", ", ", "]")}"
+        )
+      }
+
+    case GetItem =>
+      if (items.nonEmpty) {
+        val item = items.dequeue()
+        println(
+          s"Buffer: removed $item | buffer = ${items.mkString("[", ", ", "]")}"
+        )
+        consumer ! BufferedConsume(item)
+      } else {
+        println("Buffer: EMPTY | nothing to consume")
+      }
+  }
+}
+
+class BufferedConsumer extends Actor {
+  def receive: Receive = {
+    case BufferedConsume(item) =>
+      println(s"Consumer: received $item")
+  }
+}
+
+object BufferProducerConsumerSystem extends App {
+  val system = ActorSystem("BufferProducerConsumerSystem")
+
+  val consumer =
+    system.actorOf(
+      Props[BufferedConsumer],
+      "consumer"
+    )
+
+  val buffer =
+    system.actorOf(
+      Props(new Buffer(consumer, 2)),
+      "buffer"
+    )
+
+  val producer =
+    system.actorOf(
+      Props(new BufferedProducer(buffer)),
+      "producer"
+    )
+
+  // Fill the capacity-two buffer. The third item must be rejected.
+  producer ! BufferedProduce("item1")
+  producer ! BufferedProduce("item2")
+  producer ! BufferedProduce("item3")
+
+  // Drain three times. Only item1 and item2 may be observed.
+  // The third request is an observable empty-buffer checkpoint and
+  // therefore proves that the initial item3 was rejected.
+  producer ! BufferedConsumeNext
+  producer ! BufferedConsumeNext
+  producer ! BufferedConsumeNext
+
+  // Retry item3 after capacity has become available.
+  producer ! BufferedProduce("item3")
+
+  // item3 must now be observed exactly once, followed by another
+  // empty-buffer checkpoint.
+  producer ! BufferedConsumeNext
+  producer ! BufferedConsumeNext
+}

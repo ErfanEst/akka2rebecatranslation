@@ -1,0 +1,166 @@
+{
+  "example_id": "star_topology_untimed_bounded",
+  "phase": "intermediate",
+  "version": "v1_statespace_bounded_untimed_star_contract",
+  "description": "Scenario-bounded observational semantic contract for a five-client star topology with one central Pong hub. The contract verifies the untimed bounded diagnostic abstraction, not the original infinite wall-clock periodic execution.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "reason": "The contract needs all reachable hub choices, client feedback/drop states, topology-wide routing invariants, and a reachable quiescent state. A single trace cannot establish these properties."
+  },
+  "semantic_scope": {
+    "equivalence": "scenario-bounded observational equivalence",
+    "source_variant": "verification-oriented bounded untimed abstraction",
+    "timing_policy": {
+      "wall_clock_checked": false,
+      "original_timer": "scheduleAtFixedRate(1.second, 2.seconds, hub, Ping)",
+      "bounded_abstraction": "Each client receives exactly one additional untimed PeriodicTick opportunity after Start."
+    },
+    "feedback_policy": {
+      "original": "Every Pong causes another Ping to the hub.",
+      "bounded_abstraction": "Only the first Pong received by each client produces a feedback Ping; later Pong messages are consumed without output.",
+      "reason": "The original protocol is intrinsically amplifying: one hub Ping produces two Pong messages, each of which can produce another Ping. Bounding feedback is required for a finite diagnostic state space."
+    },
+    "randomness_policy": {
+      "original": "Random.nextInt selects one client other than the sender.",
+      "target_abstraction": "Nondeterministic choice among eligible distinct clients is allowed.",
+      "checked": "Safety of the chosen recipient is mandatory. The evaluator also requires positive evidence that the choice is not globally fixed.",
+      "not_checked": "Probability distribution or uniformity."
+    }
+  },
+  "expected_topology": {
+    "hub_count": 1,
+    "client_count": 5,
+    "hub_role": "central Pong responder",
+    "client_role": "Ping producer / Pong consumer"
+  },
+  "representation_policy": {
+    "names": "Exact actor/rebec names are not semantically required. The evaluator discovers the hub from its two-Pong response behavior and derives client roles from protocol traffic.",
+    "registration": "Explicit Register messages are not required if the target encodes the same five-client hub topology statically.",
+    "auxiliary_rebecs": "Allowed when they do not change observable protocol behavior.",
+    "bounded_state": "The target may encode one-shot periodic and Pong-feedback budgets using booleans, modes, or behaviorally equivalent finite state."
+  },
+  "excluded_from_equivalence": [
+    "one-second initial timer delay",
+    "two-second timer period",
+    "wall-clock ordering constraints",
+    "Random probability distribution",
+    "println output",
+    "infinite periodic liveness of the original source",
+    "unbounded Pong-to-Ping feedback after the first bounded response"
+  ],
+  "evidence_policy": {
+    "observed_contradiction": "FAIL",
+    "missing_positive_witness": "NOT_OBSERVED",
+    "incomplete_state_space": "Do not reinterpret missing positive evidence as an ordinary semantic violation when exploration is incomplete."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "STB-XA1",
+          "property": "client_start_ping_and_periodic_seed",
+          "description": "Each client has startup behavior that emits one Ping to the hub and seeds one bounded periodic opportunity.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XA2",
+          "property": "one_shot_periodic_ping",
+          "description": "Each client's periodic opportunity emits one Ping to the hub and does not recursively schedule another periodic opportunity.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XA3",
+          "property": "first_pong_feedback",
+          "description": "Each client has reachable Pong handling that emits exactly one Ping to the hub.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XA4",
+          "property": "later_pong_drop",
+          "description": "Each client also has reachable Pong handling that emits no Ping, and no Pong transition emits more than one Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XA5",
+          "property": "hub_direct_reply",
+          "description": "For every observed hub Ping handling, exactly one Pong is sent to the Ping sender.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XA6",
+          "property": "hub_secondary_reply",
+          "description": "For every observed hub Ping handling, exactly one additional Pong is sent to a client distinct from the sender.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "STB-XI1",
+          "property": "five_client_one_hub_topology",
+          "description": "Exactly five logical clients and one logical hub are discovered.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XI2",
+          "property": "centralized_ping_routing",
+          "description": "All client-generated Ping protocol messages target the same hub.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XI3",
+          "property": "hub_only_pong_origin",
+          "description": "All protocol Pong outputs originate from the discovered hub.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XI4",
+          "property": "eligible_secondary_target",
+          "description": "Every secondary Pong target is one of the five clients and is different from the sender of the consumed Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XI5",
+          "property": "secondary_choice_not_fixed",
+          "description": "For each client sender, state-space evidence should expose at least two distinct eligible secondary targets, demonstrating nondeterministic rather than globally fixed secondary routing.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "STB-XSYS1",
+          "property": "all_clients_startable",
+          "description": "Startup Ping behavior is reachable for all five clients.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XSYS2",
+          "property": "bounded_periodic_chain",
+          "description": "For all clients, the startup-seeded periodic trigger is reachable and terminates after emitting one Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XSYS3",
+          "property": "bounded_feedback_chain",
+          "description": "For all clients, both the first-Pong feedback transition and the later-Pong no-output transition are reachable.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XSYS4",
+          "property": "reachable_quiescence",
+          "description": "At least one reachable terminal state has empty message queues, showing that the bounded diagnostic scenario can quiesce.",
+          "mandatory": true
+        },
+        {
+          "test_id": "STB-XSYS5",
+          "property": "complete_bounded_star_contract",
+          "description": "The complete five-client bounded untimed star-topology contract is preserved.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

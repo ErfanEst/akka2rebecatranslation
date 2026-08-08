@@ -48,6 +48,14 @@ class ResultModelTests(unittest.TestCase):
         )
         self.assertEqual(status, PipelineStatus.SYNTAX_FAIL)
 
+    def test_codegen_failure_has_its_own_pipeline_status(self) -> None:
+        status = CandidatePipeline._overall_status(
+            syntax_pass=True,
+            semantic=SemanticResult(status="CODEGEN_FAIL", passed=False),
+            all_attempts_were_compiler_rejections=False,
+        )
+        self.assertEqual(status, PipelineStatus.CODEGEN_FAIL)
+
 
 if __name__ == "__main__":
     unittest.main()

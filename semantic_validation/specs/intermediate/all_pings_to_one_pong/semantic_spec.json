@@ -1,0 +1,177 @@
+{
+  "example_id": "all_pings_to_one_pong",
+  "phase": "intermediate",
+  "version": "v2_statespace_untimed_many_to_one_contract",
+  "description": "Full-state-space semantic specification for the untimed All-Pings-to-One-Pong benchmark: twelve distinct recurrent Ping roles communicate with one shared Pong role.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "reason": "The benchmark is concurrent and recurrent. Positive semantic evidence requires reachable branching, per-Ping request/reply recurrence, and a recurrent state-graph cycle; an RMC counterexample trace alone is insufficient."
+  },
+  "source_abstraction": {
+    "timing_mode": "UNTIMED",
+    "transformations": [
+      {
+        "source": "Thread.sleep(2000)",
+        "abstracted_as": "no semantic action",
+        "reason": "Wall-clock delay is intentionally outside the benchmark contract."
+      },
+      {
+        "source": "context.system.scheduler.scheduleOnce(0.millis, self, \"ping\")",
+        "abstracted_as": "ordinary asynchronous internal continuation",
+        "reason": "Only the causal fact that a received reply enables exactly one next request for the same Ping is preserved; scheduler time is not."
+      }
+    ]
+  },
+  "participants": {
+    "logical_ping_count": 12,
+    "logical_pong_count": 1,
+    "ping_identity": "Each Ping is a distinct logical protocol sender. The current state-space oracle recognizes logical Ping identities as distinct rebec instances; target class names may differ and multiple Ping instances may share one reactive-class definition."
+  },
+  "observable_protocol": {
+    "startup": "Each of the twelve logical Ping roles autonomously reaches its first request to the same logical Pong without requiring a semantic-test-harness message.",
+    "request": "A logical Ping sends exactly one request to the shared Pong for one protocol step.",
+    "reply": "When Pong consumes a request sent by Ping i, Pong produces exactly one reply whose recipient is that same Ping i.",
+    "continuation": "After Ping i receives its reply, zero or more internal/other-actor interleavings may occur, but Ping i eventually produces exactly one next request to the same Pong before receiving another reply.",
+    "termination": "The intended operational behavior is recurrent and nonterminating."
+  },
+  "ordering_contract": {
+    "per_actor": "Request/reply causality for one Ping must be preserved.",
+    "cross_ping": "No fixed total order is required among different Ping actors. The model must expose concurrent/interleaving behavior rather than relying on one hard-coded global Ping order."
+  },
+  "representation_policy": {
+    "names": "Target rebec, class, and message names are not semantic identifiers.",
+    "message_encoding": "String messages may be replaced by typed messages and parameters. The evaluator discovers request/reply behavior from mailbox deltas and sender/recipient relationships.",
+    "ping_class_encoding": "All Ping instances may share one parameterized reactive class or use multiple classes.",
+    "ping_instance_encoding": "For this evaluator, twelve logical Ping roles must remain observable as twelve distinct protocol-sender rebec instances. Arbitrary compression of all Ping roles into one rebec is outside this evaluator version.",
+    "self_trigger": "The zero-delay scheduled self-message may remain explicit or be compiled into other protocol-neutral internal steps. No exact internal message name is required.",
+    "auxiliary_rebecs": "Auxiliary startup/helper rebecs are allowed."
+  },
+  "excluded_from_equivalence": [
+    "wall-clock time",
+    "the two-second sleep",
+    "scheduler latency",
+    "logging and println output",
+    "exact source String formatting",
+    "actor path names",
+    "fairness and throughput guarantees",
+    "a fixed total ordering across different Ping actors",
+    "arbitrary external String messages outside the benchmark scenario"
+  ],
+  "invariants": {
+    "all_to_one": "All twelve logical Ping roles target one common logical Pong.",
+    "reply_isolation": "A request consumed from Ping i must produce one reply to Ping i and no reply to Ping j.",
+    "no_request_multiplication": "A Ping protocol step must not create more than one request to Pong.",
+    "per_ping_recurrence": "For every Ping i, the state graph contains a connected request(i) -> reply(i) -> next-request(i) witness.",
+    "recurrent_system": "The reachable state graph contains a protocol-active cycle, and recurrence is observed for all twelve Ping roles."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "APOP-XA1",
+          "property": "autonomous_first_request",
+          "description": "Each of the twelve logical Ping roles has a reachable first request to the shared Pong from system initialization, before any reply to that Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XA2",
+          "property": "request_step_single_send",
+          "description": "Every observed request-producing Ping transition sends exactly one request to the shared Pong, never multiple requests in one protocol step.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XA3",
+          "property": "reply_enables_same_ping_continuation",
+          "description": "For each logical Ping, a reply is followed through reachable untimed execution by a next request from that same Ping to the shared Pong.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XA4",
+          "property": "no_cross_ping_continuation",
+          "description": "A reply to Ping i does not itself create a request whose logical sender is a different Ping j.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XA5",
+          "property": "pong_reply_to_sender",
+          "description": "Whenever the shared Pong consumes a request from Ping i, it emits exactly one reply to Ping i.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XA6",
+          "property": "pong_multi_sender_support",
+          "description": "The shared Pong exhibits correct request/reply behavior for all twelve distinct Ping senders.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "APOP-XI1",
+          "property": "all_to_one_topology",
+          "description": "Exactly twelve distinct logical Ping senders communicate with one common logical Pong.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XI2",
+          "property": "startup_coverage",
+          "description": "All twelve Ping roles autonomously reach their first request from initial state-space execution. Simultaneous queue occupancy is not required.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XI3",
+          "property": "connected_per_ping_recurrence",
+          "description": "For every Ping i, one connected execution realizes request(i) -> reply(i) -> next request(i).",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XI4",
+          "property": "reply_sender_isolation",
+          "description": "Pong never routes a consumed Ping i request to another logical Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XI5",
+          "property": "observable_interleaving",
+          "description": "The reachable graph contains at least one branching state where protocol progress for two distinct Ping roles is independently enabled, demonstrating that correctness is not encoded as one fixed global Ping order.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XI6",
+          "property": "per_ping_cycle_conservation",
+          "description": "For all twelve Ping roles, request/reply recurrence is one-request/one-reply without request duplication or cross-Ping routing.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "APOP-XSYS1",
+          "property": "logical_participant_cardinality",
+          "description": "The protocol exposes twelve distinct Ping sender roles and one shared Pong role; auxiliary rebecs are ignored.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XSYS2",
+          "property": "automatic_startup",
+          "description": "Every logical Ping reaches its first request from the generated model's initial state-space without external harness intervention.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XSYS3",
+          "property": "recurrent_nontermination",
+          "description": "The full state graph contains reachable protocol-active recurrence and all twelve Ping roles individually have recurrence witnesses; terminal quiescence is not the intended outcome.",
+          "mandatory": true
+        },
+        {
+          "test_id": "APOP-XSYS4",
+          "property": "complete_untimed_many_to_one_contract",
+          "description": "The complete benchmark preserves 12-to-1 topology, autonomous startup, one-reply-to-sender behavior, independent per-Ping recurrence, observable interleaving, and untimed recurrent operation.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

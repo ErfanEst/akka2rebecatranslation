@@ -1,5 +1,3 @@
-package SimpleCounter
-
 import akka.actor._
 
 case object Increment
@@ -40,5 +38,8 @@ object CounterApp extends App {
 
   counter.tell(Increment, client1)
   counter.tell(Increment, client2)
+  counter.tell(Decrement, client1)
+  counter.tell(Decrement, client2)
   counter.tell(GetValue, client1)
+  counter.tell(GetValue, client2)
 }

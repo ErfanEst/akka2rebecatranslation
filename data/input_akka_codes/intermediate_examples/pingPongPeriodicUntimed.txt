@@ -1,0 +1,137 @@
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+
+// Messages
+case object Start
+case class Ping()
+case class Pong()
+
+case class SetPong(ref: ActorRef)
+case class SetPing(ref: ActorRef)
+
+
+// ---------------------------------------------------------
+// Ping Actor
+// ---------------------------------------------------------
+class PingActor extends Actor {
+
+  var pongActor: ActorRef = _
+  var count = 0
+
+  def receive: Receive = {
+
+    case SetPong(ref) =>
+      pongActor = ref
+
+    case Start =>
+      // Begin the untimed recurring Ping loop
+      self ! Ping()
+
+    case Ping() =>
+      count += 1
+
+      if (count % 5 == 0) {
+        println(
+          s"[PingActor] Sending PING $count -> PongActor"
+        )
+
+        pongActor ! Ping()
+
+      } else {
+        println(
+          s"[PingActor] PING $count to itself"
+        )
+
+        // Untimed abstraction of:
+        // scheduleOnce(500.millis, self, Ping())
+        self ! Ping()
+      }
+
+    case Pong() =>
+      if (count % 5 == 0) {
+        println(
+          s"[PingActor] received PONG $count"
+        )
+
+        pongActor ! Pong()
+      }
+  }
+}
+
+
+// ---------------------------------------------------------
+// Pong Actor
+// ---------------------------------------------------------
+class PongActor extends Actor {
+
+  var pingActor: ActorRef = _
+  var count = 0
+
+  def receive: Receive = {
+
+    case SetPing(ref) =>
+      pingActor = ref
+
+    case Start =>
+      // Begin the untimed recurring Pong loop
+      self ! Pong()
+
+    case Pong() =>
+      count += 1
+
+      if (count % 5 == 0) {
+        println(
+          s"[PongActor] Sending PONG $count -> PingActor"
+        )
+
+        pingActor ! Pong()
+
+      } else {
+        println(
+          s"[PongActor] PONG $count to itself"
+        )
+
+        // Untimed abstraction of:
+        // scheduleOnce(500.millis, self, Pong())
+        self ! Pong()
+      }
+
+    case Ping() =>
+      if (count % 5 == 0) {
+        println(
+          s"[PongActor] received PING $count"
+        )
+
+        pingActor ! Ping()
+      }
+  }
+}
+
+
+// ---------------------------------------------------------
+// Main App
+// ---------------------------------------------------------
+object PingPongPeriodicApp extends App {
+
+  val system =
+    ActorSystem("PingPongSystem")
+
+  val ping =
+    system.actorOf(
+      Props(new PingActor),
+      "ping"
+    )
+
+  val pong =
+    system.actorOf(
+      Props(new PongActor),
+      "pong"
+    )
+
+  // Configure circular references
+  ping ! SetPong(pong)
+  pong ! SetPing(ping)
+
+  // Start both independent loops
+  ping ! Start
+  pong ! Start
+}

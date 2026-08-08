@@ -1,0 +1,243 @@
+{
+  "example_id": "buffer_producer_consumer_v2",
+  "version": "v2_strengthened_rejection_witness",
+  "phase": "phase2_simple",
+  "description": "Independent v2 semantic specification for the bounded buffered Producer-Consumer benchmark. It preserves the earlier benchmark unchanged and strengthens rejection observability using an empty GetItem checkpoint before item3 is retried.",
+  "source_protocol": {
+    "messages": [
+      "BufferedProduce(item)",
+      "BufferedConsumeNext",
+      "AddItem(item)",
+      "GetItem",
+      "BufferedConsume(item)"
+    ],
+    "actors": [
+      "BufferedProducer",
+      "Buffer",
+      "BufferedConsumer"
+    ],
+    "buffer_capacity": 2
+  },
+  "startup_sequence": [
+    {
+      "receiver": "producer",
+      "message": "BufferedProduce",
+      "logical_payload": "item1"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedProduce",
+      "logical_payload": "item2"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedProduce",
+      "logical_payload": "item3",
+      "expected_effect": "rejected because capacity two is already full"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedConsumeNext",
+      "expected_output": "BufferedConsume(item1)"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedConsumeNext",
+      "expected_output": "BufferedConsume(item2)"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedConsumeNext",
+      "expected_output": "no Consumer message; this is the pre-retry rejection witness"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedProduce",
+      "logical_payload": "item3",
+      "expected_effect": "accepted on retry because capacity is available"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedConsumeNext",
+      "expected_output": "BufferedConsume(item3)"
+    },
+    {
+      "receiver": "producer",
+      "message": "BufferedConsumeNext",
+      "expected_output": "no Consumer message because buffer is empty"
+    }
+  ],
+  "logical_buffer_evolution": [
+    [],
+    [
+      "item1"
+    ],
+    [
+      "item1",
+      "item2"
+    ],
+    [
+      "item1",
+      "item2"
+    ],
+    [
+      "item2"
+    ],
+    [],
+    [],
+    [
+      "item3"
+    ],
+    [],
+    []
+  ],
+  "logical_size_evolution": [
+    0,
+    1,
+    2,
+    2,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "observable_checkpoints": [
+    {
+      "checkpoint": "pre_retry",
+      "expected_consumer_observation": [
+        "item1",
+        "item2",
+        "NO_MESSAGE"
+      ],
+      "purpose": "proves the initial item3 did not enter the full buffer"
+    },
+    {
+      "checkpoint": "post_retry",
+      "expected_consumer_observation": [
+        "item3",
+        "NO_MESSAGE"
+      ],
+      "purpose": "proves retry acceptance followed by final emptiness"
+    }
+  ],
+  "expected_consumed_sequence": [
+    "item1",
+    "item2",
+    "item3"
+  ],
+  "representation_policy": {
+    "source_payload_type": "String",
+    "target_payload_representation": "Any three distinct symbolic target tokens may encode item1/item2/item3. The evaluator discovers the mapping from the connected execution and does not hard-code numeric values.",
+    "constraints": [
+      "item1, item2, and item3 map to three distinct target tokens",
+      "the retry of item3 reuses the same target token as the initial item3",
+      "BufferedProducer preserves each token when forwarding BufferedProduce as AddItem",
+      "Buffer preserves accepted token identity when emitting BufferedConsume",
+      "the third pre-retry GetItem emits no Consumer message",
+      "the final GetItem emits no Consumer message"
+    ]
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "BPC-XA1",
+          "property": "producer_payload_forwarding",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA2",
+          "property": "producer_get_forwarding",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA3",
+          "property": "final_empty_behavior",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA4",
+          "property": "accepted_payload_preservation",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA5",
+          "property": "capacity_two_rejection_with_pre_retry_empty_witness",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA6",
+          "property": "fifo",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XA7",
+          "property": "retry_after_rejection",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "BPC-XI1",
+          "property": "connected_nine_operation_execution",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XI2",
+          "property": "exactly_once_delivery",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XI3",
+          "property": "rejection_and_retry_are_observationally_separated",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XI4",
+          "property": "fifo_across_rejection_retry",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "BPC-XSYS1",
+          "property": "topology",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XSYS2",
+          "property": "four_produce_five_consume_next_forwarding",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XSYS3",
+          "property": "final_empty_and_quiescence",
+          "mandatory": true
+        },
+        {
+          "test_id": "BPC-XSYS4",
+          "property": "complete_strengthened_observable_contract",
+          "mandatory": true
+        }
+      ]
+    }
+  },
+  "out_of_scope": [
+    "println/log text",
+    "wall-clock timing",
+    "exact internal queue representation",
+    "exact target state-variable names",
+    "exact numeric values used to encode source String payloads"
+  ],
+  "assumptions": {
+    "execution_environment": "local failure-free benchmark execution",
+    "message_ordering": "All source commands are sent to the same BufferedProducer and are forwarded by that actor to the same Buffer, so the benchmark uses the source actor ordering relation for the command sequence.",
+    "semantic_equivalence_scope": "Scenario-bounded observational equivalence over the reachable benchmark behavior; not full equivalence for arbitrary String inputs."
+  }
+}

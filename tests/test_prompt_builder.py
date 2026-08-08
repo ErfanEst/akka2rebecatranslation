@@ -2,6 +2,7 @@ import unittest
 
 from prompts.researched_prompts import (
     HANDBOOK_ZERO_SHOT_V1,
+    CODEGEN_REPAIR_V1,
     INITIAL_WITH_CONTEXT_V1,
     SEMANTIC_REPAIR_V1,
     SIMPLE_PING_PONG_CONTRACT,
@@ -16,6 +17,7 @@ class PromptBuilderTests(unittest.TestCase):
             system_prompt=HANDBOOK_ZERO_SHOT_V1,
             initial_template=INITIAL_WITH_CONTEXT_V1,
             retry_template=SYNTAX_REPAIR_V1,
+            codegen_retry_template=CODEGEN_REPAIR_V1,
             semantic_retry_template=SEMANTIC_REPAIR_V1,
             strategy="handbook_zero_shot_v1",
             semantic_contracts={"simple_ping_pong": SIMPLE_PING_PONG_CONTRACT},
@@ -68,6 +70,20 @@ class PromptBuilderTests(unittest.TestCase):
         self.assertTrue(prompt.metadata["benchmark_oracle_exposed"])
         self.assertIn('"observed": 9', prompt.user)
         self.assertIn("class Ping extends Actor", prompt.user)
+
+    def test_codegen_repair_contains_complete_backend_diagnostic_without_oracle(self) -> None:
+        prompt = self.builder.build_codegen_repair(
+            akka_code="class Ping extends Actor",
+            previous_code="reactiveclass Ping(10) {}\nmain {}",
+            codegen_diagnostic='{"stderr": "_ref_pong collision"}',
+            benchmark="simple_ping_pong",
+            repair_number=1,
+        )
+
+        self.assertEqual(prompt.phase, "codegen_repair")
+        self.assertFalse(prompt.metadata["benchmark_oracle_exposed"])
+        self.assertIn("_ref_pong collision", prompt.user)
+        self.assertIn("reactiveclass Ping", prompt.user)
 
 
 if __name__ == "__main__":

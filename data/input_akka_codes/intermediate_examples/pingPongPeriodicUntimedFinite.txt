@@ -1,0 +1,83 @@
+package PingPongPeriodicFiniteExample
+
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+
+// Messages
+case object Start
+case class Ping()
+case class Pong()
+case class SetPong(ref: ActorRef)
+case class SetPing(ref: ActorRef)
+
+/**
+ * Verification-friendly finite abstraction of the untimed periodic example.
+ *
+ * The original absolute count is not observable in the protocol except through
+ * count % 5. Therefore each actor stores only phase in {0,1,2,3,4}.
+ */
+class PingActor extends Actor {
+  var pongActor: ActorRef = _
+  var phase = 0
+
+  def receive: Receive = {
+    case SetPong(ref) =>
+      pongActor = ref
+
+    case Start =>
+      self ! Ping()
+
+    case Ping() =>
+      phase = (phase + 1) % 5
+
+      if (phase == 0) {
+        pongActor ! Ping()
+      } else {
+        self ! Ping()
+      }
+
+    case Pong() =>
+      if (phase == 0) {
+        pongActor ! Pong()
+      }
+  }
+}
+
+class PongActor extends Actor {
+  var pingActor: ActorRef = _
+  var phase = 0
+
+  def receive: Receive = {
+    case SetPing(ref) =>
+      pingActor = ref
+
+    case Start =>
+      self ! Pong()
+
+    case Pong() =>
+      phase = (phase + 1) % 5
+
+      if (phase == 0) {
+        pingActor ! Pong()
+      } else {
+        self ! Pong()
+      }
+
+    case Ping() =>
+      if (phase == 0) {
+        pingActor ! Ping()
+      }
+  }
+}
+
+object PingPongPeriodicFiniteApp extends App {
+  val system = ActorSystem("PingPongPeriodicFiniteSystem")
+
+  val ping = system.actorOf(Props(new PingActor), "ping")
+  val pong = system.actorOf(Props(new PongActor), "pong")
+
+  ping ! SetPong(pong)
+  pong ! SetPing(ping)
+
+  ping ! Start
+  pong ! Start
+}

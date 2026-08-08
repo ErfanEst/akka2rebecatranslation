@@ -1,0 +1,64 @@
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+
+// Messages
+case object Ping
+case object Pong
+case object Start
+case class SetNeighbor(ref: ActorRef)
+
+// Ping Actor
+class PingActor(val nameStr: String) extends Actor {
+  var neighbor: ActorRef = _
+
+  def receive: Receive = {
+    case SetNeighbor(ref) =>
+      neighbor = ref
+
+    case Start =>
+      println(s"[$nameStr] starting -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+
+    case Pong =>
+      println(s"[$nameStr] received PONG from ${sender().path.name} -> sending Ping to ${neighbor.path.name}")
+      neighbor ! Ping
+  }
+}
+
+// Pong Actor
+class PongActor(val nameStr: String) extends Actor {
+  var neighbor: ActorRef = _
+
+  def receive: Receive = {
+    case SetNeighbor(ref) =>
+      neighbor = ref
+
+    case Ping =>
+      println(s"[$nameStr] received PING from ${sender().path.name} -> sending Pong to ${neighbor.path.name}")
+      neighbor ! Pong
+  }
+}
+
+// Main App
+object ClockwiseRingPingPongApp extends App {
+  val system = ActorSystem("PingPongRingSystem")
+
+  val ping1 = system.actorOf(Props(new PingActor("ping1")), "ping1")
+  val pong2 = system.actorOf(Props(new PongActor("pong2")), "pong2")
+  val ping3 = system.actorOf(Props(new PingActor("ping3")), "ping3")
+  val pong4 = system.actorOf(Props(new PongActor("pong4")), "pong4")
+  val ping5 = system.actorOf(Props(new PingActor("ping5")), "ping5")
+
+  // Set neighbors
+  ping1 ! SetNeighbor(pong2)
+  pong2 ! SetNeighbor(ping3)
+  ping3 ! SetNeighbor(pong4)
+  pong4 ! SetNeighbor(ping5)
+  ping5 ! SetNeighbor(ping1)
+
+  // Start
+  ping1 ! Start
+}

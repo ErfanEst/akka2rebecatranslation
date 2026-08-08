@@ -1,0 +1,222 @@
+{
+  "example_id": "mesh_ping_pong",
+  "phase": "intermediate",
+  "version": "v1_statespace_untimed_mesh_contract",
+  "description": "Bounded full-state-space semantic contract for six Ping actors and six Pong actors in the untimed Mesh Ping-Pong benchmark.",
+  "semantic_backend": {
+    "required_input": "statespace",
+    "evaluation_style": "bounded_witness_plus_invariants",
+    "reason": "The system is concurrent and message-amplifying. Evaluation uses reachable graph witnesses and topology/routing invariants rather than requiring a small closed recurrent state-space."
+  },
+  "timing_abstraction": {
+    "mode": "UNTIMED",
+    "source_construct": "scheduleAtFixedRate(2.seconds, 4.seconds, self, Ping)",
+    "logical_meaning": "Each Ping role has an autonomous recurring trigger that delivers the logical Ping event repeatedly.",
+    "excluded": [
+      "2-second initial delay",
+      "4-second period",
+      "wall-clock ordering"
+    ],
+    "required_effect": "The target must preserve an autonomous recurring trigger, implemented by a self-message or an auxiliary scheduler rebec, that causes the same two-neighbor broadcast."
+  },
+  "participants": {
+    "logical_ping_count": 6,
+    "logical_pong_count": 6
+  },
+  "topology": {
+    "shape": "connected 2-regular bipartite cycle",
+    "description": "Each Ping has exactly two fixed Pong neighbors and each Pong is shared by exactly two Ping roles. Up to renaming, the communication graph is a 12-node bipartite cycle.",
+    "source_edges": [
+      [
+        "ping1",
+        "pong1"
+      ],
+      [
+        "ping1",
+        "pong2"
+      ],
+      [
+        "ping2",
+        "pong2"
+      ],
+      [
+        "ping2",
+        "pong3"
+      ],
+      [
+        "ping3",
+        "pong3"
+      ],
+      [
+        "ping3",
+        "pong4"
+      ],
+      [
+        "ping4",
+        "pong4"
+      ],
+      [
+        "ping4",
+        "pong5"
+      ],
+      [
+        "ping5",
+        "pong5"
+      ],
+      [
+        "ping5",
+        "pong6"
+      ],
+      [
+        "ping6",
+        "pong6"
+      ],
+      [
+        "ping6",
+        "pong1"
+      ]
+    ]
+  },
+  "observable_protocol": {
+    "startup": "Each Ping emits one Ping request to each of its two fixed Pong neighbors.",
+    "periodic_trigger": "Each Ping has recurring autonomous untimed activity that produces the same two-neighbor broadcast.",
+    "pong_reply": "A Pong consuming a request from Ping i sends exactly one Pong reply to Ping i.",
+    "reply_induced_rebroadcast": "A Ping consuming Pong emits one Ping request to each of its two fixed neighbors.",
+    "amplification": "One Pong reply to a Ping creates two new Ping requests. This fan-out is intended source behavior."
+  },
+  "representation_policy": {
+    "names": "Target class, rebec, and message-server names are not semantic identifiers.",
+    "ping_roles": "Six distinct Ping sender roles must remain observable.",
+    "pong_roles": "Six distinct Pong reply-server roles must remain observable.",
+    "message_encoding": "Ping/Pong may be renamed or typed differently; evaluator discovery uses mailbox deltas and sender/recipient relations.",
+    "scheduler_encoding": "The periodic trigger may be a self-message or auxiliary scheduler rebec.",
+    "auxiliary_rebecs": "Auxiliary bootstrap/scheduler rebecs are allowed."
+  },
+  "state_space_limit_policy": {
+    "principle": "Observed contradictions are FAIL. Missing positive witnesses are NOT_OBSERVED, because exported state-space may be incomplete for this message-amplifying benchmark."
+  },
+  "excluded_from_equivalence": [
+    "println output",
+    "exact actor names",
+    "exact message names",
+    "exact scheduler timing",
+    "fixed global interleaving order",
+    "fairness stronger than bounded observed witnesses"
+  ],
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "MPP-XA1",
+          "property": "startup_two_neighbor_broadcast",
+          "description": "Each Ping has an autonomous startup witness producing exactly two requests to two fixed Pong neighbors.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XA2",
+          "property": "periodic_trigger_two_neighbor_broadcast",
+          "description": "Each Ping has a recurring autonomous non-Pong trigger witness producing the same two-neighbor broadcast.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XA3",
+          "property": "pong_reply_two_neighbor_rebroadcast",
+          "description": "Each Ping has a connected Pong-reply to two-neighbor-rebroadcast witness.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XA4",
+          "property": "pong_reply_to_sender",
+          "description": "Each Pong consuming a request sends exactly one reply to the request sender.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XA5",
+          "property": "neighbor_set_stability",
+          "description": "All observed broadcasts from a Ping use the same two Pong neighbors.",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "MPP-XI1",
+          "property": "six_by_six_roles",
+          "description": "Six Ping roles and six Pong roles are behaviorally observed.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI2",
+          "property": "mesh_degree_invariant",
+          "description": "Every Ping has degree two and every Pong has degree two in the logical bipartite graph.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI3",
+          "property": "connected_bipartite_cycle",
+          "description": "The discovered 6x6 bipartite topology is connected and 2-regular.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI4",
+          "property": "startup_coverage",
+          "description": "All six Ping roles have startup broadcast witnesses.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI5",
+          "property": "reply_isolation",
+          "description": "A Pong reply returns to the exact Ping sender, never another Ping.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI6",
+          "property": "reply_induced_fanout",
+          "description": "Each Ping has a connected reply-to-two-request fan-out witness.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XI7",
+          "property": "observable_concurrency",
+          "description": "At least one state enables protocol progress for two distinct logical actors.",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "MPP-XSYS1",
+          "property": "logical_participant_cardinality",
+          "description": "The protocol exposes six Ping roles and six Pong roles; auxiliaries are ignored.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XSYS2",
+          "property": "automatic_mesh_startup",
+          "description": "All six Ping roles reach startup broadcast without semantic-harness intervention.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XSYS3",
+          "property": "autonomous_periodic_activity",
+          "description": "All six Ping roles expose recurring autonomous untimed scheduler activity.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XSYS4",
+          "property": "message_amplifying_behavior",
+          "description": "A Pong reply to a Ping can produce two new Ping requests to that Ping's fixed neighbors.",
+          "mandatory": true
+        },
+        {
+          "test_id": "MPP-XSYS5",
+          "property": "complete_untimed_mesh_contract",
+          "description": "Topology, startup, periodic trigger abstraction, reply routing, fixed fan-out, rebroadcast, and concurrency are all preserved.",
+          "mandatory": true
+        }
+      ]
+    }
+  }
+}

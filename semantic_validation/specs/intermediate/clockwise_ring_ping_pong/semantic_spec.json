@@ -1,0 +1,215 @@
+{
+  "example_id": "clockwise_ring_ping_pong",
+  "version": "v1_cycle_observable_contract",
+  "phase": "phase2_complex",
+  "description": "Scenario-bounded semantic specification for the five-node Clockwise Ring Ping-Pong benchmark. The contract focuses on the initialized clockwise ring, single-message conservation, correct Ping/Pong transformation, and recurrence of the protocol cycle.",
+  "source_protocol": {
+    "messages": [
+      "SetNeighbor(ref)",
+      "Start",
+      "Ping",
+      "Pong"
+    ],
+    "actor_kinds": [
+      "PingActor",
+      "PongActor"
+    ],
+    "logical_instances": [
+      "ping1",
+      "pong2",
+      "ping3",
+      "pong4",
+      "ping5"
+    ],
+    "logical_topology": [
+      {
+        "from": "ping1",
+        "to": "pong2"
+      },
+      {
+        "from": "pong2",
+        "to": "ping3"
+      },
+      {
+        "from": "ping3",
+        "to": "pong4"
+      },
+      {
+        "from": "pong4",
+        "to": "ping5"
+      },
+      {
+        "from": "ping5",
+        "to": "ping1"
+      }
+    ]
+  },
+  "initialized_ring_scenario": {
+    "setup": [
+      "ping1.neighbor = pong2",
+      "pong2.neighbor = ping3",
+      "ping3.neighbor = pong4",
+      "pong4.neighbor = ping5",
+      "ping5.neighbor = ping1"
+    ],
+    "bootstrap": "Start is delivered to logical ping1 after the ring topology is operational.",
+    "first_clockwise_round": [
+      {
+        "sender_role": "ping1",
+        "receiver_role": "pong2",
+        "message": "Ping"
+      },
+      {
+        "sender_role": "pong2",
+        "receiver_role": "ping3",
+        "message": "Pong"
+      },
+      {
+        "sender_role": "ping3",
+        "receiver_role": "pong4",
+        "message": "Ping"
+      },
+      {
+        "sender_role": "pong4",
+        "receiver_role": "ping5",
+        "message": "Pong"
+      },
+      {
+        "sender_role": "ping5",
+        "receiver_role": "ping1",
+        "message": "Ping"
+      }
+    ],
+    "recurrence_witness": "When logical ping1 consumes the returned Ping, it emits a Ping to logical pong2 and the state graph returns to the same observable single-token cycle."
+  },
+  "observable_cycle": {
+    "handler_sequence": [
+      "Ping",
+      "Pong",
+      "Ping",
+      "Pong",
+      "Ping"
+    ],
+    "logical_handler_roles": [
+      "pong2",
+      "ping3",
+      "pong4",
+      "ping5",
+      "ping1"
+    ],
+    "edge_message_sequence_after_start": [
+      "Ping",
+      "Pong",
+      "Ping",
+      "Pong",
+      "Ping"
+    ],
+    "next_edge_after_return": {
+      "sender_role": "ping1",
+      "receiver_role": "pong2",
+      "message": "Ping"
+    },
+    "protocol_message_count_during_cycle": 1
+  },
+  "representation_policy": {
+    "actor_instance_names": "The evaluator discovers five behavioral roles from the connected state-graph cycle and does not require target rebec instance names to literally equal ping1/pong2/ping3/pong4/ping5.",
+    "neighbor_encoding": "SetNeighbor may be preserved as a message-based dynamic reference update or compiled away into static/constructor known-rebec wiring, provided the observable clockwise routing is equivalent.",
+    "startup_encoding": "Auxiliary startup rebecs are allowed. The required observable bootstrap is that the logical ping1 role injects exactly one Ping toward the logical pong2 role.",
+    "auxiliary_rebecs": "Allowed if they do not alter the observable ring protocol.",
+    "logging": "println/log text is not observable.",
+    "sender_identity": "sender().path.name is used only by println statements in the supplied source. Because logging is out of scope, the evaluator does not require target message sender identities to equal source actor names; it evaluates message type, routing, role behavior, token conservation, and cycle recurrence."
+  },
+  "levels": {
+    "actor": {
+      "tests": [
+        {
+          "test_id": "CRPP-XA1",
+          "property": "bootstrap_start_emits_one_ping",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XA2",
+          "property": "pong_role_ping_to_pong_forwarding",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XA3",
+          "property": "ping_role_pong_to_ping_forwarding",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XA4",
+          "property": "returning_ping_reenables_ping1_to_pong2",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XA5",
+          "property": "one_in_one_out_protocol_message_conservation",
+          "mandatory": true
+        }
+      ]
+    },
+    "interaction": {
+      "tests": [
+        {
+          "test_id": "CRPP-XI1",
+          "property": "connected_five_hop_clockwise_cycle",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XI2",
+          "property": "ping_pong_ping_pong_ping_edge_pattern",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XI3",
+          "property": "five_distinct_roles_and_closed_clockwise_routing",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XI4",
+          "property": "cycle_recurrence_after_return_to_ping1",
+          "mandatory": true
+        }
+      ]
+    },
+    "system": {
+      "tests": [
+        {
+          "test_id": "CRPP-XSYS1",
+          "property": "three_ping_roles_two_pong_roles",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XSYS2",
+          "property": "initialized_topology_before_observed_bootstrap",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XSYS3",
+          "property": "nonterminating_single_token_recurrent_cycle",
+          "mandatory": true
+        },
+        {
+          "test_id": "CRPP-XSYS4",
+          "property": "complete_clockwise_ring_observable_contract",
+          "mandatory": true
+        }
+      ]
+    }
+  },
+  "out_of_scope": [
+    "println/log text and actor path strings used only for logging",
+    "wall-clock timing",
+    "exact target class names and rebec instance names",
+    "exact internal representation of neighbor references",
+    "exact mailbox bounds, except that overflow invalidates successful model checking",
+    "full equivalence for arbitrary external messages not reachable from the benchmark scenario"
+  ],
+  "assumptions": {
+    "execution_environment": "failure-free local actor execution",
+    "initialization_oracle": "The semantic oracle follows the deterministic initialized-ring intent exercised by ClockwiseRingPingPongSpec.scala. The raw Akka App sends SetNeighbor to different actors without a global acknowledgement barrier; the benchmark therefore evaluates the intended initialized topology rather than claiming equivalence over every possible cross-actor setup interleaving.",
+    "reachable_behavior": "The RMC evaluator checks a reachable recurrent cycle in the generated state graph. It does not claim unbounded trace equivalence beyond this recurrent observable contract.",
+    "semantic_equivalence_scope": "Scenario-bounded observational equivalence for the initialized five-node clockwise ring."
+  }
+}

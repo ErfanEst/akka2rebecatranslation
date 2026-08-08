@@ -7,10 +7,13 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from src.usage_cost import summarize_llm_results
+
 
 class PipelineStatus(str, Enum):
     SYNTAX_FAIL = "SYNTAX_FAIL"
     SYNTAX_PASS = "SYNTAX_PASS"
+    CODEGEN_FAIL = "CODEGEN_FAIL"
     SEMANTIC_PASS = "SEMANTIC_PASS"
     SEMANTIC_FAIL = "SEMANTIC_FAIL"
     SEMANTIC_NOT_OBSERVED = "SEMANTIC_NOT_OBSERVED"
@@ -43,6 +46,16 @@ class LLMResult(SerializableResult):
     input_tokens: int | None = None
     output_tokens: int | None = None
     total_tokens: int | None = None
+    uncached_input_tokens: int | None = None
+    cached_input_tokens: int = 0
+    cache_write_input_tokens: int = 0
+    cache_status: str = "NOT_MEASURED"
+    cache_read_ratio: float | None = None
+    estimated_cache_savings_usd: float = 0.0
+    reasoning_tokens: int = 0
+    cost_usd: float | None = None
+    cost_status: str = "USAGE_UNAVAILABLE"
+    cost_details: dict[str, Any] = field(default_factory=dict)
     response_id: str | None = None
     error_category: str | None = None
     error_message: str | None = None
@@ -81,8 +94,23 @@ class SemanticResult(SerializableResult):
     total_tests: int | None = None
     failed_test_ids: list[str] = field(default_factory=list)
     not_observed_test_ids: list[str] = field(default_factory=list)
+    semantic_test_results: list[dict[str, Any]] = field(default_factory=list)
     trace_xml_path: str | None = None
+    state_space_xml_path: str | None = None
+
+    parsed_trace_path: str | None = None
+    parsed_state_space_path: str | None = None
+
+    # JSON actually consumed by the benchmark evaluator.
     parsed_result_path: str | None = None
+
+    # Semantic evidence backend: "trace" or "statespace".
+    semantic_input: str | None = None
+
+    result_path: str | None = None
+    spec_path: str | None = None
+    commands: list[dict[str, Any]] = field(default_factory=list)
+
     result_path: str | None = None
     spec_path: str | None = None
     commands: list[dict[str, Any]] = field(default_factory=list)
@@ -129,6 +157,10 @@ class CandidateResult(SerializableResult):
     def attempts_used(self) -> int:
         return len(self.attempts)
 
+    @property
+    def usage_and_cost(self) -> dict[str, Any]:
+        return summarize_llm_results(attempt.llm for attempt in self.attempts)
+
     def to_dict(self) -> dict[str, Any]:
         result = super().to_dict()
         selected_syntax = None
@@ -150,6 +182,7 @@ class CandidateResult(SerializableResult):
         }
         result["attempts_used"] = self.attempts_used
         result["final_status"] = result["overall_status"]
+        result["usage_and_cost"] = self.usage_and_cost
         result["generated_candidates"] = [
             {
                 "attempt_number": attempt.attempt_number,
