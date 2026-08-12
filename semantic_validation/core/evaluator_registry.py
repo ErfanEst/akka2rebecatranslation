@@ -119,7 +119,7 @@ BENCHMARK_REGISTRY: dict[str, BenchmarkSemanticConfig] = {
             / "semantic_validation"
             / "specs"
             / "intermediate"
-            / "clockwise_ring_ping_pong_evaluator"
+            / "clockwise_ring_ping_pong"
             / "semantic_spec.json"
         ),
         evaluator_path=(
