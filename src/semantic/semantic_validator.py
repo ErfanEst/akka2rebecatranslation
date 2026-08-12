@@ -8,6 +8,10 @@ import time
 from pathlib import Path
 
 from semantic_validation.core.evaluator_registry import get_benchmark_config
+from semantic_validation.core.semantic_contract import (
+    load_semantic_contract,
+    validate_evaluator_contract,
+)
 from src.artifacts.result_models import SemanticResult, SyntaxResult
 from src.artifacts.workspace import WorkspaceManager
 from src.syntax.rmc_compiler import CommandResult, CommandRunner
@@ -113,7 +117,8 @@ class SemanticValidator:
             ),
             parsed_state_space_path=(
                 str(parsed_state_space_path)
-                if parsed_state_space_path is not None and parsed_state_space_path.exists()
+                if parsed_state_space_path is not None
+                and parsed_state_space_path.exists()
                 else None
             ),
             semantic_input=semantic_input,
@@ -128,11 +133,6 @@ class SemanticValidator:
             or f"Command exited with code {result.return_code}."
         )
 
-    @staticmethod
-    def _extract_summary(payload: dict[str, object]) -> dict[str, object]:
-        summary = payload.get("summary")
-        return summary if isinstance(summary, dict) else payload
-
     def validate(
         self,
         *,
@@ -144,8 +144,6 @@ class SemanticValidator:
         config = get_benchmark_config(benchmark)
         commands: list[dict[str, object]] = []
 
-        # Backward-compatible default: existing benchmarks remain trace-based
-        # until explicitly audited and moved to full-state-space evaluation.
         semantic_input = getattr(config, "semantic_input", "trace")
         if semantic_input not in {"trace", "statespace"}:
             return self._failure(
@@ -158,6 +156,18 @@ class SemanticValidator:
                 spec_path=config.spec_path,
                 commands=commands,
                 semantic_input=str(semantic_input),
+            )
+
+        try:
+            contract = load_semantic_contract(config.spec_path)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            return self._failure(
+                started=started,
+                stage="semantic_contract_load",
+                message=f"Could not load semantic contract: {exc}",
+                spec_path=config.spec_path,
+                commands=commands,
+                semantic_input=semantic_input,
             )
 
         if not syntax_result.passed or not syntax_result.generated_cpp_path:
@@ -185,9 +195,7 @@ class SemanticValidator:
                 semantic_input=semantic_input,
             )
 
-        # ============================================================
-        # Stage 1: Compile generated checker with state-space export
-        # ============================================================
+        # Stage 1: compile generated checker.
         model_checker = generated_cpp / "model_checker"
         compile_result = self._run_stage(
             stage="cpp_compile",
@@ -217,18 +225,11 @@ class SemanticValidator:
                 semantic_input=semantic_input,
             )
 
-        # ============================================================
-        # Stage 2: Execute checker and preserve BOTH artifacts
-        # ============================================================
+        # Stage 2: execute checker and preserve result/state-space artifacts.
         trace_xml = generated_cpp / "result.xml"
         state_space_xml = generated_cpp / "statespace.xml"
 
-        checker_command = [
-            str(model_checker),
-            "-o",
-            trace_xml.name,
-        ]
-
+        checker_command = [str(model_checker), "-o", trace_xml.name]
         if semantic_input == "statespace":
             checker_command = [
                 str(model_checker),
@@ -280,9 +281,7 @@ class SemanticValidator:
                 semantic_input=semantic_input,
             )
 
-        # ============================================================
-        # Stage 3: Parse result.xml (counterexample / RMC result)
-        # ============================================================
+        # Stage 3: parse result.xml.
         parsed_trace_json = semantic_dir / "parsed_result.json"
         trace_parser_result = self._run_stage(
             stage="trace_parser",
@@ -298,10 +297,7 @@ class SemanticValidator:
             log_dir=semantic_dir,
             command_records=commands,
         )
-        if (
-            trace_parser_result.return_code != 0
-            or not parsed_trace_json.is_file()
-        ):
+        if trace_parser_result.return_code != 0 or not parsed_trace_json.is_file():
             return self._failure(
                 started=started,
                 stage="trace_parser",
@@ -313,11 +309,8 @@ class SemanticValidator:
                 semantic_input=semantic_input,
             )
 
-        # ============================================================
-        # Stage 4: Parse full statespace.xml only when required
-        # ============================================================
+        # Stage 4: parse full statespace.xml when required.
         parsed_state_space_json: Path | None = None
-
         if semantic_input == "statespace":
             parsed_state_space_json = semantic_dir / "parsed_statespace.json"
             statespace_parser_result = self._run_stage(
@@ -349,14 +342,11 @@ class SemanticValidator:
                     parsed_trace_path=parsed_trace_json,
                     semantic_input=semantic_input,
                 )
-
             evaluator_input_json = parsed_state_space_json
         else:
             evaluator_input_json = parsed_trace_json
 
-        # ============================================================
-        # Stage 6: Benchmark-specific semantic evaluator
-        # ============================================================
+        # Stage 5: benchmark-specific semantic evaluator.
         semantic_json = semantic_dir / "semantic_result.json"
         evaluator_result = self._run_stage(
             stage="evaluator",
@@ -387,43 +377,59 @@ class SemanticValidator:
             )
 
         payload = json.loads(semantic_json.read_text(encoding="utf-8"))
-        summary = self._extract_summary(payload)
-
-        semantic_pass = bool(summary.get("semantic_pass", False))
-        passed_tests = summary.get("passed_tests", summary.get("passed"))
-        failed_tests = summary.get("failed_tests", summary.get("failed"))
-        not_observed = summary.get(
-            "not_observed_tests",
-            summary.get("not_observed", 0),
-        )
-        total_tests = summary.get("total_tests", summary.get("total"))
-
-        # Preserve complete per-test evaluator output when available.
-        # Older evaluators may expose failed/not-observed IDs only through
-        # semantic_tests rather than through summary.
         semantic_test_results = payload.get("semantic_tests", [])
         if not isinstance(semantic_test_results, list):
             semantic_test_results = []
 
-        failed_ids = summary.get("failed_test_ids")
-        if failed_ids is None:
-            failed_ids = [
-                test.get("test_id")
-                for test in semantic_test_results
-                if isinstance(test, dict)
-                and test.get("passed") is False
-                and test.get("test_id")
-            ]
+        # Stage 6: enforce the declarative semantic contract.
+        contract_check = validate_evaluator_contract(
+            contract,
+            semantic_test_results,
+        )
+        contract_check_path = semantic_dir / "semantic_contract_check.json"
+        contract_check_path.write_text(
+            json.dumps(contract_check, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
 
-        not_observed_ids = summary.get("not_observed_test_ids")
-        if not_observed_ids is None:
-            not_observed_ids = [
-                test.get("test_id")
-                for test in semantic_test_results
-                if isinstance(test, dict)
-                and str(test.get("status", "")).upper() == "NOT_OBSERVED"
-                and test.get("test_id")
-            ]
+        if not contract_check["coverage_ok"]:
+            problems: list[str] = []
+            for key in (
+                "missing_mandatory_test_ids",
+                "duplicate_evaluator_test_ids",
+                "unknown_status_test_ids",
+                "mandatory_without_status_test_ids",
+            ):
+                values = contract_check.get(key, [])
+                if values:
+                    problems.append(f"{key}={values}")
+
+            return self._failure(
+                started=started,
+                stage="semantic_contract_consistency",
+                message=(
+                    "Evaluator output does not cover the declared semantic "
+                    f"contract ({'; '.join(problems)}). Contract check: "
+                    f"{contract_check_path}"
+                ),
+                spec_path=config.spec_path,
+                commands=commands,
+                trace_xml_path=trace_xml,
+                state_space_xml_path=state_space_xml,
+                parsed_trace_path=parsed_trace_json,
+                parsed_state_space_path=parsed_state_space_json,
+                semantic_input=semantic_input,
+            )
+
+        failed_ids = list(contract_check["mandatory_failed_test_ids"])
+        not_observed_ids = list(
+            contract_check["mandatory_not_observed_test_ids"]
+        )
+        total_tests = len(contract.mandatory_test_ids)
+        failed_tests = len(failed_ids)
+        not_observed = len(not_observed_ids)
+        passed_tests = total_tests - failed_tests - not_observed
+        semantic_pass = bool(contract_check["semantic_pass"])
 
         if semantic_pass:
             status = "SEMANTIC_PASS"
@@ -437,26 +443,16 @@ class SemanticValidator:
             passed=semantic_pass,
             status=status,
             duration_seconds=time.monotonic() - started,
-            passed_tests=(
-                int(passed_tests) if passed_tests is not None else None
-            ),
-            failed_tests=(
-                int(failed_tests) if failed_tests is not None else None
-            ),
-            not_observed_tests=(
-                int(not_observed) if not_observed is not None else None
-            ),
-            total_tests=(
-                int(total_tests) if total_tests is not None else None
-            ),
-            failed_test_ids=list(failed_ids),
-            not_observed_test_ids=list(not_observed_ids),
+            passed_tests=passed_tests,
+            failed_tests=failed_tests,
+            not_observed_tests=not_observed,
+            total_tests=total_tests,
+            failed_test_ids=failed_ids,
+            not_observed_test_ids=not_observed_ids,
             semantic_test_results=list(semantic_test_results),
             trace_xml_path=str(trace_xml),
             state_space_xml_path=(
-                str(state_space_xml)
-                if state_space_xml.is_file()
-                else None
+                str(state_space_xml) if state_space_xml.is_file() else None
             ),
             parsed_trace_path=str(parsed_trace_json),
             parsed_state_space_path=(
@@ -465,8 +461,6 @@ class SemanticValidator:
                 and parsed_state_space_json.is_file()
                 else None
             ),
-            # Backward-compatible field: this is the actual JSON consumed
-            # by the evaluator for this benchmark.
             parsed_result_path=str(evaluator_input_json),
             semantic_input=semantic_input,
             result_path=str(semantic_json),
