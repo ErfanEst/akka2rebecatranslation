@@ -1,0 +1,90 @@
+{
+  "benchmark": "clockwise_ring_ping_pong",
+  "contract_version": "v1_cycle_observable_contract",
+  "cases": {
+    "reference": {
+      "control_type": "reference",
+      "expected_status": "SEMANTIC_PASS",
+      "passed_tests": 13,
+      "failed_test_ids": [],
+      "not_observed_test_ids": []
+    },
+    "m1_wrong_ping_to_pong": {
+      "control_type": "negative_mutant",
+      "target_defect": "Pong role emits Ping instead of Pong",
+      "expected_status": "SEMANTIC_FAIL",
+      "passed_tests": 3,
+      "failed_test_ids": [
+        "CRPP-XA2",
+        "CRPP-XI1",
+        "CRPP-XI2",
+        "CRPP-XI3",
+        "CRPP-XI4",
+        "CRPP-XSYS1",
+        "CRPP-XSYS2",
+        "CRPP-XSYS3",
+        "CRPP-XSYS4"
+      ],
+      "not_observed_test_ids": [
+        "CRPP-XA3"
+      ]
+    },
+    "m2_wrong_routing": {
+      "control_type": "negative_mutant",
+      "target_defect": "Last ring edge routes ping5 to ping3",
+      "expected_status": "SEMANTIC_FAIL",
+      "passed_tests": 5,
+      "failed_test_ids": [
+        "CRPP-XI1",
+        "CRPP-XI2",
+        "CRPP-XI3",
+        "CRPP-XI4",
+        "CRPP-XSYS1",
+        "CRPP-XSYS2",
+        "CRPP-XSYS3",
+        "CRPP-XSYS4"
+      ],
+      "not_observed_test_ids": []
+    },
+    "m3_drop_returned_ping": {
+      "control_type": "negative_mutant",
+      "target_defect": "Returned Ping is consumed without forwarding",
+      "expected_status": "SEMANTIC_FAIL",
+      "passed_tests": 3,
+      "failed_test_ids": [
+        "CRPP-XA4",
+        "CRPP-XA5",
+        "CRPP-XI1",
+        "CRPP-XI2",
+        "CRPP-XI3",
+        "CRPP-XI4",
+        "CRPP-XSYS1",
+        "CRPP-XSYS2",
+        "CRPP-XSYS3",
+        "CRPP-XSYS4"
+      ],
+      "not_observed_test_ids": []
+    },
+    "m4_duplicate_start_ping": {
+      "control_type": "negative_mutant",
+      "target_defect": "Start injects two circulating Ping tokens",
+      "expected_status": "SEMANTIC_FAIL",
+      "passed_tests": 9,
+      "failed_test_ids": [
+        "CRPP-XA1",
+        "CRPP-XSYS2",
+        "CRPP-XSYS3",
+        "CRPP-XSYS4"
+      ],
+      "not_observed_test_ids": []
+    },
+    "p1_renamed_instances_equivalent": {
+      "control_type": "positive_equivalent_variant",
+      "target_property": "Instance-name independence",
+      "expected_status": "SEMANTIC_PASS",
+      "passed_tests": 13,
+      "failed_test_ids": [],
+      "not_observed_test_ids": []
+    }
+  }
+}

@@ -1,0 +1,67 @@
+reactiveclass RingActor(3) {
+    statevars {
+        RingActor neighbor;
+        boolean pongMode;
+    }
+
+    RingActor(boolean initialPongMode) {
+        neighbor = self;
+        pongMode = initialPongMode;
+    }
+
+    msgsrv SetNeighbor(RingActor ref) {
+        neighbor = ref;
+    }
+
+    msgsrv Start() {
+        if (!pongMode) {
+            neighbor.Ping();
+        }
+    }
+
+    msgsrv Ping() {
+        if (pongMode) {
+            neighbor.Pong();
+        } else {
+            neighbor.Ping();
+        }
+    }
+
+    msgsrv Pong() {
+        if (!pongMode) {
+            neighbor.Ping();
+        }
+    }
+}
+
+reactiveclass ClockwiseRingPingPongApp(2) {
+    knownrebecs {
+        RingActor nodeA;
+        RingActor nodeB;
+        RingActor nodeC;
+        RingActor nodeD;
+        RingActor nodeE;
+    }
+
+    ClockwiseRingPingPongApp() {
+        self.Initialize();
+    }
+
+    msgsrv Initialize() {
+        nodeA.SetNeighbor(nodeB);
+        nodeB.SetNeighbor(nodeC);
+        nodeC.SetNeighbor(nodeD);
+        nodeD.SetNeighbor(nodeE);
+        nodeE.SetNeighbor(nodeA);
+        nodeA.Start();
+    }
+}
+
+main {
+    RingActor nodeA():(false);
+    RingActor nodeB():(true);
+    RingActor nodeC():(false);
+    RingActor nodeD():(true);
+    RingActor nodeE():(false);
+    ClockwiseRingPingPongApp app(nodeA, nodeB, nodeC, nodeD, nodeE):();
+}

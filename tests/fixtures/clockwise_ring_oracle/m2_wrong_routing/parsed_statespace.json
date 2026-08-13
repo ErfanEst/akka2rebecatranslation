@@ -1,0 +1,4961 @@
+{
+  "system_info": {},
+  "checked_property": {},
+  "state_space_info": {
+    "exported_states": 64,
+    "exported_transitions": 162,
+    "invalid_transition_refs": []
+  },
+  "states": [
+    {
+      "id": 0,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Initialize()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 1,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 2,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 3,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 4,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 5,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            },
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 6,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 7,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            },
+            {
+              "sender": "ping3",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 8,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping3",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 9,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "pong4",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 10,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "pong4",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 11,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "ping5",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 12,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping3",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 13,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            },
+            {
+              "sender": "ping3",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 14,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 15,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 16,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 17,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            },
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 18,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            },
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 19,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            },
+            {
+              "sender": "pong2",
+              "message": "Pong()"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 20,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 21,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 22,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 23,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 24,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 25,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 26,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 27,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 28,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 29,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 30,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 31,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 32,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 33,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            },
+            {
+              "sender": "ping1",
+              "message": "Ping()"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 34,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 35,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 36,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 37,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 38,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 39,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 40,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 41,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 42,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 43,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 44,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 45,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 46,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 47,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 48,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 49,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 50,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 51,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 52,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 53,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 54,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 55,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 56,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 57,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 58,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 59,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 60,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 61,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 62,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "ping5",
+            "RingActor.pongMode": true
+          },
+          "queue": []
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    },
+    {
+      "id": 63,
+      "atomic_propositions": "",
+      "rebecs": {
+        "ping1": {
+          "state_variables": {
+            "RingActor.neighbor": "ping1",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong2)"
+            },
+            {
+              "sender": "app",
+              "message": "Start()"
+            }
+          ]
+        },
+        "pong2": {
+          "state_variables": {
+            "RingActor.neighbor": "pong2",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping3)"
+            }
+          ]
+        },
+        "ping3": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(pong4)"
+            }
+          ]
+        },
+        "pong4": {
+          "state_variables": {
+            "RingActor.neighbor": "pong4",
+            "RingActor.pongMode": true
+          },
+          "queue": [
+            {
+              "sender": "app",
+              "message": "SetNeighbor(ping5)"
+            }
+          ]
+        },
+        "ping5": {
+          "state_variables": {
+            "RingActor.neighbor": "ping3",
+            "RingActor.pongMode": false
+          },
+          "queue": []
+        },
+        "app": {
+          "state_variables": {},
+          "queue": []
+        }
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "source": 0,
+      "destination": 1,
+      "sender": "app",
+      "owner": "app",
+      "message_server": "INITIALIZE"
+    },
+    {
+      "source": 1,
+      "destination": 2,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 2,
+      "destination": 3,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 3,
+      "destination": 4,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 4,
+      "destination": 5,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 5,
+      "destination": 6,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 6,
+      "destination": 7,
+      "sender": "pong2",
+      "owner": "ping3",
+      "message_server": "PONG"
+    },
+    {
+      "source": 7,
+      "destination": 8,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 8,
+      "destination": 9,
+      "sender": "ping3",
+      "owner": "pong4",
+      "message_server": "PING"
+    },
+    {
+      "source": 9,
+      "destination": 10,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 10,
+      "destination": 11,
+      "sender": "pong4",
+      "owner": "ping5",
+      "message_server": "PONG"
+    },
+    {
+      "source": 11,
+      "destination": 12,
+      "sender": "ping5",
+      "owner": "ping3",
+      "message_server": "PING"
+    },
+    {
+      "source": 12,
+      "destination": 10,
+      "sender": "ping3",
+      "owner": "pong4",
+      "message_server": "PING"
+    },
+    {
+      "source": 8,
+      "destination": 12,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 7,
+      "destination": 13,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 13,
+      "destination": 12,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 6,
+      "destination": 14,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 14,
+      "destination": 8,
+      "sender": "pong2",
+      "owner": "ping3",
+      "message_server": "PONG"
+    },
+    {
+      "source": 14,
+      "destination": 15,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 15,
+      "destination": 12,
+      "sender": "pong2",
+      "owner": "ping3",
+      "message_server": "PONG"
+    },
+    {
+      "source": 6,
+      "destination": 16,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 16,
+      "destination": 13,
+      "sender": "pong2",
+      "owner": "ping3",
+      "message_server": "PONG"
+    },
+    {
+      "source": 16,
+      "destination": 15,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 5,
+      "destination": 17,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 17,
+      "destination": 14,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 17,
+      "destination": 18,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 18,
+      "destination": 15,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 5,
+      "destination": 19,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 19,
+      "destination": 16,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 19,
+      "destination": 18,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 4,
+      "destination": 20,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 20,
+      "destination": 6,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 20,
+      "destination": 21,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 21,
+      "destination": 14,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 21,
+      "destination": 22,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 22,
+      "destination": 15,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 20,
+      "destination": 23,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 23,
+      "destination": 16,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 23,
+      "destination": 22,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 4,
+      "destination": 24,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 24,
+      "destination": 17,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 24,
+      "destination": 21,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 24,
+      "destination": 25,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 25,
+      "destination": 18,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 25,
+      "destination": 22,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 4,
+      "destination": 26,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 26,
+      "destination": 19,
+      "sender": "ping1",
+      "owner": "pong2",
+      "message_server": "PING"
+    },
+    {
+      "source": 26,
+      "destination": 23,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 26,
+      "destination": 25,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 3,
+      "destination": 27,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 27,
+      "destination": 20,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 27,
+      "destination": 28,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 28,
+      "destination": 21,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 28,
+      "destination": 29,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 29,
+      "destination": 22,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 27,
+      "destination": 30,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 30,
+      "destination": 23,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 30,
+      "destination": 29,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 3,
+      "destination": 31,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 31,
+      "destination": 24,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 31,
+      "destination": 28,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 31,
+      "destination": 32,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 32,
+      "destination": 25,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 32,
+      "destination": 29,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 3,
+      "destination": 33,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 33,
+      "destination": 26,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 33,
+      "destination": 30,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 33,
+      "destination": 32,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 2,
+      "destination": 34,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 34,
+      "destination": 4,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 34,
+      "destination": 35,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 35,
+      "destination": 20,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 35,
+      "destination": 36,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 36,
+      "destination": 21,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 36,
+      "destination": 37,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 37,
+      "destination": 22,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 35,
+      "destination": 38,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 38,
+      "destination": 23,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 38,
+      "destination": 37,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 34,
+      "destination": 39,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 39,
+      "destination": 24,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 39,
+      "destination": 36,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 39,
+      "destination": 40,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 40,
+      "destination": 25,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 40,
+      "destination": 37,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 34,
+      "destination": 41,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 41,
+      "destination": 26,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 41,
+      "destination": 38,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 41,
+      "destination": 40,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 2,
+      "destination": 42,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 42,
+      "destination": 27,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 42,
+      "destination": 35,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 42,
+      "destination": 43,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 43,
+      "destination": 28,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 43,
+      "destination": 36,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 43,
+      "destination": 44,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 44,
+      "destination": 29,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 44,
+      "destination": 37,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 42,
+      "destination": 45,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 45,
+      "destination": 30,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 45,
+      "destination": 38,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 45,
+      "destination": 44,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 2,
+      "destination": 46,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 46,
+      "destination": 31,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 46,
+      "destination": 39,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 46,
+      "destination": 43,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 46,
+      "destination": 47,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 47,
+      "destination": 32,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 47,
+      "destination": 40,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 47,
+      "destination": 44,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 2,
+      "destination": 48,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 48,
+      "destination": 33,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "START"
+    },
+    {
+      "source": 48,
+      "destination": 41,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 48,
+      "destination": 45,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 48,
+      "destination": 47,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 1,
+      "destination": 49,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 49,
+      "destination": 34,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 49,
+      "destination": 50,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 50,
+      "destination": 35,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 50,
+      "destination": 51,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 51,
+      "destination": 36,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 51,
+      "destination": 52,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 52,
+      "destination": 37,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 50,
+      "destination": 53,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 53,
+      "destination": 38,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 53,
+      "destination": 52,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 49,
+      "destination": 54,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 54,
+      "destination": 39,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 54,
+      "destination": 51,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 54,
+      "destination": 55,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 55,
+      "destination": 40,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 55,
+      "destination": 52,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 49,
+      "destination": 56,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 56,
+      "destination": 41,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 56,
+      "destination": 53,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 56,
+      "destination": 55,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 1,
+      "destination": 57,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 57,
+      "destination": 42,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 57,
+      "destination": 50,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 57,
+      "destination": 58,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 58,
+      "destination": 43,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 58,
+      "destination": 51,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 58,
+      "destination": 59,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 59,
+      "destination": 44,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 59,
+      "destination": 52,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 57,
+      "destination": 60,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 60,
+      "destination": 45,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 60,
+      "destination": 53,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 60,
+      "destination": 59,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 1,
+      "destination": 61,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 61,
+      "destination": 46,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 61,
+      "destination": 54,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 61,
+      "destination": 58,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 61,
+      "destination": 62,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 62,
+      "destination": 47,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 62,
+      "destination": 55,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 62,
+      "destination": 59,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 1,
+      "destination": 63,
+      "sender": "app",
+      "owner": "ping5",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 63,
+      "destination": 48,
+      "sender": "app",
+      "owner": "ping1",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 63,
+      "destination": 56,
+      "sender": "app",
+      "owner": "pong2",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 63,
+      "destination": 60,
+      "sender": "app",
+      "owner": "ping3",
+      "message_server": "SETNEIGHBOR"
+    },
+    {
+      "source": 63,
+      "destination": 62,
+      "sender": "app",
+      "owner": "pong4",
+      "message_server": "SETNEIGHBOR"
+    }
+  ]
+}
