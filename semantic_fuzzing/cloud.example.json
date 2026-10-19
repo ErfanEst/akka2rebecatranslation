@@ -1,0 +1,11 @@
+{
+  "fuzzing_repo": "../../semantic-differential-fuzzing",
+  "rmc_jar": "../../cloud-setup/rebeca/rmc-2.14.jar",
+  "sbt": "../../cloud-setup/bin/sbt",
+  "case_count": 2,
+  "message_count": 3,
+  "start_seed": 17,
+  "trace_bound": 20,
+  "run_millis": 1000,
+  "generation_spec": "../../semantic-differential-fuzzing/semantic_generation_session_workflow.example.json"
+}
