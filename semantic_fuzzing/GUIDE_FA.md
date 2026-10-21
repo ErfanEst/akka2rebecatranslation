@@ -6,7 +6,7 @@
 
 در صورت خطای سینتکس یا عدم تطابق سمنتیک، اطلاعات خطا به مدل زبانی برمی‌گردد و تلاش بعدی انجام می‌شود. موفقیت تنها زمانی ثبت می‌شود که تمام سناریوهای درخواست‌شده، trace معتبر و غیرخالیِ مطابق داشته باشند.
 
-کدهای قدیمی تغییر نکرده‌اند. ورودی جدید `python -m semantic_fuzzing` است؛ اجرای اسکریپت‌های آزمایش قدیمی همچنان مسیر قدیمی را اجرا می‌کند. برنچ کار `feature/semantic-fuzzing-integration` است و هنوز به GitHub ارسال نشده است.
+کدهای قدیمی تغییر نکرده‌اند. ورودی جدید `python -m semantic_fuzzing` است؛ اجرای اسکریپت‌های آزمایش قدیمی همچنان مسیر قدیمی را اجرا می‌کند. برنچ کار `feature/semantic-fuzzing-integration` روی GitHub منتشر شده است.
 
 ## ۱. دریافت پروژه
 
@@ -39,9 +39,7 @@ cd semantic-fuzzing-project/akka2rebecatranslation
 
 فایل `SOURCE_VERSION.json` در ریشهٔ بسته، نسخهٔ پایهٔ هر مخزن و SHA-256 فایل‌های سورس را ثبت می‌کند. بسته یک snapshot از فایل‌هاست، نه clone دارای تاریخچهٔ Git.
 
-### دریافت مستقیم از GitHub، بعد از انتشار برنچ
-
-دستور زیر برای برنچ جدید فقط پس از push شدن آن توسط مالک مخزن کار می‌کند؛ در زمان تهیهٔ این راهنما برنچ فقط محلی است:
+### دریافت مستقیم از GitHub
 
 ```bash
 git clone --branch feature/semantic-fuzzing-integration https://github.com/ErfanEst/akka2rebecatranslation.git
@@ -50,7 +48,7 @@ git -C semantic-differential-fuzzing checkout 3086cba00497848d2a999ed6f219a6e6fc
 cd akka2rebecatranslation
 ```
 
-کلون کردن صرفِ `main` مترجم، تغییرات محلی این نسخه را دریافت نمی‌کند.
+کلون کردن صرفِ `main` مترجم این نسخه را دریافت نمی‌کند؛ برنچ بالا را مشخص کنید.
 
 ## ۲. پیش‌نیازها و نصب
 
