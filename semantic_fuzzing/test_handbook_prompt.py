@@ -95,6 +95,38 @@ class HandbookPromptTests(unittest.TestCase):
             finally:
                 os.chdir(original_cwd)
 
+    def test_reasoning_model_uses_medium_effort_without_sampling_parameters(self):
+        config = FuzzingConfig(Path("/unused/engine"), Path("/unused/rmc.jar"))
+        config.validate = Mock()
+        pipeline = Mock(config=config)
+        base_client = Mock(openai_api_key="test-key")
+        reasoning_client = Mock()
+        original_cwd = Path.cwd()
+        with tempfile.TemporaryDirectory() as directory:
+            try:
+                os.chdir(directory)
+                with patch("experiments.base_model_v2.ChatOpenAI", return_value=base_client), \
+                        patch("semantic_fuzzing.translator.ChatOpenAI",
+                              return_value=reasoning_client) as client:
+                    translator = FuzzingTranslator(pipeline, {
+                        "experiment_name": "reasoning_test",
+                        "model": "gpt-5.6-sol",
+                        "reasoning_effort": "medium",
+                        "temperature": 1,
+                    })
+                self.assertIs(translator.llm, reasoning_client)
+                self.assertEqual(translator.reasoning_effort, "medium")
+                client.assert_called_once_with(
+                    model="gpt-5.6-sol", temperature=1.0,
+                    model_kwargs={"reasoning_effort": "medium"}, api_key="test-key")
+            finally:
+                os.chdir(original_cwd)
+
+    def test_reasoning_model_rejects_incompatible_sampling_settings(self):
+        with self.assertRaisesRegex(ValueError, "sampling settings"):
+            FuzzingTranslator(Mock(), {
+                "model": "gpt-5.6-sol", "reasoning_effort": "medium", "top_p": 0.8})
+
 
 if __name__ == "__main__":
     unittest.main()

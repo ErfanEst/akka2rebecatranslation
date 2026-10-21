@@ -3,8 +3,10 @@
 from pathlib import Path
 import tempfile
 
+from langchain_openai import ChatOpenAI
+
 from experiments.base_model_v2 import BaseModelV2
-from .pipeline import FuzzingPipeline
+from .pipeline import FuzzingPipeline, write_json
 from .handbook_prompt import PROFILE, build_handbook_prompt, build_request_templates
 
 
@@ -23,6 +25,19 @@ class FuzzingTranslator(BaseModelV2):
         if name.parts[0] != "semantic_fuzzing":
             name = Path("semantic_fuzzing") / name
         config["experiment_name"] = name.as_posix()
+        self.provider = config.get("provider", "openai")
+        if self.provider != "openai":
+            raise ValueError("The integrated translator currently supports provider='openai' only")
+        self.reasoning_effort = config.get("reasoning_effort")
+        if self.reasoning_effort is not None:
+            if self.reasoning_effort not in {"low", "medium", "high"}:
+                raise ValueError("reasoning_effort must be low, medium, or high")
+            incompatible = {"top_p", "frequency_penalty", "presence_penalty"} & config.keys()
+            if incompatible:
+                raise ValueError("Reasoning mode does not accept sampling settings: "
+                                 + ", ".join(sorted(incompatible)))
+            if "temperature" in config and config["temperature"] != 1:
+                raise ValueError("Reasoning mode requires temperature=1 when using this client version")
         self.prompt_profile = config.get("prompt_profile", PROFILE)
         self.prompt_metadata = None
         if self.prompt_profile == PROFILE:
@@ -35,9 +50,30 @@ class FuzzingTranslator(BaseModelV2):
             raise ValueError(f"Unknown prompt_profile: {self.prompt_profile}")
         pipeline.config.validate()
         super().__init__(config)
+        if self.reasoning_effort is not None:
+            # langchain-openai 0.2.9 has no named reasoning field. Passing it
+            # through model_kwargs produces the correct OpenAI request body.
+            api_key = self.llm.openai_api_key
+            self.temperature = 1.0
+            self.top_p = None
+            self.frequency_penalty = None
+            self.presence_penalty = None
+            self.llm = ChatOpenAI(
+                model=self.model_name,
+                temperature=1.0,
+                model_kwargs={"reasoning_effort": self.reasoning_effort},
+                api_key=api_key,
+            )
         self.pipeline = pipeline
         self.semantic_checks: list[dict] = []
         self.akka_source: Path | None = None
+
+    def run_on_file(self, akka_file: str) -> dict:
+        result = super().run_on_file(akka_file)
+        result["config"].update(provider=self.provider,
+                                reasoning_effort=self.reasoning_effort)
+        write_json(self.output_dir / f"{result['file_id']}_result.json", result)
+        return result
 
     def translate(self, akka_code: str, file_id: str = "test") -> dict:
         if Path(file_id).name != file_id or file_id in {".", ".."}:

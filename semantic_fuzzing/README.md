@@ -187,6 +187,22 @@ python -m semantic_fuzzing --config semantic_fuzzing/cloud.example.json translat
   --translation-config semantic_fuzzing/translation.handbook.example.json
 ```
 
+For GPT-5.6 Sol with medium reasoning, use the bundled translation config:
+
+```bash
+python -m semantic_fuzzing --config semantic_fuzzing/examples/configs/simple_counter.json translate \
+  --akka-source semantic_fuzzing/examples/akka/SimpleCounter.scala \
+  --translation-config semantic_fuzzing/translation.gpt-5.6-sol-medium.json \
+  --output ../runs/simple-counter-gpt-5-6-sol-medium-01
+```
+
+The API model name is `gpt-5.6-sol`; the longer
+`openai-gpt-5.6-sol-standard-2026-08-06` identifier belongs to a model/rate
+catalog and is not sent as the OpenAI model parameter. Reasoning mode passes
+`reasoning_effort=medium`. With the pinned client it uses the required
+`temperature=1` and rejects `top_p`, frequency penalty, and presence penalty
+instead of silently sending incompatible sampling controls.
+
 For a deliberately custom experiment, supply the usual BaseModelV2 configuration
 as JSON with `prompt_profile` set to `custom`. Example:
 

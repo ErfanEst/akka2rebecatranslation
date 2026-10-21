@@ -145,6 +145,18 @@ python -m semantic_fuzzing --config semantic_fuzzing/runtime.json translate \
 
 فایل `translation.handbook.example.json` شامل مدل پیش‌فرض `gpt-4o`، دمای `0.1` و حداکثر `3` تلاش است. `max_retries` در این حلقه تعداد کل تلاش‌هاست، نه تعداد تلاش‌های اضافه. برای مدل دیگر باید ظرفیت context کافی و سازگاری با پارامترهای ChatOpenAI موجود را بررسی کنید. متن handbook کوتاه یا حذف نمی‌شود.
 
+برای GPT-5.6 Sol با reasoning متوسط، فایل آمادهٔ زیر را استفاده کنید:
+
+```text
+semantic_fuzzing/translation.gpt-5.6-sol-medium.json
+```
+
+تنظیم مؤثر آن `model=gpt-5.6-sol` و `reasoning_effort=medium` است. شناسهٔ
+`openai-gpt-5.6-sol-standard-2026-08-06` مربوط به کاتالوگ مدل/قیمت است و به
+عنوان نام مدل API ارسال نمی‌شود. در حالت reasoning، نسخهٔ فعلی client دمای ۱
+را می‌فرستد و `top_p` و penaltyها نباید تنظیم شوند. نتیجهٔ JSON نهایی نام مدل،
+provider و reasoning effort را ثبت می‌کند.
+
 در فایل تنظیمات fuzzing:
 
 | گزینه | کاربرد |
