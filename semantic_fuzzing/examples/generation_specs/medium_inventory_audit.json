@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "inventory",
+      "message": "AddStock",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 50,
+      "interesting_values": [1, 5, 10, 50]
+    },
+    {
+      "receiver": "inventory",
+      "message": "Reserve",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 50,
+      "interesting_values": [1, 5, 10, 50]
+    },
+    {
+      "receiver": "audit",
+      "message": "ReservationRecorded",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 50,
+      "interesting_values": [1, 5, 10, 50]
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "stock_then_equal_reservation",
+      "steps": [
+        {
+          "receiver": "inventory",
+          "sender": "client",
+          "message": "AddStock",
+          "arguments": [{"bind": "quantity"}]
+        },
+        {
+          "receiver": "inventory",
+          "sender": "client",
+          "message": "Reserve",
+          "arguments": [{"use": "quantity"}]
+        }
+      ]
+    }
+  ]
+}

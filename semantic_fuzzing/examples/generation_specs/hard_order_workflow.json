@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "order",
+      "message": "OpenOrder",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 42, 100]
+    },
+    {
+      "receiver": "order",
+      "message": "AddItem",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 42, 100]
+    },
+    {
+      "receiver": "order",
+      "message": "AddItem",
+      "parameter_index": 1,
+      "minimum": 1,
+      "maximum": 20,
+      "interesting_values": [1, 2, 10, 20]
+    },
+    {
+      "receiver": "order",
+      "message": "SubmitOrder",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 42, 100]
+    },
+    {
+      "receiver": "warehouse",
+      "message": "ReserveItems",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100
+    },
+    {
+      "receiver": "warehouse",
+      "message": "ReserveItems",
+      "parameter_index": 1,
+      "minimum": 1,
+      "maximum": 20
+    },
+    {
+      "receiver": "audit",
+      "message": "AuditOrder",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100
+    },
+    {
+      "receiver": "audit",
+      "message": "AuditOrder",
+      "parameter_index": 1,
+      "minimum": 1,
+      "maximum": 20
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "open_add_submit_same_order",
+      "steps": [
+        {
+          "receiver": "order",
+          "sender": "client",
+          "message": "OpenOrder",
+          "arguments": [{"bind": "order_id"}]
+        },
+        {
+          "receiver": "order",
+          "sender": "client",
+          "message": "AddItem",
+          "arguments": [{"use": "order_id"}, {"bind": "quantity"}]
+        },
+        {
+          "receiver": "order",
+          "sender": "client",
+          "message": "SubmitOrder",
+          "arguments": [{"use": "order_id"}]
+        }
+      ]
+    }
+  ]
+}

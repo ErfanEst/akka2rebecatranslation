@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "coordinator",
+      "message": "BeginTransfer",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 42, 100]
+    },
+    {
+      "receiver": "coordinator",
+      "message": "BeginTransfer",
+      "parameter_index": 1,
+      "minimum": 1,
+      "maximum": 150,
+      "interesting_values": [1, 99, 100, 101, 150]
+    },
+    {
+      "receiver": "source",
+      "message": "DebitRequest",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100
+    },
+    {
+      "receiver": "source",
+      "message": "DebitRequest",
+      "parameter_index": 1,
+      "minimum": 1,
+      "maximum": 150,
+      "interesting_values": [1, 99, 100, 101, 150]
+    },
+    {
+      "receiver": "target",
+      "message": "Credit",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 150
+    },
+    {
+      "receiver": "audit",
+      "message": "TransferRecorded",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "single_transfer_request",
+      "steps": [
+        {
+          "receiver": "coordinator",
+          "sender": "client",
+          "message": "BeginTransfer",
+          "arguments": [{"bind": "transfer_id"}, {}]
+        }
+      ]
+    }
+  ]
+}

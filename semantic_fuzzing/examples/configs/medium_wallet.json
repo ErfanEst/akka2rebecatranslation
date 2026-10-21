@@ -1,0 +1,13 @@
+{
+  "fuzzing_repo": "../../../../semantic-differential-fuzzing",
+  "rmc_jar": "../../../../.semantic-fuzzing-tools/rebeca/rmc-2.14.jar",
+  "sbt": "../../../../.semantic-fuzzing-tools/bin/sbt",
+  "case_count": 3,
+  "message_count": 2,
+  "start_seed": 301,
+  "trace_bound": 16,
+  "run_millis": 1000,
+  "coverage_mode": "message",
+  "value_coverage": "boundary",
+  "generation_spec": "../generation_specs/medium_wallet.json"
+}

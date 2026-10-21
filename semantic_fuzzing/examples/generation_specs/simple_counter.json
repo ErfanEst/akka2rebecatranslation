@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "counter",
+      "message": "Increment",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 10,
+      "interesting_values": [1, 2, 5, 10]
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "increment_then_reset",
+      "steps": [
+        {
+          "receiver": "counter",
+          "sender": "client",
+          "message": "Increment",
+          "arguments": [{"bind": "amount"}]
+        },
+        {
+          "receiver": "counter",
+          "sender": "client",
+          "message": "Reset",
+          "arguments": []
+        }
+      ]
+    }
+  ]
+}

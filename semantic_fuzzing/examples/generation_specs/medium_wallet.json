@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "wallet",
+      "message": "Credit",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 50, 100]
+    },
+    {
+      "receiver": "wallet",
+      "message": "Debit",
+      "parameter_index": 0,
+      "minimum": 1,
+      "maximum": 100,
+      "interesting_values": [1, 10, 50, 100]
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "credit_then_equal_debit",
+      "steps": [
+        {
+          "receiver": "wallet",
+          "sender": "client",
+          "message": "Credit",
+          "arguments": [{"bind": "amount"}]
+        },
+        {
+          "receiver": "wallet",
+          "sender": "client",
+          "message": "Debit",
+          "arguments": [{"use": "amount"}]
+        }
+      ]
+    }
+  ]
+}
