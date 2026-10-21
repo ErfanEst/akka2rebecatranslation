@@ -1,0 +1,26 @@
+{
+  "profile": "handbook_rebeca",
+  "version": "1",
+  "extraction": "pdftotext -layout; UTF-8 text, page breaks retained; images are not embedded",
+  "documents": [
+    {
+      "name": "Handbook-of-Rebeca.pdf",
+      "title": "Modeling and Analysis of Actors: Bridging Theory and Practice with Rebeca",
+      "authors": "Ehsan Khamespanah, Marjan Sirjani, Ramtin Khosravi",
+      "edition_date": "2025-04-05",
+      "pages": 52,
+      "pdf_sha256": "1e9847acd44f97258f74e038f8cbd7ab767e808162468c115d361322d06060e9",
+      "text_file": "handbook.full.txt",
+      "text_sha256": "425dc0e4d7c11d7baf3bd0050ff5f5bd6e9206228fe7d85837b41071994ed682"
+    },
+    {
+      "name": "manual.2.1.pdf",
+      "title": "Rebeca: Reactive Object Language",
+      "edition_date": "2016-12-06",
+      "pages": 8,
+      "pdf_sha256": "5ce1484645d718bd63cfae692d6cbf48f3b9bd72c33a644a28da3151027128ab",
+      "text_file": "manual.full.txt",
+      "text_sha256": "b5bc499e0a4ffc6031d04f979d4a895a8a9e541ce3fbe0ad7d9d50b816edd13f"
+    }
+  ]
+}

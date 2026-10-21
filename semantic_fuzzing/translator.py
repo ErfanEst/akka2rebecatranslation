@@ -5,10 +5,11 @@ import tempfile
 
 from experiments.base_model_v2 import BaseModelV2
 from .pipeline import FuzzingPipeline
+from .handbook_prompt import PROFILE, build_handbook_prompt, build_request_templates
 
 
 class FuzzingTranslator(BaseModelV2):
-    """Reuse existing prompts, LLM calls, retry feedback, and result archives.
+    """Use handbook guidance with existing LLM calls, retries, and archives.
 
     The old compiler validator and benchmark-specific semantic evaluators are
     not used. RMC checks compilation and the full campaign checks semantics.
@@ -22,6 +23,16 @@ class FuzzingTranslator(BaseModelV2):
         if name.parts[0] != "semantic_fuzzing":
             name = Path("semantic_fuzzing") / name
         config["experiment_name"] = name.as_posix()
+        self.prompt_profile = config.get("prompt_profile", PROFILE)
+        self.prompt_metadata = None
+        if self.prompt_profile == PROFILE:
+            config["system_prompt"], self.prompt_metadata = build_handbook_prompt()
+            config.setdefault("model", "gpt-4o")
+            if config["model"] in {"gpt-4", "gpt-4-0314", "gpt-4-0613",
+                                   "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-0613"}:
+                raise ValueError("The full handbook profile requires a larger context model, e.g. gpt-4o")
+        elif self.prompt_profile != "custom":
+            raise ValueError(f"Unknown prompt_profile: {self.prompt_profile}")
         pipeline.config.validate()
         super().__init__(config)
         self.pipeline = pipeline
@@ -32,6 +43,11 @@ class FuzzingTranslator(BaseModelV2):
         if Path(file_id).name != file_id or file_id in {".", ".."}:
             raise ValueError("file_id must be a basename")
         self.semantic_checks = []
+        original_templates = self.initial_prompt_template, self.retry_prompt_template
+        if getattr(self, "prompt_profile", "custom") == PROFILE:
+            self.initial_prompt_template, self.retry_prompt_template = build_request_templates(
+                akka_code, self.pipeline.config
+            )
         with tempfile.TemporaryDirectory(prefix="akka-fuzz-input-") as directory:
             self.akka_source = Path(directory) / (file_id + ".scala")
             self.akka_source.write_text(akka_code, encoding="utf-8")
@@ -39,9 +55,12 @@ class FuzzingTranslator(BaseModelV2):
                 result = super().translate(akka_code, file_id)
             finally:
                 self.akka_source = None
+                self.initial_prompt_template, self.retry_prompt_template = original_templates
         result["semantic_backend"] = "semantic-differential-fuzzing"
         result["semantic_equivalence"] = "NOT_ESTABLISHED"
         result["semantic_checks"] = self.semantic_checks
+        result["prompt_profile"] = getattr(self, "prompt_profile", "custom")
+        result["prompt_metadata"] = getattr(self, "prompt_metadata", None)
         checks = {check["attempt"]: check for check in self.semantic_checks}
         for attempt in result["attempts"]:
             check = checks.get(f"{file_id}_attempt_{attempt['attempt_number']}")

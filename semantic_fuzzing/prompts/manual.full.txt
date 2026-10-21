@@ -1,0 +1,347 @@
+                              Rebeca
+                         Reactive Object Language
+
+                   Ali Jafari, Ehsan Khamespahanh
+                Hossein Hojjat, Zeynab Sabahi Kaviani,
+                          and Marjan Sirjani
+                    http://www.rebeca-lang.org
+                              December 6, 2016
+
+
+Contents
+1 Introduction                                                                  1
+
+2 Structure of a Rebeca Model                                                   1
+  2.1 Known Rebecs . . . . . . . . . . . . . . . . . . . . . . . . . . . .      3
+  2.2 Statevars . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+  2.3 Message Servers . . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+  2.4 Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+  2.5 Rebeca Statements . . . . . . . . . . . . . . . . . . . . . . . . . .     5
+      2.5.1 Loops . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     5
+      2.5.2 Conditional Statements . . . . . . . . . . . . . . . . . . .        6
+      2.5.3 Non-deterministic Expressions . . . . . . . . . . . . . . .         6
+      2.5.4 Local Variables . . . . . . . . . . . . . . . . . . . . . . . .     6
+      2.5.5 Arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    7
+
+3 A Typical Example                                                             7
+
+                                    Abstract
+        Rebeca is an actor based modeling language that is supported by
+     a model checking tool suite. In this document we explain the Rebeca
+     language. The syntax of Rebeca is defined formally and is explained
+     through different examples.
+
+
+1    Introduction
+Rebeca (Reactive Object Language) has been designed in an effort to facilitate
+the verification process for practitioners who are not experts in formal methods.
+From one point of view Rebeca is a Java like language which is easy to use for
+software engineers, and from another point of view it is a modeling language
+
+
+                                        1
+ reactiveclass Rebec1(2) {
+   knownrebecs { Rebec2 d;}
+   statevars{}
+   Rebec1()
+    { self.msg1();
+    /* the constructor */}
+   msgsrv msg1()
+    { d.askForService();}
+   msgsrv msg2()
+    { /* Handling message 2*/}
+   void method1(int param1)
+    { /* method definition */}
+   int method2()
+    { /* method definition */
+     return intValue;}
+ }
+
+
+                 Figure 1: A typical class definition in Rebeca
+
+
+with formal semantics and formal verification support. A model in Rebeca
+consists of concurrently executing reactive objects, rebecs. Computation takes
+place by asynchronous message passing between rebecs and execution of the
+corresponding message servers of messages. Each message is put in the queue
+of the receiver rebec and specifies a unique method to be invoked when the
+message is serviced.
+
+
+2     Structure of a Rebeca Model
+Figure 1 illustrates a simple Rebeca class definition. Although in a pure actor
+model the queue length is unbounded, for model checking the modeler has to
+declare the maximum queue size in the class definition. This size shall be indi-
+cated in parenthesis next to the reactiveclass name. In a class definition there
+are two central declarations: the knownrebecs and statevars. Known rebecs are
+the rebecs that messages are sent to. The statevars are responsible for holding
+the rebec state. After these declarations, the message handling methods are
+defined in a Java like code. We call these methods the message servers of this
+reactive class, and their task is to serve the incoming messages.
+    In addition to message servers which are defined using the keyword msgsrv,
+local methods can also be defined. Methods are local, and can only be called
+from within the message servers and methods of the same rebec. A method call
+can result in a return value to the caller.
+    Execution of a message server consists of the following operations:
+    1. Executing statements: statements are defined in Figure 2.
+
+
+                                       2
+  2. Sending a message: a message can be sent to a rebec (to this rebec or
+     known rebecs).
+  3. Calling a method: a method is called by its name.
+Execution of a method includes the three above mentioned operations except
+that messages can only be sent to this rebec, not to known rebecs. Sending a
+message to this rebec is done using the keyword self.
+    In Rebeca, rebecs have a unique thread of control. This brings simplicity
+and ease in modeling. At each step the rebec takes a message from its queue
+and executes the corresponding message server.
+    Every reactive class definition has a constructor. In the initial state, each
+rebec has an constructor message in its message queue, thus the first message
+executed by each rebec is the constructor. The state variables can be initialized
+in the constructor.
+    After defining the reactive classes, there is a keyword main followed by the
+definition of the Rebeca model which is a finite set of rebecs. The rebecs are in-
+stantiated from reactive classes. In declaring a rebec, the bindings to its known
+rebecs are specified in the list of known rebecs. The abstract syntax of Rebeca
+is shown in Figure 2.
+
+
+2.1    Known Rebecs
+The rebecs which are included in the knownrebecs part of a reactive class defi-
+nition are those rebecs whose message servers may be called by instances of this
+reactive class. The syntax of declaring known rebecs is shown in Figure 2.
+    There is another important feature in Rebeca. A rebec can also send mes-
+sages to variables of type className if their values are not equal to null. When
+sending the message, the value of these variables should be associated to a
+reference to a rebec.
+
+2.2    Statevars
+There are two primary factors determining the state space of a Rebeca program:
+the contents of the queues and the values of the state variables. Each rebec
+implicitly has an internal queue, and there is no need to declare it explicitly.
+The state variables are declared after the knownrebecs definition in a statevars
+block. In Figure 2 the declaration style and in Table 1 the variables ranges are
+specified.
+    The state variables can be defined of types int, byte, short, boolean, or class-
+Name. The type of className is similar to Java, and refers to the name of a
+defined reactive class in the Rebeca program. In the constructor, state variables
+can be initialized. Specifically, variables of type className have to be initialized
+to null.
+
+
+
+
+                                         3
+            Model ::= Class∗ M ain
+            M ain ::= main { InstanceDcl∗ }
+      InstanceDcl ::= className rebecName(hrebecNamei∗ ) : (hliterali∗ );
+            Class ::= reactiveclass className { KnownRebecs Vars
+                  MsgSrv ∗ LocalMethods ∗ }
+     KnownRebecs ::= knownrebecs { RebecDcl ∗ }
+             Vars ::= statevars { VarDcl ∗ }
+         RebecDcl ::= className hvi+ ;
+           VarDcl ::= T ype hvi+ ; | T ype [ number ]+ v
+           MsgSrv ::= msgsrv msgName(hExtT ype vi∗ ) { Stmt∗ }
+     LocalMethods ::= methodN ame(hExtT ype vi∗ ) { Stmt∗ }
+             Stmt ::= Assignment | SendMessage | MethodCall |
+                  ConditionalStmt | LoopStmt | LocalVars
+       Assignment ::= v = Exp; | v =?(Exph, Expi+ );
+     SendMessage ::= rebecExp.msgN ame(hExpi∗ );
+       MethodCall ::= methodName(hExpi∗ );
+  ConditionalStmt ::= if (Exp) { Stmt∗ } [else { Stmt∗ }]
+         LoopStmt ::= f or ( Exp ; Exp ; Exp ) { Stmt∗ } | while (Exp) { Stmt∗ }
+        LocalVars ::= ExtT ype hvi+ ;
+              Exp ::= e | rebecExpr
+         rebecExp ::= self | rebecTerm | (className)rebecTerm
+        rebecTerm ::= rebecName | sender
+          ExtType ::= T ype | f loat | double
+             Type ::= boolean | int | short | byte | className
+
+
+
+
+Figure 2: (a) Abstract syntax of Rebeca. Angle brackets h...i are used as meta
+parentheses, superscript + for repetition at least once, superscript ∗ for repe-
+tition zero or more times, whereas using h...i with repetition denotes a comma
+separated list. Brackets [...] indicate that the text within the brackets is op-
+tional. The symbol ? shows nondet choice. Identifiers classN ame, rebecN ame,
+methodN ame, v, and literal denote class name, rebec name, method name,
+variable, and literal, respectively; and e denotes an (arithmetic, boolean, nondet
+choice, or a rebec name in case of a variable of type reactive class) expression.
+
+
+
+
+                                          4
+                    Table 1: The variable ranges in Rebeca
+                   Type Name               Range
+                    boolean              true, false
+                       int      -2147483648 to 2147483647
+                     short            -32768 to 32767
+                      byte              -128 to 127
+
+
+2.3    Message Servers
+Execution of rebecs in a Rebeca program takes place in an interleaving scheme.
+In this manner each rebec dequeues a message from the top of its queue and
+executes its corresponding message server. During execution no other message
+servers of this rebec is allowed to be executed. The declaration of a message
+server is very similar to a method declaration in Java with the difference that
+there is no returning value associated with a message server. The message
+servers can have input parameters which can be of different types as shown in
+Figure 2.
+
+2.4    Methods
+Methods can be defined in a reactive class. Methods are local to the container
+rebec, and can only be called by the message servers and other methods of
+this rebec. A method can return a value to its caller, and can include input
+parameters of types ExpT ype, as defined in Figure 2. When a variable of type
+className is passed as an argument to message servers or methods, its value
+has to be binded to the reference to a rebec (i.e. an instance of a reactive class
+which is defined in the main part). Note that a rebec can send a message to a
+variable of type className if its value is not equal to null.
+    It’s worth mentioning that a method can only send a message to the rebec
+containing it. This rebec is accessible by using keyword self , which is a reference
+to a rebec (an instance of this reactive class).
+
+2.5    Rebeca Statements
+A message server contains one or more Rebeca statements. There are differ-
+ent types of statements in Rebeca: conditional statements, assignments, non-
+deterministic expressions, local variables declaration, for-loop and while-loop
+statements, method calls, and sending message statements. The syntax is de-
+scribed in Figure 2.
+    The logical and arithmetic expressions in Rebeca are similar to Java, and
+the syntax is not included in this manual. One can refer to Java documents for
+the syntax. The set of acceptable operators are given in Table 2. We should
+emphasize that casting in Rebeca is the same as in Java. There is a predefined
+variable named sender in Rebeca. The receiver of a message can get a reference
+to the sender of the message through accessing the value of variable sender. The
+
+
+                                         5
+                       Table 2: Operators in Rebeca
+          Operation Type       Operation            Definition
+            Arithmetic          +-*/
+                                  %                     mod
+                                ++ - -
+           Assignment              =
+                          += -= *= /= %=
+                                &= |=
+           Conditional             ?:          ternary conditional
+              Logic              &&                logical and
+                                   ||                logical or
+                                    !
+                                   &               bitwise and
+                                    |               bitwise or
+           Comparative       < > >= <=
+                                 ==                   equality
+                                  !=                inequality
+               Cast                                like in Java
+
+
+following example shows the casting of variable sender.
+
+senderDevice = (CommunicationDevice)sender;
+
+In this example, the value of sender is assigned to the variable senderDevice
+which is of type CommunicationDevice (a defined reactive class in the program).
+
+2.5.1    Loops
+In Rebeca, for-loop and while-loop constructs are introduced with the same
+syntax as in Java. To facilitate the loop iteration, break and continue are
+included too. The syntax is shown in Figure 2.
+
+2.5.2    Conditional Statements
+The switch conditional statement has been added to Rebeca and its syntax is
+like Java. So, the keywords case, break and def ault have been added too. The
+case expression will be valid if its value is determined at compile time. The if
+conditional statement can also be used in Rebeca.
+
+2.5.3    Non-deterministic Expressions
+The non-deterministic expressions are valuable in many models. The assignment
+x =?(e1 , e2 , · · · , en ) assigns non-deterministically a value from the ei ’s valuation
+to x. It means that ei can be an expression. The expression will be valid
+
+
+                                            6
+ msgserver AdaptFrequency() {
+   int noise, frequency;
+   bool isNoisy;
+   noise = ?( -1, 1) + 0;
+   isNoisy = ?(true,false);
+   if ( isNoisy )
+     frequency = ?(18 , 2 + noise);
+   else
+     frequency = 18;
+ }
+
+
+            Figure 3: An example of nondeterministic expressions
+
+
+if its value is determined at compile time. An example of non-deterministic
+expressions is shown in Figure 3. This Figure shows a msgserver that sets
+the frequency by non-deterministically choosing occurrence of a noise and the
+amount of it.
+
+2.5.4    Local Variables
+In many situations a rebec needs to work with a variable that is not included
+in the state space. We call these variables local variables. These variables
+are declared locally in a message server and the value is accessible only in the
+message server context. Their value are not considered in state space. The
+possible types of local variables are shown in Figure 2 (as ExtT ype).
+
+2.5.5    Arrays
+Arrays can be defined in a Rebeca program. The type of arrays can be int,
+byte, short, boolean, or className, as defined in Figure 2. The length of an
+array should be specified in its declaration. As an example, x is an array of
+bytes with length 3 in the following declaration:
+
+byte [3] x;
+
+An array is indexed from 0. So there are three indexes for the above decla-
+ration, namely 0, 1 and 2. The elements of an array can be accessed as in Java,
+for example x[2] denotes the last element of the array. Arrays have strict type
+checking in Rebeca, i.e. if a message server is willing to accept a variable of
+type byte[2], a variable of type byte[3] cannot be passed to it.
+
+
+3       A Typical Example
+Figure 4 shows a producer consumer problem which is modeled in Rebeca.
+
+
+                                       7
+reactiveclass Producer(2) {
+knownrebecs { Consumer knownconsumer; }
+statevars { boolean productsent; }
+Producer() {
+  productsent = false;
+  self.produce(); }
+msgsrv produce() {
+  knownconsumer.consume();
+  productsent = true; }
+}
+reactiveclass Consumer(2) {
+knownrebecs { Producer knownproducer; }
+statevars { boolean productreceived; }
+Consumer() {
+  productreceived = false;
+  self.consume(); }
+msgsrv consume() {
+  knownproducer.produce();
+  productreceived = true; }
+}
+main {
+  Producer producer1( consumer1);
+  Consumer consumer1( producer1); }
+
+
+             Figure 4: A typical model definition in Rebeca
+
+
+
+
+                                   8
+
