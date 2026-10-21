@@ -1,5 +1,8 @@
 # Translation With Semantic Differential Fuzzing
 
+راهنمای فارسی نصب و اجرا: [GUIDE_FA.md](GUIDE_FA.md).
+گزارش اجرای واقعی و محدودیت‌ها: [EXECUTION_REPORT_FA.md](EXECUTION_REPORT_FA.md).
+
 This is a new, opt-in pipeline. All pre-existing translation code, evaluators,
 experiment scripts, tests, and dependency files are unchanged. The integration
 calls the real `semantic-differential-fuzzing` engine in its sibling checkout;
@@ -9,9 +12,10 @@ it does not copy or reimplement the engine's comparison algorithms.
 
 1. Supply an original Akka source and a candidate Rebeca model, or translate
    an Akka source with `FuzzingTranslator` and the full `handbook_rebeca` profile.
-2. Extract the Akka interface and instrument scalar state, branches, and complete
+2. Check syntax/types with RMC and require fresh generated C++ artifacts. Reject
+   invalid models before extraction or fuzzing; save `SYNTAX_ERROR` / `NOT_RUN`.
+3. Extract the Akka interface and instrument scalar state, branches, and complete
    post-handler mailboxes using the engine's ScalaMeta tools.
-3. Generate baseline C++ for the candidate and optional mutants using RMC.
 4. Run the engine's full semantic differential campaign: seeded scenarios,
    message/value coverage, parameter domains, bound sequences, Akka execution,
    initial-mailbox alignment, exhaustive RMC trace export, state/mailbox/trace
@@ -205,10 +209,11 @@ python -m semantic_fuzzing --config /path/to/fuzzing.json translate \
   --translation-config /path/to/translation.json
 ```
 
-Results are under `experiments/results/semantic_fuzzing/<experiment_name>`.
-Each validation attempt has a unique directory. Like BaseModelV2, repeating
-an experiment/file name replaces its top-level result and prompt logs; use a
-new experiment name for distinct experiment runs. `semantic_checks` in the
+CLI results use a fresh run directory under
+`experiments/results/semantic_fuzzing/<experiment_name>/run-*`, or the fresh path
+specified by `translate --output`. Each validation attempt also has a unique
+directory. Direct Python directory/grid runners still retain BaseModelV2's
+experiment-name behavior; use a new experiment name for each run. `semantic_checks` in the
 result links to each attempt's full report. `validation_success`/`success`
 now mean a bounded semantic match. They do not assert equivalence.
 
@@ -226,6 +231,7 @@ the existing experiment configuration, and call `run_on_directory(...)`.
 | `MISMATCH` | 1 | Trusted trace/state/mailbox mismatch or queue overflow |
 | `INCONCLUSIVE` | 2 | Empty, untrusted, incomplete, or missing observations |
 | `ERROR` | 3 | Toolchain, generation, compilation, timeout, or runner error |
+| `SYNTAX_ERROR` | 4 | RMC frontend rejected a candidate/mutant; semantic checking did not run |
 
 The full reports preserve coverage gaps, sequence coverage, mismatch evidence,
 and mutation results. Partial coverage can still be a bounded match; it is not
@@ -241,7 +247,7 @@ separate work; the adapter does not silently rewrite either input.
 ## Tests
 
 ```bash
-python -m unittest -v semantic_fuzzing.test_pipeline semantic_fuzzing.test_handbook_prompt
+python -m unittest -v semantic_fuzzing.test_pipeline semantic_fuzzing.test_handbook_prompt semantic_fuzzing.test_workflow
 ```
 
 These tests cover verdict trust, empty/missing traces, queue overflow, mutant
@@ -262,6 +268,16 @@ Verified in the cloud environment with the supplied session configuration:
 - A batch with a missing first candidate continued to the second job and
   retained both its `ERROR` and the second job's `MISMATCH`.
 
-Live LLM requests were not run because no API credential was present. The
-translation retry integration was tested with a mocked LLM; the downstream
-fuzzing checks above used real Scala, RMC, and C++ processes.
+Live `gpt-4o` translation succeeded on SessionWorkflow after the environment
+credential was replaced (`live-20261021-124105`). The first response passed RMC
+syntax/type checking and both real fuzzing cases (seeds 17 and 18), with four
+observed events per case and matching state/mailboxes. The final status was
+`BOUNDED_MATCH`, exit 0, in about 45.5 seconds. No mock, fixture substitution or
+manual candidate edit was used in this run. Its complete prompt, final Rebeca,
+campaign and result JSON are preserved under `/workspace/execution-evidence`.
+
+An earlier live run (`live-20261021-123138`) failed with HTTP 401,
+`token_invalidated`; its records remain as historical evidence. The separate
+three-attempt retry test used scripted LLM responses with real validators;
+live retry behavior was not needed in the successful first-attempt run.
+See the Persian execution report for details and coverage limitations.

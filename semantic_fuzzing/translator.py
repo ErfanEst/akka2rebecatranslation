@@ -64,9 +64,13 @@ class FuzzingTranslator(BaseModelV2):
         checks = {check["attempt"]: check for check in self.semantic_checks}
         for attempt in result["attempts"]:
             check = checks.get(f"{file_id}_attempt_{attempt['attempt_number']}")
-            attempt["semantic_status"] = check["status"] if check else "NOT_RUN"
+            attempt["pipeline_status"] = check["status"] if check else "ERROR"
+            attempt["syntax_status"] = check.get("syntax_status", "NOT_RUN") if check else "NOT_RUN"
+            attempt["semantic_status"] = check.get("semantic_status", check["status"]) if check else "NOT_RUN"
         final_status = result["attempts"][-1]["semantic_status"] if result["attempts"] else "NOT_RUN"
-        result["semantic_status"] = "ERROR" if final_status == "NOT_RUN" else final_status
+        result["semantic_status"] = final_status
+        result["pipeline_status"] = result["attempts"][-1]["pipeline_status"] if result["attempts"] else "ERROR"
+        result["syntax_status"] = result["attempts"][-1]["syntax_status"] if result["attempts"] else "NOT_RUN"
         return result
 
     def validate_code(self, rebeca_code: str, filename: str = "test") -> dict:
@@ -80,11 +84,13 @@ class FuzzingTranslator(BaseModelV2):
         candidate.write_text(rebeca_code, encoding="utf-8")
         report = self.pipeline.check([self.akka_source], candidate, run / "fuzzing")
         self.semantic_checks.append({"attempt": filename, "status": report["status"],
+                                     "syntax_status": report.get("syntax_checks", {}).get("candidate", "NOT_RUN"),
+                                     "semantic_status": report.get("semantic_status", report["status"]),
                                      "result_file": str((run / "fuzzing/result.json").resolve())})
         error = None
         if not report["success"]:
             evidence = report.get("campaign", {}).get("candidate_counterexamples", [])
-            error = f"Semantic fuzzing {report['status']}: {report['reason']}"
+            error = f"Validation {report['status']}: {report['reason']}"
             if evidence:
                 import json
                 error += "\nCounterexample: " + json.dumps(evidence[0])

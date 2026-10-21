@@ -11,6 +11,7 @@ import signal
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -86,6 +87,32 @@ class StageError(RuntimeError):
     def __init__(self, stage: str, message: str):
         super().__init__(message)
         self.stage = stage
+
+
+class SyntaxRejected(StageError):
+    pass
+
+
+def save_report(output: Path, report: dict) -> None:
+    write_json(output / "result.json", report)
+    lines = ["# Validation Report", "", f"Result: {report['status']}",
+             f"Semantic status: {report['semantic_status']}",
+             f"Reason: {report.get('reason', '')}", "",
+             "## Syntax / Type Checking", ""]
+    lines.extend(f"- {name}: {status}" for name, status in report["syntax_checks"].items())
+    lines.extend(["", "## Differential Fuzzing", "",
+                  f"Requested cases: {report['config']['case_count']}",
+                  f"Trace bound: {report['config']['trace_bound']}", ""])
+    for case in report.get("campaign", {}).get("cases", []):
+        for model in case.get("model_results", []):
+            lines.append(f"- Seed {case.get('seed', '?')}, {model.get('name', model.get('kind'))}: "
+                         f"{model.get('trace_status', 'NOT_CHECKED')}; "
+                         f"events={model.get('observed_event_count', 0)}; "
+                         f"mismatch={model.get('mismatch_kind', 'none')}")
+    lines.extend(["", "A bounded match is not a proof of semantic equivalence.",
+                  "Full configuration, input hashes and evidence: result.json.",
+                  "Command lines and diagnostics: logs/.", ""])
+    (output / "report.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def run_stage(stage: str, command: list[str], cwd: Path, logs: Path,
@@ -169,7 +196,9 @@ class FuzzingPipeline:
         output.mkdir(parents=True, exist_ok=False)
         logs = output / "logs"
         logs.mkdir()
-        report = {"schema_version": 1, "status": "IN_PROGRESS", "success": False,
+        report = {"schema_version": 2, "status": "IN_PROGRESS", "success": False,
+                  "started_at": datetime.now(timezone.utc).isoformat(),
+                  "syntax_checks": {}, "semantic_status": "NOT_RUN",
                   "semantic_equivalence": "NOT_ESTABLISHED", "output_dir": str(output),
                   "config": json.loads(json.dumps(asdict(cfg), default=str)),
                   "inputs": [], "campaign_summary_file": None}
@@ -180,6 +209,39 @@ class FuzzingPipeline:
             git = subprocess.run(["git", "-C", str(cfg.fuzzing_repo), "rev-parse", "HEAD"],
                                  capture_output=True, text=True)
             report["fuzzing_commit"] = git.stdout.strip() if git.returncode == 0 else None
+            source_dir = output / "sources"
+            source_dir.mkdir()
+            copied = []
+            for path in sources:
+                target = source_dir / (path.stem + ".scala")
+                shutil.copy2(path, target)
+                copied.append(target)
+            # RMC's frontend is the syntax/type gate, before any semantic work.
+            manifest = []
+            for model in models:
+                name = model["name"]
+                source = output / f"{name}.rebeca"
+                shutil.copy2(model["source"], source)
+                generated = output / "generated" / name
+                report["syntax_checks"][name] = "ERROR"
+                run_stage(f"rmc_{name}", [cfg.java, "-jar", str(cfg.rmc_jar.resolve()),
+                          "-s", str(source), "-o", str(generated), "-e", "CORE_REBECA",
+                          "-x", "statespace.xml"], output, logs, cfg.stage_timeout_seconds)
+                # A zero exit code alone is not acceptance by this RMC release.
+                if not (generated / "CoreRebecaModelChecker.cpp").is_file():
+                    diagnostics = "\n".join(
+                        (logs / f"rmc_{name}.{stream}.log").read_text(encoding="utf-8")[-4000:]
+                        for stream in ("stdout", "stderr")
+                    )
+                    report["syntax_checks"][name] = "REJECTED"
+                    raise SyntaxRejected(f"rmc_{name}", "RMC frontend did not accept the model:\n" + diagnostics)
+                report["syntax_checks"][name] = "PASSED"
+                manifest.append({"name": name, "kind": model["kind"],
+                                 "generated_dir": str(generated), "expected_trace_status": "ANY",
+                                 **{key: model[key] for key in ("activation_policy", "activation_targets")
+                                    if key in model}})
+            write_json(output / "result.json", report)
+            report["semantic_status"] = "IN_PROGRESS"
             # Build copies isolate instrumentation and sbt targets from both checkouts.
             for project in ("akka-interface-extractor", "akka-runner"):
                 original = cfg.fuzzing_repo / project
@@ -189,13 +251,6 @@ class FuzzingPipeline:
                 shutil.copytree(original / "project", target / "project",
                                 ignore=shutil.ignore_patterns("target", ".bloop"))
                 shutil.copytree(original / "src", target / "src")
-            source_dir = output / "sources"
-            source_dir.mkdir()
-            copied = []
-            for path in sources:
-                target = source_dir / (path.stem + ".scala")
-                shutil.copy2(path, target)
-                copied.append(target)
             interface = output / "interface.json"
             instrumented = output / "instrumented"
             extract = "runMain fuzzextractor.AkkaInterfaceExtractor --output " + sbt_quote(interface)
@@ -206,26 +261,6 @@ class FuzzingPipeline:
             document = read_json(interface)
             if not document.get("actor_instances") or not document.get("actor_types"):
                 raise StageError("extract_and_instrument", "No supported static actors were extracted")
-            manifest = []
-            for model in models:
-                name = model["name"]
-                source = output / f"{name}.rebeca"
-                shutil.copy2(model["source"], source)
-                generated = output / "generated" / name
-                run_stage(f"rmc_{name}", [cfg.java, "-jar", str(cfg.rmc_jar.resolve()),
-                          "-s", str(source), "-o", str(generated), "-e", "CORE_REBECA",
-                          "-x", "statespace.xml"], output, logs, cfg.stage_timeout_seconds)
-                # RMC can exit zero after a compilation error: require generated artifacts.
-                if not (generated / "CoreRebecaModelChecker.cpp").is_file():
-                    diagnostics = "\n".join(
-                        (logs / f"rmc_{name}.{stream}.log").read_text(encoding="utf-8")[-4000:]
-                        for stream in ("stdout", "stderr")
-                    )
-                    raise StageError(f"rmc_{name}", "RMC did not produce a model checker:\n" + diagnostics)
-                manifest.append({"name": name, "kind": model["kind"],
-                                 "generated_dir": str(generated), "expected_trace_status": "ANY",
-                                 **{key: model[key] for key in ("activation_policy", "activation_targets")
-                                    if key in model}})
             models_file = output / "models.json"
             write_json(models_file, {"models": manifest})
             command = [sys.executable, str(cfg.fuzzing_repo.resolve() / "scripts/run_semantic_differential_campaign.py"),
@@ -254,8 +289,13 @@ class FuzzingPipeline:
             report["status"], report["reason"] = campaign_verdict(summary, cfg.case_count)
             if code and report["status"] == "BOUNDED_MATCH":
                 report.update(status="ERROR", reason=f"Campaign exited {code}")
+        except SyntaxRejected as exc:
+            report.update(status="SYNTAX_ERROR", reason=str(exc), stage=exc.stage)
         except (StageError, OSError, ValueError, KeyError) as exc:
             report.update(status="ERROR", reason=str(exc), stage=getattr(exc, "stage", "setup"))
+        if report["semantic_status"] != "NOT_RUN":
+            report["semantic_status"] = report["status"]
         report["success"] = report["status"] == "BOUNDED_MATCH"
-        write_json(output / "result.json", report)
+        report["finished_at"] = datetime.now(timezone.utc).isoformat()
+        save_report(output, report)
         return report
