@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-39",
+  "slug": "radix_sort",
+  "name": "Radix Sort Pipeline",
+  "description_fa": "مرتب‌سازی مرحله‌ای براساس بیت‌ها",
+  "family_id": "sorting_pipeline",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 5,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "bit partitioning and FIFO batches",
+  "proposed_smoke_scenario": "3 values in 0..7; 3 fixed bit stages",
+  "adaptation_and_risks": "Unroll setup-created pipeline; feed explicit value inputs instead of language-specific PRNG. Preserve Long/Int widths and emitted value order; compare output values, not just success prints.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "c0083cb0a2559331552f087739b7c179ca72ef33",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+    "selected_symbols": "IntSourceActor, SortActor, ValidationActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/RadixSortAkkaActorBenchmark.scala",
+    "sha256": "a768e139d91c0ba5bc843cf01756aaf6c1df746a3600ec629280ae317b084046",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

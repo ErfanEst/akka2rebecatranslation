@@ -138,6 +138,14 @@ campaign report; a killed mutant does not reject a matching candidate.
 
 ## New Translations
 
+For the uploaded 50-source research archive, run groups of five with
+`python -m semantic_fuzzing.research_batch --group 1 --dry-run`, then provide
+`--output ../runs/research50/group-01` instead of `--dry-run` to translate.
+The runner requests 50 random scenarios per validation attempt by default.
+Compatibility warnings are printed and saved before API calls; incompatible
+examples are attempted, not silently skipped. Full original source files are
+used, not extracted/adapted kernels. See [the Persian batch guide](benchmarks/research50/README_FA.md).
+
 `FuzzingTranslator` subclasses `BaseModelV2`, reusing its LLM client, retry loop,
 prompt logs, and file/directory runners. It now defaults to the `handbook_rebeca`
 profile as well as the fuzzing validation gate. Existing historical experiment

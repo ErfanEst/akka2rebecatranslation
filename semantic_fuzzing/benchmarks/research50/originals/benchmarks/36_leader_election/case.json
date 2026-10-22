@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-36",
+  "slug": "leader_election",
+  "name": "Capture-Based Leader Election",
+  "description_fa": "انتخاب رهبر با پیام‌های رقابتی",
+  "family_id": "leader_election",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "capture/accept/elect state transitions",
+  "proposed_smoke_scenario": "3 fixed nodes; explicit Init and Start; no physical failures",
+  "adaptation_and_risks": "The source explicitly says BUGGY. Use as a known-bug/translation subject, never an automatically correct reference. Exclude Simulator's failure/reinitialization scenario and unused timeout imports; preserve source bug for translation comparison.",
+  "provenance": {
+    "source_key": "B",
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "git_blob_sha": "4c5dc21b0d7c8e43e49963887ea2c1931a715699",
+    "path": "src/test/scala/sample/LeaderElection.scala",
+    "selected_symbols": "NodeActor (Simulator excluded)",
+    "permalink": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/LeaderElection.scala",
+    "source_kind": "RESEARCH_TEST_SUBJECT"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": false,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/LeaderElection.scala",
+    "sha256": "3450c568e67c41e0fa5f7a472d00a94b0d85c431cc9ca6aac887ebc4ba830e56",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/samira-t__Bita/src/test/scala/sample/LeaderElection.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-16",
+  "slug": "thread_ring",
+  "name": "Thread Ring",
+  "description_fa": "گردش توکن بین گره‌های ثابت",
+  "family_id": "token_ring",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "routing, hop decrement and destination",
+  "proposed_smoke_scenario": "3 nodes; token with 5 hops",
+  "adaptation_and_risks": "Unroll actor array into three named bootstrap declarations; configure neighbors before Start and keep topology frozen. Neighbor setup ActorRef payloads need adapter.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "9dc9d0b6eb6157774aa3bf53dccffdb8198ce37f",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+    "selected_symbols": "ThreadRingActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/ThreadRingAkkaActorBenchmark.scala",
+    "sha256": "6f5216375b4df4c63bca3f31dda3beaef724b895981852b4114b2858db2eace4",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

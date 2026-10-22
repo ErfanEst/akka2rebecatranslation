@@ -1,0 +1,2489 @@
+{
+  "schema_version": "1.0-research-catalog",
+  "created_date": "2026-10-22",
+  "title": "ACSU-50 — Akka Classic Static Untimed Source-Grounded Candidate Catalog",
+  "disclaimer": "Research catalog/adaptation plan, NOT 50 compiled runnable benchmarks. All normalized implementation/admission statuses PENDING. Includes snippets, library patterns and compositions, not 50 independent published programs. PRIMARY means prioritization, not verified tool compatibility.",
+  "counts": {
+    "total": 50,
+    "primary": 40,
+    "reserve": 10,
+    "family_count": 34,
+    "repositories": 6
+  },
+  "scope": {
+    "api": "Akka Classic only",
+    "creation": "All application actors explicitly created before processing release; no runtime child creation, respawn or resize",
+    "time": "No application clocks, sleep, timers, deadline, receive timeout or timed ask. External harness timeout is not model time.",
+    "isolation": "No mutable state shared across actors",
+    "mailbox": "FIFO; priority source variants excluded",
+    "proof": "Bounded sampled-trace conformance, not full bidirectional semantic equivalence",
+    "execution_status": "None of the 50 newly normalized cases has been implemented or executed in this research task"
+  },
+  "repositories": [
+    {
+      "key": "S",
+      "repo": "shamsimam/savina",
+      "sha": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+      "label": "Savina",
+      "role": "Peer-reviewed actor performance suite; selected kernels repurposed for semantic testing.",
+      "license": {
+        "repo": "shamsimam/savina",
+        "sha": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "title": "MIT License  Copyright (c) 2018 Shams Imam  Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    },
+    {
+      "key": "A",
+      "repo": "akka/akka-core",
+      "sha": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+      "label": "Akka Classic official examples",
+      "role": "Official 2.6.20 code snippets; not standalone application benchmarks.",
+      "license": {
+        "repo": "akka/akka-core",
+        "sha": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "title": "                                 Apache License                            Version 2.0, January 2004                         https://www.apache.org/licenses/     TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTI",
+        "url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    },
+    {
+      "key": "I",
+      "repo": "RayRoestenburg/akka-in-action",
+      "sha": "32b301d3042c832a016ca3220576960c43317630",
+      "label": "Akka in Action",
+      "role": "Book author's repository; selected untimed actor classes only.",
+      "license": {
+        "repo": "RayRoestenburg/akka-in-action",
+        "sha": "32b301d3042c832a016ca3220576960c43317630",
+        "title": "Copyright (c) 2016, Manning Publications, Co.   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software w",
+        "url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    },
+    {
+      "key": "C",
+      "repo": "PacktPublishing/Akka-Cookbook",
+      "sha": "ac64624036d75df5da76390d30e19d94333e6fa2",
+      "label": "Akka Cookbook",
+      "role": "Publisher repository; selected actor kernels, not entire applications.",
+      "license": {
+        "repo": "PacktPublishing/Akka-Cookbook",
+        "sha": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "title": "MIT License  Copyright (c) 2017 Packt  Permission is hereby granted, free of charge, to any person obtaining a copy",
+        "url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    },
+    {
+      "key": "B",
+      "repo": "samira-t/Bita",
+      "sha": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+      "label": "Bita",
+      "role": "Researcher's test subjects; includes intentionally buggy leader election.",
+      "license": {
+        "repo": "samira-t/Bita",
+        "sha": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+        "title": "Apache License Version 2.0, January 2004 http://www.apache.org/licenses/  TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+        "url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    },
+    {
+      "key": "L",
+      "repo": "jasongoodwin/learning-akka",
+      "sha": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+      "label": "Learning Akka",
+      "role": "Book author's repository; chapter-4 local database actor only.",
+      "license": {
+        "repo": "jasongoodwin/learning-akka",
+        "sha": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+        "title": "Apache License                            Version 2.0, January 2004                         http://www.apache.org/licenses/     TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
+        "url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/LICENSE",
+        "status": "READ_LICENSE_FILE"
+      }
+    }
+  ],
+  "research_sources": [
+    {
+      "title": "Savina — An Actor Benchmark Suite",
+      "authors": "Shams Imam; Vivek Sarkar",
+      "year": 2014,
+      "url": "https://soft.vub.ac.be/AGERE14/papers/ageresplash2014_submission_19.pdf",
+      "role": "Workload families. Early paper lists 28; later repository/literature has 30. Inspected snapshot contains 38 Akka implementation files across 30 families."
+    },
+    {
+      "title": "Targeted Test Generation for Actor Systems",
+      "authors": "Sihan Li; Farah Hariri; Gul Agha",
+      "year": 2018,
+      "doi": "10.4230/LIPIcs.ECOOP.2018.8",
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ECOOP.2018.8",
+      "role": "Actor test generation using Savina; does not certify our fragment."
+    },
+    {
+      "title": "Run, Actor, Run: Towards Cross-Actor Language Benchmarking",
+      "authors": "Sebastian Blessing et al.",
+      "year": 2019,
+      "doi": "10.1145/3358499.3361224",
+      "url": "https://www.doc.ic.ac.uk/~scb12/publications/splashws19ageremain-p6-p-ce8b582-42427-submitted.pdf",
+      "role": "Isolation and benchmark rules: edits that change rules create another benchmark."
+    },
+    {
+      "title": "High-Performance Deterministic Concurrency using Lingua Franca",
+      "authors": "Christian Menard et al.",
+      "year": 2023,
+      "url": "https://arxiv.org/html/2301.02444v2",
+      "role": "Reuses selected Savina workloads and discusses cross-model differences; LF code is not Akka."
+    },
+    {
+      "title": "Classic Actors",
+      "url": "https://doc.akka.io/libraries/akka-core/current/actors.html",
+      "role": "API reference only; catalog code pinned to 2.6.20."
+    },
+    {
+      "title": "Classic Routing",
+      "url": "https://doc.akka.io/libraries/akka-core/current/routing.html",
+      "role": "Distinguish fixed/static routees, replacement/resizing, and timed strategies."
+    },
+    {
+      "title": "Classic Event Bus",
+      "url": "https://doc.akka.io/libraries/akka-core/current/event-bus.html",
+      "role": "EventBus is not a message-handler actor and does not preserve original sender."
+    },
+    {
+      "title": "Message Delivery Reliability",
+      "url": "https://doc.akka.io/libraries/akka-core/current/general/message-delivery-reliability.html",
+      "role": "Ordering per sender/receiver; FIFO processing depends on mailbox."
+    },
+    {
+      "title": "Core Rebeca",
+      "url": "https://rebeca-lang.org/allprojects/CoreRebeca",
+      "role": "No shared variables, atomic handlers; Rebeca-only code is not an Akka benchmark."
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "ACSU-01",
+      "slug": "echo",
+      "name": "Echo",
+      "description_fa": "پاسخ‌دادن با همان پیام",
+      "family_id": "echo",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "integer echo, sender identity, reply recipient",
+      "proposed_smoke_scenario": "Echo(7) -> Reply(7)",
+      "adaptation_and_risks": "Wrap raw primitive messages in named scalar messages; instantiate a fixed requester and echo actor. Do not copy the surrounding router test suite.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "b9d19d6fb75ab920d212eadb7f6056a1474f8de5",
+        "path": "akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "selected_symbols": "RouterDocSpec.Echo",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-02",
+      "slug": "cache",
+      "name": "Key-Value Cache",
+      "description_fa": "ذخیره، خواندن و حذف مقدار",
+      "family_id": "key_value",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "update, miss, eviction",
+      "proposed_smoke_scenario": "Entry(k,v), Get(k), Evict(k), Get(k)",
+      "adaptation_and_risks": "Extract Cache without its pool/router. Keep a finite string/key domain and expose full bounded map; Option replies and strings need explicit representation.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "572f908459edf1f73d53b19671e8aed9d83fca47",
+        "path": "akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+        "selected_symbols": "ConsistentHashingRouterDocSpec.Cache",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-03",
+      "slug": "adder",
+      "name": "Parameterized Adder",
+      "description_fa": "افزودن عدد ثابت به ورودی",
+      "family_id": "arithmetic",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "constructor parameter and integer arithmetic",
+      "proposed_smoke_scenario": "Add(3) with constant 4 -> 7",
+      "adaptation_and_risks": "Lift nested DemoActor into a top-level Actor, keep the constructor constant, and wrap Int input/output. Do not instantiate DemoActorWrapper/SomeOtherActor.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+        "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "selected_symbols": "DemoActorWrapper.DemoActor",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-04",
+      "slug": "calculator",
+      "name": "Integer Calculator",
+      "description_fa": "جمع و ضرب دو عدد",
+      "family_id": "arithmetic",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "two argument values and operation dispatch",
+      "proposed_smoke_scenario": "Sum(2,3), Multiply(2,3)",
+      "adaptation_and_risks": "Use CalculatorActor alone, no Lagom service. Restrict inputs to avoid overflow initially; later test signed Int boundaries with matching semantics.",
+      "provenance": {
+        "source_key": "C",
+        "repository": "PacktPublishing/Akka-Cookbook",
+        "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "git_blob_sha": "bb830feadb7dd4f743af971cbc897d6e09d50a2d",
+        "path": "Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+        "selected_symbols": "CalculatorActor",
+        "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-05",
+      "slug": "accumulator",
+      "name": "Summing Accumulator",
+      "description_fa": "جمع‌کردن پیام‌های متوالی در state",
+      "family_id": "counter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "persistent scalar state and message order",
+      "proposed_smoke_scenario": "Add(2), Add(3) -> sum=5",
+      "adaptation_and_risks": "Extract SummingActor only. Exclude BehaviourAndState App's infinite Thread.sleep loop and the different SummingActorWithConstructor variant.",
+      "provenance": {
+        "source_key": "C",
+        "repository": "PacktPublishing/Akka-Cookbook",
+        "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "git_blob_sha": "4d946f6639070eb988d56d2f53beccf34a25679a",
+        "path": "Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+        "selected_symbols": "SummingActor",
+        "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-06",
+      "slug": "ping_pong",
+      "name": "Finite Ping-Pong",
+      "description_fa": "رفت‌وبرگشت محدود پیام",
+      "family_id": "ping_pong",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "reply chain, sender, termination boundary",
+      "proposed_smoke_scenario": "Start; run 2 ping-pong rounds",
+      "adaptation_and_risks": "Replace Savina base wrapper with explicit Classic receive without changing message causality. Declare named actors in one bootstrap; map ActorRef-valued fields or gate them; audit exit behavior.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "25f9c3aa051914223d3281d2cfc85fea9531a5ab",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+        "selected_symbols": "PingActor, PongActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-07",
+      "slug": "counting",
+      "name": "Counting",
+      "description_fa": "شمردن تعداد پیام‌های رسیده",
+      "family_id": "counter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "many-to-one FIFO and count",
+      "proposed_smoke_scenario": "send 3 increment messages then read count",
+      "adaptation_and_risks": "Lift inherited process into explicit receive; fixed producer/counter refs and tiny N. Preserve source-specific ordering and completion protocol.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "003230e821ef577730f0cdcc2409fa0de9859c8a",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+        "selected_symbols": "ProducerActor, CountingActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-08",
+      "slug": "throughput",
+      "name": "Fixed Fan-out Throughput Kernel",
+      "description_fa": "فرستادن پیام به چند اکتور ثابت",
+      "family_id": "fixed_fanout",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "fan-out and per-worker counts",
+      "proposed_smoke_scenario": "2 precreated workers; 2 messages each",
+      "adaptation_and_risks": "Use a fixed named worker set and compare message counts, not elapsed throughput. Remove benchmark timing harness and audit actor exit.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "39f568d32176de0cf664430483b245af1c25e302",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/fjthrput/ThroughputAkkaActorBenchmark.scala",
+        "selected_symbols": "ThroughputActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/fjthrput/ThroughputAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-09",
+      "slug": "swapper",
+      "name": "Swapper",
+      "description_fa": "عوض‌شدن نوبتی رفتار",
+      "family_id": "behavior_switch",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "become/unbecome stack behavior",
+      "proposed_smoke_scenario": "Swap, Swap, Swap",
+      "adaptation_and_risks": "Source effects are logs and hidden behavior stack. Add an explicit observable protocol/state or log oracle; cannot claim meaningful state validation from the current scalar extractor alone.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+        "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "selected_symbols": "Swapper",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-10",
+      "slug": "hot_swap",
+      "name": "Hot-Swap Actor",
+      "description_fa": "پاسخ متفاوت بسته به حالت",
+      "family_id": "behavior_switch",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "state-dependent dispatch and replies",
+      "proposed_smoke_scenario": "foo, foo, bar, bar",
+      "adaptation_and_risks": "Extract local class; wrap string commands as a finite protocol. Preserve behavior transitions; instrument all active Receive methods or use a validated explicit mode representation.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+        "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "selected_symbols": "HotSwapActor",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-11",
+      "slug": "relay",
+      "name": "Redirect Relay",
+      "description_fa": "عبور پیام از واسطه",
+      "family_id": "relay",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "receiver/sender effects across a proxy",
+      "proposed_smoke_scenario": "Requester -> Redirect -> Sink",
+      "adaptation_and_risks": "Extract RedirectActor only. Its ! send changes sender to relay; do not replace with forward. Exclude GetLicense, routing pools, and performance code from the same file.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "30064cc1d075e87b85f0c3274046235fc58a9423",
+        "path": "chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "selected_symbols": "RedirectActor",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-12",
+      "slug": "speed_filter",
+      "name": "Speed Threshold Filter",
+      "description_fa": "عبور پیام فقط بالاتر از حد",
+      "family_id": "photo_filter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "strict comparison and no-send branch",
+      "proposed_smoke_scenario": "speed below/equal/above threshold",
+      "adaptation_and_risks": "Fixed source/filter/sink; use tiny licence domain. Extract SpeedFilter without unrelated routing/performance code; compare absent sends through post-mailboxes, not a wall-clock timeout.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "674cdaf805db38111c476721a763df457bd749cc",
+        "path": "chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "selected_symbols": "SpeedFilter",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-13",
+      "slug": "license_filter",
+      "name": "License Validity Filter",
+      "description_fa": "ردکردن شناسه خالی",
+      "family_id": "photo_filter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "empty/nonempty data branch",
+      "proposed_smoke_scenario": "Photo(empty, v), Photo(valid, v)",
+      "adaptation_and_risks": "Finite String support or documented bijective symbol encoding is required. Do not silently change string predicates to arbitrary integers.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "674cdaf805db38111c476721a763df457bd749cc",
+        "path": "chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "selected_symbols": "LicenseFilter",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-14",
+      "slug": "filter_pipeline",
+      "name": "Two-Stage Filter Pipeline",
+      "description_fa": "عبور از دو شرط پشت سر هم",
+      "family_id": "photo_filter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "composition, stage order, dropped messages",
+      "proposed_smoke_scenario": "below threshold; high/empty; high/nonempty",
+      "adaptation_and_risks": "New benchmark composition of two existing source classes, not a separately published standalone program. Explicit source provenance and finite payload domain.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "674cdaf805db38111c476721a763df457bd749cc",
+        "path": "chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "selected_symbols": "SpeedFilter + LicenseFilter composition",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+        "source_kind": "COMPOSITION_OF_EXISTING_CLASSES"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-15",
+      "slug": "producer_consumer_roles",
+      "name": "Producer/Consumer Roles",
+      "description_fa": "درخواست کالا و دریافت پاسخ",
+      "family_id": "producer_consumer",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "receive.orElse composition and response role",
+      "proposed_smoke_scenario": "consumer requests GiveMeThings; producer sends Give",
+      "adaptation_and_risks": "Extract untimed receive-orElse snippet only. ActorRef messages/Any payloads need fixed role mapping. Consumer logs must be replaced by a declared observation or captured separately.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+        "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "selected_symbols": "ProducerBehavior, ConsumerBehavior, ProducerConsumer",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-16",
+      "slug": "thread_ring",
+      "name": "Thread Ring",
+      "description_fa": "گردش توکن بین گره‌های ثابت",
+      "family_id": "token_ring",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "routing, hop decrement and destination",
+      "proposed_smoke_scenario": "3 nodes; token with 5 hops",
+      "adaptation_and_risks": "Unroll actor array into three named bootstrap declarations; configure neighbors before Start and keep topology frozen. Neighbor setup ActorRef payloads need adapter.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "9dc9d0b6eb6157774aa3bf53dccffdb8198ce37f",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+        "selected_symbols": "ThreadRingActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-17",
+      "slug": "big",
+      "name": "Big All-to-All",
+      "description_fa": "ارتباط چند گره با یکدیگر",
+      "family_id": "all_to_all",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "multiple senders, response correlation",
+      "proposed_smoke_scenario": "3 nodes; 2 exchanges per node",
+      "adaptation_and_risks": "Freeze all actor refs at bootstrap. Move random routing decisions into reproducible inputs or preserve a specified PRNG exactly; seed alone across different languages is insufficient.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "4d3053adf9824b39b037a76a414b46ef3aede82d",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+        "selected_symbols": "BigActor, SinkActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-18",
+      "slug": "round_robin",
+      "name": "Fixed Round-Robin Routing",
+      "description_fa": "تقسیم نوبتی کار بین workerها",
+      "family_id": "fixed_routing",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "route index and one-recipient delivery",
+      "proposed_smoke_scenario": "tasks 0,1,2,3 -> workers 0,1,2,0",
+      "adaptation_and_risks": "Use fixed ActorRef routees; no resizer, deathwatch replacement, or pool creation after release. The documented Master Terminated handler spawns replacements and is excluded. Built-in routing internals need a verified adapter, or label an explicit router rewrite DERIVED.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "b9d19d6fb75ab920d212eadb7f6056a1474f8de5",
+        "path": "akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "selected_symbols": "RoundRobin routing configuration",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-19",
+      "slug": "broadcast",
+      "name": "Fixed Broadcast Routing",
+      "description_fa": "ارسال هر پیام به همه گیرنده‌ها",
+      "family_id": "fixed_routing",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "duplicate omission and fan-out cardinality",
+      "proposed_smoke_scenario": "one request -> each of 3 workers once",
+      "adaptation_and_risks": "Use a static routee set and no pool resizer/replacement. Built-in Router internals are not automatically supported by the existing extractor; explicit actor implementation is a derived benchmark.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "b9d19d6fb75ab920d212eadb7f6056a1474f8de5",
+        "path": "akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "selected_symbols": "Broadcast routing configuration",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-20",
+      "slug": "consistent_hash",
+      "name": "Consistent-Hash Cache Routing",
+      "description_fa": "رسیدن کلید یکسان به cache یکسان",
+      "family_id": "key_value",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "key affinity, routing hash and cache state",
+      "proposed_smoke_scenario": "put/get same key across 3 fixed caches",
+      "adaptation_and_risks": "RESERVE. Replace pool bootstrap with fixed refs only after proving routing consistency. Hash ring, key encoding and hidden library state must be modeled exactly; modulo routing is not an equivalent substitute.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "572f908459edf1f73d53b19671e8aed9d83fca47",
+        "path": "akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+        "selected_symbols": "Cache + ConsistentHashingPool",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-21",
+      "slug": "pubsub_lookup",
+      "name": "Lookup Publish/Subscribe",
+      "description_fa": "ارسال رویداد به مشترکان موضوع",
+      "family_id": "pubsub",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "exact topic match, missing subscriber",
+      "proposed_smoke_scenario": "fixed subscriptions; publish one matching and one other topic",
+      "adaptation_and_risks": "RESERVE. EventBus is not an Actor. Existing tool cannot treat its synchronous publish/subscribe calls as actor handlers; need an adapter preserving sender=noSender and observation cuts. An explicit broker rewrite is DERIVED.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "2b684798cf0cb7200d849e367a7523640cb6c7ff",
+        "path": "akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "selected_symbols": "LookupBusImpl",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "source_kind": "CLASSIC_EVENTBUS_LIBRARY_EXAMPLE"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-22",
+      "slug": "pubsub_hierarchical",
+      "name": "Hierarchical Publish/Subscribe",
+      "description_fa": "اشتراک در شاخه موضوع‌ها",
+      "family_id": "pubsub",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "prefix/subclass delivery and overlapping subscriptions",
+      "proposed_smoke_scenario": "subscribe a and ab; publish abc",
+      "adaptation_and_risks": "RESERVE. Same EventBus boundary issue as lookup; finite topic hierarchy and exact subscription matching. Do not silently turn synchronous library behavior into asynchronous broker semantics.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "2b684798cf0cb7200d849e367a7523640cb6c7ff",
+        "path": "akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "selected_symbols": "SubchannelBusImpl + StartsWithSubclassification",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "source_kind": "CLASSIC_EVENTBUS_LIBRARY_EXAMPLE"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-23",
+      "slug": "pubsub_predicate",
+      "name": "Predicate Publish/Subscribe",
+      "description_fa": "انتخاب مشترک براساس شرط",
+      "family_id": "pubsub",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "overlapping predicates and boundary values",
+      "proposed_smoke_scenario": "length thresholds 2 and 3; publish lengths 1,3,4",
+      "adaptation_and_risks": "RESERVE. Source predicate is String.length <= classifier. Preserve length operation and sender behavior; requires external-library adapter or separately labeled actor-based derivative.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "2b684798cf0cb7200d849e367a7523640cb6c7ff",
+        "path": "akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "selected_symbols": "ScanningBusImpl",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+        "source_kind": "CLASSIC_EVENTBUS_LIBRARY_EXAMPLE"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-24",
+      "slug": "content_router",
+      "name": "Content-Based Speed Router",
+      "description_fa": "انتخاب مسیر براساس مقدار پیام",
+      "family_id": "fixed_routing",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "threshold branch and destination",
+      "proposed_smoke_scenario": "speed equal/below/above minSpeed",
+      "adaptation_and_risks": "Extract routing predicate with fixed endpoints; source Pool and GetLicense are not admitted. Embedding library RoutingLogic in an explicit Actor is a derived benchmark, not unchanged source.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "30064cc1d075e87b85f0c3274046235fc58a9423",
+        "path": "chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "selected_symbols": "SpeedRouterLogic",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-25",
+      "slug": "switch_router",
+      "name": "Switchable Router",
+      "description_fa": "تغییر مسیر با پیام روشن/خاموش",
+      "family_id": "fixed_routing",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "mode transitions and branch-specific mailbox",
+      "proposed_smoke_scenario": "On, Data, Off, Data",
+      "adaptation_and_risks": "Use fixed normal/cleanup sinks. Instrument on/off Receive methods or validate explicit scalar mode rewrite; no creation is needed when switching existing destinations.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "30064cc1d075e87b85f0c3274046235fc58a9423",
+        "path": "chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "selected_symbols": "SwitchRouter (not SwitchRouter2)",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-26",
+      "slug": "envelope",
+      "name": "Envelope Enrichment",
+      "description_fa": "افزودن اطلاعات ثابت به پیام",
+      "family_id": "envelope",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "payload preservation and metadata",
+      "proposed_smoke_scenario": "Send(5) -> Envelope(5, fixed-header)",
+      "adaptation_and_risks": "Select a constant pure addHeaders function. Do NOT use EnvelopingActorApp, whose header includes currentTimeMillis. Generic nested payloads/maps need finite serialization and projection.",
+      "provenance": {
+        "source_key": "C",
+        "repository": "PacktPublishing/Akka-Cookbook",
+        "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "git_blob_sha": "5c88481cca1e4bd38b2b8762b03bbdb7d1c93f9a",
+        "path": "Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+        "selected_symbols": "EnvelopingActor with constant header function",
+        "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-27",
+      "slug": "correlation_gather",
+      "name": "Correlation Join",
+      "description_fa": "جمع‌کردن دو پاسخ دارای شناسه یکسان",
+      "family_id": "correlation_join",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "interleaved ids and first/second reply state",
+      "proposed_smoke_scenario": "A1, B1, A2, B2 -> joins A and B",
+      "adaptation_and_risks": "Fixed workers and gather actor; finite correlation-id/value domain. Map, Seq, and pending values must be fully observed or encoded with justified bounds; do not model a timeout.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "babee0f3395a93f1df0b5440edc508082a6f7010",
+        "path": "chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+        "selected_symbols": "SimpleGather",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-28",
+      "slug": "ticket_seller",
+      "name": "Ticket Seller",
+      "description_fa": "فروش از موجودی محدود بلیت",
+      "family_id": "inventory",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "stock depletion and exact-amount boundary",
+      "proposed_smoke_scenario": "Add 2 tickets; Buy 2; Buy 1",
+      "adaptation_and_risks": "Use one precreated seller, not BoxOffice (creates event sellers). Vector/Option/nested messages and event metadata need mapping. Exclude Cancel initially or specify PoisonPill/dead-letter semantics explicitly.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "eea0d7ca32d6333632b2bb21afb16649b6c5eb00",
+        "path": "chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+        "selected_symbols": "TicketSeller",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-29",
+      "slug": "bounded_buffer",
+      "name": "Bounded Producer-Consumer",
+      "description_fa": "تولید و مصرف با بافر محدود",
+      "family_id": "producer_consumer",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 5,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "capacity, backpressure, pending requests",
+      "proposed_smoke_scenario": "2 producers,2 consumers; capacity 2",
+      "adaptation_and_risks": "Move all constructor-created children to named bootstrap declarations. Queue contents matter, not just scalar size. Select Savina asynchronous version, not Bita ask/Await examples.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "3296ee816102073eba81fae1c0f888c5ddda6a24",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/bndbuffer/ProdConsAkkaActorBenchmark.scala",
+        "selected_symbols": "ManagerActor, ProducerActor, ConsumerActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/bndbuffer/ProdConsAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-30",
+      "slug": "concurrent_dictionary",
+      "name": "Concurrent Dictionary",
+      "description_fa": "خواندن و نوشتن چند client روی دیکشنری",
+      "family_id": "key_value",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "read/write interleavings and overwritten values",
+      "proposed_smoke_scenario": "2 clients; 2 keys; interleaved writes/reads",
+      "adaptation_and_risks": "Fixed dictionary/workers; externalize workload PRNG; preserve finite key/value map exactly. It is a single server's private map, not shared mutable state between actors.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "552627fad7967aae74fdfb6288d233b00ac49f62",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+        "selected_symbols": "Master, Dictionary, Worker",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-31",
+      "slug": "sorted_list",
+      "name": "Concurrent Sorted List",
+      "description_fa": "درج و جست‌وجوی هم‌زمان در فهرست مرتب",
+      "family_id": "sorted_collection",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "ordered insertion, contains, size",
+      "proposed_smoke_scenario": "Insert(2), Insert(1), Contains(1), Size",
+      "adaptation_and_risks": "Fixed actors; the data structure allocates ordinary list nodes, not actors. Bound list length and preserve multiplicity/order; full projection or equivalent finite representation required.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "f658a755296d537655ae1255dc5d2e00e27bac39",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/concsll/SortedListAkkaActorBenchmark.scala",
+        "selected_symbols": "Master, SortedList, Worker",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/concsll/SortedListAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-32",
+      "slug": "chameneos",
+      "name": "Chameneos",
+      "description_fa": "هماهنگی ملاقات و تغییر رنگ",
+      "family_id": "rendezvous",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "pairing, enumeration transition, completion",
+      "proposed_smoke_scenario": "3 chameneos; 2 meetings",
+      "adaptation_and_risks": "Flatten constructor-created participants into fixed named actors. Enum colors may use a bijective int representation. Explicitly model ActorRef payloads and small round bound.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "229ad5c45c1b7611b44795f4c1660ffb14f9acee",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/chameneos/ChameneosAkkaActorBenchmark.scala",
+        "selected_symbols": "ChameneosMallActor, ChameneosChameneoActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/chameneos/ChameneosAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-33",
+      "slug": "dining_philosophers",
+      "name": "Dining Philosophers / Arbitrator",
+      "description_fa": "گرفتن دو منبع بدون تداخل",
+      "family_id": "resource_arbitration",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "mutual exclusion, release and retry",
+      "proposed_smoke_scenario": "3 philosophers; 1 eating round each",
+      "adaptation_and_risks": "Choose Savina's untimed arbitrator variant, not Dining Hakkers timers. Remove only shared AtomicLong performance instrumentation or replace it with an actor observer; fork ownership is private arbitrator state. Prove any reduction preserves protocol behavior.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "8b317a13ba4cd8d78d12665e435aef99c64712e3",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+        "selected_symbols": "ArbitratorActor, PhilosopherActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-34",
+      "slug": "cigarette_smokers",
+      "name": "Cigarette Smokers",
+      "description_fa": "تخصیص نوبتی منابع توسط داور",
+      "family_id": "resource_arbiter",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "arbiter acknowledgement and repeated allocation",
+      "proposed_smoke_scenario": "3 smokers; fixed selected-smoker inputs; 2 rounds",
+      "adaptation_and_risks": "Inspect helper: busyWait is a bounded computation loop, not a clock/deadline. It calls Math.random with discarded result; externalize random smoker choices. If retaining standard smoke-resource semantics is required, note this source is an instantaneous-acquisition variant.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "d39053e8c60e87a7cbe5f86dc79c99bc2560b626",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+        "selected_symbols": "ArbiterActor, SmokerActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-35",
+      "slug": "shortest_path",
+      "name": "Distributed Single-Source Shortest Path",
+      "description_fa": "بهبود فاصله با پیام همسایه‌ها",
+      "family_id": "graph_shortest_path",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "relaxation, alternate paths, parent identity",
+      "proposed_smoke_scenario": "4 vertices; nonnegative edge weights 0..3",
+      "adaptation_and_risks": "Create vertices at bootstrap; AddNeighbor only during setup and then freeze graph. ActorRef keys/parent need fixed IDs and full map projection. Node allocation is not dynamic actor creation here.",
+      "provenance": {
+        "source_key": "B",
+        "repository": "samira-t/Bita",
+        "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+        "git_blob_sha": "8d97e852bb8bcca422617a1d19ae88505cae3bfc",
+        "path": "src/test/scala/sample/SPActor.scala",
+        "selected_symbols": "SPActor",
+        "permalink": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/SPActor.scala",
+        "source_kind": "RESEARCH_TEST_SUBJECT"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-36",
+      "slug": "leader_election",
+      "name": "Capture-Based Leader Election",
+      "description_fa": "انتخاب رهبر با پیام‌های رقابتی",
+      "family_id": "leader_election",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "capture/accept/elect state transitions",
+      "proposed_smoke_scenario": "3 fixed nodes; explicit Init and Start; no physical failures",
+      "adaptation_and_risks": "The source explicitly says BUGGY. Use as a known-bug/translation subject, never an automatically correct reference. Exclude Simulator's failure/reinitialization scenario and unused timeout imports; preserve source bug for translation comparison.",
+      "provenance": {
+        "source_key": "B",
+        "repository": "samira-t/Bita",
+        "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+        "git_blob_sha": "4c5dc21b0d7c8e43e49963887ea2c1931a715699",
+        "path": "src/test/scala/sample/LeaderElection.scala",
+        "selected_symbols": "NodeActor (Simulator excluded)",
+        "permalink": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/LeaderElection.scala",
+        "source_kind": "RESEARCH_TEST_SUBJECT"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": false,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-37",
+      "slug": "bank_transactions",
+      "name": "Asynchronous Bank Transactions",
+      "description_fa": "انتقال مبلغ و انتظار پاسخ حساب",
+      "family_id": "bank_transactions",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 11,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "debit/credit conservation and pending reply",
+      "proposed_smoke_scenario": "10 fixed accounts; 2 transfers",
+      "adaptation_and_risks": "RESERVE. ManualStash variant avoids timed ask/Await, but Double balances, pending-message lists and ActorRef fields need support. Source generator requires at least 10 accounts because of integer division; do not blindly reduce to 2.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "c503667abd230991b985e257c706d4512f1e50ea",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+        "selected_symbols": "Teller, Account",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-38",
+      "slug": "logistic_map",
+      "name": "Logistic Map Series",
+      "description_fa": "محاسبه مرحله‌ای با درخواست و پاسخ",
+      "family_id": "iterative_numeric",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 5,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "per-worker sequencing and pending requests",
+      "proposed_smoke_scenario": "2 series; 2 terms",
+      "adaptation_and_risks": "RESERVE. Fixed bootstrap; use manual asynchronous version, not Await version. Double arithmetic equality, mutable one-element arrays and private pending queue require defined observation/numeric semantics.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "36c5ae6b8f7f5bac3f08d66efeb6281d6606343c",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+        "selected_symbols": "Master, SeriesWorker, RateComputer",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-39",
+      "slug": "radix_sort",
+      "name": "Radix Sort Pipeline",
+      "description_fa": "مرتب‌سازی مرحله‌ای براساس بیت‌ها",
+      "family_id": "sorting_pipeline",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 5,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "bit partitioning and FIFO batches",
+      "proposed_smoke_scenario": "3 values in 0..7; 3 fixed bit stages",
+      "adaptation_and_risks": "Unroll setup-created pipeline; feed explicit value inputs instead of language-specific PRNG. Preserve Long/Int widths and emitted value order; compare output values, not just success prints.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "c0083cb0a2559331552f087739b7c179ca72ef33",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+        "selected_symbols": "IntSourceActor, SortActor, ValidationActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-40",
+      "slug": "bitonic_sort",
+      "name": "Bitonic Sorting Network",
+      "description_fa": "شبکه ثابت مقایسه و جابه‌جایی",
+      "family_id": "sorting_network",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 10,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "routing network and compare-exchange",
+      "proposed_smoke_scenario": "4 values with duplicates; fixed network",
+      "adaptation_and_risks": "Source creates topology recursively in constructors. Prove fixed finite network, then declare every node before release; not admitted unchanged by static extractor. Keep array bounds, comparator direction and stage order.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "852b5f2ca615199edb73772d3cb911160e05b0a7",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortAkkaActorBenchmark.scala",
+        "selected_symbols": "CompareExchangeActor and fixed network construction",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-41",
+      "slug": "apsp",
+      "name": "All-Pairs Shortest Path",
+      "description_fa": "فاصله کوتاه‌ترین مسیر همه جفت‌ها",
+      "family_id": "graph_apsp",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "phase barriers and distributed matrix updates",
+      "proposed_smoke_scenario": "2x2 or 3x3 graph; tiny nonnegative weights",
+      "adaptation_and_risks": "Fixed block graph; flatten startup loops into named actors. Matrix/array messages require deep-copy/immutability audit and complete bounded state projection.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "072ace683c6fcbe8f466f5a40532dfca77e9212f",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+        "selected_symbols": "ApspFloydWarshallActor",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-42",
+      "slug": "local_fibonacci",
+      "name": "Single-Actor Fibonacci",
+      "description_fa": "محاسبه فیبوناچی داخل یک اکتور ثابت",
+      "family_id": "local_recursion",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "recursive handler computation without actor creation",
+      "proposed_smoke_scenario": "Fib(0), Fib(1), Fib(5) -> 0,1,5",
+      "adaptation_and_risks": "This is NOT Savina recursive actor Fibonacci. The selected class recursively calls an ordinary Scala method and creates no actors. Exclude App's ask/Await/Timeout; use a fixed requester and tell replies. Preserve recursion or validate bounded translation; restrict n to 0..8.",
+      "provenance": {
+        "source_key": "C",
+        "repository": "PacktPublishing/Akka-Cookbook",
+        "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "git_blob_sha": "1f85076ca3cca6f79cb4e31f2a6d4d99808c6f24",
+        "path": "Hello-Akka/src/main/scala/com/packt/chapter1/FibonacciActor.scala",
+        "selected_symbols": "FibonacciActor only (NOT FibonacciActorApp)",
+        "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/src/main/scala/com/packt/chapter1/FibonacciActor.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-43",
+      "slug": "batched_kv",
+      "name": "Batched Key-Value Requests",
+      "description_fa": "اجرای چند درخواست در یک پیام دسته‌ای",
+      "family_id": "key_value",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "batch atomicity, per-item reply and missing key",
+      "proposed_smoke_scenario": "batch [Set(k,1),Get(k)] then another-client write",
+      "adaptation_and_risks": "Use local precreated db/clients, no remoting/client FSM. Preserve that List requests run inside ONE handler; splitting a batch into separate mailbox messages changes semantics. Object/List/String/Status/ActorRef reply fields need complete finite encoding.",
+      "provenance": {
+        "source_key": "L",
+        "repository": "jasongoodwin/learning-akka",
+        "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+        "git_blob_sha": "1a3d82a35d0715f77920bc70054db33d3522cbcc",
+        "path": "ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+        "selected_symbols": "AkkademyDb (chapter 4)",
+        "permalink": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-44",
+      "slug": "nqueens",
+      "name": "N-Queens / FIFO Variant",
+      "description_fa": "جست‌وجوی حالت‌های صفحه کوچک",
+      "family_id": "constraint_search",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "partial solution propagation and result count",
+      "proposed_smoke_scenario": "4 queens; 2 precreated workers",
+      "adaptation_and_risks": "Use non-priority implementation; search recursion is task recursion, not necessarily actor creation. Preserve board payload and stop criterion; choose tiny task bound and audit aliasing.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "3c0ea70dfd8c4f04133649e3d9a04fcdd723715a",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/nqueenk/NQueensAkkaActorBenchmark.scala",
+        "selected_symbols": "Master, Worker",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/nqueenk/NQueensAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-45",
+      "slug": "trapezoidal",
+      "name": "Trapezoidal Integration",
+      "description_fa": "تقسیم محاسبه عددی و جمع جواب‌ها",
+      "family_id": "numeric_reduction",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "work partition and numeric reduction",
+      "proposed_smoke_scenario": "2 workers; few trapezoids",
+      "adaptation_and_risks": "RESERVE. No protocol time; Double/transcendental math is the blocker. Do not replace with integer arithmetic and call it unchanged. Require a common numerical contract and supported argument generation.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "f661a8d415ef9821db0591a7c92801f0582382e2",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+        "selected_symbols": "Master, Worker",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-46",
+      "slug": "precise_pi",
+      "name": "Precise Pi Computation",
+      "description_fa": "تقسیم محاسبه دقیق عدد پی",
+      "family_id": "big_decimal_reduction",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "work assignment, completion and precision",
+      "proposed_smoke_scenario": "2 fixed workers; low precision after source validation",
+      "adaptation_and_risks": "RESERVE. BigDecimal is not a supported scalar of the current fuzzer/observations. Needs explicit decimal representation and arithmetic verification; no claim it runs in v1.11.1.",
+      "provenance": {
+        "source_key": "S",
+        "repository": "shamsimam/savina",
+        "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+        "git_blob_sha": "f2eea51cefd51e856335fddb2526729f3eec5932",
+        "path": "src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+        "selected_symbols": "Master, Worker",
+        "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+        "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-47",
+      "slug": "inventory_fsm",
+      "name": "Untimed Inventory FSM",
+      "description_fa": "درخواست کالا، تأمین و اتمام موجودی",
+      "family_id": "inventory",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 4,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "pending queue, replenishment and sold-out branch",
+      "proposed_smoke_scenario": "finite stock; concurrent BookRequest; Publisher replies",
+      "adaptation_and_risks": "Select only the first untimed Inventory class and Publisher. Same file also contains InventoryWithTimer; exclude it entirely. FSM state and pending requests need full observation and supported transformation.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "89325f43e430010f74a9403979eee2ff11ff059e",
+        "path": "chapter-state/src/main/scala/aia/state/Inventory.scala",
+        "selected_symbols": "Inventory + Publisher (NOT InventoryWithTimer)",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-state/src/main/scala/aia/state/Inventory.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-48",
+      "slug": "routing_slip",
+      "name": "Routing Slip / Car Assembly",
+      "description_fa": "عبور سفارش از مراحل انتخابی",
+      "family_id": "routing_slip",
+      "track": "PRIMARY_CANDIDATES_40",
+      "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+      "estimated_target_actor_count": 6,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "variable route over fixed actors and payload enrichment",
+      "proposed_smoke_scenario": "fixed color/navigation/sensor actors; orders with 2 option sets",
+      "adaptation_and_risks": "Precreate fixed component actors and inject refs. Choosing a path through existing actors is not creating actors; if dynamic topology is also forbidden, fix the finite allowed route set explicitly. Seq[ActorRef]/nested messages need bounded representation.",
+      "provenance": {
+        "source_key": "I",
+        "repository": "RayRoestenburg/akka-in-action",
+        "commit": "32b301d3042c832a016ca3220576960c43317630",
+        "git_blob_sha": "ad2163f0b7aa79e3300079e2acc205db450a938e",
+        "path": "chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+        "selected_symbols": "SlipRouter, PaintCar, AddNavigation, AddParkingSensors",
+        "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-49",
+      "slug": "open_write_close",
+      "name": "Open-Write-Close Stash Protocol",
+      "description_fa": "نگه‌داشتن پیام تا بازشدن منبع",
+      "family_id": "stash_protocol",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 2,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "stash release order and behavior stack",
+      "proposed_smoke_scenario": "write before open; open; write; close",
+      "adaptation_and_risks": "RESERVE. Stash is a second private queue, not the ordinary mailbox. Existing complete-post-mailbox comparison does not establish stash equivalence; source is only a protocol snippet, not a real file service.",
+      "provenance": {
+        "source_key": "A",
+        "repository": "akka/akka-core",
+        "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+        "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+        "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "selected_symbols": "ActorWithProtocol",
+        "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    },
+    {
+      "id": "ACSU-50",
+      "slug": "pausable_worker",
+      "name": "Pausable Worker",
+      "description_fa": "یک کار در لحظه و ادامه با پیام Ready",
+      "family_id": "stash_protocol",
+      "track": "RESERVE_10",
+      "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+      "estimated_target_actor_count": 3,
+      "count_note": "Design estimate, not measured source count; topology audit required.",
+      "semantic_focus": "backpressure, sender authentication and FIFO unstash",
+      "proposed_smoke_scenario": "Work(1), Work(2), bogus Ready, worker Ready",
+      "adaptation_and_risks": "RESERVE. Preserve stash and behavior stack; use an explicit untimed worker, not original HardWorker's artificial delay. Selecting a replacement worker yields a documented benchmark composition, not the complete original app.",
+      "provenance": {
+        "source_key": "C",
+        "repository": "PacktPublishing/Akka-Cookbook",
+        "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+        "git_blob_sha": "011427a8983b7d8132f73c3343c69f4260308271",
+        "path": "Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+        "selected_symbols": "PausableActor with untimed completion worker",
+        "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+        "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+      },
+      "assessment": {
+        "source_retrieved": true,
+        "selected_code_read": true,
+        "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+        "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+        "target_requires_static_creation": true,
+        "target_requires_static_known_actor_set": true,
+        "target_requires_no_semantic_time": true,
+        "source_is_known_correct": null,
+        "pure_actor_dependencies_audited": false
+      },
+      "implementation_status": {
+        "normalized_scala_created": false,
+        "extractor_compiled": false,
+        "akka_executed": false,
+        "rebeca_generated": false,
+        "rebeca_state_space_checked": false,
+        "differential_campaign_executed": false,
+        "admission": "PENDING"
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "name": "Savina actor-recursive Fibonacci",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/fib/FibonacciAkkaActorBenchmark.scala",
+      "reason": "creates two child actors while handling Request. ACSU-42 deliberately uses another, single-actor Fibonacci implementation."
+    },
+    {
+      "name": "Savina Quicksort",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/quicksort/QuickSortAkkaActorBenchmark.scala",
+      "reason": "creates left/right actors during Sort handling."
+    },
+    {
+      "name": "Savina Sieve",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/sieve/SieveAkkaActorBenchmark.scala",
+      "reason": "creates next filter when a new prime arrives."
+    },
+    {
+      "name": "Savina Facility Location",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/facloc/FacilityLocationAkkaActorBenchmark.scala",
+      "reason": "creates quadrant children as data arrives."
+    },
+    {
+      "name": "Savina UCT",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/uct/UctAkkaActorBenchmark.scala",
+      "reason": "grows actor topology during processing; Renaissance akka-uct is not automatically an eligible replacement."
+    },
+    {
+      "name": "Savina Sleeping Barber",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/barber/SleepingBarberAkkaActorBenchmark.scala",
+      "reason": "customer factory creates customer actors at runtime."
+    },
+    {
+      "name": "Savina SOR",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/sor/SucOverRelaxAkkaActorBenchmark.scala",
+      "reason": "SorBootMessage invokes boot that creates grid actors; not admitted as-is."
+    },
+    {
+      "name": "Savina FilterBank",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/filterbank/FilterBankAkkaActorBenchmark.scala",
+      "reason": "main explicitly warns its Akka implementation deadlocks and needs debugging; not a known-good baseline."
+    },
+    {
+      "name": "Savina timed Await banking",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaAwaitActorBenchmark.scala",
+      "reason": "timed ask and Await inside application handler; ManualStash version alone is reserved."
+    },
+    {
+      "name": "Savina priority search",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/astar/GuidedSearchAkkaPriorityActorBenchmark.scala",
+      "reason": "priority mailbox does not match the stipulated Core Rebeca FIFO contract."
+    },
+    {
+      "name": "Savina matrix multiplication",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/recmatmul/MatMulAkkaActorBenchmark.scala",
+      "reason": "workers mutate shared MatMulConfig.C; violates no-shared-state assumptions. Local-array rewrite would be a DIFFERENT derived benchmark."
+    },
+    {
+      "name": "Savina guided search",
+      "source": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/astar/GuidedSearchAkkaActorBenchmark.scala",
+      "reason": "workers mutate shared graph parent state via setParent; excluded from pure-actor roster."
+    },
+    {
+      "name": "Bita LoadBalancer",
+      "source": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/LoadBalancer.scala",
+      "reason": "on-demand worker creation and Thread.sleep."
+    },
+    {
+      "name": "Bita ProcessRegistry",
+      "source": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/ProcessRegistry.scala",
+      "reason": "monitor creation during requests and timed ask/Await."
+    },
+    {
+      "name": "Bita Messenger",
+      "source": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/Messenger.scala",
+      "reason": "timed ask/Await in client handlers; not admitted unchanged."
+    },
+    {
+      "name": "Bita SantaClaus",
+      "source": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/SantaClaus.scala",
+      "reason": "timed ask/Await in secretary coordination."
+    },
+    {
+      "name": "Akka in Action timed Inventory",
+      "source": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-state/src/main/scala/aia/state/Inventory.scala",
+      "reason": "InventoryWithTimer has a state timeout; only Inventory + Publisher selected."
+    },
+    {
+      "name": "Akka in Action GetLicense / performance router",
+      "source": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+      "reason": "Thread.sleep/serviceTime logic; only named untimed classes selected."
+    },
+    {
+      "name": "Cookbook envelope app",
+      "source": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActorApp.scala",
+      "reason": "application adds currentTimeMillis header; only constant-header EnvelopingActor kernel selected."
+    },
+    {
+      "name": "Learning Akka Chatroom",
+      "source": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch8/scala-akka-chat/src/main/scala/com/akkachat/Chatroom.scala",
+      "reason": "receive only handles joins; posting is unimplemented, so not a complete chat benchmark."
+    },
+    {
+      "name": "Rock the JVM current akka-essentials",
+      "source": "https://github.com/rockthejvm/akka-essentials/tree/9de45ace5fc4d9bea54d4b460d8512f8bfc7e5b4",
+      "reason": "Inspected current files use akka.actor.typed; not Classic."
+    },
+    {
+      "name": "Dining Hakkers official sample",
+      "source": "https://github.com/akka/akka-samples/tree/767522ac64db040715dcc6da5d1c16c5fcf8406c/akka-sample-fsm-scala",
+      "reason": "Timers/schedules for eating and thinking; untimed Savina arbitrator is a separate implementation."
+    },
+    {
+      "name": "Scatter-gather-first-completed and tail-chopping",
+      "source": "https://doc.akka.io/libraries/akka-core/current/routing.html",
+      "reason": "Timing via within/interval is semantic; removing it creates another benchmark."
+    },
+    {
+      "name": "Timed Ticket Service",
+      "source": "https://rebeca-lang.org/allprojects/TAROExamples/TicketService",
+      "reason": "Timed Rebeca reference is not an untimed Akka Classic example."
+    }
+  ]
+}

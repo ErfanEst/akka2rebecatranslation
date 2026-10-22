@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-07",
+  "slug": "counting",
+  "name": "Counting",
+  "description_fa": "شمردن تعداد پیام‌های رسیده",
+  "family_id": "counter",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "many-to-one FIFO and count",
+  "proposed_smoke_scenario": "send 3 increment messages then read count",
+  "adaptation_and_risks": "Lift inherited process into explicit receive; fixed producer/counter refs and tiny N. Preserve source-specific ordering and completion protocol.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "003230e821ef577730f0cdcc2409fa0de9859c8a",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+    "selected_symbols": "ProducerActor, CountingActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/CountingAkkaActorBenchmark.scala",
+    "sha256": "1908ac7a09e3fb56295529517ab2c66a0fb9372eae06b65f29f64512e966b6db",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

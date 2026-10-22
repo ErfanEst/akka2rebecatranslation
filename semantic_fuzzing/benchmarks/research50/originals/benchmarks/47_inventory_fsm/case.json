@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-47",
+  "slug": "inventory_fsm",
+  "name": "Untimed Inventory FSM",
+  "description_fa": "درخواست کالا، تأمین و اتمام موجودی",
+  "family_id": "inventory",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "pending queue, replenishment and sold-out branch",
+  "proposed_smoke_scenario": "finite stock; concurrent BookRequest; Publisher replies",
+  "adaptation_and_risks": "Select only the first untimed Inventory class and Publisher. Same file also contains InventoryWithTimer; exclude it entirely. FSM state and pending requests need full observation and supported transformation.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "89325f43e430010f74a9403979eee2ff11ff059e",
+    "path": "chapter-state/src/main/scala/aia/state/Inventory.scala",
+    "selected_symbols": "Inventory + Publisher (NOT InventoryWithTimer)",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-state/src/main/scala/aia/state/Inventory.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/Inventory.scala",
+    "sha256": "587ea243bdbc761fd0b07fcc1b1990abc4900daa2512d6874868f9366d7f8be2",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-state/src/main/scala/aia/state/Inventory.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

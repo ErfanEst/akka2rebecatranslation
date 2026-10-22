@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-17",
+  "slug": "big",
+  "name": "Big All-to-All",
+  "description_fa": "ارتباط چند گره با یکدیگر",
+  "family_id": "all_to_all",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "multiple senders, response correlation",
+  "proposed_smoke_scenario": "3 nodes; 2 exchanges per node",
+  "adaptation_and_risks": "Freeze all actor refs at bootstrap. Move random routing decisions into reproducible inputs or preserve a specified PRNG exactly; seed alone across different languages is insufficient.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "4d3053adf9824b39b037a76a414b46ef3aede82d",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+    "selected_symbols": "BigActor, SinkActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/BigAkkaActorBenchmark.scala",
+    "sha256": "b7533d3fc3bac9fa9c2050fa295e2807285c10be69b0f9b255a1a765ea80555c",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

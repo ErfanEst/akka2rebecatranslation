@@ -1,0 +1,1152 @@
+[
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+    "git_blob_sha1": "003230e821ef577730f0cdcc2409fa0de9859c8a",
+    "sha256": "1908ac7a09e3fb56295529517ab2c66a0fb9372eae06b65f29f64512e966b6db",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/count/CountingAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+    "git_blob_sha1": "bb830feadb7dd4f743af971cbc897d6e09d50a2d",
+    "sha256": "4a917615b37b37f5ae06621b495fdb03d1dff410c8def25b9785f52956b7894d",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+    "role": "primary",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+    "git_blob_sha1": "4d946f6639070eb988d56d2f53beccf34a25679a",
+    "sha256": "2fe2ea442659c24d40af2becaec69bfc09b2167f1bdc75d021a18694b30db385",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+    "role": "primary",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+    "git_blob_sha1": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+    "sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+    "archive_path": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+    "role": "primary",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+    "git_blob_sha1": "b9d19d6fb75ab920d212eadb7f6056a1474f8de5",
+    "sha256": "a9eaaf335e06333c40ae67809c31050c418b2a3c1c52d04bd34d4c24d8449872",
+    "archive_path": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+    "role": "primary",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+    "git_blob_sha1": "25f9c3aa051914223d3281d2cfc85fea9531a5ab",
+    "sha256": "e7ba74c7260a67f603d66cd49e11c1c9c5ccd493847de390516789585f4b7cf9",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+    "git_blob_sha1": "572f908459edf1f73d53b19671e8aed9d83fca47",
+    "sha256": "988a8ccb04dc70fbc8b23fa48774d51660070fad18cc7bc8f95a3d8915e9437a",
+    "archive_path": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+    "role": "primary",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+    "git_blob_sha1": "9dc9d0b6eb6157774aa3bf53dccffdb8198ce37f",
+    "sha256": "6f5216375b4df4c63bca3f31dda3beaef724b895981852b4114b2858db2eace4",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/threadring/ThreadRingAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-structure/src/main/scala/aia/structure/Filters.scala",
+    "git_blob_sha1": "674cdaf805db38111c476721a763df457bd749cc",
+    "sha256": "65ca054eb3657dc1b10d2273f1201bf055946f4c1ba5a628b8ffd23709d1ddeb",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/src/main/scala/aia/structure/Filters.scala"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+    "git_blob_sha1": "5c88481cca1e4bd38b2b8762b03bbdb7d1c93f9a",
+    "sha256": "99ddfff3eb9b2b7b4e8990a1abfd791fd74a031c0e57a6a03ce3c061ca4d9b13",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+    "role": "primary",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/fjthrput/ThroughputAkkaActorBenchmark.scala",
+    "git_blob_sha1": "39f568d32176de0cf664430483b245af1c25e302",
+    "sha256": "a1f6b39165d5dc5bdf0a8a1c1d5ec22145bb63ad3658c7e7413bf4d934150416",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/fjthrput/ThroughputAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/fjthrput/ThroughputAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+    "git_blob_sha1": "4d3053adf9824b39b037a76a414b46ef3aede82d",
+    "sha256": "b7533d3fc3bac9fa9c2050fa295e2807285c10be69b0f9b255a1a765ea80555c",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/big/BigAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+    "git_blob_sha1": "2b684798cf0cb7200d849e367a7523640cb6c7ff",
+    "sha256": "c09a20cbbf65df3a7bf486d17658645774923d73fabbbfe742710c16d601ffa9",
+    "archive_path": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+    "role": "primary",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-routing/src/main/scala/aia/routing/Routing.scala",
+    "git_blob_sha1": "30064cc1d075e87b85f0c3274046235fc58a9423",
+    "sha256": "0db4dc3657b9e4e7aeb0178aef193db23773dba2b52e18e064661948875f7db2",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/bndbuffer/ProdConsAkkaActorBenchmark.scala",
+    "git_blob_sha1": "3296ee816102073eba81fae1c0f888c5ddda6a24",
+    "sha256": "0484afbba40ca1b6d3c5b8fb52187e7cbff3989367f5f2944f43eacbcdd9eefb",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/bndbuffer/ProdConsAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/bndbuffer/ProdConsAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/chameneos/ChameneosAkkaActorBenchmark.scala",
+    "git_blob_sha1": "229ad5c45c1b7611b44795f4c1660ffb14f9acee",
+    "sha256": "52ddf0d2f3520280c79f01be511cb289f67119f93645e7b1bf8b7b315bbb4ad2",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/chameneos/ChameneosAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/chameneos/ChameneosAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+    "git_blob_sha1": "8b317a13ba4cd8d78d12665e435aef99c64712e3",
+    "sha256": "a22d78ec8278ab71548be857e4aebfee33fdb5a4957014360707c160f0446fd5",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/concsll/SortedListAkkaActorBenchmark.scala",
+    "git_blob_sha1": "f658a755296d537655ae1255dc5d2e00e27bac39",
+    "sha256": "19815044f36aa51a3696f4364d55bc453f8531c19eb48b83f23027317d749f2f",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/concsll/SortedListAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/concsll/SortedListAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+    "git_blob_sha1": "eea0d7ca32d6333632b2bb21afb16649b6c5eb00",
+    "sha256": "77bc72319c4f8d238456f2f3abf6fdfaff4c48ef36fc0cfe249bae5b89ad5f5e",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+    "git_blob_sha1": "552627fad7967aae74fdfb6288d233b00ac49f62",
+    "sha256": "9801d452889cd406a07dceb45396081a9df1e4b61c757719cc0110fe2c7fe562",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+    "git_blob_sha1": "babee0f3395a93f1df0b5440edc508082a6f7010",
+    "sha256": "1ab2ef5cd1ad06560daba379fc72f8ea1dd1abff68e9d0ff51549f905b87c465",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/HashRouting.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortAkkaActorBenchmark.scala",
+    "git_blob_sha1": "852b5f2ca615199edb73772d3cb911160e05b0a7",
+    "sha256": "04c88b8aeacd7c6407e3a80e55f9bca75b6f132e1e95db821808e845569f6460",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+    "git_blob_sha1": "d39053e8c60e87a7cbe5f86dc79c99bc2560b626",
+    "sha256": "75cbc3b5af0a994742e8ce28354b97eb8290efdeaffb02d3f1459382015d4e34",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+    "git_blob_sha1": "c0083cb0a2559331552f087739b7c179ca72ef33",
+    "sha256": "a768e139d91c0ba5bc843cf01756aaf6c1df746a3600ec629280ae317b084046",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/radixsort/RadixSortAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/test/scala/sample/SPActor.scala",
+    "git_blob_sha1": "8d97e852bb8bcca422617a1d19ae88505cae3bfc",
+    "sha256": "db054de1107d40739af391da61af9fc916e08e196a68a4b191a5cfefd19a8d7e",
+    "archive_path": "upstream/samira-t__Bita/src/test/scala/sample/SPActor.scala",
+    "role": "primary",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/SPActor.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "git_blob_sha1": "36c5ae6b8f7f5bac3f08d66efeb6281d6606343c",
+    "sha256": "c8fd7bf0984cd798241c5f1a5e55f117d24b0859a24a93c9ae4d0e8c9857d2e2",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+    "git_blob_sha1": "c503667abd230991b985e257c706d4512f1e50ea",
+    "sha256": "6ced3d68a31f11dcd6baefeb358705fdd3353e7b22c26226326eaff76dc8dc50",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/test/scala/sample/LeaderElection.scala",
+    "git_blob_sha1": "4c5dc21b0d7c8e43e49963887ea2c1931a715699",
+    "sha256": "3450c568e67c41e0fa5f7a472d00a94b0d85c431cc9ca6aac887ebc4ba830e56",
+    "archive_path": "upstream/samira-t__Bita/src/test/scala/sample/LeaderElection.scala",
+    "role": "primary",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/test/scala/sample/LeaderElection.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+    "git_blob_sha1": "072ace683c6fcbe8f466f5a40532dfca77e9212f",
+    "sha256": "1714c8e7630b069e856648d68a1b0484ceb84886b65e16e83ebfcf12ed5d5261",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-state/src/main/scala/aia/state/Inventory.scala",
+    "git_blob_sha1": "89325f43e430010f74a9403979eee2ff11ff059e",
+    "sha256": "587ea243bdbc761fd0b07fcc1b1990abc4900daa2512d6874868f9366d7f8be2",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-state/src/main/scala/aia/state/Inventory.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-state/src/main/scala/aia/state/Inventory.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+    "git_blob_sha1": "f661a8d415ef9821db0591a7c92801f0582382e2",
+    "sha256": "f3124687eff4affa6f1aec0869f719228c9c8675cfe958b92b5134abe79705a9",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+    "git_blob_sha1": "f2eea51cefd51e856335fddb2526729f3eec5932",
+    "sha256": "d26e434e285347acf5feac495f0979f9e275f0f1301e852b41df00bb68fc7536",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Hello-Akka/src/main/scala/com/packt/chapter1/FibonacciActor.scala",
+    "git_blob_sha1": "1f85076ca3cca6f79cb4e31f2a6d4d99808c6f24",
+    "sha256": "5f9caf083cffeb64fe9b2783e203d1ed01f73be4cbfc4b8f1c7b1566e8c37479",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Hello-Akka/src/main/scala/com/packt/chapter1/FibonacciActor.scala",
+    "role": "primary",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/src/main/scala/com/packt/chapter1/FibonacciActor.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/nqueenk/NQueensAkkaActorBenchmark.scala",
+    "git_blob_sha1": "3c0ea70dfd8c4f04133649e3d9a04fcdd723715a",
+    "sha256": "e0327955925a46844af3500f732a750042a285c7b0704ec48e07b46bbc1189cb",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/nqueenk/NQueensAkkaActorBenchmark.scala",
+    "role": "primary",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/nqueenk/NQueensAkkaActorBenchmark.scala"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+    "git_blob_sha1": "1a3d82a35d0715f77920bc70054db33d3522cbcc",
+    "sha256": "8ff04ca06f13baa569aec4885b18dfc1c74b4ed6277a261706103747cb3afac7",
+    "archive_path": "upstream/jasongoodwin__learning-akka/ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+    "role": "primary",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "LICENSE",
+    "git_blob_sha1": "eb0a618c1d24b3049f25c4b9aff70e4d1c092c65",
+    "sha256": "c5ea0c25d79478dbe36db3ff08319e25da603c52248ffb644e6393745eb17944",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/LICENSE"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "LICENSE",
+    "git_blob_sha1": "ddeb8100f29d0ff5ed49bf1a7ba6426c83068cd1",
+    "sha256": "b63b99b4c2052ddeb4579c2a09fab0e2829c1b1c6dba8690659593f283f4c21c",
+    "archive_path": "upstream/shamsimam__savina/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/LICENSE"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "LICENSE",
+    "git_blob_sha1": "c145bf14199d319ce9305fc95b326c39a3f32f07",
+    "sha256": "406a58c23092a8c688440f3980de3800618db8c1379e551fccda111fb01a170b",
+    "archive_path": "upstream/akka__akka-core/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/LICENSE"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+    "git_blob_sha1": "ad2163f0b7aa79e3300079e2acc205db450a938e",
+    "sha256": "3e2414f6d134f3410e2ee4b08af0879683f904807b7caac21a50c5f04722546b",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+    "role": "primary",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/SlipRouter.scala"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+    "git_blob_sha1": "011427a8983b7d8132f73c3343c69f4260308271",
+    "sha256": "22164bf08f221658e0d331415d97ea0889cd681581428e786482b651ce16d83c",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+    "role": "primary",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "README.md",
+    "git_blob_sha1": "de1742812d73732d2ab35fd44aa525bdfe83bf47",
+    "sha256": "c38b47d1a0b5ef5d4935f9bcad562a741cc37e0e5359ec26418424cd9e7fd394",
+    "archive_path": "upstream/shamsimam__savina/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/README.md"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "README.md",
+    "git_blob_sha1": "fa5b6bf897392431f68030aeda2cdee070a9f286",
+    "sha256": "439d3244edbd289f6b2dea59c3b0339ca0c4f98476bcf3c689c3dedd73a56003",
+    "archive_path": "upstream/akka__akka-core/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/README.md"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "LICENSE",
+    "git_blob_sha1": "605d4c59f1a76d2030da72abfc1fcb835b39b965",
+    "sha256": "1f5d5ff7224c6ce12ff1d932f4ad8806639e716a707157bd33cbe93f0b32802f",
+    "archive_path": "upstream/samira-t__Bita/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/LICENSE"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "LICENSE",
+    "git_blob_sha1": "e06d2081865a766a8668acc12878f98b27fc9ea0",
+    "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14",
+    "archive_path": "upstream/jasongoodwin__learning-akka/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/LICENSE"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "README.md",
+    "git_blob_sha1": "ec7d081b9a46da179ebbdfb3a64ec89032e1ed06",
+    "sha256": "90f5431dd58edd653b746698d86c636cced0356d1797b3fdb97fa40ef28fec88",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/README.md"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "README.md",
+    "git_blob_sha1": "e7913b162a1bace26e0af04438e7cfd49020a9a5",
+    "sha256": "f35f44f902fc8ad7ff813e8c36a0dcb26dcf7257337973ccc874f542e2c38840",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/README.md"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "README.md",
+    "git_blob_sha1": "09b5e86ff268f0b74e3ba616e267a7ca61492179",
+    "sha256": "c15481a0975f3d752b03a1ded7450b306443b1c7795ccc2cbf411e1908cdf6cc",
+    "archive_path": "upstream/samira-t__Bita/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/README.md"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "README.md",
+    "git_blob_sha1": "da780b832ad8f89fedb9d82d628b5ef7a6b9fab3",
+    "sha256": "61af9388b39907d8242c94fc45820bac5b2d68ac4e46c391c352ee27ba586347",
+    "archive_path": "upstream/jasongoodwin__learning-akka/README.md",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/README.md"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "LICENSE",
+    "git_blob_sha1": "117b3501c70e9bc0e03077333b384d0cc136d788",
+    "sha256": "a6ef23d71dded4936bbcd4ce56dfab42380e6f45e7fbfa6b11c0fd056bd4837c",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/LICENSE",
+    "role": "license_or_readme",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/LICENSE"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/Event.scala",
+    "git_blob_sha1": "97871f76f89d1ab1802c6e0f62975383e40ee0af",
+    "sha256": "977bd2acc97637ceb3a80078023ecac93ef0db3ae928369b4ba0963d9a63f0ec",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/Event.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/Event.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/aspectj/ActorWeaveAspect.aj",
+    "git_blob_sha1": "685ae19ba82269b914511cb92eb32ecc6afa5a86",
+    "sha256": "fed257ea6d632d67d6541f71173a23871762473e9a224f425cd3f9957f0f0bac",
+    "archive_path": "upstream/samira-t__Bita/src/main/aspectj/ActorWeaveAspect.aj",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/aspectj/ActorWeaveAspect.aj"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/LogicalActor.scala",
+    "git_blob_sha1": "d7d5e3e83835ed11579e8837722009870b08958e",
+    "sha256": "9ed70823c3f6864c33a53d8fd2badd2af2bca637e8984d6e78ff445c90e90975",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/LogicalActor.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/LogicalActor.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/Envelopes.scala",
+    "git_blob_sha1": "0bf5d2e65b58e03fe341a4f664ef2ebb12118921",
+    "sha256": "fdf89ceadf163d7a54149f7638133c375746bf9b3a33e2737bda4456bee624b0",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/Envelopes.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/Envelopes.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "project/Build.scala",
+    "git_blob_sha1": "e69192a4b4ed22bb168bd672ebc7cb889dc4e5f1",
+    "sha256": "5550367bf1b5f29286d79512fcebd66fc095438676056b2776f2fa43fb073ba0",
+    "archive_path": "upstream/samira-t__Bita/project/Build.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/project/Build.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/Logger.scala",
+    "git_blob_sha1": "d762472e8412d336352dcb232de104e8e92f3d0f",
+    "sha256": "d7ac52a16e0067b05a6a340b5ff579230d0adad942536771d7dd4707ea0da12b",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/Logger.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/Logger.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/Constants.scala",
+    "git_blob_sha1": "b3110eba4218b7de089e832016ed0e99c1ee0557",
+    "sha256": "f066d4d71ece583dc6a24e59208431e3301da41a2987319d081a9189f1a153c0",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/Constants.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/Constants.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/akka/Scheduler.scala",
+    "git_blob_sha1": "4f394a46589f51db8d0fe336fc9b8a342c627cc2",
+    "sha256": "792dfca2540e50368374140d5f5897b545775350b051a1e647b8cf530e521d22",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/akka/Scheduler.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/akka/Scheduler.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/akka/Patterns.scala",
+    "git_blob_sha1": "822c4ef78df4a33fb8168d6cbeb48ba0ea19993f",
+    "sha256": "53fde8c0dc949ba4353732e30e0cfe8d1cf0cc58c990458f144d70a6b13415a3",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/akka/Patterns.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/akka/Patterns.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/Trace.scala",
+    "git_blob_sha1": "4237e6417a28c8411199cf4c06129821d043a6bd",
+    "sha256": "0ec07caf26db925067c6684dfe52ccbd02b034acd8fd576a72f6fbe3c5db8876",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/Trace.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/Trace.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/VectorClock.scala",
+    "git_blob_sha1": "c51d673d47bbe0eb3b36fd7535b2a556a323bd9a",
+    "sha256": "ac4608df9ee0f4af13465cf88227aa77966892b360ac15777633ae6fe8a295f0",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/VectorClock.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/VectorClock.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/SystemVCManager.scala",
+    "git_blob_sha1": "ea61589826b350aa9108bf0299b46053f729572d",
+    "sha256": "b644d5c4747db0d533f602b1833b2f9afffd3e4b9956d7c75248a62a4f01db17",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/SystemVCManager.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/SystemVCManager.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/LogicalMessage.scala",
+    "git_blob_sha1": "00bbea8402dd0b36e9504a1e2bd08963d8c97087",
+    "sha256": "5efa17a9f2e38323b8b5a550592c0780e4e9521297b46831446d53cb922147c2",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/LogicalMessage.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/LogicalMessage.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/akka/RandomScheduleHelper.scala",
+    "git_blob_sha1": "8dee011623d52290e944c5990abd811a3d572cfd",
+    "sha256": "48f4895bbf3b6dad29ba2d241167ceda15b9c41e0c25374bdc9eb4aeafb60c9e",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/akka/RandomScheduleHelper.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/akka/RandomScheduleHelper.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/criteria/PCRCriterion.scala",
+    "git_blob_sha1": "e129527892469047fb8a1f5c0cfa6d1d68214fb1",
+    "sha256": "38d1ca523104f23b990018cfcf9bad7ec0fbca82057a15b358b9af8bb0d88c7e",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/criteria/PCRCriterion.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/criteria/PCRCriterion.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/criteria/PRSCriterion.scala",
+    "git_blob_sha1": "5ccce69f28260d926a8e9493296ede37b7de5388",
+    "sha256": "5be61d670dd44afff136722bffef5897d619bcf8be8c64b09bd0a611a4c0ca49",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/criteria/PRSCriterion.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/criteria/PRSCriterion.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/schedulegeneration/PMHRScheduleGenerator.scala",
+    "git_blob_sha1": "6c76d8fb65fe9d76dc262fc339dc996b838193e2",
+    "sha256": "d01d7a20ddaefa49ae489397f95dbfcb0807500f877e64d0c750b3dc21dc4273",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/schedulegeneration/PMHRScheduleGenerator.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/schedulegeneration/PMHRScheduleGenerator.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/criteria/PRCriterion.scala",
+    "git_blob_sha1": "c5b917169833cc4fd359519c5e01365c213fc50e",
+    "sha256": "1c6841457659d2429a141fe771b08de1736d85f3aa0e0226cdd529e402c1e6a4",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/criteria/PRCriterion.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/criteria/PRCriterion.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/criteria/Criterion.scala",
+    "git_blob_sha1": "f55a3a172ace76ada893cc1f1151fb6abc512e91",
+    "sha256": "5bdfeda0627bb9c2f36e9468d0fac378c39d105d848618988b68d5bf70df1581",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/criteria/Criterion.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/criteria/Criterion.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/schedulegeneration/PCRScheduleGenerator.scala",
+    "git_blob_sha1": "7dea3133bd559ec8b9ed5e1b666e1f00aaa5493c",
+    "sha256": "1c435785aa208f920d1a296f3f504b8e349a686a5d6fa6ac08d6335f4b990dd0",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/schedulegeneration/PCRScheduleGenerator.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/schedulegeneration/PCRScheduleGenerator.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/criteria/PMHRCriterion.scala",
+    "git_blob_sha1": "3cefe7137b7dd01363c738089f9d2d25976b01f0",
+    "sha256": "4a6ecc63a9494f4fb58acfcde6c079c9bc0549e3e8aa6078da63e8c09c8a3a15",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/criteria/PMHRCriterion.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/criteria/PMHRCriterion.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/util/FileHelper.scala",
+    "git_blob_sha1": "00414a668eb678954fe8a28b6cc2a3cbc23449f2",
+    "sha256": "cb658784a060e1a3839bed442ffe7a01d3f5bba8e650b089ed0e9093b0d39500",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/util/FileHelper.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/util/FileHelper.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/util/ActorPathHelper.scala",
+    "git_blob_sha1": "681c9b705d396a8c80851f6dc8f1f7a726421bc6",
+    "sha256": "ed75abb8783dfaa55410d45b9c6e8b9038779b57e552f9e17b9a644ea76753a6",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/util/ActorPathHelper.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/util/ActorPathHelper.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/schedulegeneration/ScheduleGenerator.scala",
+    "git_blob_sha1": "a3b672beb173693bb2e3f0d17fde034fc3b2d558",
+    "sha256": "64dbdd6cc5c1afaa9bc0f3fab8dba029d7bb6fe94aabb0baeb8caf5e9c1e5d36",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/schedulegeneration/ScheduleGenerator.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/schedulegeneration/ScheduleGenerator.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/util/TestHelper.scala",
+    "git_blob_sha1": "70aa65bfcb0ce60ff5f7ee7ce1497cc2573712f8",
+    "sha256": "a6afe916555866d09d86391825130dea6234bce597f8fdcfb41294b479bb13ed",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/util/TestHelper.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/util/TestHelper.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "pom.xml",
+    "git_blob_sha1": "c6177ffbc50badc4e2b8a8b452d45d7ee5223f34",
+    "sha256": "f7d2b83c8d5af17fdff398de4a3110fc393311f48a74cfe72c201fbec8db8759",
+    "archive_path": "upstream/shamsimam__savina/pom.xml",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/pom.xml"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/schedulegeneration/PRScheduleGenerator.scala",
+    "git_blob_sha1": "090bf7ab79b542ea17101b6807465048dd56af29",
+    "sha256": "1122ff911dbfdec43713308e5f5f7b1cccf46384a3fcd29d715e4a18e02ada03",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/schedulegeneration/PRScheduleGenerator.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/schedulegeneration/PRScheduleGenerator.scala"
+  },
+  {
+    "repository": "samira-t/Bita",
+    "commit": "a3241fdea138799c0d6956571bcb7f4f8c8e0ddd",
+    "path": "src/main/scala/bita/util/MessageHelper.scala",
+    "git_blob_sha1": "38cd926e6e0cc400c84bfd5c41e6d30db32c72a1",
+    "sha256": "2e8d24f1a087c596dd1ce03b34b18c423831cfc7b25129c6f4bb078f92a18059",
+    "archive_path": "upstream/samira-t__Bita/src/main/scala/bita/util/MessageHelper.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/samira-t/Bita/blob/a3241fdea138799c0d6956571bcb7f4f8c8e0ddd/src/main/scala/bita/util/MessageHelper.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/PseudoRandom.java",
+    "git_blob_sha1": "ca189ddc7e196c8cfcfaf92ea85cf8f4e7f7007b",
+    "sha256": "2592a07ebf22ba8d277e2599ab14606e631eaeed0225e239c193521e25bcdd68",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/PseudoRandom.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/PseudoRandom.java"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "ch4/akkademy-db-scala/src/main/scala/com/akkademy/messages/messages.scala",
+    "git_blob_sha1": "90437beafd7a8e130c503ec19ae045cf1e6ce7f8",
+    "sha256": "1a25a10f3d3d1f839b807826a3e0f04f46cfb39a32382e729f53244ee30a0b09",
+    "archive_path": "upstream/jasongoodwin__learning-akka/ch4/akkademy-db-scala/src/main/scala/com/akkademy/messages/messages.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/src/main/scala/com/akkademy/messages/messages.scala"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "ch4/akkademy-db-scala/build.sbt",
+    "git_blob_sha1": "20ace5a8a11a69eeb48222441fee824f32f83819",
+    "sha256": "0625df354e840efc9344690baf2a5b85b84f74cd247d82936503903ec3a46b4d",
+    "archive_path": "upstream/jasongoodwin__learning-akka/ch4/akkademy-db-scala/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/build.sbt"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/scala/edu/rice/habanero/actors/AkkaActor.scala",
+    "git_blob_sha1": "8cb98d495c339804d10ce804e1cd7346542ed089",
+    "sha256": "133b78fff80fb6a8f8a59b7e2c8f90e52aeb657460a192c3e8024723bc0d4ea7",
+    "archive_path": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/actors/AkkaActor.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/actors/AkkaActor.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/Benchmark.java",
+    "git_blob_sha1": "c6eabd38245eb1547def21faf00a277b3e19ba05",
+    "sha256": "eca7b38478205aa4cd7eb6a9cb72e712df3d840641c9ce250565d175b4eb65f9",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/Benchmark.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/Benchmark.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/BenchmarkRunner.java",
+    "git_blob_sha1": "5378db54dd6352b7e1c61c8dc0cc9d4437ca4cda",
+    "sha256": "0fee1cc039e3ff4fccdb35416917550b8367534eea5a4be16eccf76a3d773c36",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/BenchmarkRunner.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/BenchmarkRunner.java"
+  },
+  {
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "path": "ch4/akkademy-db-scala/project/build.properties",
+    "git_blob_sha1": "e82b400b44ecc3d3fb7d21b41155f74055a916e8",
+    "sha256": "7a2bc0c27015e7575938a5abc0af095d9802d0cfbba57476d9fd32be5cd9a6c9",
+    "archive_path": "upstream/jasongoodwin__learning-akka/ch4/akkademy-db-scala/project/build.properties",
+    "role": "upstream_support",
+    "source_url": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/project/build.properties"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-structure/build.sbt",
+    "git_blob_sha1": "23f96a81288b37c771864d0bf87209ad3dccb479",
+    "sha256": "8f12b6e2788f0b432b15b50609d8b334df852aa87f8826d29dc5bf3dffc9363a",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-structure/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/build.sbt"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-up-and-running/build.sbt",
+    "git_blob_sha1": "115e3c08d2ed1b8799ae9f60b88f203876e28a41",
+    "sha256": "f0b9440e4345909aa1fb7dab37bb03b4764cf7599b61f0b96e64a2bf0371e1ed",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-up-and-running/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/build.sbt"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-state/build.sbt",
+    "git_blob_sha1": "aa327df3d34fae198751e8aa59b09cb240d9c0d0",
+    "sha256": "d70e348af6f0bf2bbf8f38d0006ee4441a0ab34fcafff412f39a253824f9e222",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-state/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-state/build.sbt"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Chapter10/build.sbt",
+    "git_blob_sha1": "4a9504c2ff4ccb7f7be3a9eae491d0dd627be51b",
+    "sha256": "8dc4f32b166fbecc70f93c56b98e0dacf96c85d081f2fa478fcb9424ca1e7a27",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Chapter10/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/build.sbt"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-routing/build.sbt",
+    "git_blob_sha1": "dc9cef7badeac9983e7c05ee47e3bd06c093e90f",
+    "sha256": "7c1b5b45866b628ae3724fc9a13f611e125a144f07713459cdb4ece56a43a497",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-routing/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/build.sbt"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-up-and-running/project/build.properties",
+    "git_blob_sha1": "c8fcab543a9cfc5c5c21bb0b6cc80414275625ef",
+    "sha256": "744d212fe861e2c9e25f1e577913260ccf6e9a23c23403bc1cc97ec20cc4e3de",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-up-and-running/project/build.properties",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/project/build.properties"
+  },
+  {
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "path": "Hello-Akka/build.sbt",
+    "git_blob_sha1": "ac82501bbb6bceec948eec7fda1c04a632b5282e",
+    "sha256": "d7222960575cfab2aa66178dd13409157c9f152ca25bb7a8e490ae0135c85700",
+    "archive_path": "upstream/PacktPublishing__Akka-Cookbook/Hello-Akka/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/build.sbt"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/banking/BankingConfig.java",
+    "git_blob_sha1": "021107b7a17229f79506d83035f455b80d82b6b8",
+    "sha256": "40049da8dca8f4c5c3c88e88313326b56fb88e07d793733cf721ad82503e5a00",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/banking/BankingConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/banking/BankingConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortConfig.java",
+    "git_blob_sha1": "1af5b9397c9cdf7f675477ac92dfec0a9758515a",
+    "sha256": "d1128c05b278dd4ef77fecaff7c4ebdaf005148925ca3c4d304c9e758c966188",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/bitonicsort/BitonicSortConfig.java"
+  },
+  {
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "path": "chapter-up-and-running/src/main/scala/com/goticks/BoxOffice.scala",
+    "git_blob_sha1": "8f4ee71ac2dee900d20a36b78f0b456d746d86e8",
+    "sha256": "1528a64ef5eef4f0f11fe4876f994011f2919a006a36d7bff30a4129862ff8b0",
+    "archive_path": "upstream/RayRoestenburg__akka-in-action/chapter-up-and-running/src/main/scala/com/goticks/BoxOffice.scala",
+    "role": "upstream_support",
+    "source_url": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/src/main/scala/com/goticks/BoxOffice.scala"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/apsp/ApspConfig.java",
+    "git_blob_sha1": "9de5b120de14d89564fc7475547bf380a780f99c",
+    "sha256": "b3f30d42b8bdac7dd9670b5999942f723a7be7a63e97ae6f8ba658bc0c59cecd",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/apsp/ApspConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/apsp/ApspConfig.java"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "build.sbt",
+    "git_blob_sha1": "debe780f4e7420d00229aaf6933ea1d9d80fe157",
+    "sha256": "825eb2281b6140870020830c31c08149336521cdc478bdeb609c65e43c6f5b40",
+    "archive_path": "upstream/akka__akka-core/build.sbt",
+    "role": "upstream_support",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/build.sbt"
+  },
+  {
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "path": "project/build.properties",
+    "git_blob_sha1": "22af2628c41386225b9b373f5d933a0e69d19e33",
+    "sha256": "7e5781bc6c37b738f8b902ee458a8897537e088eacff8404a81924a3f7f73887",
+    "archive_path": "upstream/akka__akka-core/project/build.properties",
+    "role": "upstream_support",
+    "source_url": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/project/build.properties"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/big/BigConfig.java",
+    "git_blob_sha1": "0b3e1d8cd357c8a36f75b275e4a171ae1e2ee6ca",
+    "sha256": "427a3125706a7be3117b4e449211bc07cd856c221e2c20fcd33d223b6f96aa4c",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/big/BigConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/big/BigConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerConfig.java",
+    "git_blob_sha1": "e270244947d0fef961817afccfc3a0bfda45c0b9",
+    "sha256": "7a87386b1146e71be38cda30c5ca4622f90a04aeda06e9cce0abfdc8e37da472",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/concsll/SortedLinkedList.java",
+    "git_blob_sha1": "2257fc653a0816ace7ae6b862313cb225189d41d",
+    "sha256": "0a88279ee475779edfc73aadee82b2c8fae2fffda9a2034029abea67b9e56bec",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/concsll/SortedLinkedList.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/concsll/SortedLinkedList.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosConfig.java",
+    "git_blob_sha1": "e3d592a145d5b81d18f93851773b4d78f50d4d25",
+    "sha256": "0eb03b924b8cb641d1fd5eb51b72393833309bf10ee79a0d80d08271c56622b2",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/concsll/SortedListConfig.java",
+    "git_blob_sha1": "a0b6e88773deb783112d0cf0a442346b869834f4",
+    "sha256": "61dcffd0856603e3792679203b5a8479774acb770854a7002be0dff653a0a657",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/concsll/SortedListConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/concsll/SortedListConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/concdict/DictionaryConfig.java",
+    "git_blob_sha1": "c43b5b323aad0e08682679f7870a260ef47dc999",
+    "sha256": "033dde277bd320292a1e7bebf7b8ab2c06f63557adf275b6b5cf90d241260ba2",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/concdict/DictionaryConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/concdict/DictionaryConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/bndbuffer/ProdConsBoundedBufferConfig.java",
+    "git_blob_sha1": "07b605bcb0ceb3a579826d55db2f82fe05969144",
+    "sha256": "c4d92e9c7751a9cc23c31b5bb41930cfbef95726a76bba22be451d584ea8c6b7",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/bndbuffer/ProdConsBoundedBufferConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/bndbuffer/ProdConsBoundedBufferConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosHelper.java",
+    "git_blob_sha1": "ceba6a4b3eb9a999936eaa516df9f66792b230c5",
+    "sha256": "a897e7aa7ef939b3db79c47acc6d60e6a4ca1865b201d882775a41b966b26a41",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosHelper.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/chameneos/ChameneosHelper.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/count/CountingConfig.java",
+    "git_blob_sha1": "2e36c6d3b6ea2996de3503457ded2f7a492ab42c",
+    "sha256": "7ef32a048f25b333240c10353d54c21f5bfaa0742dc9179bcb2472e42fb26361",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/count/CountingConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/count/CountingConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/philosopher/PhilosopherConfig.java",
+    "git_blob_sha1": "b04a443c7da7d0416619d3139ff9b6ec6e8d5c4b",
+    "sha256": "dbf299b926ad77d66ae9f5c1b48b3b6fc084f67cabb6f85b9121953d6decec05",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/philosopher/PhilosopherConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/philosopher/PhilosopherConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/nqueenk/NQueensConfig.java",
+    "git_blob_sha1": "0098762b8a30b8a291e7a2653e98620a36ab5be0",
+    "sha256": "2ed8ca7c6e7bf13bfeb524ece9ffa5880d948ad21a5a20730254f6acca29b2cc",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/nqueenk/NQueensConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/nqueenk/NQueensConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/pingpong/PingPongConfig.java",
+    "git_blob_sha1": "a3ecdcae4f2778d2bfd23c9456b37aea7283cc69",
+    "sha256": "a2754322e912d5db270490c48ed8750363155e605fecca788894d14f0b845835",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/pingpong/PingPongConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/pingpong/PingPongConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/piprecision/PiPrecisionConfig.java",
+    "git_blob_sha1": "25b4cb3d80455e448568f7cf59dd95e8f6ed795e",
+    "sha256": "c65f7fc4076ab55c9a136475c803a746a36148271c64fceb16f8f3ea71408738",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/piprecision/PiPrecisionConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/piprecision/PiPrecisionConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/logmap/LogisticMapConfig.java",
+    "git_blob_sha1": "be2f9aa773ade907783ee653106dd4180bf658ab",
+    "sha256": "a825484f1c60404dd02ae83392008aad1f897ab1c9ec48689ac3283f83d1767c",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/logmap/LogisticMapConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/logmap/LogisticMapConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/fjthrput/ThroughputConfig.java",
+    "git_blob_sha1": "5944d4787ff39b3b5166352a251e50f97643e458",
+    "sha256": "080cf7507d068fca6fc2a1f14b4d33fc956aa7e58f3077548c3f2f331f93b210",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/fjthrput/ThroughputConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/fjthrput/ThroughputConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/threadring/ThreadRingConfig.java",
+    "git_blob_sha1": "937c1b3e2bdca5f7ed2013656c64412ff0d4e4ba",
+    "sha256": "bc1f2dc111f65c96babe7ef486b861667a748f9674f0486f0edb739bd4da374e",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/threadring/ThreadRingConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/threadring/ThreadRingConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalConfig.java",
+    "git_blob_sha1": "cba9ee00a397e610dc18a0d357c89075c77bbebe",
+    "sha256": "718ef1ed274734edea53989a1115e1e87a5232cef64717b225ce22b5c7a094de",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalConfig.java"
+  },
+  {
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "path": "src/main/java/edu/rice/habanero/benchmarks/radixsort/RadixSortConfig.java",
+    "git_blob_sha1": "a267032ab2640733d5accde6e571c6d23c0f5511",
+    "sha256": "b6cd656c3f1d549bb1602ba320ae86f5061b4d42fb0208c8c07f9d88bed75c76",
+    "archive_path": "upstream/shamsimam__savina/src/main/java/edu/rice/habanero/benchmarks/radixsort/RadixSortConfig.java",
+    "role": "upstream_support",
+    "source_url": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/java/edu/rice/habanero/benchmarks/radixsort/RadixSortConfig.java"
+  }
+]

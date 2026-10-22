@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-05",
+  "slug": "accumulator",
+  "name": "Summing Accumulator",
+  "description_fa": "جمع‌کردن پیام‌های متوالی در state",
+  "family_id": "counter",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "persistent scalar state and message order",
+  "proposed_smoke_scenario": "Add(2), Add(3) -> sum=5",
+  "adaptation_and_risks": "Extract SummingActor only. Exclude BehaviourAndState App's infinite Thread.sleep loop and the different SummingActorWithConstructor variant.",
+  "provenance": {
+    "source_key": "C",
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "git_blob_sha": "4d946f6639070eb988d56d2f53beccf34a25679a",
+    "path": "Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+    "selected_symbols": "SummingActor",
+    "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/BehaviourAndState.scala",
+    "sha256": "2fe2ea442659c24d40af2becaec69bfc09b2167f1bdc75d021a18694b30db385",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/PacktPublishing__Akka-Cookbook/Hello-Akka/src/main/scala/com/packt/chapter1/BehaviourAndState.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-45",
+  "slug": "trapezoidal",
+  "name": "Trapezoidal Integration",
+  "description_fa": "تقسیم محاسبه عددی و جمع جواب‌ها",
+  "family_id": "numeric_reduction",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "work partition and numeric reduction",
+  "proposed_smoke_scenario": "2 workers; few trapezoids",
+  "adaptation_and_risks": "RESERVE. No protocol time; Double/transcendental math is the blocker. Do not replace with integer arithmetic and call it unchanged. Require a common numerical contract and supported argument generation.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "f661a8d415ef9821db0591a7c92801f0582382e2",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+    "selected_symbols": "Master, Worker",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/TrapezoidalAkkaActorBenchmark.scala",
+    "sha256": "f3124687eff4affa6f1aec0869f719228c9c8675cfe958b92b5134abe79705a9",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/trapezoid/TrapezoidalAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

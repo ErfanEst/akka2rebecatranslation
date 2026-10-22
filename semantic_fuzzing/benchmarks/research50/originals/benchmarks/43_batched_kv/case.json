@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-43",
+  "slug": "batched_kv",
+  "name": "Batched Key-Value Requests",
+  "description_fa": "اجرای چند درخواست در یک پیام دسته‌ای",
+  "family_id": "key_value",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "batch atomicity, per-item reply and missing key",
+  "proposed_smoke_scenario": "batch [Set(k,1),Get(k)] then another-client write",
+  "adaptation_and_risks": "Use local precreated db/clients, no remoting/client FSM. Preserve that List requests run inside ONE handler; splitting a batch into separate mailbox messages changes semantics. Object/List/String/Status/ActorRef reply fields need complete finite encoding.",
+  "provenance": {
+    "source_key": "L",
+    "repository": "jasongoodwin/learning-akka",
+    "commit": "e96dd964b26ea4f98cb6b0531e02018ee3d4c109",
+    "git_blob_sha": "1a3d82a35d0715f77920bc70054db33d3522cbcc",
+    "path": "ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+    "selected_symbols": "AkkademyDb (chapter 4)",
+    "permalink": "https://github.com/jasongoodwin/learning-akka/blob/e96dd964b26ea4f98cb6b0531e02018ee3d4c109/ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/AkkademyDb.scala",
+    "sha256": "8ff04ca06f13baa569aec4885b18dfc1c74b4ed6277a261706103747cb3afac7",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/jasongoodwin__learning-akka/ch4/akkademy-db-scala/src/main/scala/com/akkademy/AkkademyDb.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

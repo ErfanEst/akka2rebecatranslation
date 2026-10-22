@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-20",
+  "slug": "consistent_hash",
+  "name": "Consistent-Hash Cache Routing",
+  "description_fa": "رسیدن کلید یکسان به cache یکسان",
+  "family_id": "key_value",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "key affinity, routing hash and cache state",
+  "proposed_smoke_scenario": "put/get same key across 3 fixed caches",
+  "adaptation_and_risks": "RESERVE. Replace pool bootstrap with fixed refs only after proving routing consistency. Hash ring, key encoding and hidden library state must be modeled exactly; modulo routing is not an equivalent substitute.",
+  "provenance": {
+    "source_key": "A",
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "git_blob_sha": "572f908459edf1f73d53b19671e8aed9d83fca47",
+    "path": "akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+    "selected_symbols": "Cache + ConsistentHashingPool",
+    "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/ConsistentHashingRouterDocSpec.scala",
+    "sha256": "988a8ccb04dc70fbc8b23fa48774d51660070fad18cc7bc8f95a3d8915e9437a",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/routing/ConsistentHashingRouterDocSpec.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

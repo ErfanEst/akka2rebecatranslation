@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-22",
+  "slug": "pubsub_hierarchical",
+  "name": "Hierarchical Publish/Subscribe",
+  "description_fa": "اشتراک در شاخه موضوع‌ها",
+  "family_id": "pubsub",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "prefix/subclass delivery and overlapping subscriptions",
+  "proposed_smoke_scenario": "subscribe a and ab; publish abc",
+  "adaptation_and_risks": "RESERVE. Same EventBus boundary issue as lookup; finite topic hierarchy and exact subscription matching. Do not silently turn synchronous library behavior into asynchronous broker semantics.",
+  "provenance": {
+    "source_key": "A",
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "git_blob_sha": "2b684798cf0cb7200d849e367a7523640cb6c7ff",
+    "path": "akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+    "selected_symbols": "SubchannelBusImpl + StartsWithSubclassification",
+    "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+    "source_kind": "CLASSIC_EVENTBUS_LIBRARY_EXAMPLE"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/EventBusDocSpec.scala",
+    "sha256": "c09a20cbbf65df3a7bf486d17658645774923d73fabbbfe742710c16d601ffa9",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/event/EventBusDocSpec.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

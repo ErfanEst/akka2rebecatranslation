@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-28",
+  "slug": "ticket_seller",
+  "name": "Ticket Seller",
+  "description_fa": "فروش از موجودی محدود بلیت",
+  "family_id": "inventory",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "stock depletion and exact-amount boundary",
+  "proposed_smoke_scenario": "Add 2 tickets; Buy 2; Buy 1",
+  "adaptation_and_risks": "Use one precreated seller, not BoxOffice (creates event sellers). Vector/Option/nested messages and event metadata need mapping. Exclude Cancel initially or specify PoisonPill/dead-letter semantics explicitly.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "eea0d7ca32d6333632b2bb21afb16649b6c5eb00",
+    "path": "chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+    "selected_symbols": "TicketSeller",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/TicketSeller.scala",
+    "sha256": "77bc72319c4f8d238456f2f3abf6fdfaff4c48ef36fc0cfe249bae5b89ad5f5e",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-up-and-running/src/main/scala/com/goticks/TicketSeller.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

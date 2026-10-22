@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-24",
+  "slug": "content_router",
+  "name": "Content-Based Speed Router",
+  "description_fa": "انتخاب مسیر براساس مقدار پیام",
+  "family_id": "fixed_routing",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "threshold branch and destination",
+  "proposed_smoke_scenario": "speed equal/below/above minSpeed",
+  "adaptation_and_risks": "Extract routing predicate with fixed endpoints; source Pool and GetLicense are not admitted. Embedding library RoutingLogic in an explicit Actor is a derived benchmark, not unchanged source.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "30064cc1d075e87b85f0c3274046235fc58a9423",
+    "path": "chapter-routing/src/main/scala/aia/routing/Routing.scala",
+    "selected_symbols": "SpeedRouterLogic",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/Routing.scala",
+    "sha256": "0db4dc3657b9e4e7aeb0178aef193db23773dba2b52e18e064661948875f7db2",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/Routing.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

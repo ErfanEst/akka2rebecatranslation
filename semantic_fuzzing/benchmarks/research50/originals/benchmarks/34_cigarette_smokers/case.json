@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-34",
+  "slug": "cigarette_smokers",
+  "name": "Cigarette Smokers",
+  "description_fa": "تخصیص نوبتی منابع توسط داور",
+  "family_id": "resource_arbiter",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "arbiter acknowledgement and repeated allocation",
+  "proposed_smoke_scenario": "3 smokers; fixed selected-smoker inputs; 2 rounds",
+  "adaptation_and_risks": "Inspect helper: busyWait is a bounded computation loop, not a clock/deadline. It calls Math.random with discarded result; externalize random smoker choices. If retaining standard smoke-resource semantics is required, note this source is an instantaneous-acquisition variant.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "d39053e8c60e87a7cbe5f86dc79c99bc2560b626",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+    "selected_symbols": "ArbiterActor, SmokerActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/CigaretteSmokerAkkaActorBenchmark.scala",
+    "sha256": "75cbc3b5af0a994742e8ce28354b97eb8290efdeaffb02d3f1459382015d4e34",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/cigsmok/CigaretteSmokerAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

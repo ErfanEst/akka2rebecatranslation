@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-13",
+  "slug": "license_filter",
+  "name": "License Validity Filter",
+  "description_fa": "ردکردن شناسه خالی",
+  "family_id": "photo_filter",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "empty/nonempty data branch",
+  "proposed_smoke_scenario": "Photo(empty, v), Photo(valid, v)",
+  "adaptation_and_risks": "Finite String support or documented bijective symbol encoding is required. Do not silently change string predicates to arbitrary integers.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "674cdaf805db38111c476721a763df457bd749cc",
+    "path": "chapter-structure/src/main/scala/aia/structure/Filters.scala",
+    "selected_symbols": "LicenseFilter",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/Filters.scala",
+    "sha256": "65ca054eb3657dc1b10d2273f1201bf055946f4c1ba5a628b8ffd23709d1ddeb",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-structure/src/main/scala/aia/structure/Filters.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

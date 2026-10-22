@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-50",
+  "slug": "pausable_worker",
+  "name": "Pausable Worker",
+  "description_fa": "یک کار در لحظه و ادامه با پیام Ready",
+  "family_id": "stash_protocol",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "backpressure, sender authentication and FIFO unstash",
+  "proposed_smoke_scenario": "Work(1), Work(2), bogus Ready, worker Ready",
+  "adaptation_and_risks": "RESERVE. Preserve stash and behavior stack; use an explicit untimed worker, not original HardWorker's artificial delay. Selecting a replacement worker yields a documented benchmark composition, not the complete original app.",
+  "provenance": {
+    "source_key": "C",
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "git_blob_sha": "011427a8983b7d8132f73c3343c69f4260308271",
+    "path": "Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+    "selected_symbols": "PausableActor with untimed completion worker",
+    "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/PausableActor.scala",
+    "sha256": "22164bf08f221658e0d331415d97ea0889cd681581428e786482b651ce16d83c",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/PacktPublishing__Akka-Cookbook/Chapter10/src/main/scala/com/packt/chapter10/PausableActor.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

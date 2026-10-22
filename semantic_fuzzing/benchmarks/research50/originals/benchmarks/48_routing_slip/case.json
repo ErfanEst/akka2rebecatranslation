@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-48",
+  "slug": "routing_slip",
+  "name": "Routing Slip / Car Assembly",
+  "description_fa": "عبور سفارش از مراحل انتخابی",
+  "family_id": "routing_slip",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 6,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "variable route over fixed actors and payload enrichment",
+  "proposed_smoke_scenario": "fixed color/navigation/sensor actors; orders with 2 option sets",
+  "adaptation_and_risks": "Precreate fixed component actors and inject refs. Choosing a path through existing actors is not creating actors; if dynamic topology is also forbidden, fix the finite allowed route set explicitly. Seq[ActorRef]/nested messages need bounded representation.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "ad2163f0b7aa79e3300079e2acc205db450a938e",
+    "path": "chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+    "selected_symbols": "SlipRouter, PaintCar, AddNavigation, AddParkingSensors",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/SlipRouter.scala",
+    "sha256": "3e2414f6d134f3410e2ee4b08af0879683f904807b7caac21a50c5f04722546b",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/SlipRouter.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

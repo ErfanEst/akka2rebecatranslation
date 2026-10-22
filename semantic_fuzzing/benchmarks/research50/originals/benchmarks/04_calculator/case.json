@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-04",
+  "slug": "calculator",
+  "name": "Integer Calculator",
+  "description_fa": "جمع و ضرب دو عدد",
+  "family_id": "arithmetic",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "two argument values and operation dispatch",
+  "proposed_smoke_scenario": "Sum(2,3), Multiply(2,3)",
+  "adaptation_and_risks": "Use CalculatorActor alone, no Lagom service. Restrict inputs to avoid overflow initially; later test signed Int boundaries with matching semantics.",
+  "provenance": {
+    "source_key": "C",
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "git_blob_sha": "bb830feadb7dd4f743af971cbc897d6e09d50a2d",
+    "path": "Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+    "selected_symbols": "CalculatorActor",
+    "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/CalculatorActor.scala",
+    "sha256": "4a917615b37b37f5ae06621b495fdb03d1dff410c8def25b9785f52956b7894d",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/PacktPublishing__Akka-Cookbook/Chapter11/akka-impl/src/main/scala/com/packt/chapter11/akka/impl/CalculatorActor.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

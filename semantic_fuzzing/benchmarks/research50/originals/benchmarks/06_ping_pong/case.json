@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-06",
+  "slug": "ping_pong",
+  "name": "Finite Ping-Pong",
+  "description_fa": "رفت‌وبرگشت محدود پیام",
+  "family_id": "ping_pong",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P1_SMALL_KERNEL_AND_HARNESS",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "reply chain, sender, termination boundary",
+  "proposed_smoke_scenario": "Start; run 2 ping-pong rounds",
+  "adaptation_and_risks": "Replace Savina base wrapper with explicit Classic receive without changing message causality. Declare named actors in one bootstrap; map ActorRef-valued fields or gate them; audit exit behavior.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "25f9c3aa051914223d3281d2cfc85fea9531a5ab",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+    "selected_symbols": "PingActor, PongActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/PingPongAkkaActorBenchmark.scala",
+    "sha256": "e7ba74c7260a67f603d66cd49e11c1c9c5ccd493847de390516789585f4b7cf9",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/pingpong/PingPongAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

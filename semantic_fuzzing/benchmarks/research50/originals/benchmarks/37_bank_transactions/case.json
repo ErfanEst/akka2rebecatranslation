@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-37",
+  "slug": "bank_transactions",
+  "name": "Asynchronous Bank Transactions",
+  "description_fa": "انتقال مبلغ و انتظار پاسخ حساب",
+  "family_id": "bank_transactions",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 11,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "debit/credit conservation and pending reply",
+  "proposed_smoke_scenario": "10 fixed accounts; 2 transfers",
+  "adaptation_and_risks": "RESERVE. ManualStash variant avoids timed ask/Await, but Double balances, pending-message lists and ActorRef fields need support. Source generator requires at least 10 accounts because of integer division; do not blindly reduce to 2.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "c503667abd230991b985e257c706d4512f1e50ea",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+    "selected_symbols": "Teller, Account",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/BankingAkkaManualStashActorBenchmark.scala",
+    "sha256": "6ced3d68a31f11dcd6baefeb358705fdd3353e7b22c26226326eaff76dc8dc50",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/banking/BankingAkkaManualStashActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-19",
+  "slug": "broadcast",
+  "name": "Fixed Broadcast Routing",
+  "description_fa": "ارسال هر پیام به همه گیرنده‌ها",
+  "family_id": "fixed_routing",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "duplicate omission and fan-out cardinality",
+  "proposed_smoke_scenario": "one request -> each of 3 workers once",
+  "adaptation_and_risks": "Use a static routee set and no pool resizer/replacement. Built-in Router internals are not automatically supported by the existing extractor; explicit actor implementation is a derived benchmark.",
+  "provenance": {
+    "source_key": "A",
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "git_blob_sha": "b9d19d6fb75ab920d212eadb7f6056a1474f8de5",
+    "path": "akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+    "selected_symbols": "Broadcast routing configuration",
+    "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/RouterDocSpec.scala",
+    "sha256": "a9eaaf335e06333c40ae67809c31050c418b2a3c1c52d04bd34d4c24d8449872",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/routing/RouterDocSpec.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

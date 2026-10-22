@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-26",
+  "slug": "envelope",
+  "name": "Envelope Enrichment",
+  "description_fa": "افزودن اطلاعات ثابت به پیام",
+  "family_id": "envelope",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "payload preservation and metadata",
+  "proposed_smoke_scenario": "Send(5) -> Envelope(5, fixed-header)",
+  "adaptation_and_risks": "Select a constant pure addHeaders function. Do NOT use EnvelopingActorApp, whose header includes currentTimeMillis. Generic nested payloads/maps need finite serialization and projection.",
+  "provenance": {
+    "source_key": "C",
+    "repository": "PacktPublishing/Akka-Cookbook",
+    "commit": "ac64624036d75df5da76390d30e19d94333e6fa2",
+    "git_blob_sha": "5c88481cca1e4bd38b2b8762b03bbdb7d1c93f9a",
+    "path": "Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+    "selected_symbols": "EnvelopingActor with constant header function",
+    "permalink": "https://github.com/PacktPublishing/Akka-Cookbook/blob/ac64624036d75df5da76390d30e19d94333e6fa2/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/EnvelopingActor.scala",
+    "sha256": "99ddfff3eb9b2b7b4e8990a1abfd791fd74a031c0e57a6a03ce3c061ca4d9b13",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/PacktPublishing__Akka-Cookbook/Chapter10/src/main/scala/com/packt/chapter10/EnvelopingActor.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

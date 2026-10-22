@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-33",
+  "slug": "dining_philosophers",
+  "name": "Dining Philosophers / Arbitrator",
+  "description_fa": "گرفتن دو منبع بدون تداخل",
+  "family_id": "resource_arbitration",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "mutual exclusion, release and retry",
+  "proposed_smoke_scenario": "3 philosophers; 1 eating round each",
+  "adaptation_and_risks": "Choose Savina's untimed arbitrator variant, not Dining Hakkers timers. Remove only shared AtomicLong performance instrumentation or replace it with an actor observer; fork ownership is private arbitrator state. Prove any reduction preserves protocol behavior.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "8b317a13ba4cd8d78d12665e435aef99c64712e3",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+    "selected_symbols": "ArbitratorActor, PhilosopherActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/PhilosopherAkkaActorBenchmark.scala",
+    "sha256": "a22d78ec8278ab71548be857e4aebfee33fdb5a4957014360707c160f0446fd5",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/philosopher/PhilosopherAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

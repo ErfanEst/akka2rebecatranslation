@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-38",
+  "slug": "logistic_map",
+  "name": "Logistic Map Series",
+  "description_fa": "محاسبه مرحله‌ای با درخواست و پاسخ",
+  "family_id": "iterative_numeric",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 5,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "per-worker sequencing and pending requests",
+  "proposed_smoke_scenario": "2 series; 2 terms",
+  "adaptation_and_risks": "RESERVE. Fixed bootstrap; use manual asynchronous version, not Await version. Double arithmetic equality, mutable one-element arrays and private pending queue require defined observation/numeric semantics.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "36c5ae6b8f7f5bac3f08d66efeb6281d6606343c",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "selected_symbols": "Master, SeriesWorker, RateComputer",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "sha256": "c8fd7bf0984cd798241c5f1a5e55f117d24b0859a24a93c9ae4d0e8c9857d2e2",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/logmap/LogisticMapAkkaManualStashActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

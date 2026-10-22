@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-46",
+  "slug": "precise_pi",
+  "name": "Precise Pi Computation",
+  "description_fa": "تقسیم محاسبه دقیق عدد پی",
+  "family_id": "big_decimal_reduction",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 3,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "work assignment, completion and precision",
+  "proposed_smoke_scenario": "2 fixed workers; low precision after source validation",
+  "adaptation_and_risks": "RESERVE. BigDecimal is not a supported scalar of the current fuzzer/observations. Needs explicit decimal representation and arithmetic verification; no claim it runs in v1.11.1.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "f2eea51cefd51e856335fddb2526729f3eec5932",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+    "selected_symbols": "Master, Worker",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/PiPrecisionAkkaActorBenchmark.scala",
+    "sha256": "d26e434e285347acf5feac495f0979f9e275f0f1301e852b41df00bb68fc7536",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/piprecision/PiPrecisionAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

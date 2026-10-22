@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-27",
+  "slug": "correlation_gather",
+  "name": "Correlation Join",
+  "description_fa": "جمع‌کردن دو پاسخ دارای شناسه یکسان",
+  "family_id": "correlation_join",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "interleaved ids and first/second reply state",
+  "proposed_smoke_scenario": "A1, B1, A2, B2 -> joins A and B",
+  "adaptation_and_risks": "Fixed workers and gather actor; finite correlation-id/value domain. Map, Seq, and pending values must be fully observed or encoded with justified bounds; do not model a timeout.",
+  "provenance": {
+    "source_key": "I",
+    "repository": "RayRoestenburg/akka-in-action",
+    "commit": "32b301d3042c832a016ca3220576960c43317630",
+    "git_blob_sha": "babee0f3395a93f1df0b5440edc508082a6f7010",
+    "path": "chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+    "selected_symbols": "SimpleGather",
+    "permalink": "https://github.com/RayRoestenburg/akka-in-action/blob/32b301d3042c832a016ca3220576960c43317630/chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/HashRouting.scala",
+    "sha256": "1ab2ef5cd1ad06560daba379fc72f8ea1dd1abff68e9d0ff51549f905b87c465",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/RayRoestenburg__akka-in-action/chapter-routing/src/main/scala/aia/routing/HashRouting.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-30",
+  "slug": "concurrent_dictionary",
+  "name": "Concurrent Dictionary",
+  "description_fa": "خواندن و نوشتن چند client روی دیکشنری",
+  "family_id": "key_value",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "read/write interleavings and overwritten values",
+  "proposed_smoke_scenario": "2 clients; 2 keys; interleaved writes/reads",
+  "adaptation_and_risks": "Fixed dictionary/workers; externalize workload PRNG; preserve finite key/value map exactly. It is a single server's private map, not shared mutable state between actors.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "552627fad7967aae74fdfb6288d233b00ac49f62",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+    "selected_symbols": "Master, Dictionary, Worker",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/DictionaryAkkaActorBenchmark.scala",
+    "sha256": "9801d452889cd406a07dceb45396081a9df1e4b61c757719cc0110fe2c7fe562",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/concdict/DictionaryAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

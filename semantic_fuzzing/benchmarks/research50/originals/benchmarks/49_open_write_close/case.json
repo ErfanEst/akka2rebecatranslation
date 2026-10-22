@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-49",
+  "slug": "open_write_close",
+  "name": "Open-Write-Close Stash Protocol",
+  "description_fa": "نگه‌داشتن پیام تا بازشدن منبع",
+  "family_id": "stash_protocol",
+  "track": "RESERVE_10",
+  "preparation_level": "P3_UNRESOLVED_FEATURE_GATE",
+  "estimated_target_actor_count": 2,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "stash release order and behavior stack",
+  "proposed_smoke_scenario": "write before open; open; write; close",
+  "adaptation_and_risks": "RESERVE. Stash is a second private queue, not the ordinary mailbox. Existing complete-post-mailbox comparison does not establish stash equivalence; source is only a protocol snippet, not a real file service.",
+  "provenance": {
+    "source_key": "A",
+    "repository": "akka/akka-core",
+    "commit": "044bb2dc0a3804d7fe33a1d3e988830256c108fa",
+    "git_blob_sha": "748edbd8aa0adc391fb56323c9140cbaf93481a0",
+    "path": "akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+    "selected_symbols": "ActorWithProtocol",
+    "permalink": "https://github.com/akka/akka-core/blob/044bb2dc0a3804d7fe33a1d3e988830256c108fa/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+    "source_kind": "OFFICIAL_OR_BOOK_EXAMPLE_KERNEL"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/ActorDocSpec.scala",
+    "sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/akka__akka-core/akka-docs/src/test/scala/docs/actor/ActorDocSpec.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}

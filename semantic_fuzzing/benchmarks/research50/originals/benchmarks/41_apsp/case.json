@@ -1,0 +1,52 @@
+{
+  "id": "ACSU-41",
+  "slug": "apsp",
+  "name": "All-Pairs Shortest Path",
+  "description_fa": "فاصله کوتاه‌ترین مسیر همه جفت‌ها",
+  "family_id": "graph_apsp",
+  "track": "PRIMARY_CANDIDATES_40",
+  "preparation_level": "P2_ADAPTER_OR_BOUNDED_REPRESENTATION",
+  "estimated_target_actor_count": 4,
+  "count_note": "Design estimate, not measured source count; topology audit required.",
+  "semantic_focus": "phase barriers and distributed matrix updates",
+  "proposed_smoke_scenario": "2x2 or 3x3 graph; tiny nonnegative weights",
+  "adaptation_and_risks": "Fixed block graph; flatten startup loops into named actors. Matrix/array messages require deep-copy/immutability audit and complete bounded state projection.",
+  "provenance": {
+    "source_key": "S",
+    "repository": "shamsimam/savina",
+    "commit": "52e546959a57670cdba7a88f0a030b53cfdb16d6",
+    "git_blob_sha": "072ace683c6fcbe8f466f5a40532dfca77e9212f",
+    "path": "src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+    "selected_symbols": "ApspFloydWarshallActor",
+    "permalink": "https://github.com/shamsimam/savina/blob/52e546959a57670cdba7a88f0a030b53cfdb16d6/src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+    "source_kind": "RESEARCH_BENCHMARK_IMPLEMENTATION"
+  },
+  "assessment": {
+    "source_retrieved": true,
+    "selected_code_read": true,
+    "review_type": "MANUAL_SOURCE_TRIAGE_NOT_TRANSITIVE_CERTIFICATION",
+    "whole_file_admissibility": "NOT_CLAIMED; select only named symbols",
+    "target_requires_static_creation": true,
+    "target_requires_static_known_actor_set": true,
+    "target_requires_no_semantic_time": true,
+    "source_is_known_correct": null,
+    "pure_actor_dependencies_audited": false
+  },
+  "implementation_status": {
+    "normalized_scala_created": false,
+    "extractor_compiled": false,
+    "akka_executed": false,
+    "rebeca_generated": false,
+    "rebeca_state_space_checked": false,
+    "differential_campaign_executed": false,
+    "admission": "PENDING"
+  },
+  "bundled_source": {
+    "path": "source/ApspAkkaActorBenchmark.scala",
+    "sha256": "1714c8e7630b069e856648d68a1b0484ceb84886b65e16e83ebfcf12ed5d5261",
+    "content_policy": "EXACT_UPSTREAM_FILE_UNMODIFIED",
+    "shared_support_path_from_bundle_root": "upstream/shamsimam__savina/src/main/scala/edu/rice/habanero/benchmarks/apsp/ApspAkkaActorBenchmark.scala",
+    "standalone_build_tested": false,
+    "all_content_of_file_is_eligible": false
+  }
+}
