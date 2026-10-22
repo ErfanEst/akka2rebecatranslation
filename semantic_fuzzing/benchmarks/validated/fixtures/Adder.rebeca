@@ -1,0 +1,21 @@
+reactiveclass AdderActor(12) {
+  knownrebecs {}
+  statevars { int magicNumber; }
+  AdderActor(int initialMagic) { magicNumber = initialMagic; }
+  msgsrv Add(int value) {
+    ((Client)sender).Reply(value + magicNumber);
+  }
+}
+reactiveclass Client(12) {
+  knownrebecs { AdderActor adder; }
+  statevars { int lastValue; }
+  Client() { lastValue = 0; }
+  msgsrv Request(int value) {
+    adder.Add(value);
+  }
+  msgsrv Reply(int value) { lastValue = value; }
+}
+main {
+  AdderActor adder():(4);
+  Client client(adder):();
+}

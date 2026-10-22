@@ -1,0 +1,21 @@
+reactiveclass EchoActor(12) {
+  knownrebecs {}
+  statevars {  }
+  EchoActor() {  }
+  msgsrv EchoValue(int value) {
+    ((Client)sender).Reply(value);
+  }
+}
+reactiveclass Client(12) {
+  knownrebecs { EchoActor echo; }
+  statevars { int lastValue; }
+  Client() { lastValue = 0; }
+  msgsrv Request(int value) {
+    echo.EchoValue(value);
+  }
+  msgsrv Reply(int value) { lastValue = value; }
+}
+main {
+  EchoActor echo():();
+  Client client(echo):();
+}

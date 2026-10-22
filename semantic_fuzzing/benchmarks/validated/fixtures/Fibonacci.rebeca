@@ -1,0 +1,25 @@
+reactiveclass FibonacciActor(12) {
+  knownrebecs {}
+  statevars {  }
+  FibonacciActor() {  }
+  msgsrv Calculate(int value) {
+    ((Client)sender).Reply(fib(value));
+  }
+  int fib(int n) {
+    if (n == 0 || n == 1) { return n; }
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+reactiveclass Client(12) {
+  knownrebecs { FibonacciActor fibonacci; }
+  statevars { int lastValue; }
+  Client() { lastValue = 0; }
+  msgsrv Request(int value) {
+    fibonacci.Calculate(value);
+  }
+  msgsrv Reply(int value) { lastValue = value; }
+}
+main {
+  FibonacciActor fibonacci():();
+  Client client(fibonacci):();
+}

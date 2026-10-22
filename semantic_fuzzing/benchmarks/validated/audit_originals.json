@@ -1,0 +1,1072 @@
+{
+  "method": "REAL_EXTRACTOR_AND_SOURCE_REVIEW",
+  "live_api_executed": false,
+  "full_pipeline_executed": false,
+  "cases": [
+    {
+      "id": "ACSU-01",
+      "name": "Echo",
+      "source_sha256": "a9eaaf335e06333c40ae67809c31050c418b2a3c1c52d04bd34d4c24d8449872",
+      "source": "originals/benchmarks/01_echo/source/RouterDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 5,
+        "actor_instances": 25,
+        "warnings": [
+          "Actor type Echo has no recognized message cases.",
+          "Actor type Parent has no recognized message cases.",
+          "Actor type Worker has no recognized message cases.",
+          "Actor type Workers has no recognized message cases."
+        ],
+        "message_types": 1,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "Echo داخل فایل بزرگ تست Router است؛ پیام Any و نبود harness مستقل نیاز به توجه دارد.",
+      "source_review": "Wrap raw primitive messages in named scalar messages; instantiate a fixed requester and echo actor. Do not copy the surrounding router test suite."
+    },
+    {
+      "id": "ACSU-02",
+      "name": "Key-Value Cache",
+      "source_sha256": "988a8ccb04dc70fbc8b23fa48774d51660070fad18cc7bc8f95a3d8915e9437a",
+      "source": "originals/benchmarks/02_cache/source/ConsistentHashingRouterDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 1,
+        "warnings": [],
+        "message_types": 3,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "Map[String,String]، پاسخ Option و router/pool با مشاهدهٔ scalar فعلی سازگار نیستند.",
+      "source_review": "Extract Cache without its pool/router. Keep a finite string/key domain and expose full bounded map; Option replies and strings need explicit representation."
+    },
+    {
+      "id": "ACSU-03",
+      "name": "Parameterized Adder",
+      "source_sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+      "source": "originals/benchmarks/03_adder/source/ActorDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 23,
+        "actor_instances": 8,
+        "warnings": [
+          "Actor type ActorWithArgs has no recognized message cases.",
+          "Actor type ActorWithProtocol has no recognized message cases.",
+          "Actor type Consumer has no recognized message cases.",
+          "Actor type Cruncher has no recognized message cases.",
+          "Actor type DemoActor has no recognized message cases.",
+          "Actor type DemoActorWrapper has no recognized message cases.",
+          "Actor type Echo has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type Follower has no recognized message cases.",
+          "Actor type Hook has no recognized message cases.",
+          "Actor type HotSwapActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type Producer has no recognized message cases.",
+          "Actor type ProducerConsumer has no recognized message cases.",
+          "Actor type Replier has no recognized message cases.",
+          "Actor type ReplyException has no recognized message cases.",
+          "Actor type SomeOtherActor has no recognized message cases.",
+          "Actor type ValueClassActor has no recognized message cases.",
+          "Actor type WatchActor has no recognized message cases."
+        ],
+        "message_types": 14,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "DemoActor کلاس تودرتو است؛ پیام عددی خام و wrapper اطراف آن برای extractor مسئله‌سازند.",
+      "source_review": "Lift nested DemoActor into a top-level Actor, keep the constructor constant, and wrap Int input/output. Do not instantiate DemoActorWrapper/SomeOtherActor."
+    },
+    {
+      "id": "ACSU-04",
+      "name": "Integer Calculator",
+      "source_sha256": "4a917615b37b37f5ae06621b495fdb03d1dff410c8def25b9785f52956b7894d",
+      "source": "originals/benchmarks/04_calculator/source/CalculatorActor.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "پاسخ عددی خام و نبود topology مستقل؛ محدودهٔ Int و overflow باید بررسی شوند.",
+      "source_review": "Use CalculatorActor alone, no Lagom service. Restrict inputs to avoid overflow initially; later test signed Int boundaries with matching semantics."
+    },
+    {
+      "id": "ACSU-05",
+      "name": "Summing Accumulator",
+      "source_sha256": "2fe2ea442659c24d40af2becaec69bfc09b2167f1bdc75d021a18694b30db385",
+      "source": "originals/benchmarks/05_accumulator/source/BehaviourAndState.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 2,
+        "actor_instances": 1,
+        "warnings": [
+          "Actor type SummingActor has no recognized message cases.",
+          "Actor type SummingActorWithConstructor has no recognized message cases."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_NO_MESSAGES",
+      "reason_fa": "فایل شامل حلقهٔ بی‌نهایت Thread.sleep و دو نوع actor است؛ فقط SummingActor در پژوهش انتخاب شده.",
+      "source_review": "Extract SummingActor only. Exclude BehaviourAndState App's infinite Thread.sleep loop and the different SummingActorWithConstructor variant."
+    },
+    {
+      "id": "ACSU-06",
+      "name": "Finite Ping-Pong",
+      "source_sha256": "e7ba74c7260a67f603d66cd49e11c1c9c5ccd493847de390516789585f4b7cf9",
+      "source": "originals/benchmarks/06_ping_pong/source/PingPongAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "وابستگی به wrapper اختصاصی Savina، پیام‌های ActorRef و رفتار exit باید بررسی شوند.",
+      "source_review": "Replace Savina base wrapper with explicit Classic receive without changing message causality. Declare named actors in one bootstrap; map ActorRef-valued fields or gate them; audit exit behavior."
+    },
+    {
+      "id": "ACSU-07",
+      "name": "Counting",
+      "source_sha256": "1908ac7a09e3fb56295529517ab2c66a0fb9372eae06b65f29f64512e966b6db",
+      "source": "originals/benchmarks/07_counting/source/CountingAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 3
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "receive از wrapper به ارث می‌رسد؛ شمارنده و producer بدون harness Savina مستقل نیستند.",
+      "source_review": "Lift inherited process into explicit receive; fixed producer/counter refs and tiny N. Preserve source-specific ordering and completion protocol."
+    },
+    {
+      "id": "ACSU-08",
+      "name": "Fixed Fan-out Throughput Kernel",
+      "source_sha256": "a1f6b39165d5dc5bdf0a8a1c1d5ec22145bb63ad3658c7e7413bf4d934150416",
+      "source": "originals/benchmarks/08_throughput/source/ThroughputAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ساخت workerها، اندازه‌گیری زمان و خروج actor در harness وجود دارد؛ هدف پژوهش فقط هستهٔ ارسال پیام است.",
+      "source_review": "Use a fixed named worker set and compare message counts, not elapsed throughput. Remove benchmark timing harness and audit actor exit."
+    },
+    {
+      "id": "ACSU-09",
+      "name": "Swapper",
+      "source_sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+      "source": "originals/benchmarks/09_swapper/source/ActorDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 23,
+        "actor_instances": 8,
+        "warnings": [
+          "Actor type ActorWithArgs has no recognized message cases.",
+          "Actor type ActorWithProtocol has no recognized message cases.",
+          "Actor type Consumer has no recognized message cases.",
+          "Actor type Cruncher has no recognized message cases.",
+          "Actor type DemoActor has no recognized message cases.",
+          "Actor type DemoActorWrapper has no recognized message cases.",
+          "Actor type Echo has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type Follower has no recognized message cases.",
+          "Actor type Hook has no recognized message cases.",
+          "Actor type HotSwapActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type Producer has no recognized message cases.",
+          "Actor type ProducerConsumer has no recognized message cases.",
+          "Actor type Replier has no recognized message cases.",
+          "Actor type ReplyException has no recognized message cases.",
+          "Actor type SomeOtherActor has no recognized message cases.",
+          "Actor type ValueClassActor has no recognized message cases.",
+          "Actor type WatchActor has no recognized message cases."
+        ],
+        "message_types": 14,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "become و پشتهٔ رفتار به‌علاوه خروجی صرفاً log؛ مشاهدهٔ scalar فعلی رفتار کامل را پوشش نمی‌دهد.",
+      "source_review": "Source effects are logs and hidden behavior stack. Add an explicit observable protocol/state or log oracle; cannot claim meaningful state validation from the current scalar extractor alone."
+    },
+    {
+      "id": "ACSU-10",
+      "name": "Hot-Swap Actor",
+      "source_sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+      "source": "originals/benchmarks/10_hot_swap/source/ActorDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 23,
+        "actor_instances": 8,
+        "warnings": [
+          "Actor type ActorWithArgs has no recognized message cases.",
+          "Actor type ActorWithProtocol has no recognized message cases.",
+          "Actor type Consumer has no recognized message cases.",
+          "Actor type Cruncher has no recognized message cases.",
+          "Actor type DemoActor has no recognized message cases.",
+          "Actor type DemoActorWrapper has no recognized message cases.",
+          "Actor type Echo has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type Follower has no recognized message cases.",
+          "Actor type Hook has no recognized message cases.",
+          "Actor type HotSwapActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type Producer has no recognized message cases.",
+          "Actor type ProducerConsumer has no recognized message cases.",
+          "Actor type Replier has no recognized message cases.",
+          "Actor type ReplyException has no recognized message cases.",
+          "Actor type SomeOtherActor has no recognized message cases.",
+          "Actor type ValueClassActor has no recognized message cases.",
+          "Actor type WatchActor has no recognized message cases."
+        ],
+        "message_types": 14,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "become، کلاس محلی و فرمان‌های رشته‌ای؛ همهٔ Receiveهای فعال باید مشاهده شوند.",
+      "source_review": "Extract local class; wrap string commands as a finite protocol. Preserve behavior transitions; instrument all active Receive methods or use a validated explicit mode representation."
+    },
+    {
+      "id": "ACSU-11",
+      "name": "Redirect Relay",
+      "source_sha256": "0db4dc3657b9e4e7aeb0178aef193db23773dba2b52e18e064661948875f7db2",
+      "source": "originals/benchmarks/11_relay/source/Routing.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 4,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found.",
+          "Actor type RedirectActor has no recognized message cases."
+        ],
+        "message_types": 5
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "فایل چندمثالی شامل pool و کد کارایی است؛ sender در ارسال معمولی با forward متفاوت است.",
+      "source_review": "Extract RedirectActor only. Its ! send changes sender to relay; do not replace with forward. Exclude GetLicense, routing pools, and performance code from the same file."
+    },
+    {
+      "id": "ACSU-12",
+      "name": "Speed Threshold Filter",
+      "source_sha256": "65ca054eb3657dc1b10d2273f1201bf055946f4c1ba5a628b8ffd23709d1ddeb",
+      "source": "originals/benchmarks/12_speed_filter/source/Filters.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 2,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 1
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "payload مجوز و harness source/filter/sink باید آماده شوند؛ عدم ارسال با timeout قابل جایگزینی نیست.",
+      "source_review": "Fixed source/filter/sink; use tiny licence domain. Extract SpeedFilter without unrelated routing/performance code; compare absent sends through post-mailboxes, not a wall-clock timeout."
+    },
+    {
+      "id": "ACSU-13",
+      "name": "License Validity Filter",
+      "source_sha256": "65ca054eb3657dc1b10d2273f1201bf055946f4c1ba5a628b8ffd23709d1ddeb",
+      "source": "originals/benchmarks/13_license_filter/source/Filters.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 2,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 1
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "شرط‌های String و payload مجوز؛ نگاشت دلخواه رشته به عدد معنای برنامه را عوض می‌کند.",
+      "source_review": "Finite String support or documented bijective symbol encoding is required. Do not silently change string predicates to arbitrary integers."
+    },
+    {
+      "id": "ACSU-14",
+      "name": "Two-Stage Filter Pipeline",
+      "source_sha256": "65ca054eb3657dc1b10d2273f1201bf055946f4c1ba5a628b8ffd23709d1ddeb",
+      "source": "originals/benchmarks/14_filter_pipeline/source/Filters.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 2,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 1
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ترکیب پیشنهادی دو فیلتر است و برنامهٔ مستقل منتشرشده نیست؛ topology و payload نیاز به آماده‌سازی دارند.",
+      "source_review": "New benchmark composition of two existing source classes, not a separately published standalone program. Explicit source provenance and finite payload domain."
+    },
+    {
+      "id": "ACSU-15",
+      "name": "Producer/Consumer Roles",
+      "source_sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+      "source": "originals/benchmarks/15_producer_consumer_roles/source/ActorDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 23,
+        "actor_instances": 8,
+        "warnings": [
+          "Actor type ActorWithArgs has no recognized message cases.",
+          "Actor type ActorWithProtocol has no recognized message cases.",
+          "Actor type Consumer has no recognized message cases.",
+          "Actor type Cruncher has no recognized message cases.",
+          "Actor type DemoActor has no recognized message cases.",
+          "Actor type DemoActorWrapper has no recognized message cases.",
+          "Actor type Echo has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type Follower has no recognized message cases.",
+          "Actor type Hook has no recognized message cases.",
+          "Actor type HotSwapActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type Producer has no recognized message cases.",
+          "Actor type ProducerConsumer has no recognized message cases.",
+          "Actor type Replier has no recognized message cases.",
+          "Actor type ReplyException has no recognized message cases.",
+          "Actor type SomeOtherActor has no recognized message cases.",
+          "Actor type ValueClassActor has no recognized message cases.",
+          "Actor type WatchActor has no recognized message cases."
+        ],
+        "message_types": 14,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "receive-orElse، پیام ActorRef/Any و مشاهده از طریق log خارج از مسیر سادهٔ فعلی‌اند.",
+      "source_review": "Extract untimed receive-orElse snippet only. ActorRef messages/Any payloads need fixed role mapping. Consumer logs must be replaced by a declared observation or captured separately."
+    },
+    {
+      "id": "ACSU-16",
+      "name": "Thread Ring",
+      "source_sha256": "6f5216375b4df4c63bca3f31dda3beaef724b895981852b4114b2858db2eace4",
+      "source": "originals/benchmarks/16_thread_ring/source/ThreadRingAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "آرایهٔ actorها و تنظیم همسایه با پیام ActorRef؛ استخراج topology ثابت خودکار تضمین نشده.",
+      "source_review": "Unroll actor array into three named bootstrap declarations; configure neighbors before Start and keep topology frozen. Neighbor setup ActorRef payloads need adapter."
+    },
+    {
+      "id": "ACSU-17",
+      "name": "Big All-to-All",
+      "source_sha256": "b7533d3fc3bac9fa9c2050fa295e2807285c10be69b0f9b255a1a765ea80555c",
+      "source": "originals/benchmarks/17_big/source/BigAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 1
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "انتخاب تصادفی مقصد و مجموعهٔ ActorRef؛ seed یکسان به‌تنهایی تصادفی‌سازی دو زبان را معادل نمی‌کند.",
+      "source_review": "Freeze all actor refs at bootstrap. Move random routing decisions into reproducible inputs or preserve a specified PRNG exactly; seed alone across different languages is insufficient."
+    },
+    {
+      "id": "ACSU-18",
+      "name": "Fixed Round-Robin Routing",
+      "source_sha256": "a9eaaf335e06333c40ae67809c31050c418b2a3c1c52d04bd34d4c24d8449872",
+      "source": "originals/benchmarks/18_round_robin/source/RouterDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 5,
+        "actor_instances": 25,
+        "warnings": [
+          "Actor type Echo has no recognized message cases.",
+          "Actor type Parent has no recognized message cases.",
+          "Actor type Worker has no recognized message cases.",
+          "Actor type Workers has no recognized message cases."
+        ],
+        "message_types": 1,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "Router کتابخانه‌ای و handler جایگزینی actor پس از Terminated؛ بخش‌های خارج از topology ثابت وجود دارند.",
+      "source_review": "Use fixed ActorRef routees; no resizer, deathwatch replacement, or pool creation after release. The documented Master Terminated handler spawns replacements and is excluded. Built-in routing internals need a verified adapter, or label an explicit router rewrite DERIVED."
+    },
+    {
+      "id": "ACSU-19",
+      "name": "Fixed Broadcast Routing",
+      "source_sha256": "a9eaaf335e06333c40ae67809c31050c418b2a3c1c52d04bd34d4c24d8449872",
+      "source": "originals/benchmarks/19_broadcast/source/RouterDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 5,
+        "actor_instances": 25,
+        "warnings": [
+          "Actor type Echo has no recognized message cases.",
+          "Actor type Parent has no recognized message cases.",
+          "Actor type Worker has no recognized message cases.",
+          "Actor type Workers has no recognized message cases."
+        ],
+        "message_types": 1,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "broadcast کتابخانه‌ای و pool؛ وضعیت داخلی Router توسط extractor عادی مشاهده نمی‌شود.",
+      "source_review": "Use a static routee set and no pool resizer/replacement. Built-in Router internals are not automatically supported by the existing extractor; explicit actor implementation is a derived benchmark."
+    },
+    {
+      "id": "ACSU-20",
+      "name": "Consistent-Hash Cache Routing",
+      "source_sha256": "988a8ccb04dc70fbc8b23fa48774d51660070fad18cc7bc8f95a3d8915e9437a",
+      "source": "originals/benchmarks/20_consistent_hash/source/ConsistentHashingRouterDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 1,
+        "warnings": [],
+        "message_types": 3,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "hash ring، Map و routing داخلی؛ جایگزینی با modulo routing هم‌ارز نیست.",
+      "source_review": "RESERVE. Replace pool bootstrap with fixed refs only after proving routing consistency. Hash ring, key encoding and hidden library state must be modeled exactly; modulo routing is not an equivalent substitute."
+    },
+    {
+      "id": "ACSU-21",
+      "name": "Lookup Publish/Subscribe",
+      "source_sha256": "c09a20cbbf65df3a7bf486d17658645774923d73fabbbfe742710c16d601ffa9",
+      "source": "originals/benchmarks/21_pubsub_lookup/source/EventBusDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "EventBus یک Actor نیست؛ publish/subscribe همگام و sender خارجی نیاز به adapter دارند.",
+      "source_review": "RESERVE. EventBus is not an Actor. Existing tool cannot treat its synchronous publish/subscribe calls as actor handlers; need an adapter preserving sender=noSender and observation cuts. An explicit broker rewrite is DERIVED."
+    },
+    {
+      "id": "ACSU-22",
+      "name": "Hierarchical Publish/Subscribe",
+      "source_sha256": "c09a20cbbf65df3a7bf486d17658645774923d73fabbbfe742710c16d601ffa9",
+      "source": "originals/benchmarks/22_pubsub_hierarchical/source/EventBusDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "EventBus و تطبیق سلسله‌مراتبی topic؛ تبدیل آن به broker ناهمگام می‌تواند معنا را عوض کند.",
+      "source_review": "RESERVE. Same EventBus boundary issue as lookup; finite topic hierarchy and exact subscription matching. Do not silently turn synchronous library behavior into asynchronous broker semantics."
+    },
+    {
+      "id": "ACSU-23",
+      "name": "Predicate Publish/Subscribe",
+      "source_sha256": "c09a20cbbf65df3a7bf486d17658645774923d73fabbbfe742710c16d601ffa9",
+      "source": "originals/benchmarks/23_pubsub_predicate/source/EventBusDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "EventBus و شرط طول String؛ هم مشاهدهٔ کتابخانه و هم نوع داده نیاز به پشتیبانی دارند.",
+      "source_review": "RESERVE. Source predicate is String.length <= classifier. Preserve length operation and sender behavior; requires external-library adapter or separately labeled actor-based derivative."
+    },
+    {
+      "id": "ACSU-24",
+      "name": "Content-Based Speed Router",
+      "source_sha256": "0db4dc3657b9e4e7aeb0178aef193db23773dba2b52e18e064661948875f7db2",
+      "source": "originals/benchmarks/24_content_router/source/Routing.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 4,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found.",
+          "Actor type RedirectActor has no recognized message cases."
+        ],
+        "message_types": 5
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "RoutingLogic، Pool و endpointهای اطراف؛ نسخهٔ actor مستقل یک مشتق جدید خواهد بود.",
+      "source_review": "Extract routing predicate with fixed endpoints; source Pool and GetLicense are not admitted. Embedding library RoutingLogic in an explicit Actor is a derived benchmark, not unchanged source."
+    },
+    {
+      "id": "ACSU-25",
+      "name": "Switchable Router",
+      "source_sha256": "0db4dc3657b9e4e7aeb0178aef193db23773dba2b52e18e064661948875f7db2",
+      "source": "originals/benchmarks/25_switch_router/source/Routing.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 4,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found.",
+          "Actor type RedirectActor has no recognized message cases."
+        ],
+        "message_types": 5
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "تغییر Receive بین on/off؛ وضعیت رفتار باید علاوه بر مقصدهای ثابت مشاهده شود.",
+      "source_review": "Use fixed normal/cleanup sinks. Instrument on/off Receive methods or validate explicit scalar mode rewrite; no creation is needed when switching existing destinations."
+    },
+    {
+      "id": "ACSU-26",
+      "name": "Envelope Enrichment",
+      "source_sha256": "99ddfff3eb9b2b7b4e8990a1abfd791fd74a031c0e57a6a03ce3c061ca4d9b13",
+      "source": "originals/benchmarks/26_envelope/source/EnvelopingActor.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found.",
+          "Actor type EnvelopingActor has no recognized message cases."
+        ],
+        "message_types": 1
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "App از currentTimeMillis استفاده می‌کند؛ payload تو‌در‌تو و Map نیز خارج از scalar هستند.",
+      "source_review": "Select a constant pure addHeaders function. Do NOT use EnvelopingActorApp, whose header includes currentTimeMillis. Generic nested payloads/maps need finite serialization and projection."
+    },
+    {
+      "id": "ACSU-27",
+      "name": "Correlation Join",
+      "source_sha256": "1ab2ef5cd1ad06560daba379fc72f8ea1dd1abff68e9d0ff51549f905b87c465",
+      "source": "originals/benchmarks/27_correlation_gather/source/HashRouting.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found.",
+          "Actor type SimpleGather has no recognized message cases."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Map، Seq، correlation-id و درخواست‌های در انتظار؛ فقط scalarها حالت کامل را نشان نمی‌دهند.",
+      "source_review": "Fixed workers and gather actor; finite correlation-id/value domain. Map, Seq, and pending values must be fully observed or encoded with justified bounds; do not model a timeout."
+    },
+    {
+      "id": "ACSU-28",
+      "name": "Ticket Seller",
+      "source_sha256": "77bc72319c4f8d238456f2f3abf6fdfaff4c48ef36fc0cfe249bae5b89ad5f5e",
+      "source": "originals/benchmarks/28_ticket_seller/source/TicketSeller.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 6
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "BoxOffice actor جدید می‌سازد؛ Vector/Option و Cancel/PoisonPill نیاز به پشتیبانی دارند.",
+      "source_review": "Use one precreated seller, not BoxOffice (creates event sellers). Vector/Option/nested messages and event metadata need mapping. Exclude Cancel initially or specify PoisonPill/dead-letter semantics explicitly."
+    },
+    {
+      "id": "ACSU-29",
+      "name": "Bounded Producer-Consumer",
+      "source_sha256": "0484afbba40ca1b6d3c5b8fb52187e7cbff3989367f5f2944f43eacbcdd9eefb",
+      "source": "originals/benchmarks/29_bounded_buffer/source/ProdConsAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "فرزندان داخل constructor ساخته می‌شوند و محتوای صف خصوصی اهمیت دارد؛ اندازهٔ صف کافی نیست.",
+      "source_review": "Move all constructor-created children to named bootstrap declarations. Queue contents matter, not just scalar size. Select Savina asynchronous version, not Bita ask/Await examples."
+    },
+    {
+      "id": "ACSU-30",
+      "name": "Concurrent Dictionary",
+      "source_sha256": "9801d452889cd406a07dceb45396081a9df1e4b61c757719cc0110fe2c7fe562",
+      "source": "originals/benchmarks/30_concurrent_dictionary/source/DictionaryAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Map خصوصی و تولید workload تصادفی؛ مدل باید محتوای کامل دیکشنری را حفظ کند.",
+      "source_review": "Fixed dictionary/workers; externalize workload PRNG; preserve finite key/value map exactly. It is a single server's private map, not shared mutable state between actors."
+    },
+    {
+      "id": "ACSU-31",
+      "name": "Concurrent Sorted List",
+      "source_sha256": "19815044f36aa51a3696f4364d55bc453f8531c19eb48b83f23027317d749f2f",
+      "source": "originals/benchmarks/31_sorted_list/source/SortedListAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "لیست پیوندی و تخصیص node معمولی؛ ترتیب و تکرار عناصر با scalarها پوشش داده نمی‌شوند.",
+      "source_review": "Fixed actors; the data structure allocates ordinary list nodes, not actors. Bound list length and preserve multiplicity/order; full projection or equivalent finite representation required."
+    },
+    {
+      "id": "ACSU-32",
+      "name": "Chameneos",
+      "source_sha256": "52ddf0d2f3520280c79f01be511cb289f67119f93645e7b1bf8b7b315bbb4ad2",
+      "source": "originals/benchmarks/32_chameneos/source/ChameneosAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ساخت شرکت‌کننده‌ها در constructor، رنگ enum و پیام ActorRef؛ نگاشت صریح لازم است.",
+      "source_review": "Flatten constructor-created participants into fixed named actors. Enum colors may use a bijective int representation. Explicitly model ActorRef payloads and small round bound."
+    },
+    {
+      "id": "ACSU-33",
+      "name": "Dining Philosophers / Arbitrator",
+      "source_sha256": "a22d78ec8278ab71548be857e4aebfee33fdb5a4957014360707c160f0446fd5",
+      "source": "originals/benchmarks/33_dining_philosophers/source/PhilosopherAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 6
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "وضعیت مالکیت چنگال‌ها و AtomicLong مشترکِ اندازه‌گیری؛ حذف instrumentation باید جدا بررسی شود.",
+      "source_review": "Choose Savina's untimed arbitrator variant, not Dining Hakkers timers. Remove only shared AtomicLong performance instrumentation or replace it with an actor observer; fork ownership is private arbitrator state. Prove any reduction preserves protocol behavior."
+    },
+    {
+      "id": "ACSU-34",
+      "name": "Cigarette Smokers",
+      "source_sha256": "75cbc3b5af0a994742e8ce28354b97eb8290efdeaffb02d3f1459382015d4e34",
+      "source": "originals/benchmarks/34_cigarette_smokers/source/CigaretteSmokerAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "انتخاب تصادفی smoker و busyWait؛ busyWait محاسبه است، اما تصادفی‌سازی باید قابل تطبیق باشد.",
+      "source_review": "Inspect helper: busyWait is a bounded computation loop, not a clock/deadline. It calls Math.random with discarded result; externalize random smoker choices. If retaining standard smoke-resource semantics is required, note this source is an instantaneous-acquisition variant."
+    },
+    {
+      "id": "ACSU-35",
+      "name": "Distributed Single-Source Shortest Path",
+      "source_sha256": "db054de1107d40739af391da61af9fc916e08e196a68a4b191a5cfefd19a8d7e",
+      "source": "originals/benchmarks/35_shortest_path/source/SPActor.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Map با کلید ActorRef، والد و AddNeighbor؛ topology و مشاهدهٔ کامل داده‌ها نیاز به آماده‌سازی دارند.",
+      "source_review": "Create vertices at bootstrap; AddNeighbor only during setup and then freeze graph. ActorRef keys/parent need fixed IDs and full map projection. Node allocation is not dynamic actor creation here."
+    },
+    {
+      "id": "ACSU-36",
+      "name": "Capture-Based Leader Election",
+      "source_sha256": "3450c568e67c41e0fa5f7a472d00a94b0d85c431cc9ca6aac887ebc4ba830e56",
+      "source": "originals/benchmarks/36_leader_election/source/LeaderElection.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 2,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 7
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "منبع صریحاً BUGGY است؛ خطای الگوریتم باید در ترجمه حفظ شود. Simulator شامل failure/reinitialization است.",
+      "source_review": "The source explicitly says BUGGY. Use as a known-bug/translation subject, never an automatically correct reference. Exclude Simulator's failure/reinitialization scenario and unused timeout imports; preserve source bug for translation comparison."
+    },
+    {
+      "id": "ACSU-37",
+      "name": "Asynchronous Bank Transactions",
+      "source_sha256": "6ced3d68a31f11dcd6baefeb358705fdd3353e7b22c26226326eaff76dc8dc50",
+      "source": "originals/benchmarks/37_bank_transactions/source/BankingAkkaManualStashActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Double، صف pending و ActorRef؛ generator منبع حداقل ۱۰ حساب لازم دارد.",
+      "source_review": "RESERVE. ManualStash variant avoids timed ask/Await, but Double balances, pending-message lists and ActorRef fields need support. Source generator requires at least 10 accounts because of integer division; do not blindly reduce to 2."
+    },
+    {
+      "id": "ACSU-38",
+      "name": "Logistic Map Series",
+      "source_sha256": "c8fd7bf0984cd798241c5f1a5e55f117d24b0859a24a93c9ae4d0e8c9857d2e2",
+      "source": "originals/benchmarks/38_logistic_map/source/LogisticMapAkkaManualStashActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Double، آرایهٔ mutable و صف خصوصی pending؛ نسخه‌های Await نیز باید از هسته تفکیک شوند.",
+      "source_review": "RESERVE. Fixed bootstrap; use manual asynchronous version, not Await version. Double arithmetic equality, mutable one-element arrays and private pending queue require defined observation/numeric semantics."
+    },
+    {
+      "id": "ACSU-39",
+      "name": "Radix Sort Pipeline",
+      "source_sha256": "a768e139d91c0ba5bc843cf01756aaf6c1df746a3600ec629280ae317b084046",
+      "source": "originals/benchmarks/39_radix_sort/source/RadixSortAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ساخت pipeline در setup، PRNG و تفاوت Long/Int؛ ترتیب خروجی باید حفظ شود.",
+      "source_review": "Unroll setup-created pipeline; feed explicit value inputs instead of language-specific PRNG. Preserve Long/Int widths and emitted value order; compare output values, not just success prints."
+    },
+    {
+      "id": "ACSU-40",
+      "name": "Bitonic Sorting Network",
+      "source_sha256": "04c88b8aeacd7c6407e3a80e55f9bca75b6f132e1e95db821808e845569f6460",
+      "source": "originals/benchmarks/40_bitonic_sort/source/BitonicSortAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 4
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ساخت بازگشتی topology در constructor و آرایه‌ها؛ extractor ثابت آن را مستقیماً پشتیبانی نمی‌کند.",
+      "source_review": "Source creates topology recursively in constructors. Prove fixed finite network, then declare every node before release; not admitted unchanged by static extractor. Keep array bounds, comparator direction and stage order."
+    },
+    {
+      "id": "ACSU-41",
+      "name": "All-Pairs Shortest Path",
+      "source_sha256": "1714c8e7630b069e856648d68a1b0484ceb84886b65e16e83ebfcf12ed5d5261",
+      "source": "originals/benchmarks/41_apsp/source/ApspAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 3
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "ماتریس، پیام آرایه‌ای و ساخت actor در حلقه؛ aliasing و مشاهدهٔ کامل داده‌ها مهم است.",
+      "source_review": "Fixed block graph; flatten startup loops into named actors. Matrix/array messages require deep-copy/immutability audit and complete bounded state projection."
+    },
+    {
+      "id": "ACSU-42",
+      "name": "Single-Actor Fibonacci",
+      "source_sha256": "5f9caf083cffeb64fe9b2783e203d1ed01f73be4cbfc4b8f1c7b1566e8c37479",
+      "source": "originals/benchmarks/42_local_fibonacci/source/FibonacciActor.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 1,
+        "warnings": [
+          "Actor type FibonacciActor has no recognized message cases."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_NO_MESSAGES",
+      "reason_fa": "خود Fibonacci بازگشت تابعی دارد، اما App شامل ask/Await/Timeout است؛ harness ثابت لازم است.",
+      "source_review": "This is NOT Savina recursive actor Fibonacci. The selected class recursively calls an ordinary Scala method and creates no actors. Exclude App's ask/Await/Timeout; use a fixed requester and tell replies. Preserve recursion or validate bounded translation; restrict n to 0..8."
+    },
+    {
+      "id": "ACSU-43",
+      "name": "Batched Key-Value Requests",
+      "source_sha256": "8ff04ca06f13baa569aec4885b18dfc1c74b4ed6277a261706103747cb3afac7",
+      "source": "originals/benchmarks/43_batched_kv/source/AkkademyDb.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 1,
+        "warnings": [
+          "Actor type AkkademyDb has no recognized message cases."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_NO_MESSAGES",
+      "reason_fa": "List/Object/String/Status و ActorRef؛ پردازش کل batch در یک handler باید اتمیک بماند.",
+      "source_review": "Use local precreated db/clients, no remoting/client FSM. Preserve that List requests run inside ONE handler; splitting a batch into separate mailbox messages changes semantics. Object/List/String/Status/ActorRef reply fields need complete finite encoding."
+    },
+    {
+      "id": "ACSU-44",
+      "name": "N-Queens / FIFO Variant",
+      "source_sha256": "e0327955925a46844af3500f732a750042a285c7b0704ec48e07b46bbc1189cb",
+      "source": "originals/benchmarks/44_nqueens/source/NQueensAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "payload صفحهٔ شطرنج و نسخه‌های priority؛ aliasing، توقف و محدودیت taskها باید بررسی شوند.",
+      "source_review": "Use non-priority implementation; search recursion is task recursion, not necessarily actor creation. Preserve board payload and stop criterion; choose tiny task bound and audit aliasing."
+    },
+    {
+      "id": "ACSU-45",
+      "name": "Trapezoidal Integration",
+      "source_sha256": "f3124687eff4affa6f1aec0869f719228c9c8675cfe958b92b5134abe79705a9",
+      "source": "originals/benchmarks/45_trapezoidal/source/TrapezoidalAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Double و محاسبات عددی؛ جایگزینی با عدد صحیح ترجمهٔ بدون تغییر معنا نیست.",
+      "source_review": "RESERVE. No protocol time; Double/transcendental math is the blocker. Do not replace with integer arithmetic and call it unchanged. Require a common numerical contract and supported argument generation."
+    },
+    {
+      "id": "ACSU-46",
+      "name": "Precise Pi Computation",
+      "source_sha256": "d26e434e285347acf5feac495f0979f9e275f0f1301e852b41df00bb68fc7536",
+      "source": "originals/benchmarks/46_precise_pi/source/PiPrecisionAkkaActorBenchmark.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 0,
+        "actor_instances": 0,
+        "warnings": [
+          "No class extending akka.actor.Actor was found.",
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 0
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "BigDecimal در scalarهای فعلی پشتیبانی نمی‌شود؛ نمایش و محاسبات اعشاری نیازمند توسعه‌اند.",
+      "source_review": "RESERVE. BigDecimal is not a supported scalar of the current fuzzer/observations. Needs explicit decimal representation and arithmetic verification; no claim it runs in v1.11.1."
+    },
+    {
+      "id": "ACSU-47",
+      "name": "Untimed Inventory FSM",
+      "source_sha256": "587ea243bdbc761fd0b07fcc1b1990abc4900daa2512d6874868f9366d7f8be2",
+      "source": "originals/benchmarks/47_inventory_fsm/source/Inventory.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 3,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 13
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "FSM و pending requests؛ همان فایل InventoryWithTimer هم دارد که خارج از مدل بی‌زمان است.",
+      "source_review": "Select only the first untimed Inventory class and Publisher. Same file also contains InventoryWithTimer; exclude it entirely. FSM state and pending requests need full observation and supported transformation."
+    },
+    {
+      "id": "ACSU-48",
+      "name": "Routing Slip / Car Assembly",
+      "source_sha256": "3e2414f6d134f3410e2ee4b08af0879683f904807b7caac21a50c5f04722546b",
+      "source": "originals/benchmarks/48_routing_slip/source/SlipRouter.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 4,
+        "actor_instances": 4,
+        "warnings": [],
+        "message_types": 3,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "Seq[ActorRef] و payload تو‌در‌تو؛ مسیرها و مجموعهٔ actorها باید محدود و قابل مشاهده باشند.",
+      "source_review": "Precreate fixed component actors and inject refs. Choosing a path through existing actors is not creating actors; if dynamic topology is also forbidden, fix the finite allowed route set explicitly. Seq[ActorRef]/nested messages need bounded representation."
+    },
+    {
+      "id": "ACSU-49",
+      "name": "Open-Write-Close Stash Protocol",
+      "source_sha256": "c2c0371054f8edb9de4609655c78746279e2bb748b14b14a284dcedbaf9dd08a",
+      "source": "originals/benchmarks/49_open_write_close/source/ActorDocSpec.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 23,
+        "actor_instances": 8,
+        "warnings": [
+          "Actor type ActorWithArgs has no recognized message cases.",
+          "Actor type ActorWithProtocol has no recognized message cases.",
+          "Actor type Consumer has no recognized message cases.",
+          "Actor type Cruncher has no recognized message cases.",
+          "Actor type DemoActor has no recognized message cases.",
+          "Actor type DemoActorWrapper has no recognized message cases.",
+          "Actor type Echo has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type FirstActor has no recognized message cases.",
+          "Actor type Follower has no recognized message cases.",
+          "Actor type Hook has no recognized message cases.",
+          "Actor type HotSwapActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type MyActor has no recognized message cases.",
+          "Actor type Producer has no recognized message cases.",
+          "Actor type ProducerConsumer has no recognized message cases.",
+          "Actor type Replier has no recognized message cases.",
+          "Actor type ReplyException has no recognized message cases.",
+          "Actor type SomeOtherActor has no recognized message cases.",
+          "Actor type ValueClassActor has no recognized message cases.",
+          "Actor type WatchActor has no recognized message cases."
+        ],
+        "message_types": 14,
+        "compilation": "FAILED",
+        "compilation_error": "Compiler rejected original source with the current akka-runner dependencies; see compilation excerpts."
+      },
+      "status": "BLOCKED_AT_COMPILATION",
+      "reason_fa": "Stash صف خصوصی دوم است و با mailbox یکی نیست؛ مشاهدهٔ mailbox به‌تنهایی کافی نیست.",
+      "source_review": "RESERVE. Stash is a second private queue, not the ordinary mailbox. Existing complete-post-mailbox comparison does not establish stash equivalence; source is only a protocol snippet, not a real file service."
+    },
+    {
+      "id": "ACSU-50",
+      "name": "Pausable Worker",
+      "source_sha256": "22164bf08f221658e0d331415d97ea0889cd681581428e786482b651ce16d83c",
+      "source": "originals/benchmarks/50_pausable_worker/source/PausableActor.scala",
+      "extraction": {
+        "extractor_status": "COMPLETED",
+        "actor_types": 1,
+        "actor_instances": 0,
+        "warnings": [
+          "No actorOf instance creation was found."
+        ],
+        "message_types": 2
+      },
+      "status": "BLOCKED_AT_EXTRACTION",
+      "reason_fa": "Stash، پشتهٔ رفتار و تأخیر HardWorker؛ برنامهٔ اصلی بدون adapter بی‌زمان نیست.",
+      "source_review": "RESERVE. Preserve stash and behavior stack; use an explicit untimed worker, not original HardWorker's artificial delay. Selecting a replacement worker yields a documented benchmark composition, not the complete original app."
+    }
+  ],
+  "unique_sources": 37,
+  "scope": "Original single source files as submitted by research_batch; shared support sources are not added automatically. Extraction is checked for all 37 unique files representing 50 entries; compilation is attempted only where actors, instances and named messages were extracted. No live LLM was called.",
+  "counts": {
+    "BLOCKED_AT_EXTRACTION": 36,
+    "BLOCKED_NO_MESSAGES": 3,
+    "BLOCKED_AT_COMPILATION": 11
+  }
+}

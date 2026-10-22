@@ -1,0 +1,23 @@
+reactiveclass CalculatorActor(12) {
+  knownrebecs {}
+  statevars {  }
+  CalculatorActor() {  }
+  msgsrv Sum(int one, int another) {
+    ((Client)sender).Reply(one + another);
+  }
+  msgsrv Multiply(int one, int another) { ((Client)sender).Reply(one * another); }
+}
+reactiveclass Client(12) {
+  knownrebecs { CalculatorActor calculator; }
+  statevars { int lastValue; }
+  Client() { lastValue = 0; }
+  msgsrv Request(int one, int another) {
+    calculator.Sum(one, another);
+  }
+  msgsrv RequestMultiply(int one, int another) { calculator.Multiply(one, another); }
+  msgsrv Reply(int value) { lastValue = value; }
+}
+main {
+  CalculatorActor calculator():();
+  Client client(calculator):();
+}

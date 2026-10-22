@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source_mode": "DOCUMENTED_DERIVED_SCALAR_KERNELS",
+  "cases": [
+    {
+      "id": "ACSU-01",
+      "name": "Echo",
+      "source": "akka/Echo.scala",
+      "generation_spec": "specs/Echo.json",
+      "fixture": "fixtures/Echo.rebeca"
+    },
+    {
+      "id": "ACSU-03",
+      "name": "Adder",
+      "source": "akka/Adder.scala",
+      "generation_spec": "specs/Adder.json",
+      "fixture": "fixtures/Adder.rebeca"
+    },
+    {
+      "id": "ACSU-04",
+      "name": "Calculator",
+      "source": "akka/Calculator.scala",
+      "generation_spec": "specs/Calculator.json",
+      "fixture": "fixtures/Calculator.rebeca"
+    },
+    {
+      "id": "ACSU-05",
+      "name": "Accumulator",
+      "source": "akka/Accumulator.scala",
+      "generation_spec": "specs/Accumulator.json",
+      "fixture": "fixtures/Accumulator.rebeca"
+    },
+    {
+      "id": "ACSU-42",
+      "name": "Fibonacci",
+      "source": "akka/Fibonacci.scala",
+      "generation_spec": "specs/Fibonacci.json",
+      "fixture": "fixtures/Fibonacci.rebeca"
+    }
+  ]
+}

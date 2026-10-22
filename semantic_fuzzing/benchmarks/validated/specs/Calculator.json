@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "client",
+      "message": "Request",
+      "parameter_index": 0,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "client",
+      "message": "Request",
+      "parameter_index": 1,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "calculator",
+      "message": "Sum",
+      "parameter_index": 0,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "calculator",
+      "message": "Sum",
+      "parameter_index": 1,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "client",
+      "message": "RequestMultiply",
+      "parameter_index": 0,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "client",
+      "message": "RequestMultiply",
+      "parameter_index": 1,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "calculator",
+      "message": "Multiply",
+      "parameter_index": 0,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "calculator",
+      "message": "Multiply",
+      "parameter_index": 1,
+      "minimum": -100,
+      "maximum": 100
+    },
+    {
+      "receiver": "client",
+      "message": "Reply",
+      "parameter_index": 0,
+      "minimum": -100,
+      "maximum": 100
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "exercise_kernel",
+      "steps": [
+        {
+          "receiver": "client",
+          "sender": "client",
+          "message": "Request",
+          "arguments": [
+            {
+              "bind": "value0"
+            },
+            {
+              "bind": "value1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

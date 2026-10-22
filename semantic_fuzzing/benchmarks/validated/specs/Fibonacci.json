@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "parameter_domains": [
+    {
+      "receiver": "client",
+      "message": "Request",
+      "parameter_index": 0,
+      "minimum": 0,
+      "maximum": 8
+    },
+    {
+      "receiver": "fibonacci",
+      "message": "Calculate",
+      "parameter_index": 0,
+      "minimum": 0,
+      "maximum": 8
+    },
+    {
+      "receiver": "client",
+      "message": "Reply",
+      "parameter_index": 0,
+      "minimum": 0,
+      "maximum": 21
+    }
+  ],
+  "sequence_templates": [
+    {
+      "name": "exercise_kernel",
+      "steps": [
+        {
+          "receiver": "client",
+          "sender": "client",
+          "message": "Request",
+          "arguments": [
+            {
+              "bind": "value0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

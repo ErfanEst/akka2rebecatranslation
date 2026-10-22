@@ -1,0 +1,12 @@
+Echo and Adder are derived from examples in akka/akka-core.
+Original source notice: Copyright (C) 2009-2022 Lightbend Inc.
+https://www.lightbend.com
+License: Apache License, Version 2.0.
+The complete upstream files and license are retained in ../research50/originals/.
+
+Calculator, Accumulator and Fibonacci are derived from PacktPublishing/Akka-Cookbook.
+License: MIT; the full copyright and permission notice is retained at
+../research50/originals/LICENSES/C_PacktPublishing__Akka-Cookbook_LICENSE.txt.
+
+All five input files are modified standalone research kernels, not unchanged
+upstream programs. Modifications and scope are listed in README_FA.md.

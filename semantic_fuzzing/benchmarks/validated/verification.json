@@ -1,0 +1,199 @@
+{
+  "validation_mode": "HAND_WRITTEN_FIXTURES",
+  "live_api_executed": false,
+  "cases_per_example": 2,
+  "start_seed": 10000,
+  "source_mode": "DOCUMENTED_DERIVED_SCALAR_KERNELS",
+  "cases": [
+    {
+      "id": "ACSU-01",
+      "name": "Echo",
+      "status": "BOUNDED_MATCH",
+      "syntax": "PASSED",
+      "matched_cases": 2,
+      "source_sha256": "9b057a348819c00f79e8a9f27a02961c9339e226fc068404649f1d4c530268a0",
+      "spec_sha256": "3df9602b35fa01b944fd12cd52198d2abdddc7f22910af9a5f4599b7f502a529",
+      "fixture_sha256": "56fa195fef015abd41b7cfbda55941baaec7d2b4d72a43b6313737a5ff0f8939",
+      "fuzzing_commit": "3086cba00497848d2a999ed6f219a6e6fca2fa13",
+      "finished_at": "2026-10-22T18:32:32.893456+00:00",
+      "scenarios": [
+        {
+          "seed": 10000,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 8,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        },
+        {
+          "seed": 10001,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 10,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ACSU-03",
+      "name": "Adder",
+      "status": "BOUNDED_MATCH",
+      "syntax": "PASSED",
+      "matched_cases": 2,
+      "source_sha256": "2f6c86dee483ae8915df164900cc7d8be58a1b121822e2ec06c6879610bcf147",
+      "spec_sha256": "9348734ece11a1d809e19a797b31bc1a7583b5bf0330442ac3f33462edde9ea2",
+      "fixture_sha256": "d96b0490ccd715582e2c51e98cdb561407504c8a78c6b453c753a18ce7375c6f",
+      "fuzzing_commit": "3086cba00497848d2a999ed6f219a6e6fca2fa13",
+      "finished_at": "2026-10-22T18:33:29.122415+00:00",
+      "scenarios": [
+        {
+          "seed": 10000,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 11,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        },
+        {
+          "seed": 10001,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 7,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ACSU-04",
+      "name": "Calculator",
+      "status": "BOUNDED_MATCH",
+      "syntax": "PASSED",
+      "matched_cases": 2,
+      "source_sha256": "0c814a8e7ad4cb196200e152a142f145a43d00d52d6e870a0249aa21fa2fcd32",
+      "spec_sha256": "730f08fc4c2ebbb5780e8abad2dceae270734d5d1d818b2b1b0992ae53605544",
+      "fixture_sha256": "6d0b26d23ff089186ce68d9f9da427bb6a5fc609cba796889b52cf3440d83efc",
+      "fuzzing_commit": "3086cba00497848d2a999ed6f219a6e6fca2fa13",
+      "finished_at": "2026-10-22T18:34:10.158884+00:00",
+      "scenarios": [
+        {
+          "seed": 10000,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 10,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        },
+        {
+          "seed": 10001,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 10,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ACSU-05",
+      "name": "Accumulator",
+      "status": "BOUNDED_MATCH",
+      "syntax": "PASSED",
+      "matched_cases": 2,
+      "source_sha256": "e7f07c6d293752d8dcdfb38ac40a9b1db8cc0a0fd9608bac9a3bf122218d49a3",
+      "spec_sha256": "01cc6912c15f90cdf0edf81adae33398cd8aacd0c989b93627a510ee390c7782",
+      "fixture_sha256": "60c8eeb32fada296601b81c0bb3a7cf08dc55cab0761e000a9864b67de87c83b",
+      "fuzzing_commit": "3086cba00497848d2a999ed6f219a6e6fca2fa13",
+      "finished_at": "2026-10-22T18:34:52.503820+00:00",
+      "scenarios": [
+        {
+          "seed": 10000,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 6,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        },
+        {
+          "seed": 10001,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 7,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ACSU-42",
+      "name": "Fibonacci",
+      "status": "BOUNDED_MATCH",
+      "syntax": "PASSED",
+      "matched_cases": 2,
+      "source_sha256": "766afdb2ece7225a4cbe2a801500255d5037aba1b4e20b280cf26d557e8c03cf",
+      "spec_sha256": "d4da87eff330e5a33cdb59bdc5ba7b708cf1793991977c067872107f5a8033da",
+      "fixture_sha256": "33726bb95f3352c42780483d1de3da4340261f46d6b19a280a4a1babc41cb92b",
+      "fuzzing_commit": "3086cba00497848d2a999ed6f219a6e6fca2fa13",
+      "finished_at": "2026-10-22T18:35:33.567455+00:00",
+      "scenarios": [
+        {
+          "seed": 10000,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 9,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        },
+        {
+          "seed": 10001,
+          "status": "COMPLETED",
+          "models": [
+            {
+              "trace_status": "TRACE_PREFIX_MATCH",
+              "trusted_trace_result": true,
+              "observed_event_count": 11,
+              "pipeline_status": "EXECUTED"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

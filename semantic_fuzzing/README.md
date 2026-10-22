@@ -138,6 +138,11 @@ campaign report; a killed mutant does not reject a matching candidate.
 
 ## New Translations
 
+For runnable, documented derivatives of five research kernels, use
+`python -m semantic_fuzzing.validated_batch --cases 50 --output ../runs/validated/group-01`.
+See [the validated-input guide](benchmarks/validated/README_FA.md) for adaptation
+boundaries, the audit of all 50 original entries, and fixture-based verification.
+
 For the uploaded 50-source research archive, run groups of five with
 `python -m semantic_fuzzing.research_batch --group 1 --dry-run`, then provide
 `--output ../runs/research50/group-01` instead of `--dry-run` to translate.

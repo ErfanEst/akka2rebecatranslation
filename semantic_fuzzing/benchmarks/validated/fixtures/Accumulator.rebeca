@@ -1,0 +1,20 @@
+reactiveclass SummingActor(12) {
+  knownrebecs {}
+  statevars { int sum; }
+  SummingActor() { sum = 0; }
+  msgsrv Add(int value) {
+    sum = sum + value;
+  }
+}
+reactiveclass Client(12) {
+  knownrebecs { SummingActor accumulator; }
+  statevars {  }
+  Client() {  }
+  msgsrv Request(int value) {
+    accumulator.Add(value);
+  }
+}
+main {
+  SummingActor accumulator():();
+  Client client(accumulator):();
+}

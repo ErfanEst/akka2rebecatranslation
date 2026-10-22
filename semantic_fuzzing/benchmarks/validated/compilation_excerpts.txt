@@ -1,0 +1,32 @@
+ACSU-02-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/02_cache/source/ConsistentHashingRouterDocSpec.scala:7:13: object testkit is not a member of package akka
+ACSU-02-compile.stdout.log:[error] import akka.testkit.AkkaSpec
+ACSU-02-compile.stdout.log:[error]             ^
+ACSU-02-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/02_cache/source/ConsistentHashingRouterDocSpec.scala:8:13: object testkit is not a member of package akka
+ACSU-02-compile.stdout.log:[error] import akka.testkit.ImplicitSender
+ACSU-02-compile.stdout.log:[error]             ^
+ACSU-02-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/02_cache/source/ConsistentHashingRouterDocSpec.scala:39:46: not found: type AkkaSpec
+ACSU-02-compile.stdout.log:[error] class ConsistentHashingRouterDocSpec extends AkkaSpec with ImplicitSender {
+ACSU-03-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/03_adder/source/ActorDocSpec.scala:8:8: not found: object jdocs
+ACSU-03-compile.stdout.log:[error] import jdocs.actor.ImmutableMessage
+ACSU-03-compile.stdout.log:[error]        ^
+ACSU-03-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/03_adder/source/ActorDocSpec.scala:21:13: object testkit is not a member of package akka
+ACSU-03-compile.stdout.log:[error] import akka.testkit._
+ACSU-03-compile.stdout.log:[error]             ^
+ACSU-03-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/03_adder/source/ActorDocSpec.scala:39:28: not found: type ImmutableMessage
+ACSU-03-compile.stdout.log:[error] final case class DoIt(msg: ImmutableMessage)
+ACSU-48-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/48_routing_slip/source/SlipRouter.scala:102:5: type mismatch;
+ACSU-48-compile.stdout.log:[error]  found   : scala.collection.mutable.ListBuffer[akka.actor.ActorRef]
+ACSU-48-compile.stdout.log:[error]  required: Seq[akka.actor.ActorRef]
+ACSU-48-compile.stdout.log:[error]     routeSlip
+ACSU-48-compile.stdout.log:[error]     ^
+ACSU-48-compile.stdout.log:[error] one error found
+ACSU-48-compile.stdout.log:[error] (Compile / compileIncremental) Compilation failed
+ACSU-48-compile.stdout.log:[error] Total time: 4 s, completed Oct 22, 2026, 6:33:29 PM
+ACSU-01-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/01_echo/source/RouterDocSpec.scala:8:13: object testkit is not a member of package akka
+ACSU-01-compile.stdout.log:[error] import akka.testkit._
+ACSU-01-compile.stdout.log:[error]             ^
+ACSU-01-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/01_echo/source/RouterDocSpec.scala:526:29: not found: type AkkaSpec
+ACSU-01-compile.stdout.log:[error] class RouterDocSpec extends AkkaSpec(RouterDocSpec.config) with ImplicitSender {
+ACSU-01-compile.stdout.log:[error]                             ^
+ACSU-01-compile.stdout.log:[error] semantic_fuzzing/benchmarks/research50/originals/benchmarks/01_echo/source/RouterDocSpec.scala:526:65: not found: type ImplicitSender
+ACSU-01-compile.stdout.log:[error] class RouterDocSpec extends AkkaSpec(RouterDocSpec.config) with ImplicitSender {
