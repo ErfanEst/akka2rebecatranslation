@@ -1,8 +1,9 @@
 {
   "experiment_name": "handbook_rebeca",
   "prompt_profile": "handbook_rebeca",
+  "handbook_reference_mode": "compact",
   "model": "gpt-4o",
   "temperature": 0.1,
   "max_retries": 3,
-  "description": "Core Rebeca translation using complete user-provided handbook and manual references plus semantic fuzzing validation"
+  "description": "Core Rebeca translation using complete translation rules, Core handbook pages and full manual"
 }

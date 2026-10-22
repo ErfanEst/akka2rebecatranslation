@@ -61,7 +61,7 @@ def main() -> int:
     batch = commands.add_parser("batch", help="Check explicitly paired archived translations")
     batch.add_argument("--manifest", required=True, type=Path)
     batch.add_argument("--output", required=True, type=Path)
-    translate = commands.add_parser("translate", help="Translate with the full handbook, syntax gate and fuzz validation")
+    translate = commands.add_parser("translate", help="Translate with handbook guidance, syntax gate and fuzz validation")
     translate.add_argument("--akka-source", required=True, type=Path)
     translate.add_argument("--translation-config", required=True, type=Path,
                            help="Existing BaseModelV2 configuration as JSON")

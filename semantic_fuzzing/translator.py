@@ -41,7 +41,8 @@ class FuzzingTranslator(BaseModelV2):
         self.prompt_profile = config.get("prompt_profile", PROFILE)
         self.prompt_metadata = None
         if self.prompt_profile == PROFILE:
-            config["system_prompt"], self.prompt_metadata = build_handbook_prompt()
+            config["system_prompt"], self.prompt_metadata = build_handbook_prompt(
+                config.get("handbook_reference_mode", "compact"))
             config.setdefault("model", "gpt-4o")
             if config["model"] in {"gpt-4", "gpt-4-0314", "gpt-4-0613",
                                    "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-0613"}:

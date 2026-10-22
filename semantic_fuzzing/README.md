@@ -145,13 +145,18 @@ entry points still use their original behavior; invoke the integrated entry
 point explicitly.
 
 The profile combines the detailed translation contract in
-`prompts/handbook_rebeca.md` with **all extracted text** of the user-supplied
+`prompts/handbook_rebeca.md` with reference text from the user-supplied
 52-page Handbook of Rebeca (2025-04-05) and 8-page Rebeca 2.1 manual (2016-12-06).
 Both complete UTF-8 extractions are committed under `prompts/`. The source PDF
 hashes, text hashes, page counts and extraction method are in `prompts/sources.json`.
 PDF drawings/screenshots are not embedded in this text-only prompt; extracted
 captions and any extractable figure text are retained. No document is fetched
-from the network at runtime, summarized in place of the appendix, or truncated.
+from the network at runtime. The default `handbook_reference_mode` is `compact`:
+all translation rules, the complete manual, and handbook PDF pages 11-18
+(printed pages 5-12, Core syntax and the complete bridge listing) are sent.
+Other handbook pages remain in the repository but are omitted from requests.
+Set `"handbook_reference_mode": "full"` in the translation JSON to restore the
+original complete appendices. Unknown modes fail before an API request.
 
 The contract covers source topology, Core syntax, constructors, message and
 sender identity, scalar state, FIFO queues, atomicity, capacity bounds, sequence
@@ -173,8 +178,16 @@ prompt fields do not bypass the requested replacement. To deliberately run an
 older/custom prompt experiment, explicitly select `"prompt_profile": "custom"`.
 Unknown profile names fail rather than silently falling back.
 
-This full-reference prompt is large (about 177,000 characters before Akka source
-and feedback). The profile defaults to `gpt-4o`; use a model with adequate context
+The compact system prompt has 69,079 characters versus 177,138 in full mode,
+a 61% character reduction before Akka source and feedback. These are not token
+counts; actual usage depends on the tokenizer and request. Metadata records
+reference mode, included PDF pages and content hashes. All 16 translation-rule
+sections are preserved verbatim. Omitted material includes front matter,
+extended analysis tutorials, case studies, timed/probabilistic and advanced
+chapters, and bibliography. Their relevant restrictions remain in the contract.
+Equal translation quality is not guaranteed by text tests: compare both modes
+on the same sources, seeds, bounds and model to assess accuracy.
+The profile defaults to `gpt-4o`; use a model with adequate context
 and leave room for the input and output. Known legacy GPT-4 8K/32K model names
 are rejected for this profile. Other model limits still apply; the pipeline does
 not silently shorten the documents to fit. No API key belongs in a config file.

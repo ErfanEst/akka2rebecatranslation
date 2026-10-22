@@ -15,7 +15,7 @@ from .translator import FuzzingTranslator
 
 class HandbookPromptTests(unittest.TestCase):
     def test_both_complete_extractions_are_included_unchanged(self):
-        prompt, metadata = build_handbook_prompt()
+        prompt, metadata = build_handbook_prompt("full")
         self.assertEqual(metadata["system_prompt_sha256"], hashlib.sha256(prompt.encode()).hexdigest())
         for source in metadata["documents"]:
             raw = (PROMPT_DIRECTORY / source["text_file"]).read_bytes()
@@ -23,6 +23,26 @@ class HandbookPromptTests(unittest.TestCase):
             self.assertEqual(raw.count(b"\f"), source["pages"])
             self.assertIn(raw.decode("utf-8"), prompt)
         self.assertEqual([s["pages"] for s in metadata["documents"]], [52, 8])
+
+    def test_compact_preserves_contract_and_core_reference_pages(self):
+        compact, metadata = build_handbook_prompt()
+        full, _ = build_handbook_prompt("full")
+        self.assertLess(len(compact), len(full) * 0.75)
+        contract = (PROMPT_DIRECTORY / "handbook_rebeca.md").read_text()
+        rules = contract.split("## 1. Target dialect and precedence")[1].split(
+            "## Reference appendix boundary")[0]
+        self.assertIn(rules, compact)
+        pages = (PROMPT_DIRECTORY / "handbook.full.txt").read_text().split("\f")
+        for index in range(10, 18):
+            self.assertIn(pages[index], compact)
+        self.assertIn((PROMPT_DIRECTORY / "manual.full.txt").read_text(), compact)
+        self.assertNotIn(pages[34], compact)
+        self.assertEqual(metadata["reference_mode"], "compact")
+        self.assertEqual(metadata["documents"][0]["included_pdf_pages"], list(range(11, 19)))
+
+    def test_unknown_reference_mode_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "handbook_reference_mode"):
+            build_handbook_prompt("typo")
 
     def test_actual_first_and_retry_calls_include_full_prompt_and_original_source(self):
         config = FuzzingConfig(Path("/unused/engine"), Path("/unused/rmc.jar"))
