@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "sequence_templates": [
+    {
+      "name": "overflow_must_not_match",
+      "steps": [
+        {"receiver": "worker", "sender": "client", "message": "PushActive", "arguments": []},
+        {"receiver": "worker", "sender": "client", "message": "PushPaused", "arguments": []},
+        {"receiver": "worker", "sender": "client", "message": "PushActive", "arguments": []},
+        {"receiver": "worker", "sender": "client", "message": "PushPaused", "arguments": []},
+        {"receiver": "worker", "sender": "client", "message": "PushActive", "arguments": []}
+      ]
+    }
+  ]
+}

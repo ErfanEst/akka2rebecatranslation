@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "sequence_templates": [{
+    "name": "four_slots_replace_and_restore",
+    "steps": [
+      {"receiver": "worker", "sender": "client", "message": "ReplaceActive", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "PushPaused", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "PushActive", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "PushPaused", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "ReplaceActive", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Add", "arguments": [{"literal": 7}]},
+      {"receiver": "worker", "sender": "client", "message": "Pop", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Pop", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Add", "arguments": [{"literal": 3}]},
+      {"receiver": "worker", "sender": "client", "message": "Pop", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Pop", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Pop", "arguments": []},
+      {"receiver": "worker", "sender": "client", "message": "Add", "arguments": [{"literal": 5}]}
+    ]
+  }]
+}

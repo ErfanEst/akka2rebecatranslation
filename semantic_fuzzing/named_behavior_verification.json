@@ -1,0 +1,57 @@
+{
+  "extension": "named-behaviors-v1",
+  "scope": "Named parameterless Receive methods; four overrides above initial receive",
+  "semantic_equivalence": "NOT_ESTABLISHED",
+  "source_sha256": "ba8c6ea18c23344916b975c4ea003966ee1fad4020c6401ef8415069131a470b",
+  "tests": {
+    "translation_unit_tests_passed": 43,
+    "engine_python_tests_passed": 49,
+    "scala_checks": "BehaviorSupportChecks: passed",
+    "fixture": {
+      "status": "BOUNDED_MATCH",
+      "seeds": [10000, 10001],
+      "messages_per_case": 9,
+      "mutant": "KILLED",
+      "mutant_state_mismatch_cases": 2,
+      "first_mutant_mismatch_event_index": 3,
+      "evidence": "/workspace/execution-evidence/behavior-stack-check-04/result.json",
+      "evidence_sha256": "46ebe1bb98f06370648318e5f0f5739f0d2202981f082dc3baedc0367f3d13f4"
+    },
+    "live_translation": {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "medium",
+      "attempts": 1,
+      "syntax_status": "PASSED",
+      "semantic_status": "BOUNDED_MATCH",
+      "seeds": [10000, 10001],
+      "elapsed_seconds": 80.2469801902771,
+      "candidate_sha256": "82087d9997edbb6ae336073f712dbf00a76f07168488c8fa170841af68a20c14",
+      "evidence": "/workspace/execution-evidence/behavior-stack-live/BehaviorStack_result.json",
+      "evidence_sha256": "6d09f7bfa35b335360569b3c4cbfb4b01c32643baa185ab7ae2e4889e5f2e0a4"
+    },
+    "four_slot_boundary": {
+      "candidate": "Live LLM output, not the handwritten fixture",
+      "status": "BOUNDED_MATCH",
+      "case_count": 1,
+      "messages_per_case": 13,
+      "evidence": "/workspace/execution-evidence/behavior-stack-boundary/result.json",
+      "evidence_sha256": "b07db5495352f11cd3dc63b26f4dd77d2249c6d852be103ee6aecb8bc5eca70a"
+    },
+    "overflow": {
+      "expected_status": "ERROR",
+      "actual_status": "ERROR",
+      "case_count": 1,
+      "messages_per_case": 5,
+      "runtime_error": "BEHAVIOR_STACK_BOUND_EXCEEDED",
+      "rejection": "Post-state instrumentation did not report state for events: [4]",
+      "evidence": "/workspace/execution-evidence/behavior-stack-overflow/result.json",
+      "evidence_sha256": "f0bb4656fa897d12e9abc44bfe4037c2d8ffa2d302ef8b23eee9954c37355844"
+    }
+  },
+  "notes": [
+    "Evidence paths refer to the cloud workspace; rerun the documented commands to obtain local reports.",
+    "Executed against the working-tree extension before its commit; recorded engine HEAD in raw reports is the parent revision.",
+    "The primary test uses a fixed protocol sequence, not arbitrary random message ordering.",
+    "Stash, library FSM, routers, EventBus and precise numeric extensions are not implemented here."
+  ]
+}

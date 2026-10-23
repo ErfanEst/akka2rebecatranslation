@@ -2,6 +2,7 @@
 
 راهنمای فارسی نصب و اجرا: [GUIDE_FA.md](GUIDE_FA.md).
 گزارش اجرای واقعی و محدودیت‌ها: [EXECUTION_REPORT_FA.md](EXECUTION_REPORT_FA.md).
+راهنمای افزونهٔ محدود `become`/`unbecome`: [NAMED_BEHAVIORS_FA.md](NAMED_BEHAVIORS_FA.md).
 
 This is a new, opt-in pipeline. All pre-existing translation code, evaluators,
 experiment scripts, tests, and dependency files are unchanged. The integration

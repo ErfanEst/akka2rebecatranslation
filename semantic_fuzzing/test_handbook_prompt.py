@@ -14,6 +14,31 @@ from .translator import FuzzingTranslator
 
 
 class HandbookPromptTests(unittest.TestCase):
+    def test_named_behaviors_requires_backend_and_updates_prompt_hash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = FuzzingConfig(root, root / "rmc.jar")
+            config.validate = Mock()
+            pipeline = Mock(config=config)
+            settings = {"named_behavior_support": True}
+            with self.assertRaisesRegex(ValueError, "Update the fuzzing"):
+                FuzzingTranslator(pipeline, settings)
+            support = root / "akka-interface-extractor/src/main/scala/fuzzextractor/BehaviorSupport.scala"
+            support.parent.mkdir(parents=True)
+            support.touch()
+            previous = Path.cwd()
+            try:
+                os.chdir(root)
+                with patch("experiments.base_model_v2.ChatOpenAI"):
+                    translator = FuzzingTranslator(pipeline, settings)
+                self.assertIn("fuzzBehaviorSlot3", translator.system_prompt)
+                self.assertEqual(translator.prompt_metadata["backend_extension"], "named-behaviors-v1")
+                self.assertEqual(translator.prompt_metadata["system_prompt_sha256"],
+                                 hashlib.sha256(translator.system_prompt.encode()).hexdigest())
+                self.assertNotIn("system_prompt", settings)
+            finally:
+                os.chdir(previous)
+
     def test_both_complete_extractions_are_included_unchanged(self):
         prompt, metadata = build_handbook_prompt("full")
         self.assertEqual(metadata["system_prompt_sha256"], hashlib.sha256(prompt.encode()).hexdigest())

@@ -1,13 +1,14 @@
 """An opt-in BaseModelV2 variant whose validation gate is differential fuzzing."""
 
 from pathlib import Path
+import hashlib
 import tempfile
 
 from langchain_openai import ChatOpenAI
 
 from experiments.base_model_v2 import BaseModelV2
 from .pipeline import FuzzingPipeline, write_json
-from .handbook_prompt import PROFILE, build_handbook_prompt, build_request_templates
+from .handbook_prompt import PROFILE, PROMPT_DIRECTORY, build_handbook_prompt, build_request_templates
 
 
 class FuzzingTranslator(BaseModelV2):
@@ -43,6 +44,15 @@ class FuzzingTranslator(BaseModelV2):
         if self.prompt_profile == PROFILE:
             config["system_prompt"], self.prompt_metadata = build_handbook_prompt(
                 config.get("handbook_reference_mode", "compact"))
+            if config.get("named_behavior_support", False):
+                support = pipeline.config.fuzzing_repo / "akka-interface-extractor/src/main/scala/fuzzextractor/BehaviorSupport.scala"
+                if not support.is_file():
+                    raise ValueError("Update the fuzzing repository: named behavior support is missing")
+                config["system_prompt"] += "\n" + (PROMPT_DIRECTORY / "named_behaviors.md").read_text(encoding="utf-8")
+                self.prompt_metadata.update(
+                    backend_extension="named-behaviors-v1", behavior_stack_bound=4,
+                    system_prompt_sha256=hashlib.sha256(config["system_prompt"].encode()).hexdigest(),
+                    system_prompt_characters=len(config["system_prompt"]))
             config.setdefault("model", "gpt-4o")
             if config["model"] in {"gpt-4", "gpt-4-0314", "gpt-4-0613",
                                    "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-0613"}:
