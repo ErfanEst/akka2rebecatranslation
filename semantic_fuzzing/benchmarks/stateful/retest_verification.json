@@ -1,0 +1,38 @@
+{
+  "planner": "stateful-random-v1",
+  "llm_calls": 0,
+  "tests": {
+    "translation_python": 50,
+    "engine_python": 51
+  },
+  "plan_only_seed_range": [
+    20000,
+    20049
+  ],
+  "unique_planned_inputs_per_case": {
+    "ACSU-09": 50,
+    "ACSU-10": 49,
+    "ACSU-25": 50,
+    "FSM-01": 50
+  },
+  "real_execution": {
+    "case": "FSM-01",
+    "seeds": [
+      20000,
+      20001,
+      20002
+    ],
+    "messages_per_case": 16,
+    "status": "BOUNDED_MATCH",
+    "unique_generated_inputs": 3,
+    "candidate_sha256": "501917dd310fd51fa7303c5772ca85bcace9ec0f3e5770b606d4d10dcd53a897",
+    "source_sha256": "e79d979fda41e4bd2d6684ed07846d86985a828adba289c4bba4de04da8361df",
+    "summary_file": "/workspace/execution-evidence/stateful-retest-smoke-02/summary.json",
+    "summary_sha256": "0fe409e15c0e20f509b3ebc7baae6a98a4720de238754dc48f310c8991d6a3ab"
+  },
+  "limitations": [
+    "Only three FSM cases were executed here, not the full 200-case campaign.",
+    "The user local translations are not available in this workspace.",
+    "A bounded match does not establish full equivalence."
+  ]
+}
