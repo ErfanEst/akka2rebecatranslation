@@ -1,0 +1,113 @@
+{
+  "extension": "scalar-fsm-v1",
+  "semantic_equivalence": "NOT_ESTABLISHED",
+  "cases": [
+    {
+      "id": "ACSU-09",
+      "status": "BOUNDED_MATCH",
+      "completed_cases": 2,
+      "seeds": [
+        10000,
+        10001
+      ],
+      "source_sha256": "e66e4fdd25457b0b99a4862ce62d49b884443d71ce4a325f6ec733ba65eee500",
+      "fixture_sha256": "a0bde6bcbea2ba8d5639749d4c71f4aaac2e007f21589c89b450c97504f1fa46",
+      "spec_sha256": "6e4d7df67b5cebb13a397066e2f46c6fd8b8dec792156b03a244ba268de53e8f",
+      "evidence": "/workspace/execution-evidence/stateful-fixtures-01/ACSU-09/validation/result.json",
+      "evidence_sha256": "61efb216e74b7516ae9dfa4b0c749ce642163fd5fccb65ddf0e7e5efec60230d"
+    },
+    {
+      "id": "ACSU-10",
+      "status": "BOUNDED_MATCH",
+      "completed_cases": 2,
+      "seeds": [
+        10000,
+        10001
+      ],
+      "source_sha256": "3874bef6b922cf35867a4b2ca93ca2a77d476137992b71883422d9433a7ec8dc",
+      "fixture_sha256": "47c0b75a88784c7ff500664aae1a23f506bf46d32158844782424c5e0d8be78f",
+      "spec_sha256": "4c04e33cb35627f5d00353ee922c78c8995d7516f994ff18b6a5afd50c0b4018",
+      "evidence": "/workspace/execution-evidence/stateful-fixtures-01/ACSU-10/validation/result.json",
+      "evidence_sha256": "0c6d7e715176c6f6eb50aa8197de20c1ed78652f4ccd73bb7eae2d84a504bb33"
+    },
+    {
+      "id": "ACSU-25",
+      "status": "BOUNDED_MATCH",
+      "completed_cases": 2,
+      "seeds": [
+        10000,
+        10001
+      ],
+      "source_sha256": "d1c913b451a383ba8dbb596fae46085f2374507a451260ef465b13e4ecdcb36e",
+      "fixture_sha256": "7b72b1f260f86df42f12283aa54dfea2c0640f8ffb9b088688f5575d1a94e50f",
+      "spec_sha256": "7e0ca2a92229f23d12e74a6ec55372918038ca848c733b77fec4ade65ac06109",
+      "evidence": "/workspace/execution-evidence/switch-router-check-01/result.json",
+      "evidence_sha256": "ee26efc3c619e64f092636517ab4b7a0a520390af4cfb5315f2c1b18350da02d"
+    },
+    {
+      "id": "FSM-01",
+      "status": "BOUNDED_MATCH",
+      "completed_cases": 2,
+      "seeds": [
+        10000,
+        10001
+      ],
+      "source_sha256": "e79d979fda41e4bd2d6684ed07846d86985a828adba289c4bba4de04da8361df",
+      "fixture_sha256": "f801cdc08b6bb10ed59a6d81d612a278e15e23544f60b04fdc52681f3beda006",
+      "spec_sha256": "531691ab3b6f12f113c85392e52b0afc530aa2b32b588419fe289321fd735a8e",
+      "evidence": "/workspace/execution-evidence/stateful-fixtures-01/FSM-01/validation/result.json",
+      "evidence_sha256": "3624f14797f9cb91960e6b1c2f1f1413036c58dead1f8324636856d7b7085778"
+    }
+  ],
+  "live_translation": {
+    "status": "BOUNDED_MATCH",
+    "attempts": 1,
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "evidence": "/workspace/execution-evidence/scalar-fsm-live-01/ScalarFsm_result.json",
+    "evidence_sha256": "9e8ebebe9cdcb7d939190db80a6d04388ab378104836ac95c22c01d904a51569"
+  },
+  "final_live_candidate_recheck": {
+    "status": "BOUNDED_MATCH",
+    "mutation": {
+      "mutant_count": 1,
+      "killed_count": 1,
+      "survived_count": 0,
+      "inconclusive_count": 0,
+      "not_activated_count": 0,
+      "mutation_score": 1,
+      "score_denominator_excludes_inconclusive": true,
+      "score_denominator_excludes_not_activated": true,
+      "mutants": [
+        {
+          "name": "mutant_1",
+          "status": "KILLED",
+          "mismatch_case_count": 0,
+          "state_mismatch_case_count": 2,
+          "mailbox_mismatch_case_count": 0,
+          "queue_overflow_case_count": 0,
+          "match_case_count": 0,
+          "not_activated_case_count": 0,
+          "inconclusive_case_count": 0
+        }
+      ]
+    },
+    "evidence": "/workspace/execution-evidence/scalar-fsm-final-01/result.json",
+    "evidence_sha256": "ba812c3fec0b2fc376d53c9cff8989289456a12653d91f6f3b69aa96460824dd"
+  },
+  "tests": {
+    "translation_python": 46,
+    "engine_python": 49,
+    "scala": [
+      "BehaviorSupportChecks passed",
+      "FsmSupportChecks passed"
+    ]
+  },
+  "notes": [
+    "Cloud evidence paths are not local checkout paths; regenerate with the guide.",
+    "Tested against working-tree changes; raw engine HEAD identifies the parent commit.",
+    "Fixed protocol templates do not constitute distinct random-order scenarios.",
+    "Derived kernels do not establish equivalence to complete upstream files.",
+    "FSM branch coverage is explicitly not instrumented."
+  ]
+}

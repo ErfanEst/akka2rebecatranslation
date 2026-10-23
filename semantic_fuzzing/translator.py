@@ -53,6 +53,15 @@ class FuzzingTranslator(BaseModelV2):
                     backend_extension="named-behaviors-v1", behavior_stack_bound=4,
                     system_prompt_sha256=hashlib.sha256(config["system_prompt"].encode()).hexdigest(),
                     system_prompt_characters=len(config["system_prompt"]))
+            if config.get("scalar_fsm_support", False):
+                support = pipeline.config.fuzzing_repo / "akka-interface-extractor/src/main/scala/fuzzextractor/FsmSupport.scala"
+                if not support.is_file():
+                    raise ValueError("Update the fuzzing repository: scalar FSM support is missing")
+                config["system_prompt"] += "\n" + (PROMPT_DIRECTORY / "scalar_fsm.md").read_text(encoding="utf-8")
+                self.prompt_metadata.update(
+                    fsm_extension="scalar-fsm-v1",
+                    system_prompt_sha256=hashlib.sha256(config["system_prompt"].encode()).hexdigest(),
+                    system_prompt_characters=len(config["system_prompt"]))
             config.setdefault("model", "gpt-4o")
             if config["model"] in {"gpt-4", "gpt-4-0314", "gpt-4-0613",
                                    "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-0613"}:

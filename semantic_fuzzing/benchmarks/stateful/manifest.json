@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "source_mode": "DOCUMENTED_DERIVED_KERNELS_AND_NEW_FSM_REGRESSION",
+  "cases": [
+    {"id": "ACSU-09", "name": "Swapper", "source": "akka/Swapper.scala", "generation_spec": "specs/Swapper.json", "fixture": "fixtures/Swapper.rebeca", "message_count": 4},
+    {"id": "ACSU-10", "name": "HotSwap", "source": "akka/HotSwap.scala", "generation_spec": "specs/HotSwap.json", "fixture": "fixtures/HotSwap.rebeca", "message_count": 6},
+    {"id": "ACSU-25", "name": "SwitchRouter", "source": "akka/SwitchRouter.scala", "generation_spec": "specs/SwitchRouter.json", "fixture": "fixtures/SwitchRouter.rebeca", "message_count": 7},
+    {"id": "FSM-01", "name": "ScalarFsm", "source": "akka/ScalarFsm.scala", "generation_spec": "specs/ScalarFsm.json", "fixture": "fixtures/ScalarFsm.rebeca", "message_count": 7}
+  ]
+}

@@ -1,0 +1,22 @@
+reactiveclass SwapperActor(20) {
+  knownrebecs {}
+  statevars {
+    int greeting; int fuzzBehaviorMode; int fuzzBehaviorDepth;
+    int fuzzBehaviorSlot0; int fuzzBehaviorSlot1; int fuzzBehaviorSlot2; int fuzzBehaviorSlot3;
+  }
+  SwapperActor() {
+    greeting = 0; fuzzBehaviorMode = 0; fuzzBehaviorDepth = 0;
+    fuzzBehaviorSlot0 = -1; fuzzBehaviorSlot1 = -1; fuzzBehaviorSlot2 = -1; fuzzBehaviorSlot3 = -1;
+  }
+  msgsrv Swap() {
+    if (fuzzBehaviorMode == 0) {
+      greeting = 1; fuzzBehaviorMode = 1; fuzzBehaviorDepth = 1; fuzzBehaviorSlot0 = 1;
+    } else {
+      greeting = 2; fuzzBehaviorMode = 0; fuzzBehaviorDepth = 0; fuzzBehaviorSlot0 = -1;
+    }
+  }
+}
+reactiveclass Client(20) {
+  knownrebecs {} statevars {} Client() {} msgsrv Noop() {}
+}
+main { SwapperActor worker():(); Client client():(); }

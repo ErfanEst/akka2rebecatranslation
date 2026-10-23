@@ -1,0 +1,12 @@
+{
+  "experiment_name": "stateful_medium",
+  "prompt_profile": "handbook_rebeca",
+  "handbook_reference_mode": "compact",
+  "named_behavior_support": true,
+  "scalar_fsm_support": true,
+  "provider": "openai",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "medium",
+  "temperature": 1.0,
+  "max_retries": 3
+}

@@ -1,0 +1,13 @@
+{
+  "fuzzing_repo": "../../../../semantic-differential-fuzzing",
+  "rmc_jar": "../../../../.semantic-fuzzing-tools/rebeca/rmc-2.14.jar",
+  "sbt": "../../../../.semantic-fuzzing-tools/bin/sbt",
+  "case_count": 2,
+  "message_count": 7,
+  "start_seed": 10000,
+  "trace_bound": 24,
+  "run_millis": 1000,
+  "coverage_mode": "random",
+  "value_coverage": "random",
+  "generation_spec": "../../benchmarks/stateful/specs/ScalarFsm.json"
+}

@@ -1,0 +1,29 @@
+reactiveclass Worker(20) {
+  knownrebecs { Client client; }
+  statevars { int transitions; int oldData; int fuzzFsmState; int fuzzFsmData; }
+  Worker() { transitions = 0; oldData = 0; fuzzFsmState = 1; fuzzFsmData = 0; }
+  msgsrv Open(int amount) {
+    transitions = transitions + 1;
+    oldData = fuzzFsmData;
+    client.Notice(fuzzFsmData + amount);
+    fuzzFsmState = 0;
+    fuzzFsmData = fuzzFsmData + amount;
+  }
+  msgsrv Add(int amount) { if (fuzzFsmState == 0) { fuzzFsmData = fuzzFsmData + amount + 1; } }
+  msgsrv Close() {
+    if (fuzzFsmState == 0) {
+      transitions = transitions + 1;
+      oldData = fuzzFsmData;
+      client.Notice(fuzzFsmData);
+      fuzzFsmState = 1;
+    }
+  }
+  msgsrv Reset() { fuzzFsmData = 0; }
+}
+reactiveclass Client(20) {
+  knownrebecs {}
+  statevars { int notices; int last; }
+  Client() { notices = 0; last = 0; }
+  msgsrv Notice(int value) { notices = notices + 1; last = value; }
+}
+main { Client client():(); Worker worker(client):(); }

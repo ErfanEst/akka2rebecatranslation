@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "sequence_templates": [{"name": "swap_push_pop_twice", "steps": [
+    {"receiver": "worker", "sender": "client", "message": "Swap", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Swap", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Swap", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Swap", "arguments": []}
+  ]}]
+}

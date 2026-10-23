@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "sequence_templates": [{"name": "both_behaviors_and_replies", "steps": [
+    {"receiver": "worker", "sender": "client", "message": "Foo", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Foo", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Bar", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Bar", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Foo", "arguments": []},
+    {"receiver": "worker", "sender": "client", "message": "Foo", "arguments": []}
+  ]}]
+}

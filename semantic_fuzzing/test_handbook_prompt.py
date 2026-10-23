@@ -14,6 +14,29 @@ from .translator import FuzzingTranslator
 
 
 class HandbookPromptTests(unittest.TestCase):
+    def test_scalar_fsm_prompt_requires_backend_and_records_final_hash(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = FuzzingConfig(root, root / "rmc.jar")
+            config.validate = Mock()
+            pipeline = Mock(config=config)
+            with self.assertRaisesRegex(ValueError, "scalar FSM support"):
+                FuzzingTranslator(pipeline, {"scalar_fsm_support": True})
+            support = root / "akka-interface-extractor/src/main/scala/fuzzextractor/FsmSupport.scala"
+            support.parent.mkdir(parents=True)
+            support.touch()
+            previous = Path.cwd()
+            try:
+                os.chdir(root)
+                with patch("experiments.base_model_v2.ChatOpenAI"):
+                    translator = FuzzingTranslator(pipeline, {"scalar_fsm_support": True})
+                self.assertIn("fuzzFsmData", translator.system_prompt)
+                self.assertEqual(translator.prompt_metadata["fsm_extension"], "scalar-fsm-v1")
+                self.assertEqual(translator.prompt_metadata["system_prompt_sha256"],
+                                 hashlib.sha256(translator.system_prompt.encode()).hexdigest())
+            finally:
+                os.chdir(previous)
+
     def test_named_behaviors_requires_backend_and_updates_prompt_hash(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -1,0 +1,28 @@
+reactiveclass SwitchActor(20) {
+  knownrebecs { Sink normalFlow; Sink cleanUp; }
+  statevars {
+    int fuzzBehaviorMode; int fuzzBehaviorDepth;
+    int fuzzBehaviorSlot0; int fuzzBehaviorSlot1; int fuzzBehaviorSlot2; int fuzzBehaviorSlot3;
+  }
+  SwitchActor() {
+    fuzzBehaviorMode = 0; fuzzBehaviorDepth = 0;
+    fuzzBehaviorSlot0 = -1; fuzzBehaviorSlot1 = -1; fuzzBehaviorSlot2 = -1; fuzzBehaviorSlot3 = -1;
+  }
+  msgsrv RouteStateOn() {
+    if (fuzzBehaviorMode != 2) { fuzzBehaviorMode = 2; fuzzBehaviorDepth = 1; fuzzBehaviorSlot0 = 2; }
+  }
+  msgsrv RouteStateOff() {
+    if (fuzzBehaviorMode == 2) { fuzzBehaviorMode = 1; fuzzBehaviorDepth = 1; fuzzBehaviorSlot0 = 1; }
+  }
+  msgsrv Data(int value) {
+    if (fuzzBehaviorMode == 2) { normalFlow.Data(value); }
+    else { cleanUp.Data(value); }
+  }
+}
+reactiveclass Sink(20) {
+  knownrebecs {} statevars { int count; int total; }
+  Sink() { count = 0; total = 0; }
+  msgsrv Data(int value) { count = count + 1; total = total + value; }
+}
+reactiveclass Client(20) { knownrebecs {} statevars {} Client() {} msgsrv Noop() {} }
+main { Sink normal():(); Sink cleanup():(); SwitchActor worker(normal, cleanup):(); Client client():(); }

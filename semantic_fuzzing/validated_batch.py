@@ -12,17 +12,17 @@ from .research_batch import ROOT, prepare_config, run_translation, save_summary,
 DIRECTORY = ROOT / "semantic_fuzzing/benchmarks/validated"
 
 
-def make_config(base, entry, cases, seed):
-    config = prepare_config(base, cases, seed, message_count=4, trace_bound=24)
-    config["generation_spec"] = str((DIRECTORY / entry["generation_spec"]).resolve())
+def make_config(base, entry, cases, seed, directory=DIRECTORY):
+    config = prepare_config(base, cases, seed, message_count=entry.get("message_count", 4), trace_bound=24)
+    config["generation_spec"] = str((directory / entry["generation_spec"]).resolve())
     return config
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "semantic_fuzzing/runtime.json")
-    parser.add_argument("--translation-config", type=Path,
-                        default=ROOT / "semantic_fuzzing/translation.gpt-5.6-sol-medium.json")
+    parser.add_argument("--translation-config", type=Path)
+    parser.add_argument("--suite", choices=("validated", "stateful"), default="validated")
     parser.add_argument("--cases", type=int, default=50)
     parser.add_argument("--start-seed", type=int, default=10000)
     parser.add_argument("--group", type=int, default=1)
@@ -31,7 +31,9 @@ def main(argv=None):
                         help="No LLM: test hand-written Rebeca fixtures against real Akka")
     args = parser.parse_args(argv)
     try:
-        entries = read_json(DIRECTORY / "manifest.json")["cases"]
+        directory = DIRECTORY if args.suite == "validated" else DIRECTORY.parent / "stateful"
+        manifest = read_json(directory / "manifest.json")
+        entries = manifest["cases"]
         if args.group < 1 or (args.group - 1) * 5 >= len(entries):
             raise ValueError("Group outside validated manifest")
         if args.cases < 1 or args.start_seed < 0:
@@ -44,11 +46,13 @@ def main(argv=None):
         if not args.check_fixtures:
             from .__main__ import prepare_credentials
             prepare_credentials()
-            translation = read_json(args.translation_config)
+            default_translation = ("translation.stateful-medium.json" if args.suite == "stateful"
+                                   else "translation.gpt-5.6-sol-medium.json")
+            translation = read_json(args.translation_config or ROOT / "semantic_fuzzing" / default_translation)
         output = args.output.resolve()
         output.mkdir(parents=True)
         report = {"case_count": args.cases, "start_seed": args.start_seed,
-                  "source_mode": "DOCUMENTED_DERIVED_SCALAR_KERNELS",
+                  "source_mode": manifest["source_mode"],
                   "validation_mode": "HAND_WRITTEN_FIXTURES" if args.check_fixtures else "LIVE_TRANSLATION",
                   "cases": [{"id": e["id"], "name": e["name"], "status": "PENDING"} for e in entries]}
         save_summary(output, report)
@@ -57,15 +61,15 @@ def main(argv=None):
             run.mkdir()
             logs = run / "logs"
             logs.mkdir()
-            config = make_config(base, entry, args.cases, args.start_seed)
+            config = make_config(base, entry, args.cases, args.start_seed, directory)
             write_json(run / "fuzzing.json", config)
-            source = DIRECTORY / entry["source"]
+            source = directory / entry["source"]
             row["source_sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
-            row["spec_sha256"] = hashlib.sha256((DIRECTORY / entry["generation_spec"]).read_bytes()).hexdigest()
+            row["spec_sha256"] = hashlib.sha256((directory / entry["generation_spec"]).read_bytes()).hexdigest()
             command = [sys.executable, "-u", "-m", "semantic_fuzzing", "--config", str(run / "fuzzing.json")]
             if args.check_fixtures:
                 command += ["check", "--akka-source", str(source), "--candidate",
-                            str(DIRECTORY / entry["fixture"]), "--output", str(run / "validation")]
+                            str(directory / entry["fixture"]), "--output", str(run / "validation")]
             else:
                 write_json(run / "translation.json", translation)
                 command += ["translate", "--akka-source", str(source), "--translation-config",

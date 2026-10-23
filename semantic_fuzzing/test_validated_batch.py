@@ -11,6 +11,32 @@ from .validated_batch import DIRECTORY, main, make_config
 
 
 class ValidatedBatchTests(unittest.TestCase):
+    def test_stateful_verification_matches_artifacts(self):
+        directory = DIRECTORY.parent / "stateful"
+        evidence = read_json(directory / "verification.json")
+        rows = {row["id"]: row for row in evidence["cases"]}
+        for entry in read_json(directory / "manifest.json")["cases"]:
+            row = rows[entry["id"]]
+            for key, hash_key in (("source", "source_sha256"), ("fixture", "fixture_sha256"),
+                                  ("generation_spec", "spec_sha256")):
+                self.assertEqual(hashlib.sha256((directory / entry[key]).read_bytes()).hexdigest(), row[hash_key])
+            self.assertEqual(row["status"], "BOUNDED_MATCH")
+            self.assertEqual(row["completed_cases"], 2)
+        self.assertEqual(evidence["final_live_candidate_recheck"]["mutation"]["killed_count"], 1)
+
+    def test_stateful_suite_uses_its_own_sources_specs_and_message_counts(self):
+        directory = DIRECTORY.parent / "stateful"
+        entries = read_json(directory / "manifest.json")["cases"]
+        self.assertEqual([e["id"] for e in entries], ["ACSU-09", "ACSU-10", "ACSU-25", "FSM-01"])
+        base = FuzzingConfig(Path("/engine"), Path("/rmc.jar"))
+        for entry in entries:
+            for key in ("source", "fixture", "generation_spec"):
+                self.assertTrue((directory / entry[key]).is_file())
+            config = make_config(base, entry, 50, 10000, directory)
+            spec = read_json(directory / entry["generation_spec"])
+            self.assertEqual(config["message_count"], sum(len(t["steps"]) for t in spec["sequence_templates"]))
+            self.assertEqual(Path(config["generation_spec"]), directory / entry["generation_spec"])
+
     def test_recorded_verification_matches_current_sources_specs_and_fixtures(self):
         evidence = read_json(DIRECTORY / "verification.json")
         by_id = {row["id"]: row for row in evidence["cases"]}

@@ -1,0 +1,27 @@
+reactiveclass HotSwapActor(20) {
+  knownrebecs {}
+  statevars {
+    int fuzzBehaviorMode; int fuzzBehaviorDepth;
+    int fuzzBehaviorSlot0; int fuzzBehaviorSlot1; int fuzzBehaviorSlot2; int fuzzBehaviorSlot3;
+  }
+  HotSwapActor() {
+    fuzzBehaviorMode = 0; fuzzBehaviorDepth = 0;
+    fuzzBehaviorSlot0 = -1; fuzzBehaviorSlot1 = -1; fuzzBehaviorSlot2 = -1; fuzzBehaviorSlot3 = -1;
+  }
+  msgsrv Foo() {
+    if (fuzzBehaviorMode == 1) { ((Client)sender).AlreadyAngry(); }
+    else { fuzzBehaviorMode = 1; fuzzBehaviorDepth = 1; fuzzBehaviorSlot0 = 1; }
+  }
+  msgsrv Bar() {
+    if (fuzzBehaviorMode == 2) { ((Client)sender).AlreadyHappy(); }
+    else { fuzzBehaviorMode = 2; fuzzBehaviorDepth = 1; fuzzBehaviorSlot0 = 2; }
+  }
+}
+reactiveclass Client(20) {
+  knownrebecs {}
+  statevars { int angryReplies; int happyReplies; }
+  Client() { angryReplies = 0; happyReplies = 0; }
+  msgsrv AlreadyAngry() { angryReplies = angryReplies + 1; }
+  msgsrv AlreadyHappy() { happyReplies = happyReplies + 1; }
+}
+main { HotSwapActor worker():(); Client client():(); }
