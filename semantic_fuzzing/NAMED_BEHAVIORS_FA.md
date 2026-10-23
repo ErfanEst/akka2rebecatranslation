@@ -20,8 +20,12 @@ extractor رفتارهای نام‌دار و شناسه‌هایشان را ا�
 هر دو مخزن باید روی برنچ `feature/semantic-fuzzing-integration` به‌روز شوند. از پوشهٔ `master-thesis`:
 
 ```bash
-git -C semantic-differential-fuzzing pull --ff-only
-git -C akka2rebecatranslation pull --ff-only
+git -C semantic-differential-fuzzing fetch origin
+git -C semantic-differential-fuzzing switch feature/semantic-fuzzing-integration
+git -C semantic-differential-fuzzing pull --ff-only origin feature/semantic-fuzzing-integration
+git -C akka2rebecatranslation fetch origin
+git -C akka2rebecatranslation switch feature/semantic-fuzzing-integration
+git -C akka2rebecatranslation pull --ff-only origin feature/semantic-fuzzing-integration
 cd akka2rebecatranslation
 ```
 
